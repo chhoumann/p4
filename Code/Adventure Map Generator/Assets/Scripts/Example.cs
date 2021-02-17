@@ -4,13 +4,25 @@ namespace P4.MapGenerator
 {
     public sealed class Example : MonoBehaviour
     {
-        private const float MoveSpeed = 10f;
-        
+        private const float MoveSpeed = 5f;
+
+        private Rigidbody2D rb;
+
+        private Vector2 moveInput;
+
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+
         private void Update()
         {
-            Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        }
 
-            transform.position += move * (MoveSpeed * Time.deltaTime);
+        private void FixedUpdate()
+        {
+            rb.MovePosition(rb.position + moveInput * (MoveSpeed * Time.fixedDeltaTime));
         }
     }
 }
