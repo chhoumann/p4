@@ -4,7 +4,7 @@ namespace P4.MapGenerator
 {
     public sealed class Example : MonoBehaviour
     {
-        private const float MoveSpeed = 5f;
+        private const float MoveSpeed = 6f;
 
         private Rigidbody2D rb;
 
