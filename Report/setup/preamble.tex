@@ -23,19 +23,14 @@
 \usepackage[sc]{mathpazo}
 % Set space between lines
 \usepackage{setspace}
-\linespread{1.2}
 % Choose the font encoding
 \usepackage[T1]{fontenc}
-% Mock text
-\usepackage{lipsum}
 % Remove page numbers from toc
 \usepackage{tocloft}
 % Itemize customization
 \usepackage{enumitem}
 % Appendix environment
-\usepackage[title,titletoc]{appendix}
-% Comments with \fxnote and corrections with \fxfatal. With 'final' instead of 'draft' every \fxfatal will throw an error in the final report.
-\usepackage[footnote,english,final,silent,nomargin]{fixme}
+% \usepackage[title,titletoc]{appendix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Graphics and Tables
@@ -64,14 +59,10 @@
 \newtcolorbox[auto counter,number within=section]{greybox}[3][]{
     title=#3~\thetcbcounter: #2,#1,title filled
 }
-
 % Enable the [H] option for figures and tables
 \usepackage{float}
-
 % Enable the use of frames around, e.g., theorems
-% The framed package is used in the example environment
 \usepackage{framed}
-
 % Adds support for full page background picture
 \usepackage[contents={},color=gray]{background}
 %\usepackage[contents=draft,color=gray]{background}
@@ -223,19 +214,6 @@
     \rfoot{\rightfoot} %page number on all chapter pages
     \lfoot{\leftfoot}%group name on all chapter pages
 }
-% Remove head and foot (Used in \applyappendixconfig)
-\newcommand{\emptyheadfoot}{
-    \rhead{ }
-    \lhead{ }
-    \rfoot{ }
-    \lfoot{ }
-    % Redefine the plain page style to modify footers on chapter pages
-    \fancypagestyle{plain}{
-        \fancyhf{} %delete everything
-        \rfoot{ }
-        \lfoot{ }
-    }
-}
 
 % Applies settings to appendix environment
 \newcommand{\applyappendixconfig}{
@@ -253,6 +231,20 @@
     \emptyheadfoot % Custom command to make head and foot empty
 }
 
+% Remove head and foot (Used in \applyappendixconfig)
+\newcommand{\emptyheadfoot}{
+    \rhead{ }
+    \lhead{ }
+    \rfoot{ }
+    \lfoot{ }
+    % Redefine the plain page style to modify footers on chapter pages
+    \fancypagestyle{plain}{
+        \fancyhf{} %delete everything
+        \rfoot{ }
+        \lfoot{ }
+    }
+}
+
 % Do not stretch the content of a page. Instead,
 % insert white space at the bottom of the page
 \raggedbottom
@@ -268,24 +260,18 @@
   bibencoding=utf8,
   style=ieee
   ]{biblatex}
-\addbibresource{bib/mybib}
+\addbibresource{bib/bibliography}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Misc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Add bibliography and index to the table of
-% contents
+% Add bibliography and index to the table of contents
 \usepackage[nottoc]{tocbibind}
-% Add the command \pageref{LastPage} which refers to the
-% page number of the last page
-\usepackage{lastpage}
-% Add todo notes in the margin of the document
-% \usepackage[
-% %  disable, %turn off todonotes
-%   colorinlistoftodos, %enable a coloured square in the list of todos
-%   textwidth=\marginparwidth, %set the width of the todonotes
-%   textsize=scriptsize, %size of the text in the todonotes
-%   ]{todonotes}
+% Used to place fixme/todo notes as notes in the footer
+% Full documentation: https://www.lrde.epita.fr/~didier/software/fixme.pdf
+\usepackage[footnote,english,draft,silent,nomargin]{fixme}
+% Mock text
+\usepackage{lipsum}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Hyperlinks

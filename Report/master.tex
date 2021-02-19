@@ -1,20 +1,19 @@
+%this template was developed by Lasse D. Skaalum 
+%but based on Jesper Kjær Nielsens template: https://github.com/jkjaer/aauLatexTemplates
 \input{setup/preamble.tex}% package inclusion and set up of the document
-\input{setup/macros.tex}% my new macros
-\input{setup/deprecated_macros}% deprecated macros
-
+\input{setup/macros.tex}% custom macros
 
 \begin{document}
 
 % FRONTMATTER
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter
-% \input{sections/0_frontmatter/frontpageImage}
+\input{sections/0_frontmatter/frontpageImage}
 \input{sections/0_frontmatter/frontpage}
 \input{sections/0_frontmatter/titlepage}
 \input{sections/0_frontmatter/preface}
 \clearpage
 \pdfbookmark[0]{Contents}{label:contents}
-\setcounter{tocdepth}{1}
 \tableofcontents
 %Avoid page numbering before start of report
 \thispagestyle{empty}
@@ -37,13 +36,12 @@
 
 % BACKMATTER
 \printbibliography[heading=bibintoc, title=Bibliography]
-\label{bib:bibliography}
+\label{bib:mybiblio} % Used for page numbering
 
-% LIST OF FIXMES - Remove the list before handing in, by changing the package option from 'draft' to 'final' in the preamble
+% LIST OF FIXMES
+% Remove the list before handing in, by changing the package option from 'draft' to 'final' in the preamble
 \newpage
 \listoffixmes
-% Basic commands: \fxnote, \fxwarning, \fxerror, \fxfatal
-% Fuld dokumentation af commands: https://www.lrde.epita.fr/~didier/software/fixme.pdf
 
 \appendix
 \applyappendixconfig % From preamble

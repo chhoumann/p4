@@ -1,293 +1,189 @@
-DISCLAIMER: Denne skabelon er fra en anden type LaTeX-dokument, og det er derfor ikke sikkert at alt virker efter hensigten.
+This document is based on a LaTeX template document from Jesper Nørgaard: http://jesper.noergaard.eu/latex/AAU/
 
-----------------------
-SKABELONER OG GODE RÅD
-----------------------
+-------------------------
+TEMPLATES AND GOOD ADVICE
+-------------------------
+In this document you will find a collection of templates ready to be copied into your LaTeX-files as well as good advice of how to use LaTeX. This is separated into sections (figures, tables etc.). The input for the code is written with capital letters.
+Good luck!
 
-I dette dokument er der samlet en masse skabeloner til at kopiere ind i dine LaTeX-filer samt gode råd til brug af LaTeX. Det er opdelt sektionsvis (billeder, tabeller mv.). Med store bogstaver er det angivet, hvor du skal give specifikke input til koden, fx hvilket billede du ønsker at inkludere. Det er ofte fulgt af et eksempel. God fornøjelse!
+______________________
+¤¤ Images (Figures) ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+% Insert a figure easily with this custom macro:
+\fig{SIZE >DECIMAL<}{FILE NAME}{CAPTION}
 
-______________
-¤¤ Billeder ¤¤
-
-% Indsaet figurer nemt med:
-\fig{STOERRELSE}{FIL}{FIGURTEKST.}{fig:LABEL}
-
-% Enkelt billede:
-\begin{figure}[H] % (alternativt [htbp])
+% Single figure:
+\begin{figure}[H] % (alternatively [htbp])
 	\centering
-	\includegraphics[width=STØRRELSE\textwidth]{MAPPE/FIL}
-	\caption{FIGURTEKST.}
+	\includegraphics[width=SIZE\textwidth]{FOLDER/FILENAME}
+	\caption{CAPTION.}
 	\label{figur:LABEL}
 \end{figure}
 
-% Eksempel:
-\begin{figure}[H]
+% Example:
+\begin{figure}[H] % (alternatively [htbp])
 	\centering
-	\includegraphics[width=0.80\textwidth]{billeder/sketch.pdf}
-	\caption{Opbygning af model.}
-	\label{fig:sketch}
+	\includegraphics[width=0.80\textwidth]{figures/example.jpg}
+	\caption{Sample image.}
+	\label{fig:example}
 \end{figure}
 
-% 2 billeder side om side:
-\begin{figure}[H]
+% 2 figures side by side:
+\begin{figure}[H] % (alternatively [htbp])
 	\centering
 	\begin{minipage}[b]{0.48\textwidth}
 	\centering
-	\includegraphics[width=1.00\textwidth]{MAPPE/FIL1} % Venstre billede
+	\includegraphics[width=1.00\textwidth]{FOLDER/FILENAME1} % Left figure
 	\end{minipage}
 	\hfill
 	\begin{minipage}[b]{0.48\textwidth}
 	\centering
-	\includegraphics[width=1.00\textwidth]{MAPPE/FIL2} % Højre billede
+	\includegraphics[width=1.00\textwidth]{FOLDER/FILENAME2} % Right figure
 	\end{minipage}
-	\\ % Figurtekster og labels
+	\\ % Caption and labels
 	\begin{minipage}[t]{0.48\textwidth}
-	\caption{VENSTRE FIGURTEKST.} % Venstre figurtekst og label
+	\caption{LEFT CAPTION.} % Left caption and label
 	\label{fig:LABEL1}
 	\end{minipage}
 	\hfill
 	\begin{minipage}[t]{0.48\textwidth}
-	\caption{HØJRE FIGURTEKST.} % Højre figurtekst og label
+	\caption{RIGHT CAPTION.} % Right caption and label
 	\label{fig:LABEL2}
 	\end{minipage}
 \end{figure}
 
-% Eksempel:
-\begin{figure}[H]
+% Example:
+\begin{figure}[H] % (alternatively [htbp])
 	\centering
 	\begin{minipage}[b]{0.48\textwidth}
 	\centering
-	\includegraphics[width=1.00\textwidth]{billeder/billede1.jpg} % Venstre billede
+	\includegraphics[width=1.00\textwidth]{figures/figure1.jpg} % Left figure
 	\end{minipage}
 	\hfill
 	\begin{minipage}[b]{0.48\textwidth}
 	\centering
-	\includegraphics[width=1.00\textwidth]{billeder/billede2.jpg} % Højre billede
+	\includegraphics[width=1.00\textwidth]{figures/figure2.jpg} % Right figure
 	\end{minipage}
-	\\ % Figurtekster og labels
+	\\ % Caption and labels
 	\begin{minipage}[t]{0.48\textwidth}
-	\caption{Den ene figurtekst.} % Venstre figurtekst og label
+	\caption{The first caption.}% Left caption and label
 	\label{fig:billede1}
 	\end{minipage}
 	\hfill
 	\begin{minipage}[t]{0.48\textwidth}
-	\caption{Den anden figurtekst.} % Højre figurtekst og label
+	\caption{The second caption.} % Right caption and label
 	\label{fig:billede2}
 	\end{minipage}
 \end{figure}
 
-% Princippet bag brug af minipages er forsøgt illustreret nedenfor. Koden danner 4 minipages ("bokse"). I de 2 øverste inkluderes billederne, og i de 2 nederste lægges figurtekster og labels. Et linjeskift (\\) adskiller de 2 sæt bokse. I eksemplet ovenfor reserveres 48 pct. af bredden til hver minipage. Det resterende "luft" strækkes mest muligt med \hfill. Inde i hver minipage tillades billedet at fylde 100 pct. af boksens bredde. 
-
-%   |¯¯¯¯|        |¯¯¯¯|
-%   |    |        |    |
-%   |____| \hfill |____| \\
-%   |¯¯¯¯|        |¯¯¯¯|
-%   |    |        |    |
-%   |____| \hfill |____|
-
-% Princippet kan også benyttes til at have 3 eller flere billeder side om side - tilføj blot flere minipages. Husk at skrue på minipage-størrelsen (fx 0.30 ved 3 billeder), og inkluder to ekstra \hfill. Der skal fortsat kun være ét linjeskift, og billede-størrelsen inde i minipagen skal også fortsat være 100 pct. 
-
 ______________
 ¤¤ Tabeller ¤¤
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-
-% Eksempel - klassisk tabel:
-\begin{table}[htbp] % alternativt [H]
+% Example - classic table:
+\begin{table}[H] 
 	\centering 
-	\begin{tabular}{|l|l|l|l|l|l|} % Afstem antal tegn og kolonner! (l for venstre, c for center, r for højre, | for lodret streg) 
-		\hline 	% Vandret streg
-					  & Mandag & Tirsdag & Onsdag    & Torsdag   & Fredag  \\ \hline 	% Linjeskift og vandret streg
-		09:00 - 10:00 & Kemi   & Dansk   & Matematik & Gymnastik & Engelsk \\ \hline 
-		10:00 - 11:00 & Tysk   & Fransk  & Biologi   & Metal     & Fysik   \\ \hline 
+	\begin{tabular}{|l|l|l|l|l|l|} % Chars and collums should match! (l for left, c for center, r for right, | for vertical line) 
+		\hline 	% Horizontal line
+					  & Monday & Tuesday & Wednesday & Thursday & Friday  \\ \hline 	% Line break and horizontal line
+		09:00 - 10:00 & Math   & English & Math      & PE       & English \\ \hline 
+		10:00 - 11:00 & German & French  & Biology   & Metal    & Physics \\ \hline 
 	\end{tabular} 
-	\caption{Peters skoleskema uge 41.} 
+	\caption{Peter's school schedule week 41.} 
 	\label{tab:skoleskema} 
 \end{table}
 
-% Eksempel - læsevenlig og flot tabel:
+% Example - human readable and pretty table:
 \begin{table}[H]
 	\centering
-	\begin{tabular}{lccl}	% Afstem antal tegn og kolonner! (l for venstre, c for center, r for højre)
+	\begin{tabular}{lccl} % Chars and collums should match! (l for left, c for center, r for right) 
 		\toprule
-		Case & Bemanding & Rapporter & Noter \\\midrule
-		1 & 4 & 13 &            \\
-		2 & 3 & 9  & Se notits  \\
-		3 & 5 & 12 &            \\
+		Case & Staffing & Reports & Notes \\\midrule
+		1 & 4 & 13 &              \\
+		2 & 3 & 9  & Check notice \\
+		3 & 5 & 12 &              \\
 		\bottomrule
 	\end{tabular}
-	\caption{Overblik over cases.}
+	\caption{Overview of cases.}
 	\label{tab:cases}
 \end{table}
 
-% Flet kolonner:
-\multicolumn{ANTAL}{JUSTERING}{INDHOLD}
+% Merge columns:
+\multicolumn{AMOUNT}{ADJUSTMENT}{CONTENT}
 
-% Eksempel:
-\multicolumn{5}{c}{Regioner}
+% Example:
+\multicolumn{5}{c}{Regions}
 
-_______________
-¤¤ Matematik ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-
-% Almindelig ligning:
-\begin{align}
-		
-	\label{eq:LABEL} % \nonumber fjerner nummeret (label bliver derved overflødigt)
-\end{align}
-
-% Eksempel - med definition af variable efterfølgende:
-\begin{align}
-	\Phi = \rho \cdot c_p \cdot q_v \cdot \Delta T
-	\label{eq:varmeflux}
-\end{align}
-
-Hvor:
-\begin{table}[H]
-	\begin{tabular}{l|l}
-	$\Phi$     & Varmestrøm [\si{W}] \\
-	$\rho$ 	   & Luftens densitet [\si{kg/m^3}] \\
-	$c_p$ 	   & Luftens specifikke varmefylde [\si{J/kgK}] \\
-	$q_v$	   & Volumenstrøm [\si{m^3/s}] \\
-	$\Delta T$ & Temperaturforskel [\si{K}]
-	\end{tabular}
-\end{table}
-
-% Eksempel med 2 rækker:
-\begin{align}
-& x + 2 = 8 	\label{eq:lign1} \\ 	% Rækkerne venstrejusteres ved "&"
-& 7 = y + 5 z 	\label{eq:lign2}
-\end{align}
-
-% Matematik udenfor aligns (brødtekst, tabeller, figurtekster mv.):
-\si{ENHED}
-\SI{TAL}{ENHED}
-$SPECIALTEGN$
-
-% Eksempler:
-\si{m^3}
-\SI{9,82}{m/s^2}
-$\alpha$
-
-__________
-¤¤ Kemi ¤¤
-¯¯¯¯¯¯¯¯¯¯
-
-% Kemiske formler:
-\ce{FORMEL}
-
-% Eksempler:
-\ce{CO2}
-\ce{Fe2O3}
-\ce{HCO3-}
-
-% RS-sætninger:
-\rsphrase{NUMMER}
-
-% Eksempel:
-R1: \rsphrase{R1}
-
-____________
-¤¤ Labels ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯
-
-% Varianter:
-\label{chap:...}    (Kapitel)
-\label{sec:...}     (Afsnit)
-\label{eq:...}      (Ligning)
-\label{fig:...}     (Figur)
-\label{tab:...}     (Tabel)
-
-________________________
-¤¤ Interne referencer ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-
-% Varianter:
-\ref{LABEL} 		“4.3”
-\vref{LABEL} 		“4.3 on page 31”
-\eqref{LABEL} 		“(4.3)”
-% På figur \ref{LABEL} ses det at...
-% Derudover er det vigtigt at høre efter i timen (figur \ref{LABEL}
-
-_________________________
-¤¤ Eksterne referencer ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-
-% Varianter:
-\citep{LABEL} 		(Passiv)
-\citet{LABEL} 		(Aktiv)
-
-% Tilføj yderligere information:
-\citep[ SIDE, AFSNIT, KAPITEL MV.]{LABEL}
-
-% Eksempler:
-\citep[ s. 58]{fysikbog} 		->		[Efternavn, År, s. 58]
-\citep[ kap. 7]{fysikbog} 		->		[Efternavn, År, kap. 7]
-
-% NB! Start med et mellemrum i [ ]!
-
-_______________
-¤¤ Bilags-CD ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-
-% Henvisning til bilags-CD:
-\citep[ FILNAVN]{cd}
-
-% I litteratur.bib-filen er der lavet en kilde, som optræder som henvisning til bilags-CD'en. Udskift blot gruppenavn.
-
-_____________
-¤¤ Genveje ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯
-
-% Genveje kodet nederst i preamble:
-$\decC$ 		->		°C 		(ˆ{\circ}\text{C})
-$\dec$ 			->		° 		(ˆ{\circ})
-\m 				->		· 		(\cdot)
-
-_____________
+___________________
 ¤¤ Code Snippets ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯
-% Multi-line
-\begin{lstlisting}[language=ProgrammingLanguageName, caption={FIGURTEKST FX: \texttt{funkyName(a, b)}}, captionpos=b, label={snip:LABELNAVN}]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+% Multi-line code snippets
+\begin{lstlisting}[language=LANGUAGENAME, caption={CAPTION}, captionpos=b, label={snip:LABEL}]
+CODE
+\end{lstlisting}
+% Example
+\begin{lstlisting}[language=JS, caption={Example of function \texttt{funkyName(a, b)}}, captionpos=b, label={snip:funkyfunc}]
 function funkyName(a, b) {
     const foo = "bar";
-    return a + b;
+    return a + b + foo; // Gotta love JS
 }
 \end{lstlisting}
 
-% One-line
-\texttt{"Dette er en tekststreng"}
+% Inline code
+\texttt{CODE}
+% Example
+\texttt{funkyName()}
+
+% Inline code within margin (Use this hack if \texttt{} breaks the margin)
 \begin{sloppy}
-    \texttt{"Dette er en tekststreng som bryder marginen"} %Hvis margin brydes
+    \texttt{CODE}
+\end{sloppy}
+% Example
+\begin{sloppy}
+    \texttt{"This is a very long text string from the code which breaks the margin"}
 \end{sloppy}
 
-_____________
-¤¤ xColorboxes ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯
+______________________
+¤¤ Definition boxes ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 More documentation: https://www.ctan.org/pkg/tcolorbox
 
-\box{Heading goes here}{LabelHere}{
-    Content here.
-    \tcblower
-    Here, you see the lower part of the box.
+% Insert a box with a definition of a technical term
+\box{TITLE}{box:LABEL}{
+    CONTENT
+    \tcblower % Separator
+    MORE CONTENT
+}
+% Example
+\box{Short circuiting}{box:shortcircuiting}{
+    Short circuiting is the semantics of some Boolean operators in some programming languages in which the second argument is executed or evaluated only if the first argument does not suffice to determine the value of the expression: when the first argument of the \texttt{AND} function evaluates to \texttt{false}, the overall value must be \texttt{false}; and when the first argument of the \texttt{OR} function evaluates to \texttt{true}, the overall value must be \texttt{true} \cite{wikishortcircuit}.
+    \tcblower % Separator
+    The use of short-circuit operators has been criticized as problematic \cite{wikishortcircuit}.
 }
 
-This box is automatically numbered with \ref{box:LabelHere} on page
-\pageref{box:LabelHere}. Uniform active reference: \factboxref{LabelHere}.
-
-_____________
+_______________
 ¤¤ Use cases ¤¤
-¯¯¯¯¯¯¯¯¯¯¯¯¯
-\usecase{Name}
-        {Description}
-        {Objects}
-        {Functions}
-        {uc:label}
-        {Caption}
-        
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+\usecase{NAME}
+        {uc:LABEL}
+        {DESCRIPTION}
+        {OBJECTS}
+        {FUNCTIONS}
+        {CAPTION}
+
+% Example
+\usecase{Show asset history}
+        {uc:showassethistory}
+        {Show asset history will be initiated when the user selects a specific asset. This will then show that asset's transaction history to the user in a table, which includes a date, a holder and a state.}
+        {Assets}
+        {Get Asset Data}
+        {Show asset history use case}
 _____________
 ¤¤ Fixmes ¤¤
 ¯¯¯¯¯¯¯¯¯¯¯¯¯
-Use this for non critical notes.(This will disappear, when the mode is changed from 'draft' to 'final')
-\fxnote{}
+Use these for non critical notes.(This will disappear, when the mode is changed from 'draft' to 'final')
+\fxnote{NOTE}
+\fxwarning{NOTE}
 Use this for notes critical for the report (This will throw a compiler error, when the mode is changed from 'draft' to 'final')
-\fxfatal{}
+\fxfatal{NOTE}
+
+More documentation can be found here: https://www.lrde.epita.fr/~didier/software/fixme.pdf
