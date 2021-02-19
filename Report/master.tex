@@ -1,0 +1,53 @@
+%this template was developed by Lasse D. Skaalum 
+%but based on Jesper Kjær Nielsens template: https://github.com/jkjaer/aauLatexTemplates
+\input{setup/preamble.tex}% package inclusion and set up of the document
+\input{setup/macros.tex}% custom macros
+
+\begin{document}
+
+% FRONTMATTER
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+\input{sections/0_frontmatter/frontpageImage}
+\input{sections/0_frontmatter/frontpage}
+\input{sections/0_frontmatter/titlepage}
+\input{sections/0_frontmatter/preface}
+\clearpage
+\pdfbookmark[0]{Contents}{label:contents}
+\tableofcontents
+%Avoid page numbering before start of report
+\thispagestyle{empty}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+
+% MAINMATTER
+\pagestyle{fancy} %enable headers and footers again
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+\setcounter{page}{0}%Reset page count
+
+\input{sections/1_analysis/0_introduction}
+\input{sections/1_analysis/ch2name}
+
+\input{sections/2_design/definition-boxes}
+\input{sections/2_design/use-cases}
+
+\input{sections/3_implementation/example}
+
+\input{sections/4_recapitulation/conclusion}
+
+% BACKMATTER
+\printbibliography[heading=bibintoc, title=Bibliography]
+\label{bib:mybiblio} % Used for page numbering
+
+% LIST OF FIXMES
+% Remove the list before handing in, by changing the package option from 'draft' to 'final' in the preamble
+\newpage
+\listoffixmes
+
+\appendix
+\applyappendixconfig % From preamble
+% Input appendices here - each one as a SECTION!
+\input{sections/5_appendix/appAname}
+\clearpage
+\input{sections/5_appendix/appBname}
+
+\end{document}

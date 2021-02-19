@@ -1,0 +1,134 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{measurer}{article}{}
+    \name{author}{2}{}{%
+      {{hash=GL}{%
+         family={Gullev},
+         familyi={G\bibinitperiod},
+         given={Lars},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Poulsen},
+         familyi={P\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GLPM1}
+    \strng{fullhash}{GLPM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1080/23299460.2014.992769
+    \endverb
+    \field{pages}{20\bibrangedash 24}
+    \field{title}{The installation of meters leads to permanent changes in
+  consumer behaviour}
+    \field{journaltitle}{News from DBDH}
+    \field{year}{2006}
+  \endentry
+
+  \entry{renostra}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=LL}{%
+         family={Larsen},
+         familyi={L\bibinitperiod},
+         given={Lars},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LL1}
+    \strng{fullhash}{LL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{Available at
+  \url{http://www.ens.dk/info/publikationer/strategi-energirenovering-bygninger}
+  (23/02/2015)}
+    \field{title}{Strategi for energirenovering af bygninger}
+  \endentry
+
+  \entry{scientifictheory}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=HV}{%
+         family={Hansen},
+         familyi={H\bibinitperiod},
+         given={Victor},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HV1}
+    \strng{fullhash}{HV1}
+    \field{labelnamesource}{author}
+    \field{howpublished}{Lecture in Scientific Theory}
+    \field{month}{04}
+    \field{year}{2014}
+  \endentry
+
+  \entry{rcf}{report}{}
+    \name{author}{1}{}{%
+      {{hash=FB}{%
+         family={Flyvbjerg},
+         familyi={F\bibinitperiod},
+         given={Bent},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IDA}%
+    }
+    \strng{namehash}{FB1}
+    \strng{fullhash}{FB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Reference class forecasting: Ide, metode og anvendelse}
+    \field{type}{techreport}
+    \field{year}{2007}
+  \endentry
+
+  \entry{physicbook}{book}{}
+    \name{author}{2}{}{%
+      {{hash=JJW}{%
+         family={Jewett},
+         familyi={J\bibinitperiod},
+         given={John\bibnamedelima W.},
+         giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+      {{hash=SRA}{%
+         family={Serway},
+         familyi={S\bibinitperiod},
+         given={Raymond\bibnamedelima A.},
+         giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Thomson Learning}%
+    }
+    \strng{namehash}{JJWSRA1}
+    \strng{fullhash}{JJWSRA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{edition}{7}
+    \field{isbn}{978-12-921555-1-7}
+    \field{title}{Physics for Scientists and Engineers}
+    \field{year}{2008}
+  \endentry
+\enddatalist
+\endinput

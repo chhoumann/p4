@@ -1,0 +1,12 @@
+\chapter{Design}\label{chap:design}
+
+\section{Make easy definition boxes}
+
+\dbox{My nice heading}{box:mynamelabel}{
+    This is a \textbf{tcolorbox}.
+    \tcblower
+    Here, you see the lower part of the box.
+}
+
+This box is automatically numbered with \ref{box:mynamelabel} on page
+\pageref{box:mynamelabel}. Also use the custom command for uniform referencing: See \dboxref{box:mynamelabel}.

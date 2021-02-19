@@ -1,0 +1,189 @@
+This document is based on a LaTeX template document from Jesper Nørgaard: http://jesper.noergaard.eu/latex/AAU/
+
+-------------------------
+TEMPLATES AND GOOD ADVICE
+-------------------------
+In this document you will find a collection of templates ready to be copied into your LaTeX-files as well as good advice of how to use LaTeX. This is separated into sections (figures, tables etc.). The input for the code is written with capital letters.
+Good luck!
+
+______________________
+¤¤ Images (Figures) ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+% Insert a figure easily with this custom macro:
+\fig{SIZE >DECIMAL<}{FILE NAME}{CAPTION}
+
+% Single figure:
+\begin{figure}[H] % (alternatively [htbp])
+	\centering
+	\includegraphics[width=SIZE\textwidth]{FOLDER/FILENAME}
+	\caption{CAPTION.}
+	\label{figur:LABEL}
+\end{figure}
+
+% Example:
+\begin{figure}[H] % (alternatively [htbp])
+	\centering
+	\includegraphics[width=0.80\textwidth]{figures/example.jpg}
+	\caption{Sample image.}
+	\label{fig:example}
+\end{figure}
+
+% 2 figures side by side:
+\begin{figure}[H] % (alternatively [htbp])
+	\centering
+	\begin{minipage}[b]{0.48\textwidth}
+	\centering
+	\includegraphics[width=1.00\textwidth]{FOLDER/FILENAME1} % Left figure
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{0.48\textwidth}
+	\centering
+	\includegraphics[width=1.00\textwidth]{FOLDER/FILENAME2} % Right figure
+	\end{minipage}
+	\\ % Caption and labels
+	\begin{minipage}[t]{0.48\textwidth}
+	\caption{LEFT CAPTION.} % Left caption and label
+	\label{fig:LABEL1}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+	\caption{RIGHT CAPTION.} % Right caption and label
+	\label{fig:LABEL2}
+	\end{minipage}
+\end{figure}
+
+% Example:
+\begin{figure}[H] % (alternatively [htbp])
+	\centering
+	\begin{minipage}[b]{0.48\textwidth}
+	\centering
+	\includegraphics[width=1.00\textwidth]{figures/figure1.jpg} % Left figure
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{0.48\textwidth}
+	\centering
+	\includegraphics[width=1.00\textwidth]{figures/figure2.jpg} % Right figure
+	\end{minipage}
+	\\ % Caption and labels
+	\begin{minipage}[t]{0.48\textwidth}
+	\caption{The first caption.}% Left caption and label
+	\label{fig:billede1}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+	\caption{The second caption.} % Right caption and label
+	\label{fig:billede2}
+	\end{minipage}
+\end{figure}
+
+______________
+¤¤ Tabeller ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+% Example - classic table:
+\begin{table}[H] 
+	\centering 
+	\begin{tabular}{|l|l|l|l|l|l|} % Chars and collums should match! (l for left, c for center, r for right, | for vertical line) 
+		\hline 	% Horizontal line
+					  & Monday & Tuesday & Wednesday & Thursday & Friday  \\ \hline 	% Line break and horizontal line
+		09:00 - 10:00 & Math   & English & Math      & PE       & English \\ \hline 
+		10:00 - 11:00 & German & French  & Biology   & Metal    & Physics \\ \hline 
+	\end{tabular} 
+	\caption{Peter's school schedule week 41.} 
+	\label{tab:skoleskema} 
+\end{table}
+
+% Example - human readable and pretty table:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{lccl} % Chars and collums should match! (l for left, c for center, r for right) 
+		\toprule
+		Case & Staffing & Reports & Notes \\\midrule
+		1 & 4 & 13 &              \\
+		2 & 3 & 9  & Check notice \\
+		3 & 5 & 12 &              \\
+		\bottomrule
+	\end{tabular}
+	\caption{Overview of cases.}
+	\label{tab:cases}
+\end{table}
+
+% Merge columns:
+\multicolumn{AMOUNT}{ADJUSTMENT}{CONTENT}
+
+% Example:
+\multicolumn{5}{c}{Regions}
+
+___________________
+¤¤ Code Snippets ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+% Multi-line code snippets
+\begin{lstlisting}[language=LANGUAGENAME, caption={CAPTION}, captionpos=b, label={snip:LABEL}]
+CODE
+\end{lstlisting}
+% Example
+\begin{lstlisting}[language=JS, caption={Example of function \texttt{funkyName(a, b)}}, captionpos=b, label={snip:funkyfunc}]
+function funkyName(a, b) {
+    const foo = "bar";
+    return a + b + foo; // Gotta love JS
+}
+\end{lstlisting}
+
+% Inline code
+\texttt{CODE}
+% Example
+\texttt{funkyName()}
+
+% Inline code within margin (Use this hack if \texttt{} breaks the margin)
+\begin{sloppy}
+    \texttt{CODE}
+\end{sloppy}
+% Example
+\begin{sloppy}
+    \texttt{"This is a very long text string from the code which breaks the margin"}
+\end{sloppy}
+
+______________________
+¤¤ Definition boxes ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+More documentation: https://www.ctan.org/pkg/tcolorbox
+
+% Insert a box with a definition of a technical term
+\box{TITLE}{box:LABEL}{
+    CONTENT
+    \tcblower % Separator
+    MORE CONTENT
+}
+% Example
+\box{Short circuiting}{box:shortcircuiting}{
+    Short circuiting is the semantics of some Boolean operators in some programming languages in which the second argument is executed or evaluated only if the first argument does not suffice to determine the value of the expression: when the first argument of the \texttt{AND} function evaluates to \texttt{false}, the overall value must be \texttt{false}; and when the first argument of the \texttt{OR} function evaluates to \texttt{true}, the overall value must be \texttt{true} \cite{wikishortcircuit}.
+    \tcblower % Separator
+    The use of short-circuit operators has been criticized as problematic \cite{wikishortcircuit}.
+}
+
+_______________
+¤¤ Use cases ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+\usecase{NAME}
+        {uc:LABEL}
+        {DESCRIPTION}
+        {OBJECTS}
+        {FUNCTIONS}
+        {CAPTION}
+
+% Example
+\usecase{Show asset history}
+        {uc:showassethistory}
+        {Show asset history will be initiated when the user selects a specific asset. This will then show that asset's transaction history to the user in a table, which includes a date, a holder and a state.}
+        {Assets}
+        {Get Asset Data}
+        {Show asset history use case}
+_____________
+¤¤ Fixmes ¤¤
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+Use these for non critical notes.(This will disappear, when the mode is changed from 'draft' to 'final')
+\fxnote{NOTE}
+\fxwarning{NOTE}
+Use this for notes critical for the report (This will throw a compiler error, when the mode is changed from 'draft' to 'final')
+\fxfatal{NOTE}
+
+More documentation can be found here: https://www.lrde.epita.fr/~didier/software/fixme.pdf

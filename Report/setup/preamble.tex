@@ -1,0 +1,304 @@
+\documentclass[11pt,oneside,a4paper]{report}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Language, Encoding and Fonts
+% http://en.wikibooks.org/wiki/LaTeX/Internationalization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Select encoding of your inputs. Depends on
+% your operating system and its default input
+% encoding. Typically, you should use
+%   Linux  : utf8 (most modern Linux distributions)
+%            latin1 
+%   Windows: ansinew
+%            latin1 (works in most cases)
+%   Mac    : applemac
+% Notice that you can manually change the input
+% encoding of your files by selecting "save as"
+% an select the desired input encoding. 
+\usepackage[utf8]{inputenc}
+% Make latex understand and use the typographic
+% rules of the language used in the document.
+\usepackage{csquotes}
+\usepackage[danish,english]{babel}
+% Use the palatino font
+\usepackage[sc]{mathpazo}
+% Set space between lines
+\usepackage{setspace}
+% Choose the font encoding
+\usepackage[T1]{fontenc}
+% Remove page numbers from toc
+\usepackage{tocloft}
+% Itemize customization
+\usepackage{enumitem}
+% Appendix environment
+% \usepackage[title,titletoc]{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Graphics and Tables
+% http://en.wikibooks.org/wiki/LaTeX/Importing_Graphics
+% http://en.wikibooks.org/wiki/LaTeX/Tables
+% http://en.wikibooks.org/wiki/LaTeX/Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% load a colour package
+\usepackage{xcolor}
+\definecolor{aaublue}{RGB}{33,26,82}% dark blue
+% The standard graphics inclusion package
+\usepackage{graphicx}
+% Set up how figure and table captions are displayed
+\usepackage{caption}
+\captionsetup{%
+  font=footnotesize,% set font size to footnotesize
+  labelfont=bf % bold label (e.g., Figure 3.2) font
+}
+% Adds \HUGE and \ssmall. The latter fills the gap between \scriptsize and \tiny.
+\usepackage{moresize}
+% Make the standard latex tables look so much better
+% \usepackage{array,booktabs}
+% ...or you can use this package instead
+\usepackage{tcolorbox}
+% Define a basic grey box with three custom params.
+\newtcolorbox[auto counter,number within=section]{greybox}[3][]{
+    title=#3~\thetcbcounter: #2,#1,title filled
+}
+% Enable the [H] option for figures and tables
+\usepackage{float}
+% Enable the use of frames around, e.g., theorems
+\usepackage{framed}
+% Adds support for full page background picture
+\usepackage[contents={},color=gray]{background}
+%\usepackage[contents=draft,color=gray]{background}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematics
+% http://en.wikibooks.org/wiki/LaTeX/Mathematics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Defines new environments such as equation,
+% align and split 
+\usepackage{amsmath}
+% Adds new math symbols
+\usepackage{amssymb}
+% Use theorems in your document
+% The ntheorem package is also used for the example environment
+% When using thmmarks, amsmath must be an option as well. Otherwise \eqref doesn't work anymore.
+\usepackage[framed,amsmath,thmmarks]{ntheorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Listings (Code Snippets)
+% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\usepackage{color}
+
+\renewcommand{\lstlistingname}{Code Snippet} % Listing -> Code Snippet
+\definecolor{lighter-gray}{RGB}{240,240,240}
+
+\lstset{
+  backgroundcolor=\color{lighter-gray},
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  showspaces=false,
+  numbers=left,
+  tabsize=4,
+  breaklines=true,
+  showtabs=false,
+  captionpos=b,
+  numberstyle=\footnotesize,
+  numbersep=5pt
+}
+
+% Define C# as a snippet language.
+\usepackage{courier}
+
+\definecolor{Green}{rgb}{0, 0.3, 0}
+\definecolor{DarkCyan}{rgb}{0, 0.545, 0.545}
+\definecolor{Navy}{rgb}{0, 0, 0.5}
+\definecolor{Teal}{rgb}{0, 0.5, 0.5}
+\definecolor{DarkGray}{gray}{0.66}
+\definecolor{Olive}{rgb}{0.5, 0.5, 0}
+\definecolor{Pink}{rgb}{1.0, 0.75, 0.8}
+\definecolor{DeepPink}{rgb}{1, 0.08, 0.58}
+\definecolor{Brown}{rgb}{0.65, 0.165, 0.165}
+\definecolor{DarkViolet}{rgb}{0.58, 0, 0.83}
+\definecolor{SaddleBrown}{rgb}{0.55, 0.27, 0.07}
+\lstdefinelanguage{CSharp}{
+  morecomment = [l]{//}, 
+  morecomment = [l]{///},
+  morecomment = [s]{/*}{*/},
+  morestring=[b]", 
+  morestring=[b]',
+  basicstyle=\footnotesize\ttfamily,
+  commentstyle=\color{Green}\textit,
+  stringstyle=\color{blue},
+  sensitive = true,
+  morekeywords=[1]{this, base},
+  keywordstyle=[1]\bfseries,
+  morekeywords=[2]{as, is, new, sizeof, typeof, true, false, stackalloc},
+  keywordstyle=[2]\color{DarkCyan}\bfseries,
+  morekeywords=[3]{else, if, switch, case, default,
+  do, for, foreach, while, in},
+  keywordstyle=[3]\color{blue}\bfseries ,
+  morekeywords=[4]{break, continue, goto, return,
+  yield, partial, global, where},
+  keywordstyle=[4]\color{Navy},
+  morekeywords=[5]{try, throw, catch, finally},
+  keywordstyle=[5]\color{Teal}\bfseries,
+  morekeywords=[6]{checked, unchecked},
+  keywordstyle=[6]\color{DarkGray}\bfseries,
+  morekeywords=[7]{fixed, unsafe},
+  keywordstyle=[7]\color{Olive},
+  morekeywords=[8]{bool, byte, sbyte, char, short, ushort, int, uint, long, ulong, float,
+  double, decimal, enum, struct},
+  keywordstyle=[8]\bfseries\color{red},
+  morekeywords=[9]{class, interface, delegate, object, string,
+  void},
+  keywordstyle=[9]\color{red},
+  morekeywords=[10]{explicit, implicit, operator},
+  keywordstyle=[10]\color{Pink}\bfseries,
+  morekeywords=[11]{params, ref, out},
+  keywordstyle=[11]\bfseries\color{DeepPink},
+  morekeywords=[12]{private, protected, internal, public},
+  keywordstyle=[12]\bfseries\color{blue},
+  morekeywords=[13]{abstract, const, event, var, override, virtual, volatile, extern, readonly, sealed, static},
+  keywordstyle=[13]\color{Brown},
+  morekeywords=[14]{namespace, using},
+  keywordstyle=[14]\bfseries\color{Green},
+  morekeywords=[15]{lock},
+  keywordstyle=[15]\color{DarkViolet},
+  morekeywords=[16]{get, set, add, remove},
+  keywordstyle=[16]\color{SaddleBrown},
+  morekeywords=[17]{null, value},
+  keywordstyle=[17]\bfseries,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page Layout
+% http://en.wikibooks.org/wiki/LaTeX/Page_Layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Change margins, papersize, etc of the document
+\usepackage[
+    top    = 3.50cm,
+    bottom = 3.50cm,
+    left   = 2.50cm,
+    right  = 2.50cm
+]{geometry}
+% Modify how \chapter, \section, etc. look
+% The titlesec package is very configureable
+\usepackage{titlesec}
+\titleformat{\chapter}{\normalfont\Huge\bfseries}{\thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}%less spacing above chapter title
+\titleformat*{\section}{\normalfont\Large\bfseries}
+\titleformat*{\subsection}{\normalfont\large\bfseries}
+\titleformat*{\subsubsection}{\normalfont\normalsize\bfseries}
+%\titleformat*{\paragraph}{\normalfont\normalsize\bfseries}
+%\titleformat*{\subparagraph}{\normalfont\normalsize\bfseries}
+\setlength{\parindent}{0pt}%remove indentation on newline
+
+% Change the headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} %delete everything
+\renewcommand{\headrulewidth}{0pt} %remove the horizontal line in the header
+\setlength{\headheight}{14pt}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\ \thechapter.\ #1}}{}}%removes "Chapter" from \leftmark
+% Define headers
+\lhead{\small\nouppercase\leftmark} %left side of head
+\rhead{\small\nouppercase\rightmark} %right side of head
+% Define footers
+\newcommand{\rightfoot}{\small Page \textbf{\thepage} of \textbf{\pageref{bib:mybiblio}}}
+\newcommand{\leftfoot}{\small\authorname}
+\rfoot{\rightfoot}%page number on all pages
+\lfoot{\leftfoot}%group name on all pages
+% Redefine the plain page style to modify footers on chapter pages
+\fancypagestyle{plain}{%
+    \fancyhf{} %delete everything
+    \rfoot{\rightfoot} %page number on all chapter pages
+    \lfoot{\leftfoot}%group name on all chapter pages
+}
+
+% Applies settings to appendix environment
+\newcommand{\applyappendixconfig}{
+    \addcontentsline{toc}{chapter}{Appendices}
+    \renewcommand{\thesection}{\Alph{section}}
+    % Hide page numbering in toc
+    \addtocontents{toc}{\cftpagenumbersoff{chapter}}
+    \addtocontents{toc}{\cftpagenumbersoff{section}}
+    \addtocontents{toc}{\cftpagenumbersoff{subsection}}
+    \addtocontents{toc}{\cftpagenumbersoff{subsubsection}}
+    % Add appendices chapter without chapter number
+    \chapter*{Appendices}
+    \phantomsection
+    % Remove head and foot from appendices
+    \emptyheadfoot % Custom command to make head and foot empty
+}
+
+% Remove head and foot (Used in \applyappendixconfig)
+\newcommand{\emptyheadfoot}{
+    \rhead{ }
+    \lhead{ }
+    \rfoot{ }
+    \lfoot{ }
+    % Redefine the plain page style to modify footers on chapter pages
+    \fancypagestyle{plain}{
+        \fancyhf{} %delete everything
+        \rfoot{ }
+        \lfoot{ }
+    }
+}
+
+% Do not stretch the content of a page. Instead,
+% insert white space at the bottom of the page
+\raggedbottom
+% Enable arithmetics with length. Useful when
+% typesetting the layout.
+\usepackage{calc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+% http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[backend=bibtex,
+  bibencoding=utf8,
+  style=ieee
+  ]{biblatex}
+\addbibresource{bib/bibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Misc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add bibliography and index to the table of contents
+\usepackage[nottoc]{tocbibind}
+% Used to place fixme/todo notes as notes in the footer
+% Full documentation: https://www.lrde.epita.fr/~didier/software/fixme.pdf
+\usepackage[footnote,english,draft,silent,nomargin]{fixme}
+% Mock text
+\usepackage{lipsum}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyperlinks
+% http://en.wikibooks.org/wiki/LaTeX/Hyperlinks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Enable hyperlinks and insert info into the pdf
+% file. Hypperref should be loaded as one of the 
+% last packages
+\usepackage{hyperref}
+\hypersetup{%
+% 	pdfpagelabels=true,%
+	plainpages=false,%
+	pdfauthor={Author(s)},%
+	pdftitle={Title},%
+	pdfsubject={Subject},%
+	bookmarksnumbered=true,%
+	colorlinks=false,%
+	citecolor=black,%
+	filecolor=black,%
+	linkcolor=black,% you should probably change this to black before printing
+	urlcolor=black,%
+	pdfstartview=FitH%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyphenation
+% http://en.wikibooks.org/wiki/LaTeX/Formatting#Hyphenation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hyphenation{ex-am-ple hy-phen-a-tion short}
+\hyphenation{long la-tex}
