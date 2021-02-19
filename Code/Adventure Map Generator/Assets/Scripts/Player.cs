@@ -2,9 +2,11 @@ using UnityEngine;
 
 namespace P4.MapGenerator
 {
-    public sealed class Example : MonoBehaviour
+    public sealed class Player : MonoBehaviour
     {
         private const float MoveSpeed = 6f;
+
+        public Vector2 Position => rb.position;
 
         private Rigidbody2D rb;
 

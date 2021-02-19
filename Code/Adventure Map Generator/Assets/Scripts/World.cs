@@ -4,6 +4,6 @@ namespace P4.MapGenerator
 {
     public sealed class World : MonoBehaviour
     {
-        public static Map CurrentMap { get; } = new Map(24, 24);
+        public static Map Map { get; } = new Map(24, 24);
     }
 }
