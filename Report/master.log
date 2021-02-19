@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.11.29)  19 FEB 2021 08:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.11.29)  19 FEB 2021 08:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1400,26 +1400,26 @@ l.1 \chapter
 ]
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--4
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
 
  []
 
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 5.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 6.
 (c:/texlive/2019/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-LaTeX Font Info:    Trying to load font information for OMS+pplx on input line 7.
-LaTeX Font Info:    No file OMSpplx.fd. on input line 7.
+LaTeX Font Info:    Trying to load font information for OMS+pplx on input line 8.
+LaTeX Font Info:    No file OMSpplx.fd. on input line 8.
 
 
 LaTeX Font Warning: Font shape `OMS/pplx/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 7.
+(Font)              for symbol `textbullet' on input line 8.
 
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 14.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 15.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <12> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 16.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 17.
 ) [1
 
 ] (d:/Mapper/Tools/Dev/Projects/p4/Report/sections/1_analysis/ch2name.tex [2] [3]
