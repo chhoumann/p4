@@ -18,7 +18,17 @@ namespace P4.MapGenerator
         private void Start()
         { 
             cam = GetComponent<Camera>();
-            CalculateCameraBounds();
+            CalculateCameraBounds(World.Map);
+        }
+
+        private void OnEnable()
+        {
+            World.MapLoaded += CalculateCameraBounds;
+        }
+
+        private void OnDisable()
+        {
+            World.MapLoaded -= CalculateCameraBounds;
         }
 
         private void Update()
@@ -26,7 +36,7 @@ namespace P4.MapGenerator
             UpdateCameraPosition();
         }
 
-        private void CalculateCameraBounds()
+        private void CalculateCameraBounds(Map map)
         {
             float height = cam.orthographicSize * 2;
             float width = cam.aspect * height;
@@ -39,8 +49,8 @@ namespace P4.MapGenerator
             minPosition.x = cameraExtents.x;
             minPosition.y = cameraExtents.y;
 
-            maxPosition.x = World.Map.Size.x - cameraExtents.x;
-            maxPosition.y = World.Map.Size.y - cameraExtents.y;
+            maxPosition.x = map.Size.x - cameraExtents.x;
+            maxPosition.y = map.Size.y - cameraExtents.y;
         }
         
         private void UpdateCameraPosition()

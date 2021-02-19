@@ -2,25 +2,39 @@
 
 namespace P4.MapGenerator
 {
-    public sealed class Map
+    public sealed class Map : MonoBehaviour
     {
-        public static readonly Vector2Int MinSize = new Vector2Int(16, 12);
-        public static readonly Vector2Int MaxSize = new Vector2Int(64, 64);
+        [SerializeField] private Map mapAbove;
+        [SerializeField] private Map mapBelow;
+        [SerializeField] private Map mapLeft;
+        [SerializeField] private Map mapRight;
 
-        public Vector2Int Size => size;
-        public Bounds Bounds => bounds;
+        [SerializeField] [Range(16, 64)] private int sizeX;
+        [SerializeField] [Range(12, 64)] private int sizeY;
         
-        private readonly Vector2Int size;
-        private readonly Bounds bounds;
+        public Vector2Int Size => size;
+        public Bounds Bounds { get; private set; }
 
-        public Map(int sizeX, int sizeY)
+        private Vector2Int size;
+        
+        public Map Setup()
         {
-            size.x = Mathf.Clamp(sizeX, MinSize.x, MaxSize.x);
-            size.y = Mathf.Clamp(sizeY, MinSize.y, MaxSize.y);
+            size = new Vector2Int(sizeX, sizeY);
+            Bounds = new Bounds(new Vector3(size.x * 0.5f, size.y * 0.5f), new Vector3(size.x, size.y));
 
-            bounds = new Bounds(new Vector3(size.x * 0.5f, size.y * 0.5f), new Vector3(size.x, size.y));
+            return this;
         }
 
-        public Map() : this(MinSize.x, MinSize.y) { }
+        public Map GetMap(Direction direction)
+        {
+            return direction switch
+            {
+                Direction.Up => mapAbove,
+                Direction.Down => mapBelow,
+                Direction.Left => mapLeft,
+                Direction.Right => mapRight,
+                _ => null
+            };
+        }
     }
 }

@@ -1,29 +1,31 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace P4.MapGenerator
 {
     public sealed class MapBounds : MonoBehaviour
     {
         [SerializeField] private Player player;
+        public static event Action<Player, Direction> PlayerExitedBounds;
         
-        private void Update()
+        private void FixedUpdate()
         {
-            if (player.Position.y > World.Map.Bounds.max.y)
+            if (player.Position.y + player.Size.y * 0.5f > World.Map.Bounds.max.y)
             {
                 OnExitBounds(Direction.Up);
             }
             
-            if (player.Position.y < World.Map.Bounds.min.y)
+            if (player.Position.y - player.Size.y * 0.5f < World.Map.Bounds.min.y)
             {
                 OnExitBounds(Direction.Down);   
             }
             
-            if (player.Position.x > World.Map.Bounds.max.x)
+            if (player.Position.x + player.Size.y * 0.5f > World.Map.Bounds.max.x)
             {
                 OnExitBounds(Direction.Right);
             }
             
-            if (player.Position.x < World.Map.Bounds.min.x)
+            if (player.Position.x - player.Size.y * 0.5f < World.Map.Bounds.min.x)
             {
                 OnExitBounds(Direction.Left);
             }
@@ -31,7 +33,7 @@ namespace P4.MapGenerator
 
         private void OnExitBounds(Direction exitDirection)
         {
-            Debug.Log($"Exited {exitDirection}");
+            PlayerExitedBounds?.Invoke(player, exitDirection);
         }
     }
 }
