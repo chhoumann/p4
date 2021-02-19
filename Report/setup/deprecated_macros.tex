@@ -1,0 +1,45 @@
+% Insert a fact box easily with the factbox command:
+\newcommand{\factbox}[3]{
+    \dbox{#1}{#2}{#3}
+}
+
+% Insert a method boxes easily with the methodbox command:
+\newcommand{\methodbox}[3]{
+    \dbox{#1}{#2}{#3}
+}
+
+% Insert a defintion boxes easily with the methodbox command:
+\newcommand{\definitionbox}[3]{
+    \dbox{#1}{#2}{#3}
+}
+
+\newcommand{\factboxref}[1]{\boxref{#1}}
+\newcommand{\Factboxref}[1]{\Boxref{#1}}
+\newcommand{\methodboxref}[1]{\boxref{#1}}
+\newcommand{\Methodboxref}[1]{\Boxref{#1}}
+
+% Add new sections to appendix easily:
+% \appendixsection{sectionName}
+\newcommand{\appendixsection}[1]{
+    \section*{#1}
+    \addcontentsline{toc}{section}{#1}
+    \phantomsection
+}
+
+\newcommand{\Johnny}{DEB}
+
+% Remove line spacing in itemize:
+% \bullets{\item Item1 \item Item2}
+\newcommand{\bullets}[1]{
+    \begin{itemize}[noitemsep,topsep=1pt]
+        #1
+    \end{itemize}
+}
+
+% Remove line spacing in enumerate:
+% \numerate{\item Item1 \item Item2}
+\newcommand{\numbers}[1]{
+    \begin{enumerate}[noitemsep,topsep=1pt]
+        #1
+    \end{enumerate}
+}
