@@ -22,6 +22,11 @@ namespace P4.MapGenerator
             size = new Vector2Int(sizeX, sizeY);
             Bounds = new Bounds(new Vector3(size.x * 0.5f, size.y * 0.5f), new Vector3(size.x, size.y));
 
+            foreach (ITilemapGenerator tilemapGenerator in GetComponentsInChildren<ITilemapGenerator>())
+            {
+                tilemapGenerator.Generate(size);
+            }
+            
             return this;
         }
 
