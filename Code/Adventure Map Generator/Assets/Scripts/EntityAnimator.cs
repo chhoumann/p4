@@ -16,7 +16,7 @@ namespace P4.MapGenerator
         private const string Left = "Left";
         private const string Right = "Right";
 
-        private const float MinMoveSpeed = 0.01f;
+        private const float MinMoveAmount = 0.01f;
 
         private string animName;
         private string moveAnimName;
@@ -36,9 +36,11 @@ namespace P4.MapGenerator
         
         private void PlayMoveAnimation(Vector2 moveDir)
         {
-            animName = moveDir.magnitude <= MinMoveSpeed ? IdleName : MoveName;
+            float moveAmount = moveDir.magnitude;
+            
+            animName = moveAmount <= MinMoveAmount ? IdleName : MoveName;
 
-            if (moveDir.magnitude > MinMoveSpeed)
+            if (moveAmount > MinMoveAmount)
             {
                 if (moveDir.y == 0 || moveDirLast.x == 0 && moveDir.x != 0)
                 {
