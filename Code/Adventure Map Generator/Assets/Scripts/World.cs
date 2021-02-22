@@ -13,7 +13,7 @@ namespace P4.MapGenerator
 
         private Map[] maps;
         
-        private void Start()
+        private void Awake()
         {
             maps = new Map[mapContainer.childCount];
 
