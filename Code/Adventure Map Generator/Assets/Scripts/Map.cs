@@ -36,5 +36,14 @@ namespace P4.MapGenerator
                 _ => null
             };
         }
+
+        private void OnDrawGizmos()
+        {
+            Vector3 cubeCenter = new Vector3(sizeX * 0.5f, sizeY * 0.5f);
+            Vector3 cubeSize = new Vector3(sizeX, sizeY);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(cubeCenter, cubeSize);
+        }
     }
 }
