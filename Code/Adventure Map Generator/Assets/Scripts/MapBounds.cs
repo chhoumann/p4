@@ -21,12 +21,12 @@ namespace P4.MapGenerator
                 OnExitBounds(Direction.Down);   
             }
             
-            if (player.Position.x + player.Extents.y > World.Map.Bounds.max.x)
+            if (player.Position.x + player.Extents.x > World.Map.Bounds.max.x)
             {
                 OnExitBounds(Direction.Right);
             }
             
-            if (player.Position.x - player.Extents.y < World.Map.Bounds.min.x)
+            if (player.Position.x - player.Extents.x < World.Map.Bounds.min.x)
             {
                 OnExitBounds(Direction.Left);
             }
