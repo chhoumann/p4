@@ -1,7 +1,6 @@
-using P4.MapGenerator.Entities;
 using UnityEngine;
 
-namespace P4.MapGenerator
+namespace P4.MapGenerator.Entities
 {
     [RequireComponent(typeof(Entity))]
     public sealed class EntityAnimator : MonoBehaviour
