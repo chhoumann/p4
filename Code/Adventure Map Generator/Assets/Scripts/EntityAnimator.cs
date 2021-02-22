@@ -2,11 +2,10 @@ using UnityEngine;
 
 namespace P4.MapGenerator
 {
+    [RequireComponent(typeof(Entity))]
     public sealed class EntityAnimator : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private Entity entity;
 
         private const string IdleName = "Idle";
         private const string MoveName = "Move";
@@ -18,13 +17,16 @@ namespace P4.MapGenerator
 
         private const float MinMoveAmount = 0.01f;
 
-        private string animName;
-        private string moveAnimName;
+        private Entity entity;
 
         private Vector2 moveDirLast;
 
+        private string animName;
+        private string moveAnimName;
+        
         private void Start()
         {
+            entity = GetComponent<Entity>();
             animName = IdleName;
             moveAnimName = Down;
         }
