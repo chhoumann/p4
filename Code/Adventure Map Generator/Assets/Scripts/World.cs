@@ -1,4 +1,5 @@
 using System;
+using P4.MapGenerator.Entities;
 using UnityEngine;
 
 namespace P4.MapGenerator

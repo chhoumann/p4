@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace P4.MapGenerator
+namespace P4.MapGenerator.Entities
 {
     public abstract class Entity : MonoBehaviour
     {
