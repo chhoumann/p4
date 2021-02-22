@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace P4.MapGenerator
 {
-    public sealed class Player : MonoBehaviour
+    public sealed class Player : Entity
     {
         private const float MoveSpeed = 6f;
 
@@ -29,11 +29,12 @@ namespace P4.MapGenerator
         {
             bounds = new Bounds(rb.position, new Vector3(1, 1));
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            MoveDirection = moveInput;
         }
 
         private void FixedUpdate()
         {
-            rb.MovePosition(rb.position + moveInput * (MoveSpeed * Time.fixedDeltaTime));
+            rb.velocity = MoveDirection * MoveSpeed;
         }
     }
 }
