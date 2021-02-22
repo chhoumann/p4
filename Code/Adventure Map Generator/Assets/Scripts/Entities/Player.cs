@@ -27,7 +27,7 @@ namespace P4.MapGenerator.Entities
 
         private void Update()
         {
-            bounds = new Bounds(rb.position, new Vector3(1, 1));
+            bounds = new Bounds(rb.position, new Vector3(1, 1.5f));
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             MoveDirection = moveInput;
         }
