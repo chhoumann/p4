@@ -10,8 +10,8 @@ namespace P4.MapGenerator
 
         public void Generate(Vector2Int tilemapSize)
         {
-            StartCoroutine(GenerateDelayed(tilemapSize));
-            /*Tilemap tilemap = GetComponent<Tilemap>();
+            //StartCoroutine(GenerateDelayed(tilemapSize));
+            Tilemap tilemap = GetComponent<Tilemap>();
             Vector3Int position = new Vector3Int();
             
             for (int y = 0; y < tilemapSize.y; y++)
@@ -24,7 +24,7 @@ namespace P4.MapGenerator
                     
                     tilemap.SetTile(position, tile);
                 }
-            }*/
+            }
         }
 
         private IEnumerator GenerateDelayed(Vector2Int tilemapSize)
