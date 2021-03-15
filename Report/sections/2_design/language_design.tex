@@ -1,0 +1,122 @@
+\chapter{Language design}
+
+\fxfatal{Introduction to language design chapter}
+
+\section{Language design - sprint 1}
+% We have not discussed whether we represent changes in our language over time or not.
+
+To start designing the programming language, we set out to specify a minimum viable product (MVP). We decided to start small but with expansion in mind.
+
+\subsection{Types}
+In our programming language, we decided to have 4 different types with corresponding array-types.
+
+\begin{multicols}{3}
+\begin{enumerate}
+    \item Numbers\label{item:numbertype}
+    \item Booleans\label{item:booleantype}
+    \item Strings\label{item:stringtype}
+    \item Tiles\label{item:tiletype}
+    \item Arrays*\label{item:arraytype}
+\end{enumerate}
+\end{multicols}
+
+\ref{item:numbertype} should denote both integer and floating point types. The actual type will be determined through context. \ref{item:booleantype} will be used for conditional expressions and control flow.
+\ref{item:stringtype} will be used for naming.
+\ref{item:tiletype} is an important type: it is the type behind every tile in the generated games.
+\ref{item:arraytype} means that every type in the list will also have an array type.
+
+
+\subsection{Keywords}
+These are the reserved keywords we use. We have introduced a convention that define all block-indicators\fxfatal{What do we call them? We have a semi-convention, but there is nothing to completely tie them together. Should we have a proper convention here?} to be denoted by an upper-case first character.
+
+\begin{multicols}{4}
+    \begin{enumerate}
+        \item \texttt{repeat}\label{itm:repeat}
+        \item \texttt{until}\label{itm:until}
+        \item \texttt{or}\label{itm:or}
+        \item \texttt{and}\label{itm:and}
+        \item \texttt{forever}\label{itm:forever}
+        \item \texttt{Create}\label{itm:Create}
+        \item \texttt{Screen}\label{itm:Screen}
+        \item \texttt{Entity}\label{itm:Entity}
+        \item \texttt{MovePattern}\label{itm:MovePattern}
+        \item \texttt{Exit}\label{itm:Exit}
+        \item \texttt{ScreenExit}\label{itm:ScreenExit}
+        \item \texttt{FloorExit}\label{itm:FloorExit}
+        \item \texttt{Player}\label{itm:Player}
+    \end{enumerate}
+\end{multicols}
+
+\ref{itm:repeat} indicates a loop. It is followed by \ref{itm:until} and expression, which can contain \ref{itm:or} or \ref{itm:and}. Otherwise, it is followed by \ref{itm:forever}, which indicates a never-ending loop.
+
+\ref{itm:Create} is used to create a new instance. It is almost synonymous with \verb|new| in other languages.
+
+\ref{itm:Screen} denotes a screen block, which is a container for other blocks like \verb|Map|, \verb|OnScreenEntered|, \verb|Entities|, and \verb|Exits|.
+
+\ref{itm:Entity} is a block used to define what an entity is and what it does.
+
+\ref{itm:MovePattern} is a block used to define a move pattern which can be applied to an entity.
+
+\ref{itm:Exit}, \ref{itm:ScreenExit}, and \ref{itm:FloorExit} denotes exits or transitions to other screens. These are usually triggered by player movement.
+
+\ref{itm:Player} is globally accessible and always points to the player. This allows the programmer to create interactions involving the player. \fxfatal{unsure about how to describe this since there is nothing to describe at the moment - we do not have anything implemented}
+    
+\subsection{Built-in functionality}
+These are also keywords, but they represent library-like functions that a user can use to manipulate data.
+\begin{multicols}{3}
+    \begin{itemize}
+        \item \texttt{Size}
+        \item \texttt{Walls}
+        \item \texttt{Floor}
+        \item \texttt{Line}
+        \item \texttt{Square}
+        \item \texttt{OnScreenEntered}
+        \item \texttt{MoveLeft}
+        \item \texttt{MoveRight}
+        \item \texttt{MoveDown}
+        \item \texttt{MoveUp}
+        \item \texttt{PlayerInAggroRange}
+    \end{itemize}
+\end{multicols}
+
+\subsection{Conditionals}
+If-statements do not contain parentheses unlike many other languages. They are followed by an expression and curly brackets which open a new scope that will be executed if the expression evaluates truthy.
+
+\begin{lstlisting}[caption={Example of an if statement}, label={lst:ifexpression},escapechar=|]
+if <expression>|\label{lst:exp}|
+{
+    Code...
+}
+\end{lstlisting}
+
+In \ref{lst:ifexpression} on line \ref{lst:exp},  \verb|<expression>| denotes a placeholder expression.
+
+\subsection{Symbols}
+\begin{itemize}
+    \item \verb|<|
+    \item \verb|>|
+    \item \verb|=|
+    \item \verb|+|
+    \item \verb|-|
+    \item \verb|*|
+    \item \verb|/|
+\end{itemize}
+
+\subsection{Loops}
+\begin{lstlisting}[caption={Example of loops}, label={lst:loops},escapechar=|]
+repeat until <var> == 10|\label{lst:repeatuntil}|
+{
+    Code...
+}
+
+repeat forever|\label{lst:repeatforever}|
+{
+    Code...
+}
+\end{lstlisting}
+
+In \ref{lst:loops} on line \ref{lst:repeatuntil}, \verb|<var>| denotes an arbitrary variable. It is expected that the expression will evaluate to true, otherwise the loop does the same as the \verb|repeat forever| loop on line \ref{lst:repeatforever}.
+
+The loops do as their names indicate. The \verb|repeat forever| loop repeats forever - or until the running instance terminates, whichever comes first. % Too much? lmao
+The \verb|repeat until| loop repeatedly executes the code in the scope immediately below it until the given expression evaluates to \verb|true|.
+\fxfatal{Consider not using the 'forever' keyword. It might be redundant as compared to just 'repeat'}
