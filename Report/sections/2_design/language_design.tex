@@ -2,6 +2,63 @@
 
 \fxfatal{Introduction to language design chapter}
 
+\section{Code examples}
+
+\begin{lstlisting}[caption={Example screen}, label={lst:SampleScreen1},escapechar=|]
+// ./Screens/SampleScreen1.txt
+Screen SampleScreen1 
+{
+    Map 
+    {
+        Size(30, 24);
+
+        Walls(Stone); 
+        Floor(Grass);
+
+        Line(TopLeft, TopRight, Cliff);
+        Line([2, 2], [2, 4], Cliff);
+
+        Square(position, size, Cliff);
+        Square([8, 8], 4, Cliff);
+    }
+
+    OnScreenEntered
+    {
+        if Player.CompletedQuest(...) 
+        {
+            SetTile([4, 0], Stair);
+        }
+    }
+
+    Entities
+    {
+        SpawnEntity(Skeleton1, [4, 4]).SetMovePattern(Square1);
+    }
+    
+    Exits 
+    {
+        // Two different ways to create an exit
+        // Specific tile(s) or whole screen side
+        Exit1 = Create Exit([4, 0], SampleScreen2.Exit1);
+        Create ScreenExit(Bottom, SampleScreen2);
+    
+        // COULD HAVE: Floor exits that lead to another screen at the same normalized 
+        // coordinate \fxfatal{Remove if we don't maee FloorExits}
+        Create FloorExits(  
+            [ 
+                [4, 0] 
+                [5, 0], 
+                [9, 0], 
+                [10, 0] 
+            ],
+            SampleScreen2
+        )
+    }
+}
+\end{lstlisting}
+
+Code snippet~\ref{lst:SampleScreen1} gives an example of a screen. The contents thereof are explained below.
+
 \section{Language design - sprint 1}
 % We have not discussed whether we represent changes in our language over time or not.
 
@@ -23,7 +80,7 @@ In our programming language, we decided to have 4 different types with correspon
 \ref{item:numbertype} should denote both integer and floating point types. The actual type will be determined through context. \ref{item:booleantype} will be used for conditional expressions and control flow.
 \ref{item:stringtype} will be used for naming.
 \ref{item:tiletype} is an important type: it is the type behind every tile in the generated games.
-\ref{item:arraytype} means that every type in the list will also have an array type.
+\ref{item:arraytype} means that every type in the list will have a corresponding array type. This is to say that arrays are parametric - for example, an array could be an array of numbers.
 
 
 \subsection{Keywords}
@@ -80,7 +137,8 @@ These are also keywords, but they represent library-like functions that a user c
 \end{multicols}
 % Can fix spacing issues with multicol: \item[\vspace{\fill}]
 
-\subsection{Conditionals}
+\subsection{Control flow}
+\subsubsection{If statements}
 If-statements do not contain parentheses unlike many other languages. They are followed by an expression and curly brackets which open a new scope that will be executed if the expression evaluates truthy.
 
 \begin{lstlisting}[caption={Example of an if statement}, label={lst:ifexpression},escapechar=|]
@@ -92,19 +150,7 @@ if <expression>|\label{lst:exp}|
 
 In \ref{lst:ifexpression} on line \ref{lst:exp},  \verb|<expression>| denotes a placeholder expression.
 
-\subsection{Symbols}
-\fxfatal{Work in progress. Should this be here?}
-\begin{itemize}
-    \item \verb|<|
-    \item \verb|>|
-    \item \verb|=|
-    \item \verb|+|
-    \item \verb|-|
-    \item \verb|*|
-    \item \verb|/|
-\end{itemize}
-
-\subsection{Loops}
+\subsubsection{Loops}
 \begin{lstlisting}[caption={Example of loops}, label={lst:loops},escapechar=|]
 repeat until <var> == 10|\label{lst:repeatuntil}|
 {
@@ -115,10 +161,24 @@ repeat forever|\label{lst:repeatforever}|
 {
     Code...
 }
-\end{lstlisting}
+\end{lstlisting}\fxfatal{Specify order of evaluation - once we've figured it out. See feedback 17/03}
 
 In \ref{lst:loops} on line \ref{lst:repeatuntil}, \verb|<var>| denotes an arbitrary variable. It is expected that the expression will evaluate to true, otherwise the loop does the same as the \verb|repeat forever| loop on line \ref{lst:repeatforever}.
 
 The loops do as their names indicate. The \verb|repeat forever| loop repeats forever - or until the running instance terminates, whichever comes first. % Too much? lmao
 The \verb|repeat until| loop repeatedly executes the code in the scope immediately below it until the given expression evaluates to \verb|true|.
 \fxfatal{Consider not using the 'forever' keyword. It might be redundant as compared to just 'repeat'}
+
+\subsection{Operator symbols}
+\fxfatal{Work in progress. Should this be here?}
+\begin{multicols}{7}
+    \begin{itemize}
+        \item \verb|<|
+        \item \verb|>|
+        \item \verb|=|
+        \item \verb|+|
+        \item \verb|-|
+        \item \verb|*|
+        \item \verb|/|
+    \end{itemize}
+\end{multicols}
