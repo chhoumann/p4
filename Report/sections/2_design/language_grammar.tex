@@ -7,21 +7,33 @@ Finally, we will give a justification for this choice as well as concrete exampl
 \subsection{Backus-Naur form}
 
 Backus-Naur form was a an evolution of a formal notation used to describe the language ALGOL 58, introduced by John Backus in 1959. The evolution happened as a result of modifications
-made to this notation by Peter Naur in 1960, when he was describing ALGOL 60. Hence why the notation became known as Backus-Naur form (BNF).
+made to this notation by Peter Naur in 1960, when he was describing ALGOL 60. Hence why the notation became known as Backus-Naur form (BNF)\cite{sebesta_concepts_2016}. 
 
-As alluded to, BNF is used as a formal notation to describe the language, or more specifically its grammar. 
+As alluded to, BNF is used as a formal notation to describe the language, or more specifically its grammar. The construction of this grammar is made up of a collection of production rules that are formed as shown in the example (indsæt eksmpel).
 
-
-Short history of BNF
-how its used
-- Formal CFG..
-examples
-
+In (forrige indsatte figur) there is a left hand side (LHS) and a right hand side (RHS), separated by an arrow. The LHS is a variable, also called the abstraction, that is being defined and the RHS is the definition.
+This definition on the RHS consists of non-terminals and terminals. A non-terminal is a variable (sometimes called a symbol) that is an abstraction that have references to other abstractions. 
+These non-terminal variables can have multiple distinct definitions each being a possible form of the syntax. If a non-terminal has multiple definitions these can either be represented as multiple 
+rules as seen in fig.. or as a single rule where each definition is seperated by an OR operator: '|'. Terminals correlates to a piece of the output, as shown in figure (indsæt fig). 
+Terminals are also referred to as lexemes and tokens\cite{sebesta_concepts_2016}. 
 
 \subsection{Extended Backus-Naur form}
 
+Due to some people experiencing inconveniences, BNF has seen several different extensions.
+These extended versions are commonly referred to as Extended BNF or just EBNF. 
+EBNF is not any more powerful than BNF, rather it simply adjusts and adds to the syntax in an attempt to make it more readable.
+Whether EBNF succeeds in that regard is completely subjective. 
+
+Most versions of ENBF usually include three extensions:
+- The use of square brackets to denote and optional part of the right-hand side of a production
+- The use of curly brackets to indicate that the enclosed part may be iterated any number of times
+- The use of the OR operator, |, to denote multiple-choice options for a production
+
+Despite there being a standardized version of EBNF, it is rarely ever used. 
+Whichever version a language designer decides to use is up to preference.
 
 \subsection{Derivation}
 
 
 \subsection{Justification}
+
