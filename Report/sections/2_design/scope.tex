@@ -7,7 +7,7 @@ Originally introduced by ALGOL 60, \texttt{static scoping} is the act of binding
 can be determined prior to program execution. This way, one can determine the type of every variable via the source code.
 Static-scoped languages can be split into two categories: those that allow sub-programs to be nested and those that do not.
 The former creates nested static scopes while the latter only creates nested scopes through nested class definitions and blocks. 
-Static scope rules are quite commonly used in modern languages due to their emphasis on static type checking. \cite{sebesta_concepts_2016}
+Static scope rules are quite commonly used in modern languages due to their emphasis on static type checking.\cite{sebesta_concepts_2016}
 
 \subsection{Dynamic Scopes}
 In stark contrast to static scoping, variables declared in languages with \texttt{dynamic scoping} are determined at runtime through the calling sequence of subprograms.
@@ -28,9 +28,15 @@ function main() {
 
 In listing \ref{DynamicScopeExample}, assuming that dynamic scoping rules apply, the meaning of the identifier \texttt{x} cannot be determined at compile time.
 Specifically, the declaration of an identifier is first searched for in the local function. 
-If no declaration for \texttt{x} is found, the search continues to the function's caller, its \texttt{dynamic parent}, and so on up the call-stack.
+If no declaration for \texttt{x} is found, the search continues to the function's caller, its \texttt{dynamic parent}, and so on up the call-stack.\cite{sebesta_concepts_2016}
 
 \subsubsection{Blocks}
 The powerful concept of block scoping allows specific sections of code called blocks to have their own localized variables. 
 Variables declared within a block are local, meaning they cannot be accessed from outside the scope. However, nested blocks can still access variables from outer scopes.
-A variable declaed within a block is allocated when the block is entered and deallocated when it is exited.
+A variable declaed within a block is allocated when the block is entered and deallocated when it is exited.\cite{sebesta_concepts_2016}
+
+\subsubsection{Choice of Scope}
+Due to the nature of action maps in games, we decided to use block scopes in order to separate the elements found within a screen. 
+In particular, a screen on the map is defined by a block containing nested blocks that describe the maps layout, its exits and the entities that spawn within the given screen.
+For instance, the tilemap layout of a screen would be defined in a \texttt{Map} block containing definitions for tile placements.
+This separation of screen elements made sense as it achieves decoupling between the different parts of a screen by default. 
