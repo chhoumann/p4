@@ -196,21 +196,74 @@ The \verb|repeat until| loop repeatedly executes the code in the scope immediate
     \centering
     \begin{tabular}{ |c|c|c||c|c|c|c| }
         \hline
-        \textbf{Category} & \textbf{Operator} & \textbf{Associvity} & \texttt{Number} & \texttt{String} & \texttt{Boolean} & \texttt{Tile} \\                              
+        \textbf{Category} & \textbf{Operator} & \textbf{Associativity} & \texttt{Number} & \texttt{String} & \texttt{Boolean} & \texttt{Tile} \\                              
         \hline
 
-        Boolean 
+        \multirow{6}{*}{Relational} 
         & \texttt{<}
-        & Associvity 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+        
+         
+        & \texttt{>} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+        
+        & \texttt{==} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+         
+        & \texttt{!=} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+         
+        & \texttt{>=} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+         
+        & \texttt{<=} 
+        & $\rightarrow$ 
         & Type1 
         & Type2 
         & Type3 
         & Type4 
         \\\hline
-        
-        Boolean 
-        & \texttt{>} 
-        & Associvity 
+
+        \multirow{2}{*}{Logic}
+        & \texttt{and} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+ 
+        & \texttt{or} 
+        & $\rightarrow$ 
         & Type1 
         & Type2 
         & Type3 
@@ -219,43 +272,41 @@ The \verb|repeat until| loop repeatedly executes the code in the scope immediate
         
         Assignment 
         & \texttt{=}
-        & Associvity 
+        & $\leftarrow$ 
         & Type1 
         & Type2 
         & Type3 
         & Type4 
         \\\hline
         
-        Arithmetic 
+        \multirow{4}{*}{Arithmetic} 
         & \texttt{+}
-        & Associvity 
+        & $\rightarrow$ 
         & Type1 
         & Type2 
         & Type3 
         & Type4 
-        \\\hline
+        \\
         
-        Arithmetic 
+         
         & \texttt{-}
-        & Associvity 
+        & $\rightarrow$ 
         & Type1 
         & Type2 
         & Type3 
         & Type4 
-        \\\hline
-        
-        Arithmetic 
+        \\
+         
         & \texttt{*} 
-        & Associvity 
+        & $\rightarrow$ 
         & Type1 
         & Type2 
         & Type3 
         & Type4 
-        \\\hline
-        
-        Arithmetic 
+        \\
+         
         & \texttt{/}
-        & Associvity 
+        & $\rightarrow$ 
         & Type1 
         & Type2 
         & Type3 
@@ -263,3 +314,4 @@ The \verb|repeat until| loop repeatedly executes the code in the scope immediate
         \\\hline
     \end{tabular}
 \end{table}
+\fxfatal{Fix types. Depends on implementation.}
