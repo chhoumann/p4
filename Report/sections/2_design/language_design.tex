@@ -53,7 +53,7 @@ Screen SampleScreen1
         Create ScreenExit(Bottom, SampleScreen2);
     
         // COULD HAVE: Floor exits that lead to another screen at the same normalized 
-        // coordinate \fxfatal{Remove if we don't maee FloorExits}
+        // coordinate |\fxfatal{Remove if we don't make FloorExits}|
         Create FloorExits(  
             [ 
                 [4, 0] 
@@ -110,27 +110,55 @@ These are the reserved keywords that have been used.  A convention has been intr
 \ref{itm:Player} is globally accessible and always points to the player. This allows the programmer to create interactions involving the player. \fxfatal{unsure about how to describe this since there is nothing to describe at the moment - we do not have anything implemented}
     
 \subsection{Built-in functionality}
-These are also keywords, but they represent library-like functions that a user can use to manipulate data.\fxfatal{I'm not keen on describing these functions because there is no implemented behavior yet.}
-\begin{multicols}{3}
-    \begin{itemize}
-        \item \texttt{Size}
-        \item \texttt{Walls}
-        \item \texttt{Floor}
-        \item \texttt{Line}
-        \item \texttt{Square}
-        \item \texttt{OnScreenEntered}
-        \item \texttt{MoveLeft}
-        \item \texttt{MoveRight}
-        \item \texttt{MoveDown}
-        \item \texttt{MoveUp}
-        \item \texttt{PlayerInAggroRange}
-    \end{itemize}
-\end{multicols}
-% Can fix spacing issues with multicol: \item[\vspace{\fill}]
+These are also keywords, but they represent library-like functions that a user can use to manipulate data. Explanations of these can be seen in \tabref{table:explanations_of_functions}.\fxfatal{Make sure these explanations are up to date with the implementation.}
+\begin{table}[h!]
+    \centering
+        \begin{tabular}{ l p{4.5cm} p{4cm} }
+            \hline
+            \textbf{Function} & \textbf{Explanation} & \textbf{Example} \\
+            \hline
+            \texttt{Size} 
+            & Sets the size of the map.
+            & \texttt{Size(30, 24)} \\\hline
+            \texttt{Walls} 
+            & Sets the outermost tiles on each side of the map to a certain tile type.
+            & \texttt{Walls(Stone)} \\\hline
+            \texttt{Floor} 
+            & Sets the floor layer of each tile to be of a certain tile type.\fxfatal{Do we still use layers?}
+            & \texttt{Floor(Grass)} \\\hline
+            \texttt{Line} 
+            & Creates a line of a certain tile type. Takes two coordinates denoting a start and end, as well as the tile type desired.
+            & \texttt{Line([2, 2], [2, 4], Stone)} \\\hline
+            \texttt{Square} 
+            & Creates a square of a certain tile type. Takes a coordinate of the center position, a size, and a tile type.
+            & \texttt{Square([8, 8], 4, Stone)} \\\hline
+            \texttt{MoveLeft} 
+            & Moves entity 1 tile left. This is used when specifying a MovePattern.
+            & \texttt{MoveLeft()} \\\hline
+            \texttt{MoveRight} 
+            & Moves entity 1 tile right. This is used when specifying a MovePattern.
+            & \texttt{MoveRight()} \\\hline
+            \texttt{MoveDown} 
+            & Moves entity 1 tile down. This is used when specifying a MovePattern.
+            & \texttt{MoveDown()} \\\hline
+            \texttt{MoveUp} 
+            & Moves entity 1 tile up. This is used when specifying a MovePattern.
+            & \texttt{MoveUp()} \\\hline
+            \texttt{PlayerInAggroRange} 
+            & Can only be called within a scope for an entity. Checks if the player is in aggro range for the given entity and returns a boolean representing the result of this check.\fxfatal{Should this be in the CFG? Or change it?}
+            & \texttt{PlayerInAggroRange()} \\\hline
+        \end{tabular}
+        \caption{Explanations of built-in functionalities}
+        \label{table:explanations_of_functions}
+\end{table}
 
-\subsection{Control flow}
+    
+\subsection{Statement Level Control Structures}
+Users can change execution sequence using control structures. These are if-statements and repeat-statements.
 \subsubsection{If statements}
-If-statements do not contain parentheses, unlike many other languages. They are followed by an expression and curly brackets which open a new scope that will be executed if the expression evaluates truthy.
+If statements are selection statements. These provide the means of choosing between two or more execution paths in a program\cite{sebesta_concepts_2016}.
+
+In Dazel, if statements do not contain parentheses, unlike many other languages. They are followed by an expression and curly brackets which open a new scope that will be executed if the expression evaluates truthy.
 
 \begin{lstlisting}[caption={Example of an if statement}, label={lst:ifexpression},escapechar=|]
 if <expression>|\label{lst:exp}|
@@ -141,7 +169,9 @@ if <expression>|\label{lst:exp}|
 
 In \ref{lst:ifexpression} on line \ref{lst:exp},  \verb|<expression>| denotes a placeholder expression.
 
-\subsubsection{Loops}
+\subsubsection{Repeat loops}
+Repeat loops are iterative statements. Robert W. Sebasta defined iterative statements as statements that cause a statement or a collection of statements to be executed zero or more times\cite{sebesta_concepts_2016}.
+
 \begin{lstlisting}[caption={Example of loops}, label={lst:loops},escapechar=|]
 repeat until <var> == 10|\label{lst:repeatuntil}|
 {
