@@ -1,23 +1,4 @@
-\section{Scanner} \label{chap:scanner}
 
-The first phase in a compiler is the scanner, also called "lexical analysis" or "lexer".
-The purpose of the scanner is to interpret the meaning of each individual words in some sourcecode 
-by grouping them into different \emph{tokens}.
-A \emph{token} is a group of characters that form a unit. Examples of tokens can be 
-\emph{identifiers}, \emph{numbers} and \emph{special symbols}. 
-These tokens are idenified by their \emph{lexeme}, which is a sequence of characters that matches the pattern of a token.
-For example, the number "9" written
-in the sourcecode, can be considered a number token, and the lexeme for it would the character "9" itself. 
-The pattern of a token is specified by \emph{regular expression}.
-\emph{Regular expression} is a way to describe a search pattern, which works by trying to match an input
-text with the \emph{regular expression}.
-
-
-The scanner works by taking in some sourcecode as input, and then scanning it character for character, 
-leaving out ignoring any white space or comments. It will then identify the lexemes that makes up a token
-based on the regular expression that has been specified for each token category. If it fails to recognise 
-a token or finds it invalid, it will create an error. If the tokens are valid however, they
-will be passed to the parser when necessary. 
 
 
 
