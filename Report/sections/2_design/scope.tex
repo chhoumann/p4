@@ -1,1 +1,10 @@
 \subsection{Scope}
+In this section we describe different types of scope rules, specifically static scopes, block scopes and dynamic scopes.
+We will ultimately use this to determine the best fit for \dazel{}.
+
+\subsubsection{Static Scopes}
+Originally introduced by ALGOL 60, static scoping is the act of binding names to nonlocal variables such that the scope of a variable
+can be determined prior to program execution. This way, one can determine the type of every variable via the source code.
+Static-scoped languages can be split into two categories: those that allow sub-programs to be nested and those that do not.
+The former creates nested static scopes while the latter only creates nested scopes through nested class definitions and blocks. 
+Static scope rules are quite commonly used in modern languages due to their emphasis on static type checking. \cite{sebesta_concepts_2016}
