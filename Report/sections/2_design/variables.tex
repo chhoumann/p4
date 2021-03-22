@@ -1,1 +1,59 @@
 \subsection{Variables}
+
+Variables in programming, also called a program variable, is a way of creating an abstraction of one or more memory cells. In the book "Concepts of Programming Languages" by
+Robert W. Sebesta\cite{sebesta_concepts_2016}, he describes that a variable can be characterized as a sextuple consisting of the attributes:
+
+\begin{itemize}
+    \item Name
+    \item Address
+    \item Type
+    \item Value
+    \item Lifetime
+    \item Scope
+\end{itemize}
+
+In the following sections we will describe the basic theory behind and how we have chosen to approach each of the items, in the list above, for our language design for Dazel.
+
+
+\subsubsection{Name}
+
+Variable names in a programming language is a string of characters used to identify an entity in the program\cite{sebesta_concepts_2016}. A name can be defined to be consisting of either capital letters, 
+lower case letters, some symbols or a mixture of all.
+
+Specifically for our language design we have decided that a variable name can be constructed with the following rules:
+
+\begin{itemize}
+    \item A name can have capital letters
+    \item A name can have lower case letters
+    \item A name can start with a capital letter, followed by lower case letters
+    \item A name can start with lower case letter(s) and have a single or more letters be capital following the first letter
+    \item A name can have an arbitrary mixture of capital and lower case letters
+    \item A name can end with an underscore symbol, but not start with an underscore symbol
+    \item The is no specified limit on the length of the name
+\end{itemize}
+
+The list of rules mentioned can be simplified using the regular expression: [a-zA-Z][a-zA-Z_0-9]*. Any construction of a variable outside of these rules will be considered
+a non-valid construction.
+
+\subsection{Address}
+
+The address concerns itself with the machine memory location of the variable\cite{sebesta_concepts_2016}. Since our language will be interpreted, this is not an area we will be discussing.
+
+\subsection{Type}
+
+In our programming language, we decided to have 4 different types with corresponding array-types.
+
+\begin{multicols}{3}
+\begin{enumerate}
+    \item Numbers\label{item:numbertype}
+    \item Booleans\label{item:booleantype}
+    \item Strings\label{item:stringtype}
+    \item Tiles\label{item:tiletype}
+    \item Arrays*\label{item:arraytype}
+\end{enumerate}
+\end{multicols}
+
+\ref{item:numbertype} should denote both integer and floating point types. The actual type will be determined through context. \ref{item:booleantype} will be used for conditional expressions and control flow.
+\ref{item:stringtype} will be used for naming.
+\ref{item:tiletype} is an important type: it is the type behind every tile in the generated games.
+\ref{item:arraytype} means that every type in the list will have a corresponding array type. This is to say that arrays are parametric - for example, an array could be an array of numbers.

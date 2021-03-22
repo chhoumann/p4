@@ -74,25 +74,6 @@ Code snippet~\ref{lst:SampleScreen1} gives an example of a screen. The contents 
 
 To start designing the programming language, we set out to specify a minimum viable product (MVP). We decided to start small but with expansion in mind.
 
-\subsection{Types}
-In our programming language, we decided to have 4 different types with corresponding array-types.
-
-\begin{multicols}{3}
-\begin{enumerate}
-    \item Numbers\label{item:numbertype}
-    \item Booleans\label{item:booleantype}
-    \item Strings\label{item:stringtype}
-    \item Tiles\label{item:tiletype}
-    \item Arrays*\label{item:arraytype}
-\end{enumerate}
-\end{multicols}
-
-\ref{item:numbertype} should denote both integer and floating point types. The actual type will be determined through context. \ref{item:booleantype} will be used for conditional expressions and control flow.
-\ref{item:stringtype} will be used for naming.
-\ref{item:tiletype} is an important type: it is the type behind every tile in the generated games.
-\ref{item:arraytype} means that every type in the list will have a corresponding array type. This is to say that arrays are parametric - for example, an array could be an array of numbers.
-
-
 \subsection{Keywords}
 These are the reserved keywords that have been used.  A convention has been introduced that defines all block-indicators\fxfatal{What do we call them? We have a semi-convention, but there is nothing to completely tie them together. Should we have a proper convention here?} to be denoted by an upper-case first character.
 
