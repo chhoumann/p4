@@ -53,7 +53,7 @@ Screen SampleScreen1
         Create ScreenExit(Bottom, SampleScreen2);
     
         // COULD HAVE: Floor exits that lead to another screen at the same normalized 
-        // coordinate \fxfatal{Remove if we don't maee FloorExits}
+        // coordinate |\fxfatal{Remove if we don't make FloorExits}|
         Create FloorExits(  
             [ 
                 [4, 0] 
@@ -73,25 +73,6 @@ Code snippet~\ref{lst:SampleScreen1} gives an example of a screen. The contents 
 % We have not discussed whether we represent changes in our language over time or not.
 
 To start designing the programming language, we set out to specify a minimum viable product (MVP). We decided to start small but with expansion in mind.
-
-\subsection{Types}
-In our programming language, we decided to have 4 different types with corresponding array-types.
-
-\begin{multicols}{3}
-\begin{enumerate}
-    \item Numbers\label{item:numbertype}
-    \item Booleans\label{item:booleantype}
-    \item Strings\label{item:stringtype}
-    \item Tiles\label{item:tiletype}
-    \item Arrays*\label{item:arraytype}
-\end{enumerate}
-\end{multicols}
-
-\ref{item:numbertype} should denote both integer and floating point types. The actual type will be determined through context. \ref{item:booleantype} will be used for conditional expressions and control flow.
-\ref{item:stringtype} will be used for naming.
-\ref{item:tiletype} is an important type: it is the type behind every tile in the generated games.
-\ref{item:arraytype} means that every type in the list will have a corresponding array type. This is to say that arrays are parametric - for example, an array could be an array of numbers.
-
 
 \subsection{Keywords}
 These are the reserved keywords that have been used.  A convention has been introduced that defines all block-indicators\fxfatal{What do we call them? We have a semi-convention, but there is nothing to completely tie them together. Should we have a proper convention here?} to be denoted by an upper-case first character.
@@ -129,27 +110,55 @@ These are the reserved keywords that have been used.  A convention has been intr
 \ref{itm:Player} is globally accessible and always points to the player. This allows the programmer to create interactions involving the player. \fxfatal{unsure about how to describe this since there is nothing to describe at the moment - we do not have anything implemented}
     
 \subsection{Built-in functionality}
-These are also keywords, but they represent library-like functions that a user can use to manipulate data.\fxfatal{I'm not keen on describing these functions because there is no implemented behavior yet.}
-\begin{multicols}{3}
-    \begin{itemize}
-        \item \texttt{Size}
-        \item \texttt{Walls}
-        \item \texttt{Floor}
-        \item \texttt{Line}
-        \item \texttt{Square}
-        \item \texttt{OnScreenEntered}
-        \item \texttt{MoveLeft}
-        \item \texttt{MoveRight}
-        \item \texttt{MoveDown}
-        \item \texttt{MoveUp}
-        \item \texttt{PlayerInAggroRange}
-    \end{itemize}
-\end{multicols}
-% Can fix spacing issues with multicol: \item[\vspace{\fill}]
+These are also keywords, but they represent library-like functions that a user can use to manipulate data. Explanations of these can be seen in \tabref{table:explanations_of_functions}.\fxfatal{Make sure these explanations are up to date with the implementation.}
+\begin{table}[h!]
+    \centering
+        \begin{tabular}{ l p{4.5cm} p{4cm} }
+            \hline
+            \textbf{Function} & \textbf{Explanation} & \textbf{Example} \\
+            \hline
+            \texttt{Size} 
+            & Sets the size of the map.
+            & \texttt{Size(30, 24)} \\\hline
+            \texttt{Walls} 
+            & Sets the outermost tiles on each side of the map to a certain tile type.
+            & \texttt{Walls(Stone)} \\\hline
+            \texttt{Floor} 
+            & Sets the floor layer of each tile to be of a certain tile type.\fxfatal{Do we still use layers?}
+            & \texttt{Floor(Grass)} \\\hline
+            \texttt{Line} 
+            & Creates a line of a certain tile type. Takes two coordinates denoting a start and end, as well as the tile type desired.
+            & \texttt{Line([2, 2], [2, 4], Stone)} \\\hline
+            \texttt{Square} 
+            & Creates a square of a certain tile type. Takes a coordinate of the center position, a size, and a tile type.
+            & \texttt{Square([8, 8], 4, Stone)} \\\hline
+            \texttt{MoveLeft} 
+            & Moves entity one tile left. This is used when specifying a MovePattern.
+            & \texttt{MoveLeft()} \\\hline
+            \texttt{MoveRight} 
+            & Moves entity one tile right. This is used when specifying a MovePattern.
+            & \texttt{MoveRight()} \\\hline
+            \texttt{MoveDown} 
+            & Moves entity one tile down. This is used when specifying a MovePattern.
+            & \texttt{MoveDown()} \\\hline
+            \texttt{MoveUp} 
+            & Moves entity one tile up. This is used when specifying a MovePattern.
+            & \texttt{MoveUp()} \\\hline
+            \texttt{PlayerInAggroRange} 
+            & Can only be called within a scope for an entity. Checks if the player is in aggro range for the given entity and returns a boolean representing the result of this check.\fxfatal{Should this be in the CFG? Or change it?}
+            & \texttt{PlayerInAggroRange()} \\\hline
+        \end{tabular}
+        \caption{Explanations of built-in functionalities}
+        \label{table:explanations_of_functions}
+\end{table}
 
-\subsection{Control flow}
+    
+\subsection{Statement Level Control Structures}
+Users can change execution flow using control structures. These are if-statements and repeat-statements.
 \subsubsection{If statements}
-If-statements do not contain parentheses, unlike many other languages. They are followed by an expression and curly brackets which open a new scope that will be executed if the expression evaluates truthy.
+If statements are selection statements. These provide the means of choosing between two or more execution paths in a program\cite{sebesta_concepts_2016}.
+
+In Dazel, if-statements are followed by an expression and then curly braces, which open a new scope. The statements within this scope are executed if the expression holds true.
 
 \begin{lstlisting}[caption={Example of an if statement}, label={lst:ifexpression},escapechar=|]
 if <expression>|\label{lst:exp}|
@@ -160,7 +169,9 @@ if <expression>|\label{lst:exp}|
 
 In \ref{lst:ifexpression} on line \ref{lst:exp},  \verb|<expression>| denotes a placeholder expression.
 
-\subsubsection{Loops}
+\subsubsection{Repeat loops}
+Repeat loops are iterative statements.
+
 \begin{lstlisting}[caption={Example of loops}, label={lst:loops},escapechar=|]
 repeat until <var> == 10|\label{lst:repeatuntil}|
 {
@@ -175,20 +186,137 @@ repeat forever|\label{lst:repeatforever}|
 
 In \ref{lst:loops} on line \ref{lst:repeatuntil}, \verb|<var>| denotes an arbitrary variable. It is expected that the expression will evaluate to true, otherwise the loop does the same as the \verb|repeat forever| loop on line \ref{lst:repeatforever}.
 
-The loops do as their names indicate. The \verb|repeat forever| loop repeats forever - or until the running instance terminates, whichever comes first. % Too much? lmao
+The \verb|repeat forever| loop repeats forever - or until the running instance terminates.
 The \verb|repeat until| loop repeatedly executes the code in the scope immediately below it until the given expression evaluates to \verb|true|.
 \fxfatal{Consider not using the 'forever' keyword. It might be redundant as compared to just 'repeat'}
 
 \subsection{Operator symbols}
 \fxfatal{Work in progress. Should this be here?}
-\begin{multicols}{7}
-    \begin{itemize}
-        \item \verb|<|
-        \item \verb|>|
-        \item \verb|=|
-        \item \verb|+|
-        \item \verb|-|
-        \item \verb|*|
-        \item \verb|/|
-    \end{itemize}
-\end{multicols}
+See \tabref{table:operatorsymbols}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ |c|c|c||c|c|c|c| }
+        \hline
+        \textbf{Category} & \textbf{Operator} & \textbf{Associativity} & \texttt{Number} & \texttt{String} & \texttt{Boolean} & \texttt{Tile} \\                              
+        \hline
+
+        \multirow{6}{*}{Relational} 
+        & \texttt{<}
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+        
+         
+        & \texttt{>} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+        
+        & \texttt{==} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+         
+        & \texttt{!=} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+         
+        & \texttt{>=} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+
+         
+        & \texttt{<=} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\\hline
+
+        \multirow{2}{*}{Logic}
+        & \texttt{and} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+ 
+        & \texttt{or} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\\hline
+        
+        Assignment 
+        & \texttt{=}
+        & $\leftarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\\hline
+        
+        \multirow{4}{*}{Arithmetic} 
+        & \texttt{+}
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+        
+         
+        & \texttt{-}
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+         
+        & \texttt{*} 
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\
+         
+        & \texttt{/}
+        & $\rightarrow$ 
+        & Type1 
+        & Type2 
+        & Type3 
+        & Type4 
+        \\\hline
+    \end{tabular}
+    \caption{Operation symbols}
+    \label{table:operatorsymbols}
+\end{table}
+
+\fxfatal{Fix types. Depends on implementation.}
