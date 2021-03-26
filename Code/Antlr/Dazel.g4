@@ -39,7 +39,6 @@ statement               : repeat_loop
                         | assignment
                         | function_invocation
                         | if_statement
-                        | game_object_creation
                         ;
 
 repeat_loop             : 'repeat' L_BRACES statement_list R_BRACES
@@ -49,7 +48,6 @@ if_statement            : 'if' expression L_BRACES statement_list R_BRACES
                         ;
 
 assignment              : IDENTIFIER ASSIGN_OP expression
-                        | IDENTIFIER ASSIGN_OP game_object_creation
                         ;
 
 expression              : sum_expression;
@@ -71,9 +69,6 @@ sum_operation           : PLUS_OP
 
 factor_operation        : MULTIPLICATION_OP 
                         | DIVISION_OP
-                        ;
-
-game_object_creation    : 'Create' function_invocation
                         ;
 
 function_invocation     : IDENTIFIER L_PARANTHESIS value_list R_PARANTHESIS
