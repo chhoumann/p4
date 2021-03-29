@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       config: 'Release'
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     steps:
     - uses: actions/checkout@v2
