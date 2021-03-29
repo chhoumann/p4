@@ -111,22 +111,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_start; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterStart(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitStart(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitStart(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -166,22 +150,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_game_object; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -220,22 +188,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_empty; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterEmpty(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitEmpty(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitEmpty(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -264,22 +216,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_game_object_type; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object_type(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object_type(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object_type(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -327,22 +263,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_game_object_contents; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object_contents(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object_contents(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object_contents(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -403,22 +323,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_game_object_content; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object_content(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object_content(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object_content(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -455,22 +359,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_content_type; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterContent_type(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitContent_type(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitContent_type(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -518,22 +406,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_statement_list; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterStatement_list(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitStatement_list(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitStatement_list(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -602,22 +474,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_statement; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterStatement(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitStatement(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitStatement(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -680,22 +536,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_repeat_loop; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterRepeat_loop(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitRepeat_loop(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitRepeat_loop(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -740,22 +580,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_if_statement; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterIf_statement(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitIf_statement(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitIf_statement(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -799,22 +623,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_assignment; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterAssignment(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitAssignment(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitAssignment(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -852,22 +660,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_expression; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterExpression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitExpression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitExpression(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -907,22 +699,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_sum_expression; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterSum_expression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitSum_expression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSum_expression(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -999,22 +775,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_factor_expression; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterFactor_expression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitFactor_expression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitFactor_expression(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1090,22 +850,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_terminal_expression; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterTerminal_expression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitTerminal_expression(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitTerminal_expression(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1160,22 +904,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_sum_operation; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterSum_operation(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitSum_operation(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSum_operation(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1216,22 +944,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_factor_operation; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterFactor_operation(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitFactor_operation(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitFactor_operation(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1276,22 +988,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_function_invocation; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterFunction_invocation(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitFunction_invocation(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitFunction_invocation(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1332,22 +1028,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_member_access; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterMember_access(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitMember_access(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitMember_access(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1391,22 +1071,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_value_list; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterValue_list(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitValue_list(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitValue_list(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1473,22 +1137,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_value; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterValue(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitValue(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitValue(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -1565,22 +1213,6 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_array; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterArray(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitArray(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitArray(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
