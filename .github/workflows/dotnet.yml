@@ -18,11 +18,11 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      working-directory: ./code/Interpreter
+      working-directory: ./Code/Interpreter
       run: dotnet restore
     - name: Build
-      working-directory: ./code/Interpreter
+      working-directory: ./Code/Interpreter
       run: dotnet build --no-restore
     - name: Test
-      working-directory: ./code/Interpreter
+      working-directory: ./Code/Interpreter
       run: dotnet test --no-build --verbosity normal
