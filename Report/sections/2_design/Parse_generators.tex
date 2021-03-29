@@ -3,6 +3,6 @@ Writing every part of the compiler by hand can be a lengthy process. A tool has 
 There are various lexer and parse generators for different languages. In this section only the parse generators compatible with C# 
 will be discussed. When choosing a parse generator there are several factors that comes into play, the parsing algorithm, the input grammar notation,
 whether its compatible with an IDE and how easy it is to use and learn. Lots of parse generators fulfill the desired requirements, 
-so choosing a more widely spread parse generator means having access to more resources to learn. Both Coco and ANTLR, are popular parse generators which use the LL (leftmost derivation), which means it parses the input from left to right. 
+so choosing a more widely spread parse generator means having access to more resources to learn. Both Coco and ANTLR are popular parse generators, which use the LL (leftmost derivation). This means it parses the input from left to right. 
 Also, they both takes EBNF notation as input grammar. They are both widely spread and lots of resources concerning these parsers are easy to access. \newline
 We have chosen to use ANTLR4 for the parse generation because it is the most modern and used parse generator for c#, in contrast with Coco, ANTLR is very compatible with Visual studio code, which is the preferred IDE. 
