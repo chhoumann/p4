@@ -24,7 +24,6 @@ namespace Interpreter.Ast
         public override ExpressionNode VisitExpression(DazelParser.ExpressionContext context)
         {
             return VisitSumExpression(context.sumExpression());
-            //return base.VisitExpression(context);
         }
 
         public override ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context)
@@ -36,8 +35,6 @@ namespace Interpreter.Ast
 
             DazelParser.SumExpressionContext sumExpression = context.sumExpression();
             return new SumExpression();
-
-            //return base.VisitSum_expression(context);
         }
         
         public override ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
