@@ -3,23 +3,23 @@ grammar Dazel; // Defines grammar
 WS  :   [ \t\r\n]+ -> skip;
 
 /* PARSER RULES */
-start: game_object;
+start: gameObject;
 
-game_object             : game_object_type IDENTIFIER L_BRACES game_object_contents R_BRACES
+gameObject             : gameObjectType IDENTIFIER L_BRACES gameObjectContents R_BRACES
                         ;
 
 empty                   : 
                         ;
 
-game_object_type        : 'Screen ' | 'Entity ' | 'MovePattern'
+gameObjectType        : 'Screen ' | 'Entity ' | 'MovePattern'
                         ;
 
-game_object_contents    : game_object_content
-                        | game_object_content game_object_contents
+gameObjectContents    : gameObjectContent
+                        | gameObjectContent gameObjectContents
                         | empty
                         ;
 
-game_object_content     : content_type L_BRACES statement_list R_BRACES
+gameObjectContent     : content_type L_BRACES statementList R_BRACES
                         ;
 
 content_type            : 'Map'
@@ -30,8 +30,8 @@ content_type            : 'Map'
                         | 'Pattern'
                         ;
 
-statement_list          : statement ';'
-                        | statement ';' statement_list
+statementList          : statement ';'
+                        | statement ';' statementList
                         | empty
                         ;
 
@@ -41,10 +41,10 @@ statement               : repeat_loop
                         | if_statement
                         ;
 
-repeat_loop             : 'repeat' L_BRACES statement_list R_BRACES
+repeat_loop             : 'repeat' L_BRACES statementList R_BRACES
                         ;
 
-if_statement            : 'if' expression L_BRACES statement_list R_BRACES
+if_statement            : 'if' expression L_BRACES statementList R_BRACES
                         ;
 
 assignment              : IDENTIFIER ASSIGN_OP expression
