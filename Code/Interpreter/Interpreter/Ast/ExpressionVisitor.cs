@@ -39,18 +39,34 @@ namespace Interpreter.Ast
 
             //return base.VisitSum_expression(context);
         }
+        
+        public override ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
+        {
+            if (context.GetType() == typeof(DazelParser.TerminalExpressionContext))
+            {
+                return VisitTerminalExpression(context.terminalExpression());
+            }
 
+            DazelParser.FactorExpressionContext factorExpression = context.factorExpression();
+            return new FactorExpression();
+        }
+        
+        public override ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context)
+        {
+            if (context.GetType() == typeof(DazelParser.ValueContext))
+            {
+                return VisitValue(context.value());
+            }
+
+            DazelParser.ExpressionContext expression = context.expression();
+            return VisitExpression(expression);
+        }
         
         public override ExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
         {
             return base.VisitAssignment(context);
         }
-
-        public override ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
-        {
-            return base.VisitFactorExpression(context);
-        }
-
+        
         public override ExpressionNode VisitFactorOperation(DazelParser.FactorOperationContext context)
         {
             return base.VisitFactorOperation(context);
@@ -86,9 +102,6 @@ namespace Interpreter.Ast
             return base.VisitTerminal(node);
         }
 
-        public override ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context)
-        {
-            return base.VisitTerminalExpression(context);
-        }
+        
     }
 }
