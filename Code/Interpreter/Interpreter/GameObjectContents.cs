@@ -1,3 +1,5 @@
+using Antlr4.Runtime.Tree;
+
 namespace Interpreter
 {
     public sealed class GameObjectContents : Node
@@ -7,7 +9,7 @@ namespace Interpreter
             visitor.Visit(this);
         }
 
-        public GameObjectContents(string text) : base(text)
+        public GameObjectContents(IParseTree gameObjectParseTreeNode) : base(gameObjectParseTreeNode)
         {
         }
     }
