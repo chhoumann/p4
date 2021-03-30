@@ -5,24 +5,24 @@ WS  :   [ \t\r\n]+ -> skip;
 /* PARSER RULES */
 start: gameObject;
 
-gameObject             : gameObjectType IDENTIFIER L_BRACES gameObjectContents R_BRACES
+gameObject              : gameObjectType IDENTIFIER L_BRACES gameObjectContents R_BRACES
                         ;
 
 empty                   : 
                         ;
 
-gameObjectType        : 'Screen ' | 'Entity ' | 'MovePattern'
+gameObjectType          : 'Screen ' | 'Entity ' | 'MovePattern'
                         ;
 
-gameObjectContents    : gameObjectContent
+gameObjectContents      : gameObjectContent
                         | gameObjectContent gameObjectContents
                         | empty
                         ;
 
-gameObjectContent     : content_type L_BRACES statementList R_BRACES
+gameObjectContent       : contentType L_BRACES statementList R_BRACES
                         ;
 
-content_type            : 'Map'
+contentType             : 'Map'
                         | 'OnScreenEntered'
                         | 'Entities'
                         | 'Exits'
@@ -30,55 +30,55 @@ content_type            : 'Map'
                         | 'Pattern'
                         ;
 
-statementList          : statement ';'
+statementList           : statement ';'
                         | statement ';' statementList
                         | empty
                         ;
 
-statement               : repeat_loop
+statement               : repeatLoop
                         | assignment
-                        | function_invocation
-                        | if_statement
+                        | functionInvocation
+                        | ifStatement
                         ;
 
-repeat_loop             : 'repeat' L_BRACES statementList R_BRACES
+repeatLoop              : 'repeat' L_BRACES statementList R_BRACES
                         ;
 
-if_statement            : 'if' expression L_BRACES statementList R_BRACES
+ifStatement             : 'if' expression L_BRACES statementList R_BRACES
                         ;
 
 assignment              : IDENTIFIER ASSIGN_OP expression
                         ;
 
-expression              : sum_expression;
+expression              : sumExpression;
 
-sum_expression          : sum_expression sum_operation factor_expression
-                        | factor_expression
+sumExpression           : sumExpression sumOperation factorExpression
+                        | factorExpression
                         ;
 
-factor_expression       : factor_expression factor_operation terminal_expression
-                        | terminal_expression
+factorExpression        : factorExpression factorOperation terminalExpression
+                        | terminalExpression
                         ;
 
-terminal_expression     : value
+terminalExpression      : value
 	                    | L_PARANTHESIS expression R_PARANTHESIS
                         ;
 
-sum_operation           : PLUS_OP 
+sumOperation            : PLUS_OP 
                         | MINUS_OP;
 
-factor_operation        : MULTIPLICATION_OP 
+factorOperation         : MULTIPLICATION_OP 
                         | DIVISION_OP
                         ;
 
-function_invocation     : IDENTIFIER L_PARANTHESIS value_list R_PARANTHESIS
+functionInvocation      : IDENTIFIER L_PARANTHESIS valueList R_PARANTHESIS
                         ;
 
-member_access           : IDENTIFIER '.' IDENTIFIER
+memberAccess            : IDENTIFIER '.' IDENTIFIER
                         ;
 
-value_list              : value
-                        | value ',' value_list
+valueList               : value
+                        | value ',' valueList
                         | empty
                         ;
 
@@ -86,11 +86,11 @@ value                   : IDENTIFIER
                         | INT
                         | FLOAT
                         | array
-                        | function_invocation
-                        | member_access
+                        | functionInvocation
+                        | memberAccess
                         ;
 
-array                   : L_BRACKET value_list R_BRACKET
+array                   : L_BRACKET valueList R_BRACKET
                         ;
 
 
