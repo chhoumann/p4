@@ -1,0 +1,1 @@
+java org.antlr.v4.Tool Dazel.g4 -o src -Dlanguage=CSharp -visitor
