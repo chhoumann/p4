@@ -5,10 +5,9 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  label: [created, edited]
 
 jobs:
-  build:
+  test:
     if: contains( github.event.pull_request.labels.*.name, 'code')
     runs-on: ubuntu-latest
     env:
