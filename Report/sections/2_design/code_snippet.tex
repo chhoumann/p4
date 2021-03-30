@@ -1,0 +1,56 @@
+\section{Code examples}
+
+\begin{lstlisting}[caption={Example screen}, label={lst:SampleScreen1},escapechar=|]
+// ./Screens/SampleScreen1.txt
+Screen SampleScreen1 
+{
+    Map 
+    {
+        Size(30, 24);
+
+        Walls(Stone); 
+        Floor(Grass);
+
+        Line(TopLeft, TopRight, Cliff);
+        Line([2, 2], [2, 4], Cliff);
+
+        Square(position, size, Cliff);
+        Square([8, 8], 4, Cliff);
+    }
+
+    OnScreenEntered
+    {
+        if Player.CompletedQuest(...) 
+        {
+            SetTile([4, 0], Stair);
+        }
+    }
+
+    Entities
+    {
+        SpawnEntity(Skeleton1, [4, 4]).SetMovePattern(Square1);
+    }
+    
+    Exits 
+    {
+        // Two different ways to create an exit
+        // Specific tile(s) or whole screen side
+        Exit1 = Exit([4, 0], SampleScreen2.Exit1);
+        ScreenExit(Bottom, SampleScreen2);
+    
+        // COULD HAVE: Floor exits that lead to another screen at the same normalized 
+        // coordinate |\fxfatal{Remove if we don't make FloorExits}|
+        FloorExits(  
+            [ 
+                [4, 0] 
+                [5, 0], 
+                [9, 0], 
+                [10, 0] 
+            ],
+            SampleScreen2
+        )
+    }
+}
+\end{lstlisting}
+
+Code snippet~\ref{lst:SampleScreen1} gives an example of a screen. The contents thereof are explained below.

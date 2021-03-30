@@ -1,0 +1,42 @@
+\subsection{Built-in functionality}
+These are also keywords, but they represent library-like functions that a user can use to manipulate data. Explanations of these can be seen in \tabref{table:explanations_of_functions}.\fxfatal{Make sure these explanations are up to date with the implementation.}
+\begin{table}[h!]
+    \centering
+        \begin{tabular}{ l p{4.5cm} p{4cm} }
+            \hline
+            \textbf{Function} & \textbf{Explanation} & \textbf{Example} \\
+            \hline
+            \texttt{Size} 
+            & Sets the size of the map.
+            & \texttt{Size(30, 24)} \\\hline
+            \texttt{Walls} 
+            & Sets the outermost tiles on each side of the map to a certain tile type.
+            & \texttt{Walls(Stone)} \\\hline
+            \texttt{Floor} 
+            & Sets the floor layer of each tile to be of a certain tile type.\fxfatal{Do we still use layers?}
+            & \texttt{Floor(Grass)} \\\hline
+            \texttt{Line} 
+            & Creates a line of a certain tile type. Takes two coordinates denoting a start and end, as well as the tile type desired.
+            & \texttt{Line([2, 2], [2, 4], Stone)} \\\hline
+            \texttt{Square} 
+            & Creates a square of a certain tile type. Takes a coordinate of the center position, a size, and a tile type.
+            & \texttt{Square([8, 8], 4, Stone)} \\\hline
+            \texttt{MoveLeft} 
+            & Moves entity one tile left. This is used when specifying a MovePattern.
+            & \texttt{MoveLeft()} \\\hline
+            \texttt{MoveRight} 
+            & Moves entity one tile right. This is used when specifying a MovePattern.
+            & \texttt{MoveRight()} \\\hline
+            \texttt{MoveDown} 
+            & Moves entity one tile down. This is used when specifying a MovePattern.
+            & \texttt{MoveDown()} \\\hline
+            \texttt{MoveUp} 
+            & Moves entity one tile up. This is used when specifying a MovePattern.
+            & \texttt{MoveUp()} \\\hline
+            \texttt{PlayerInAggroRange} 
+            & Can only be called within a scope for an entity. Checks if the player is in aggro range for the given entity and returns a boolean representing the result of this check.\fxfatal{Should this be in the CFG? Or change it?}
+            & \texttt{PlayerInAggroRange()} \\\hline
+        \end{tabular}
+        \caption{Explanations of built-in functionalities}
+        \label{table:explanations_of_functions}
+\end{table}
