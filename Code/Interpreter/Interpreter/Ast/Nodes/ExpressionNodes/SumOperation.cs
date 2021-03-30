@@ -1,6 +1,6 @@
 ﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
-    public sealed class SumOperation : ExpressionNode
+    public sealed class SumOperation : OperationNode
     {
         
     }

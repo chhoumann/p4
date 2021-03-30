@@ -1,6 +1,6 @@
 ﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
-    public sealed class MemberAccess : Value
+    public sealed class FunctionInvocation : Value
     {
         
     }

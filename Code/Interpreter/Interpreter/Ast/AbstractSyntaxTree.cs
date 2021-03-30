@@ -1,15 +1,9 @@
 using System;
 using Antlr4.Runtime.Tree;
-using Interpreter.Ast.Nodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter.Ast
 {
-    public abstract class Node
-    {
-        
-    }
-    
     public sealed class AbstractSyntaxTree : IVisitor
     {
         public AbstractSyntaxTree(IParseTree parseTree)

@@ -2,6 +2,6 @@
 {
     public sealed class TerminalExpression : ExpressionNode
     {
-        
+        public ExpressionNode Child { get; set; }
     }
 }

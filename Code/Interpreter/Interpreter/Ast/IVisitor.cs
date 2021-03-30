@@ -1,5 +1,4 @@
-﻿using Interpreter.Ast.Nodes;
-using Interpreter.Ast.Nodes.GameObjectNodes;
+﻿using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter.Ast
 {
