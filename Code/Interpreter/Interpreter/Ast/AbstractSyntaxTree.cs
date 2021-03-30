@@ -1,13 +1,13 @@
 using System;
 using Antlr4.Runtime.Tree;
+using Interpreter.Ast.Nodes;
+using Interpreter.Ast.Nodes.GameObjectNodes;
 
-namespace Interpreter
+namespace Interpreter.Ast
 {
     public abstract class Node
     {
-        protected Node(IParseTree gameObjectParseTreeNode)
-        {
-        }
+        
     }
     
     public sealed class AbstractSyntaxTree : IVisitor
@@ -16,7 +16,7 @@ namespace Interpreter
         {
             IParseTree gameObjectParseTreeNode = parseTree.GetChild(0);
 
-            new GameObject(gameObjectParseTreeNode).Accept(this);
+            new GameObject().Accept(this);
         }
         
         public void Visit(GameObject gameObject)

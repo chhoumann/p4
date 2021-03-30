@@ -1,8 +1,8 @@
 using Antlr4.Runtime.Tree;
 
-namespace Interpreter
+namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public sealed class GameObject : Node
+    public sealed class GameObject : GameObjectNode
     {
         public string Identifier { get; private set; }
         public string Type { get; private set; }
@@ -11,11 +11,6 @@ namespace Interpreter
 
         private readonly IParseTree parseTreeNode;
 
-        public GameObject(IParseTree gameObjectParseTreeNode) : base(gameObjectParseTreeNode)
-        {
-            parseTreeNode = gameObjectParseTreeNode;
-        }
-        
         public void Accept(IVisitor visitor)
         {
             Type = parseTreeNode.GetChild(0).GetText();
