@@ -42,19 +42,19 @@ public partial class DazelParser : Parser {
 		L_BRACES=23, R_BRACES=24, ASSIGN_OP=25, LESSTHAN_OP=26, GREATERTHAN_OP=27, 
 		PLUS_OP=28, MINUS_OP=29, MULTIPLICATION_OP=30, DIVISION_OP=31, QUOTATION_MARK=32;
 	public const int
-		RULE_start = 0, RULE_game_object = 1, RULE_empty = 2, RULE_game_object_type = 3, 
-		RULE_game_object_contents = 4, RULE_game_object_content = 5, RULE_content_type = 6, 
-		RULE_statement_list = 7, RULE_statement = 8, RULE_repeat_loop = 9, RULE_if_statement = 10, 
-		RULE_assignment = 11, RULE_expression = 12, RULE_sum_expression = 13, 
-		RULE_factor_expression = 14, RULE_terminal_expression = 15, RULE_sum_operation = 16, 
-		RULE_factor_operation = 17, RULE_function_invocation = 18, RULE_member_access = 19, 
-		RULE_value_list = 20, RULE_value = 21, RULE_array = 22;
+		RULE_start = 0, RULE_gameObject = 1, RULE_empty = 2, RULE_gameObjectType = 3, 
+		RULE_gameObjectContents = 4, RULE_gameObjectContent = 5, RULE_contentType = 6, 
+		RULE_statementList = 7, RULE_statement = 8, RULE_repeatLoop = 9, RULE_ifStatement = 10, 
+		RULE_assignment = 11, RULE_expression = 12, RULE_sumExpression = 13, RULE_factorExpression = 14, 
+		RULE_terminalExpression = 15, RULE_sumOperation = 16, RULE_factorOperation = 17, 
+		RULE_functionInvocation = 18, RULE_memberAccess = 19, RULE_valueList = 20, 
+		RULE_value = 21, RULE_array = 22;
 	public static readonly string[] ruleNames = {
-		"start", "game_object", "empty", "game_object_type", "game_object_contents", 
-		"game_object_content", "content_type", "statement_list", "statement", 
-		"repeat_loop", "if_statement", "assignment", "expression", "sum_expression", 
-		"factor_expression", "terminal_expression", "sum_operation", "factor_operation", 
-		"function_invocation", "member_access", "value_list", "value", "array"
+		"start", "gameObject", "empty", "gameObjectType", "gameObjectContents", 
+		"gameObjectContent", "contentType", "statementList", "statement", "repeatLoop", 
+		"ifStatement", "assignment", "expression", "sumExpression", "factorExpression", 
+		"terminalExpression", "sumOperation", "factorOperation", "functionInvocation", 
+		"memberAccess", "valueList", "value", "array"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -103,8 +103,8 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class StartContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Game_objectContext game_object() {
-			return GetRuleContext<Game_objectContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContext gameObject() {
+			return GetRuleContext<GameObjectContext>(0);
 		}
 		public StartContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -137,7 +137,7 @@ public partial class DazelParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 46;
-			game_object();
+			gameObject();
 			}
 		}
 		catch (RecognitionException re) {
@@ -151,54 +151,54 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Game_objectContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_typeContext game_object_type() {
-			return GetRuleContext<Game_object_typeContext>(0);
+	public partial class GameObjectContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectTypeContext gameObjectType() {
+			return GetRuleContext<GameObjectTypeContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(DazelParser.IDENTIFIER, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_contentsContext game_object_contents() {
-			return GetRuleContext<Game_object_contentsContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContentsContext gameObjectContents() {
+			return GetRuleContext<GameObjectContentsContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public Game_objectContext(ParserRuleContext parent, int invokingState)
+		public GameObjectContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_game_object; } }
+		public override int RuleIndex { get { return RULE_gameObject; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object(this);
+			if (typedListener != null) typedListener.EnterGameObject(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object(this);
+			if (typedListener != null) typedListener.ExitGameObject(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object(this);
+			if (typedVisitor != null) return typedVisitor.VisitGameObject(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Game_objectContext game_object() {
-		Game_objectContext _localctx = new Game_objectContext(Context, State);
-		EnterRule(_localctx, 2, RULE_game_object);
+	public GameObjectContext gameObject() {
+		GameObjectContext _localctx = new GameObjectContext(Context, State);
+		EnterRule(_localctx, 2, RULE_gameObject);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 48;
-			game_object_type();
+			gameObjectType();
 			State = 49;
 			Match(IDENTIFIER);
 			State = 50;
 			Match(L_BRACES);
 			State = 51;
-			game_object_contents();
+			gameObjectContents();
 			State = 52;
 			Match(R_BRACES);
 			}
@@ -258,34 +258,34 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Game_object_typeContext : ParserRuleContext {
-		public Game_object_typeContext(ParserRuleContext parent, int invokingState)
+	public partial class GameObjectTypeContext : ParserRuleContext {
+		public GameObjectTypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_game_object_type; } }
+		public override int RuleIndex { get { return RULE_gameObjectType; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object_type(this);
+			if (typedListener != null) typedListener.EnterGameObjectType(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object_type(this);
+			if (typedListener != null) typedListener.ExitGameObjectType(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object_type(this);
+			if (typedVisitor != null) return typedVisitor.VisitGameObjectType(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Game_object_typeContext game_object_type() {
-		Game_object_typeContext _localctx = new Game_object_typeContext(Context, State);
-		EnterRule(_localctx, 6, RULE_game_object_type);
+	public GameObjectTypeContext gameObjectType() {
+		GameObjectTypeContext _localctx = new GameObjectTypeContext(Context, State);
+		EnterRule(_localctx, 6, RULE_gameObjectType);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
@@ -312,43 +312,43 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Game_object_contentsContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_contentContext game_object_content() {
-			return GetRuleContext<Game_object_contentContext>(0);
+	public partial class GameObjectContentsContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContentContext gameObjectContent() {
+			return GetRuleContext<GameObjectContentContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_contentsContext game_object_contents() {
-			return GetRuleContext<Game_object_contentsContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContentsContext gameObjectContents() {
+			return GetRuleContext<GameObjectContentsContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public EmptyContext empty() {
 			return GetRuleContext<EmptyContext>(0);
 		}
-		public Game_object_contentsContext(ParserRuleContext parent, int invokingState)
+		public GameObjectContentsContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_game_object_contents; } }
+		public override int RuleIndex { get { return RULE_gameObjectContents; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object_contents(this);
+			if (typedListener != null) typedListener.EnterGameObjectContents(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object_contents(this);
+			if (typedListener != null) typedListener.ExitGameObjectContents(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object_contents(this);
+			if (typedVisitor != null) return typedVisitor.VisitGameObjectContents(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Game_object_contentsContext game_object_contents() {
-		Game_object_contentsContext _localctx = new Game_object_contentsContext(Context, State);
-		EnterRule(_localctx, 8, RULE_game_object_contents);
+	public GameObjectContentsContext gameObjectContents() {
+		GameObjectContentsContext _localctx = new GameObjectContentsContext(Context, State);
+		EnterRule(_localctx, 8, RULE_gameObjectContents);
 		try {
 			State = 63;
 			ErrorHandler.Sync(this);
@@ -357,16 +357,16 @@ public partial class DazelParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 58;
-				game_object_content();
+				gameObjectContent();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 59;
-				game_object_content();
+				gameObjectContent();
 				State = 60;
-				game_object_contents();
+				gameObjectContents();
 				}
 				break;
 			case 3:
@@ -389,51 +389,51 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Game_object_contentContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Content_typeContext content_type() {
-			return GetRuleContext<Content_typeContext>(0);
+	public partial class GameObjectContentContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ContentTypeContext contentType() {
+			return GetRuleContext<ContentTypeContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public Game_object_contentContext(ParserRuleContext parent, int invokingState)
+		public GameObjectContentContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_game_object_content; } }
+		public override int RuleIndex { get { return RULE_gameObjectContent; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterGame_object_content(this);
+			if (typedListener != null) typedListener.EnterGameObjectContent(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitGame_object_content(this);
+			if (typedListener != null) typedListener.ExitGameObjectContent(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGame_object_content(this);
+			if (typedVisitor != null) return typedVisitor.VisitGameObjectContent(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Game_object_contentContext game_object_content() {
-		Game_object_contentContext _localctx = new Game_object_contentContext(Context, State);
-		EnterRule(_localctx, 10, RULE_game_object_content);
+	public GameObjectContentContext gameObjectContent() {
+		GameObjectContentContext _localctx = new GameObjectContentContext(Context, State);
+		EnterRule(_localctx, 10, RULE_gameObjectContent);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 65;
-			content_type();
+			contentType();
 			State = 66;
 			Match(L_BRACES);
 			State = 67;
-			statement_list();
+			statementList();
 			State = 68;
 			Match(R_BRACES);
 			}
@@ -449,34 +449,34 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Content_typeContext : ParserRuleContext {
-		public Content_typeContext(ParserRuleContext parent, int invokingState)
+	public partial class ContentTypeContext : ParserRuleContext {
+		public ContentTypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_content_type; } }
+		public override int RuleIndex { get { return RULE_contentType; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterContent_type(this);
+			if (typedListener != null) typedListener.EnterContentType(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitContent_type(this);
+			if (typedListener != null) typedListener.ExitContentType(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitContent_type(this);
+			if (typedVisitor != null) return typedVisitor.VisitContentType(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Content_typeContext content_type() {
-		Content_typeContext _localctx = new Content_typeContext(Context, State);
-		EnterRule(_localctx, 12, RULE_content_type);
+	public ContentTypeContext contentType() {
+		ContentTypeContext _localctx = new ContentTypeContext(Context, State);
+		EnterRule(_localctx, 12, RULE_contentType);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
@@ -503,43 +503,43 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Statement_listContext : ParserRuleContext {
+	public partial class StatementListContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext statement() {
 			return GetRuleContext<StatementContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public EmptyContext empty() {
 			return GetRuleContext<EmptyContext>(0);
 		}
-		public Statement_listContext(ParserRuleContext parent, int invokingState)
+		public StatementListContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_statement_list; } }
+		public override int RuleIndex { get { return RULE_statementList; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterStatement_list(this);
+			if (typedListener != null) typedListener.EnterStatementList(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitStatement_list(this);
+			if (typedListener != null) typedListener.ExitStatementList(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitStatement_list(this);
+			if (typedVisitor != null) return typedVisitor.VisitStatementList(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Statement_listContext statement_list() {
-		Statement_listContext _localctx = new Statement_listContext(Context, State);
-		EnterRule(_localctx, 14, RULE_statement_list);
+	public StatementListContext statementList() {
+		StatementListContext _localctx = new StatementListContext(Context, State);
+		EnterRule(_localctx, 14, RULE_statementList);
 		try {
 			State = 80;
 			ErrorHandler.Sync(this);
@@ -561,7 +561,7 @@ public partial class DazelParser : Parser {
 				State = 76;
 				Match(T__9);
 				State = 77;
-				statement_list();
+				statementList();
 				}
 				break;
 			case 3:
@@ -585,17 +585,17 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class StatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Repeat_loopContext repeat_loop() {
-			return GetRuleContext<Repeat_loopContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public RepeatLoopContext repeatLoop() {
+			return GetRuleContext<RepeatLoopContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public AssignmentContext assignment() {
 			return GetRuleContext<AssignmentContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Function_invocationContext function_invocation() {
-			return GetRuleContext<Function_invocationContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public FunctionInvocationContext functionInvocation() {
+			return GetRuleContext<FunctionInvocationContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public If_statementContext if_statement() {
-			return GetRuleContext<If_statementContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public IfStatementContext ifStatement() {
+			return GetRuleContext<IfStatementContext>(0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -632,7 +632,7 @@ public partial class DazelParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 82;
-				repeat_loop();
+				repeatLoop();
 				}
 				break;
 			case 2:
@@ -646,14 +646,14 @@ public partial class DazelParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 84;
-				function_invocation();
+				functionInvocation();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
 				State = 85;
-				if_statement();
+				ifStatement();
 				}
 				break;
 			}
@@ -669,39 +669,39 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Repeat_loopContext : ParserRuleContext {
+	public partial class RepeatLoopContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public Repeat_loopContext(ParserRuleContext parent, int invokingState)
+		public RepeatLoopContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_repeat_loop; } }
+		public override int RuleIndex { get { return RULE_repeatLoop; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterRepeat_loop(this);
+			if (typedListener != null) typedListener.EnterRepeatLoop(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitRepeat_loop(this);
+			if (typedListener != null) typedListener.ExitRepeatLoop(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitRepeat_loop(this);
+			if (typedVisitor != null) return typedVisitor.VisitRepeatLoop(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Repeat_loopContext repeat_loop() {
-		Repeat_loopContext _localctx = new Repeat_loopContext(Context, State);
-		EnterRule(_localctx, 18, RULE_repeat_loop);
+	public RepeatLoopContext repeatLoop() {
+		RepeatLoopContext _localctx = new RepeatLoopContext(Context, State);
+		EnterRule(_localctx, 18, RULE_repeatLoop);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
@@ -710,7 +710,7 @@ public partial class DazelParser : Parser {
 			State = 89;
 			Match(L_BRACES);
 			State = 90;
-			statement_list();
+			statementList();
 			State = 91;
 			Match(R_BRACES);
 			}
@@ -726,42 +726,42 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class If_statementContext : ParserRuleContext {
+	public partial class IfStatementContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public If_statementContext(ParserRuleContext parent, int invokingState)
+		public IfStatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_if_statement; } }
+		public override int RuleIndex { get { return RULE_ifStatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterIf_statement(this);
+			if (typedListener != null) typedListener.EnterIfStatement(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitIf_statement(this);
+			if (typedListener != null) typedListener.ExitIfStatement(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitIf_statement(this);
+			if (typedVisitor != null) return typedVisitor.VisitIfStatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public If_statementContext if_statement() {
-		If_statementContext _localctx = new If_statementContext(Context, State);
-		EnterRule(_localctx, 20, RULE_if_statement);
+	public IfStatementContext ifStatement() {
+		IfStatementContext _localctx = new IfStatementContext(Context, State);
+		EnterRule(_localctx, 20, RULE_ifStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
@@ -772,7 +772,7 @@ public partial class DazelParser : Parser {
 			State = 95;
 			Match(L_BRACES);
 			State = 96;
-			statement_list();
+			statementList();
 			State = 97;
 			Match(R_BRACES);
 			}
@@ -844,8 +844,8 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class ExpressionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Sum_expressionContext sum_expression() {
-			return GetRuleContext<Sum_expressionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public SumExpressionContext sumExpression() {
+			return GetRuleContext<SumExpressionContext>(0);
 		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -878,7 +878,7 @@ public partial class DazelParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 103;
-			sum_expression(0);
+			sumExpression(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -892,58 +892,58 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Sum_expressionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Factor_expressionContext factor_expression() {
-			return GetRuleContext<Factor_expressionContext>(0);
+	public partial class SumExpressionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public FactorExpressionContext factorExpression() {
+			return GetRuleContext<FactorExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Sum_expressionContext sum_expression() {
-			return GetRuleContext<Sum_expressionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public SumExpressionContext sumExpression() {
+			return GetRuleContext<SumExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Sum_operationContext sum_operation() {
-			return GetRuleContext<Sum_operationContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public SumOperationContext sumOperation() {
+			return GetRuleContext<SumOperationContext>(0);
 		}
-		public Sum_expressionContext(ParserRuleContext parent, int invokingState)
+		public SumExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_sum_expression; } }
+		public override int RuleIndex { get { return RULE_sumExpression; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterSum_expression(this);
+			if (typedListener != null) typedListener.EnterSumExpression(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitSum_expression(this);
+			if (typedListener != null) typedListener.ExitSumExpression(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSum_expression(this);
+			if (typedVisitor != null) return typedVisitor.VisitSumExpression(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Sum_expressionContext sum_expression() {
-		return sum_expression(0);
+	public SumExpressionContext sumExpression() {
+		return sumExpression(0);
 	}
 
-	private Sum_expressionContext sum_expression(int _p) {
+	private SumExpressionContext sumExpression(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Sum_expressionContext _localctx = new Sum_expressionContext(Context, _parentState);
-		Sum_expressionContext _prevctx = _localctx;
+		SumExpressionContext _localctx = new SumExpressionContext(Context, _parentState);
+		SumExpressionContext _prevctx = _localctx;
 		int _startState = 26;
-		EnterRecursionRule(_localctx, 26, RULE_sum_expression, _p);
+		EnterRecursionRule(_localctx, 26, RULE_sumExpression, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
 			State = 106;
-			factor_expression(0);
+			factorExpression(0);
 			}
 			Context.Stop = TokenStream.LT(-1);
 			State = 114;
@@ -956,14 +956,14 @@ public partial class DazelParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Sum_expressionContext(_parentctx, _parentState);
-					PushNewRecursionContext(_localctx, _startState, RULE_sum_expression);
+					_localctx = new SumExpressionContext(_parentctx, _parentState);
+					PushNewRecursionContext(_localctx, _startState, RULE_sumExpression);
 					State = 108;
 					if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
 					State = 109;
-					sum_operation();
+					sumOperation();
 					State = 110;
-					factor_expression(0);
+					factorExpression(0);
 					}
 					} 
 				}
@@ -984,58 +984,58 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Factor_expressionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Terminal_expressionContext terminal_expression() {
-			return GetRuleContext<Terminal_expressionContext>(0);
+	public partial class FactorExpressionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public TerminalExpressionContext terminalExpression() {
+			return GetRuleContext<TerminalExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Factor_expressionContext factor_expression() {
-			return GetRuleContext<Factor_expressionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public FactorExpressionContext factorExpression() {
+			return GetRuleContext<FactorExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Factor_operationContext factor_operation() {
-			return GetRuleContext<Factor_operationContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public FactorOperationContext factorOperation() {
+			return GetRuleContext<FactorOperationContext>(0);
 		}
-		public Factor_expressionContext(ParserRuleContext parent, int invokingState)
+		public FactorExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_factor_expression; } }
+		public override int RuleIndex { get { return RULE_factorExpression; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterFactor_expression(this);
+			if (typedListener != null) typedListener.EnterFactorExpression(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitFactor_expression(this);
+			if (typedListener != null) typedListener.ExitFactorExpression(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitFactor_expression(this);
+			if (typedVisitor != null) return typedVisitor.VisitFactorExpression(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Factor_expressionContext factor_expression() {
-		return factor_expression(0);
+	public FactorExpressionContext factorExpression() {
+		return factorExpression(0);
 	}
 
-	private Factor_expressionContext factor_expression(int _p) {
+	private FactorExpressionContext factorExpression(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Factor_expressionContext _localctx = new Factor_expressionContext(Context, _parentState);
-		Factor_expressionContext _prevctx = _localctx;
+		FactorExpressionContext _localctx = new FactorExpressionContext(Context, _parentState);
+		FactorExpressionContext _prevctx = _localctx;
 		int _startState = 28;
-		EnterRecursionRule(_localctx, 28, RULE_factor_expression, _p);
+		EnterRecursionRule(_localctx, 28, RULE_factorExpression, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
 			State = 118;
-			terminal_expression();
+			terminalExpression();
 			}
 			Context.Stop = TokenStream.LT(-1);
 			State = 126;
@@ -1048,14 +1048,14 @@ public partial class DazelParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Factor_expressionContext(_parentctx, _parentState);
-					PushNewRecursionContext(_localctx, _startState, RULE_factor_expression);
+					_localctx = new FactorExpressionContext(_parentctx, _parentState);
+					PushNewRecursionContext(_localctx, _startState, RULE_factorExpression);
 					State = 120;
 					if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
 					State = 121;
-					factor_operation();
+					factorOperation();
 					State = 122;
-					terminal_expression();
+					terminalExpression();
 					}
 					} 
 				}
@@ -1076,7 +1076,7 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Terminal_expressionContext : ParserRuleContext {
+	public partial class TerminalExpressionContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ValueContext value() {
 			return GetRuleContext<ValueContext>(0);
 		}
@@ -1085,33 +1085,33 @@ public partial class DazelParser : Parser {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_PARANTHESIS() { return GetToken(DazelParser.R_PARANTHESIS, 0); }
-		public Terminal_expressionContext(ParserRuleContext parent, int invokingState)
+		public TerminalExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_terminal_expression; } }
+		public override int RuleIndex { get { return RULE_terminalExpression; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterTerminal_expression(this);
+			if (typedListener != null) typedListener.EnterTerminalExpression(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitTerminal_expression(this);
+			if (typedListener != null) typedListener.ExitTerminalExpression(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitTerminal_expression(this);
+			if (typedVisitor != null) return typedVisitor.VisitTerminalExpression(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Terminal_expressionContext terminal_expression() {
-		Terminal_expressionContext _localctx = new Terminal_expressionContext(Context, State);
-		EnterRule(_localctx, 30, RULE_terminal_expression);
+	public TerminalExpressionContext terminalExpression() {
+		TerminalExpressionContext _localctx = new TerminalExpressionContext(Context, State);
+		EnterRule(_localctx, 30, RULE_terminalExpression);
 		try {
 			State = 134;
 			ErrorHandler.Sync(this);
@@ -1152,36 +1152,36 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Sum_operationContext : ParserRuleContext {
+	public partial class SumOperationContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS_OP() { return GetToken(DazelParser.PLUS_OP, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS_OP() { return GetToken(DazelParser.MINUS_OP, 0); }
-		public Sum_operationContext(ParserRuleContext parent, int invokingState)
+		public SumOperationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_sum_operation; } }
+		public override int RuleIndex { get { return RULE_sumOperation; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterSum_operation(this);
+			if (typedListener != null) typedListener.EnterSumOperation(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitSum_operation(this);
+			if (typedListener != null) typedListener.ExitSumOperation(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSum_operation(this);
+			if (typedVisitor != null) return typedVisitor.VisitSumOperation(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Sum_operationContext sum_operation() {
-		Sum_operationContext _localctx = new Sum_operationContext(Context, State);
-		EnterRule(_localctx, 32, RULE_sum_operation);
+	public SumOperationContext sumOperation() {
+		SumOperationContext _localctx = new SumOperationContext(Context, State);
+		EnterRule(_localctx, 32, RULE_sumOperation);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
@@ -1208,36 +1208,36 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Factor_operationContext : ParserRuleContext {
+	public partial class FactorOperationContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MULTIPLICATION_OP() { return GetToken(DazelParser.MULTIPLICATION_OP, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DIVISION_OP() { return GetToken(DazelParser.DIVISION_OP, 0); }
-		public Factor_operationContext(ParserRuleContext parent, int invokingState)
+		public FactorOperationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_factor_operation; } }
+		public override int RuleIndex { get { return RULE_factorOperation; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterFactor_operation(this);
+			if (typedListener != null) typedListener.EnterFactorOperation(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitFactor_operation(this);
+			if (typedListener != null) typedListener.ExitFactorOperation(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitFactor_operation(this);
+			if (typedVisitor != null) return typedVisitor.VisitFactorOperation(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Factor_operationContext factor_operation() {
-		Factor_operationContext _localctx = new Factor_operationContext(Context, State);
-		EnterRule(_localctx, 34, RULE_factor_operation);
+	public FactorOperationContext factorOperation() {
+		FactorOperationContext _localctx = new FactorOperationContext(Context, State);
+		EnterRule(_localctx, 34, RULE_factorOperation);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
@@ -1264,40 +1264,40 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Function_invocationContext : ParserRuleContext {
+	public partial class FunctionInvocationContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(DazelParser.IDENTIFIER, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_PARANTHESIS() { return GetToken(DazelParser.L_PARANTHESIS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Value_listContext value_list() {
-			return GetRuleContext<Value_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ValueListContext valueList() {
+			return GetRuleContext<ValueListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_PARANTHESIS() { return GetToken(DazelParser.R_PARANTHESIS, 0); }
-		public Function_invocationContext(ParserRuleContext parent, int invokingState)
+		public FunctionInvocationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_function_invocation; } }
+		public override int RuleIndex { get { return RULE_functionInvocation; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterFunction_invocation(this);
+			if (typedListener != null) typedListener.EnterFunctionInvocation(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitFunction_invocation(this);
+			if (typedListener != null) typedListener.ExitFunctionInvocation(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitFunction_invocation(this);
+			if (typedVisitor != null) return typedVisitor.VisitFunctionInvocation(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Function_invocationContext function_invocation() {
-		Function_invocationContext _localctx = new Function_invocationContext(Context, State);
-		EnterRule(_localctx, 36, RULE_function_invocation);
+	public FunctionInvocationContext functionInvocation() {
+		FunctionInvocationContext _localctx = new FunctionInvocationContext(Context, State);
+		EnterRule(_localctx, 36, RULE_functionInvocation);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
@@ -1306,7 +1306,7 @@ public partial class DazelParser : Parser {
 			State = 141;
 			Match(L_PARANTHESIS);
 			State = 142;
-			value_list();
+			valueList();
 			State = 143;
 			Match(R_PARANTHESIS);
 			}
@@ -1322,38 +1322,38 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Member_accessContext : ParserRuleContext {
+	public partial class MemberAccessContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(DazelParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
 			return GetToken(DazelParser.IDENTIFIER, i);
 		}
-		public Member_accessContext(ParserRuleContext parent, int invokingState)
+		public MemberAccessContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_member_access; } }
+		public override int RuleIndex { get { return RULE_memberAccess; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterMember_access(this);
+			if (typedListener != null) typedListener.EnterMemberAccess(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitMember_access(this);
+			if (typedListener != null) typedListener.ExitMemberAccess(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitMember_access(this);
+			if (typedVisitor != null) return typedVisitor.VisitMemberAccess(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Member_accessContext member_access() {
-		Member_accessContext _localctx = new Member_accessContext(Context, State);
-		EnterRule(_localctx, 38, RULE_member_access);
+	public MemberAccessContext memberAccess() {
+		MemberAccessContext _localctx = new MemberAccessContext(Context, State);
+		EnterRule(_localctx, 38, RULE_memberAccess);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
@@ -1376,43 +1376,43 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Value_listContext : ParserRuleContext {
+	public partial class ValueListContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ValueContext value() {
 			return GetRuleContext<ValueContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Value_listContext value_list() {
-			return GetRuleContext<Value_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ValueListContext valueList() {
+			return GetRuleContext<ValueListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public EmptyContext empty() {
 			return GetRuleContext<EmptyContext>(0);
 		}
-		public Value_listContext(ParserRuleContext parent, int invokingState)
+		public ValueListContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_value_list; } }
+		public override int RuleIndex { get { return RULE_valueList; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.EnterValue_list(this);
+			if (typedListener != null) typedListener.EnterValueList(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IDazelListener typedListener = listener as IDazelListener;
-			if (typedListener != null) typedListener.ExitValue_list(this);
+			if (typedListener != null) typedListener.ExitValueList(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitValue_list(this);
+			if (typedVisitor != null) return typedVisitor.VisitValueList(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Value_listContext value_list() {
-		Value_listContext _localctx = new Value_listContext(Context, State);
-		EnterRule(_localctx, 40, RULE_value_list);
+	public ValueListContext valueList() {
+		ValueListContext _localctx = new ValueListContext(Context, State);
+		EnterRule(_localctx, 40, RULE_valueList);
 		try {
 			State = 155;
 			ErrorHandler.Sync(this);
@@ -1432,7 +1432,7 @@ public partial class DazelParser : Parser {
 				State = 151;
 				Match(T__13);
 				State = 152;
-				value_list();
+				valueList();
 				}
 				break;
 			case 3:
@@ -1462,11 +1462,11 @@ public partial class DazelParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ArrayContext array() {
 			return GetRuleContext<ArrayContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Function_invocationContext function_invocation() {
-			return GetRuleContext<Function_invocationContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public FunctionInvocationContext functionInvocation() {
+			return GetRuleContext<FunctionInvocationContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Member_accessContext member_access() {
-			return GetRuleContext<Member_accessContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public MemberAccessContext memberAccess() {
+			return GetRuleContext<MemberAccessContext>(0);
 		}
 		public ValueContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1531,14 +1531,14 @@ public partial class DazelParser : Parser {
 				EnterOuterAlt(_localctx, 5);
 				{
 				State = 161;
-				function_invocation();
+				functionInvocation();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
 				State = 162;
-				member_access();
+				memberAccess();
 				}
 				break;
 			}
@@ -1556,8 +1556,8 @@ public partial class DazelParser : Parser {
 
 	public partial class ArrayContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACKET() { return GetToken(DazelParser.L_BRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Value_listContext value_list() {
-			return GetRuleContext<Value_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ValueListContext valueList() {
+			return GetRuleContext<ValueListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACKET() { return GetToken(DazelParser.R_BRACKET, 0); }
 		public ArrayContext(ParserRuleContext parent, int invokingState)
@@ -1593,7 +1593,7 @@ public partial class DazelParser : Parser {
 			State = 165;
 			Match(L_BRACKET);
 			State = 166;
-			value_list();
+			valueList();
 			State = 167;
 			Match(R_BRACKET);
 			}
@@ -1611,18 +1611,18 @@ public partial class DazelParser : Parser {
 
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 13: return sum_expression_sempred((Sum_expressionContext)_localctx, predIndex);
-		case 14: return factor_expression_sempred((Factor_expressionContext)_localctx, predIndex);
+		case 13: return sumExpression_sempred((SumExpressionContext)_localctx, predIndex);
+		case 14: return factorExpression_sempred((FactorExpressionContext)_localctx, predIndex);
 		}
 		return true;
 	}
-	private bool sum_expression_sempred(Sum_expressionContext _localctx, int predIndex) {
+	private bool sumExpression_sempred(SumExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0: return Precpred(Context, 2);
 		}
 		return true;
 	}
-	private bool factor_expression_sempred(Factor_expressionContext _localctx, int predIndex) {
+	private bool factorExpression_sempred(FactorExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 1: return Precpred(Context, 2);
 		}

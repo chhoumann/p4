@@ -7,34 +7,34 @@ namespace Interpreter.Ast
     {
         ExpressionNode VisitExpression(DazelParser.ExpressionContext context);
         ExpressionNode VisitAssignment(DazelParser.AssignmentContext context);
-        ExpressionNode VisitFactor_expression(DazelParser.Factor_expressionContext context);
-        ExpressionNode VisitFactor_operation(DazelParser.Factor_operationContext context);
-        ExpressionNode VisitSum_expression(DazelParser.Sum_expressionContext context);
-        ExpressionNode VisitSum_operation(DazelParser.Sum_operationContext context);
+        ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context);
+        ExpressionNode VisitFactorOperation(DazelParser.FactorOperationContext context);
+        ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context);
+        ExpressionNode VisitSumOperation(DazelParser.SumOperationContext context);
         ExpressionNode VisitArray(DazelParser.ArrayContext context);
-        ExpressionNode VisitMember_access(DazelParser.Member_accessContext context);
+        ExpressionNode VisitMemberAccess(DazelParser.MemberAccessContext context);
         ExpressionNode VisitValue(DazelParser.ValueContext context);
-        ExpressionNode VisitValue_list(DazelParser.Value_listContext context);
+        ExpressionNode VisitValueList(DazelParser.ValueListContext context);
         ExpressionNode VisitTerminal(ITerminalNode node);
-        ExpressionNode VisitTerminal_expression(DazelParser.Terminal_expressionContext context);
+        ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context);
     }
 
     public sealed class ExpressionVisitor : DazelBaseVisitor<ExpressionNode>, IExpressionVisitor
     {
         public override ExpressionNode VisitExpression(DazelParser.ExpressionContext context)
         {
-            return VisitSum_expression(context.sum_expression());
+            return VisitSumExpression(context.sumExpression());
             //return base.VisitExpression(context);
         }
 
-        public override ExpressionNode VisitSum_expression(DazelParser.Sum_expressionContext context)
+        public override ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context)
         {
-            if (context.GetType() == typeof(DazelParser.Factor_expressionContext))
+            if (context.GetType() == typeof(DazelParser.FactorExpressionContext))
             {
-                return VisitFactor_expression(context.factor_expression());
+                return VisitFactorExpression(context.factorExpression());
             }
 
-            DazelParser.Sum_expressionContext sumExpression = context.sum_expression();
+            DazelParser.SumExpressionContext sumExpression = context.sumExpression();
             return new SumExpression();
 
             //return base.VisitSum_expression(context);
@@ -46,19 +46,19 @@ namespace Interpreter.Ast
             return base.VisitAssignment(context);
         }
 
-        public override ExpressionNode VisitFactor_expression(DazelParser.Factor_expressionContext context)
+        public override ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
         {
-            return base.VisitFactor_expression(context);
+            return base.VisitFactorExpression(context);
         }
 
-        public override ExpressionNode VisitFactor_operation(DazelParser.Factor_operationContext context)
+        public override ExpressionNode VisitFactorOperation(DazelParser.FactorOperationContext context)
         {
-            return base.VisitFactor_operation(context);
+            return base.VisitFactorOperation(context);
         }
         
-        public override ExpressionNode VisitSum_operation(DazelParser.Sum_operationContext context)
+        public override ExpressionNode VisitSumOperation(DazelParser.SumOperationContext context)
         {
-            return base.VisitSum_operation(context);
+            return base.VisitSumOperation(context);
         }
 
         public override ExpressionNode VisitArray(DazelParser.ArrayContext context)
@@ -66,9 +66,9 @@ namespace Interpreter.Ast
             return base.VisitArray(context);
         }
 
-        public override ExpressionNode VisitMember_access(DazelParser.Member_accessContext context)
+        public override ExpressionNode VisitMemberAccess(DazelParser.MemberAccessContext context)
         {
-            return base.VisitMember_access(context);
+            return base.VisitMemberAccess(context);
         }
 
         public override ExpressionNode VisitValue(DazelParser.ValueContext context)
@@ -76,9 +76,9 @@ namespace Interpreter.Ast
             return base.VisitValue(context);
         }
 
-        public override ExpressionNode VisitValue_list(DazelParser.Value_listContext context)
+        public override ExpressionNode VisitValueList(DazelParser.ValueListContext context)
         {
-            return base.VisitValue_list(context);
+            return base.VisitValueList(context);
         }
 
         public override ExpressionNode VisitTerminal(ITerminalNode node)
@@ -86,9 +86,9 @@ namespace Interpreter.Ast
             return base.VisitTerminal(node);
         }
 
-        public override ExpressionNode VisitTerminal_expression(DazelParser.Terminal_expressionContext context)
+        public override ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context)
         {
-            return base.VisitTerminal_expression(context);
+            return base.VisitTerminalExpression(context);
         }
     }
 }

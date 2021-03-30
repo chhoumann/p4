@@ -70,26 +70,26 @@ QUOTATION_MARK
 
 rule names:
 start
-game_object
+gameObject
 empty
-game_object_type
-game_object_contents
-game_object_content
-content_type
-statement_list
+gameObjectType
+gameObjectContents
+gameObjectContent
+contentType
+statementList
 statement
-repeat_loop
-if_statement
+repeatLoop
+ifStatement
 assignment
 expression
-sum_expression
-factor_expression
-terminal_expression
-sum_operation
-factor_operation
-function_invocation
-member_access
-value_list
+sumExpression
+factorExpression
+terminalExpression
+sumOperation
+factorOperation
+functionInvocation
+memberAccess
+valueList
 value
 array
 

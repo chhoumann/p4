@@ -45,7 +45,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitStart([NotNull] DazelParser.StartContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.game_object"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.gameObject"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -53,7 +53,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGame_object([NotNull] DazelParser.Game_objectContext context) { return VisitChildren(context); }
+	public virtual Result VisitGameObject([NotNull] DazelParser.GameObjectContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.empty"/>.
 	/// <para>
@@ -65,7 +65,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitEmpty([NotNull] DazelParser.EmptyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.game_object_type"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -73,9 +73,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGame_object_type([NotNull] DazelParser.Game_object_typeContext context) { return VisitChildren(context); }
+	public virtual Result VisitGameObjectType([NotNull] DazelParser.GameObjectTypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.game_object_contents"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.gameObjectContents"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -83,9 +83,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGame_object_contents([NotNull] DazelParser.Game_object_contentsContext context) { return VisitChildren(context); }
+	public virtual Result VisitGameObjectContents([NotNull] DazelParser.GameObjectContentsContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.game_object_content"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.gameObjectContent"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -93,9 +93,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGame_object_content([NotNull] DazelParser.Game_object_contentContext context) { return VisitChildren(context); }
+	public virtual Result VisitGameObjectContent([NotNull] DazelParser.GameObjectContentContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.content_type"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.contentType"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -103,9 +103,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitContent_type([NotNull] DazelParser.Content_typeContext context) { return VisitChildren(context); }
+	public virtual Result VisitContentType([NotNull] DazelParser.ContentTypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.statement_list"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -113,7 +113,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitStatement_list([NotNull] DazelParser.Statement_listContext context) { return VisitChildren(context); }
+	public virtual Result VisitStatementList([NotNull] DazelParser.StatementListContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.statement"/>.
 	/// <para>
@@ -125,7 +125,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitStatement([NotNull] DazelParser.StatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.repeat_loop"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.repeatLoop"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -133,9 +133,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRepeat_loop([NotNull] DazelParser.Repeat_loopContext context) { return VisitChildren(context); }
+	public virtual Result VisitRepeatLoop([NotNull] DazelParser.RepeatLoopContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.if_statement"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.ifStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -143,7 +143,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitIf_statement([NotNull] DazelParser.If_statementContext context) { return VisitChildren(context); }
+	public virtual Result VisitIfStatement([NotNull] DazelParser.IfStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.assignment"/>.
 	/// <para>
@@ -165,7 +165,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitExpression([NotNull] DazelParser.ExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.sum_expression"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.sumExpression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -173,9 +173,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSum_expression([NotNull] DazelParser.Sum_expressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitSumExpression([NotNull] DazelParser.SumExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.factor_expression"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.factorExpression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -183,9 +183,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFactor_expression([NotNull] DazelParser.Factor_expressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitFactorExpression([NotNull] DazelParser.FactorExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.terminal_expression"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.terminalExpression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -193,9 +193,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTerminal_expression([NotNull] DazelParser.Terminal_expressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitTerminalExpression([NotNull] DazelParser.TerminalExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.sum_operation"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.sumOperation"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -203,9 +203,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSum_operation([NotNull] DazelParser.Sum_operationContext context) { return VisitChildren(context); }
+	public virtual Result VisitSumOperation([NotNull] DazelParser.SumOperationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.factor_operation"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.factorOperation"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -213,9 +213,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFactor_operation([NotNull] DazelParser.Factor_operationContext context) { return VisitChildren(context); }
+	public virtual Result VisitFactorOperation([NotNull] DazelParser.FactorOperationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.function_invocation"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.functionInvocation"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -223,9 +223,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFunction_invocation([NotNull] DazelParser.Function_invocationContext context) { return VisitChildren(context); }
+	public virtual Result VisitFunctionInvocation([NotNull] DazelParser.FunctionInvocationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.member_access"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.memberAccess"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -233,9 +233,9 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMember_access([NotNull] DazelParser.Member_accessContext context) { return VisitChildren(context); }
+	public virtual Result VisitMemberAccess([NotNull] DazelParser.MemberAccessContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.value_list"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.valueList"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -243,7 +243,7 @@ public partial class DazelBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitValue_list([NotNull] DazelParser.Value_listContext context) { return VisitChildren(context); }
+	public virtual Result VisitValueList([NotNull] DazelParser.ValueListContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.value"/>.
 	/// <para>

@@ -48,17 +48,17 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStart([NotNull] DazelParser.StartContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.game_object"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.gameObject"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGame_object([NotNull] DazelParser.Game_objectContext context) { }
+	public virtual void EnterGameObject([NotNull] DazelParser.GameObjectContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.game_object"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.gameObject"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGame_object([NotNull] DazelParser.Game_objectContext context) { }
+	public virtual void ExitGameObject([NotNull] DazelParser.GameObjectContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.empty"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -72,65 +72,65 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitEmpty([NotNull] DazelParser.EmptyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.game_object_type"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGame_object_type([NotNull] DazelParser.Game_object_typeContext context) { }
+	public virtual void EnterGameObjectType([NotNull] DazelParser.GameObjectTypeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.game_object_type"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGame_object_type([NotNull] DazelParser.Game_object_typeContext context) { }
+	public virtual void ExitGameObjectType([NotNull] DazelParser.GameObjectTypeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.game_object_contents"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectContents"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGame_object_contents([NotNull] DazelParser.Game_object_contentsContext context) { }
+	public virtual void EnterGameObjectContents([NotNull] DazelParser.GameObjectContentsContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.game_object_contents"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.gameObjectContents"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGame_object_contents([NotNull] DazelParser.Game_object_contentsContext context) { }
+	public virtual void ExitGameObjectContents([NotNull] DazelParser.GameObjectContentsContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.game_object_content"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectContent"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGame_object_content([NotNull] DazelParser.Game_object_contentContext context) { }
+	public virtual void EnterGameObjectContent([NotNull] DazelParser.GameObjectContentContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.game_object_content"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.gameObjectContent"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGame_object_content([NotNull] DazelParser.Game_object_contentContext context) { }
+	public virtual void ExitGameObjectContent([NotNull] DazelParser.GameObjectContentContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.content_type"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.contentType"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterContent_type([NotNull] DazelParser.Content_typeContext context) { }
+	public virtual void EnterContentType([NotNull] DazelParser.ContentTypeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.content_type"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.contentType"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitContent_type([NotNull] DazelParser.Content_typeContext context) { }
+	public virtual void ExitContentType([NotNull] DazelParser.ContentTypeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.statement_list"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterStatement_list([NotNull] DazelParser.Statement_listContext context) { }
+	public virtual void EnterStatementList([NotNull] DazelParser.StatementListContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.statement_list"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitStatement_list([NotNull] DazelParser.Statement_listContext context) { }
+	public virtual void ExitStatementList([NotNull] DazelParser.StatementListContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.statement"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -144,29 +144,29 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStatement([NotNull] DazelParser.StatementContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.repeat_loop"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.repeatLoop"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRepeat_loop([NotNull] DazelParser.Repeat_loopContext context) { }
+	public virtual void EnterRepeatLoop([NotNull] DazelParser.RepeatLoopContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.repeat_loop"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.repeatLoop"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRepeat_loop([NotNull] DazelParser.Repeat_loopContext context) { }
+	public virtual void ExitRepeatLoop([NotNull] DazelParser.RepeatLoopContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.if_statement"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.ifStatement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIf_statement([NotNull] DazelParser.If_statementContext context) { }
+	public virtual void EnterIfStatement([NotNull] DazelParser.IfStatementContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.if_statement"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.ifStatement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIf_statement([NotNull] DazelParser.If_statementContext context) { }
+	public virtual void ExitIfStatement([NotNull] DazelParser.IfStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.assignment"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -192,101 +192,101 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExpression([NotNull] DazelParser.ExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.sum_expression"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.sumExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSum_expression([NotNull] DazelParser.Sum_expressionContext context) { }
+	public virtual void EnterSumExpression([NotNull] DazelParser.SumExpressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.sum_expression"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.sumExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSum_expression([NotNull] DazelParser.Sum_expressionContext context) { }
+	public virtual void ExitSumExpression([NotNull] DazelParser.SumExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.factor_expression"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.factorExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFactor_expression([NotNull] DazelParser.Factor_expressionContext context) { }
+	public virtual void EnterFactorExpression([NotNull] DazelParser.FactorExpressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.factor_expression"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.factorExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFactor_expression([NotNull] DazelParser.Factor_expressionContext context) { }
+	public virtual void ExitFactorExpression([NotNull] DazelParser.FactorExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.terminal_expression"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.terminalExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTerminal_expression([NotNull] DazelParser.Terminal_expressionContext context) { }
+	public virtual void EnterTerminalExpression([NotNull] DazelParser.TerminalExpressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.terminal_expression"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.terminalExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTerminal_expression([NotNull] DazelParser.Terminal_expressionContext context) { }
+	public virtual void ExitTerminalExpression([NotNull] DazelParser.TerminalExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.sum_operation"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.sumOperation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSum_operation([NotNull] DazelParser.Sum_operationContext context) { }
+	public virtual void EnterSumOperation([NotNull] DazelParser.SumOperationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.sum_operation"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.sumOperation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSum_operation([NotNull] DazelParser.Sum_operationContext context) { }
+	public virtual void ExitSumOperation([NotNull] DazelParser.SumOperationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.factor_operation"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.factorOperation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFactor_operation([NotNull] DazelParser.Factor_operationContext context) { }
+	public virtual void EnterFactorOperation([NotNull] DazelParser.FactorOperationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.factor_operation"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.factorOperation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFactor_operation([NotNull] DazelParser.Factor_operationContext context) { }
+	public virtual void ExitFactorOperation([NotNull] DazelParser.FactorOperationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.function_invocation"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.functionInvocation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFunction_invocation([NotNull] DazelParser.Function_invocationContext context) { }
+	public virtual void EnterFunctionInvocation([NotNull] DazelParser.FunctionInvocationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.function_invocation"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.functionInvocation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFunction_invocation([NotNull] DazelParser.Function_invocationContext context) { }
+	public virtual void ExitFunctionInvocation([NotNull] DazelParser.FunctionInvocationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.member_access"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.memberAccess"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMember_access([NotNull] DazelParser.Member_accessContext context) { }
+	public virtual void EnterMemberAccess([NotNull] DazelParser.MemberAccessContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.member_access"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.memberAccess"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMember_access([NotNull] DazelParser.Member_accessContext context) { }
+	public virtual void ExitMemberAccess([NotNull] DazelParser.MemberAccessContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.value_list"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.valueList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterValue_list([NotNull] DazelParser.Value_listContext context) { }
+	public virtual void EnterValueList([NotNull] DazelParser.ValueListContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.value_list"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.valueList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitValue_list([NotNull] DazelParser.Value_listContext context) { }
+	public virtual void ExitValueList([NotNull] DazelParser.ValueListContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.value"/>.
 	/// <para>The default implementation does nothing.</para>
