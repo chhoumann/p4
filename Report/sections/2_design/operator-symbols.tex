@@ -1,6 +1,5 @@
 \subsection{Operator symbols}
-\fxfatal{Work in progress. Should this be here?}
-See \tabref{table:operatorsymbols}.
+Operator symbols and their associativity has been defined in\tabref{table:operatorsymbols}. The table also shows which types the operators support.
 
 \begin{table}[h!]
     \centering
@@ -12,119 +11,117 @@ See \tabref{table:operatorsymbols}.
         \multirow{6}{*}{Relational} 
         & \texttt{<}
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & 
+        & 
+        & 
         \\
         
          
         & \texttt{>} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & 
+        & 
+        & 
         \\
 
         
         & \texttt{==} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & $\times$
+        & $\times$
+        & 
         \\
 
          
         & \texttt{!=} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & $\times$
+        & $\times$
+        & 
         \\
 
          
         & \texttt{>=} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & 
+        &  
+        &  
         \\
 
          
         & \texttt{<=} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        &  
+        &  
+        &  
         \\\hline
 
         \multirow{2}{*}{Logic}
         & \texttt{and} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & 
+        &  
+        & $\times$ 
+        & 
         \\
  
         & \texttt{or} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & 
+        &  
+        & $\times$ 
+        &  
         \\\hline
         
         Assignment 
         & \texttt{=}
         & $\leftarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$ 
+        & $\times$
+        & $\times$
+        & $\times$
         \\\hline
         
         \multirow{4}{*}{Arithmetic} 
         & \texttt{+}
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & 
+        &  
+        &  
         \\
         
          
         & \texttt{-}
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$ 
+        & 
+        &  
+        &  
         \\
          
         & \texttt{*} 
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & 
+        & 
+        & 
         \\
          
         & \texttt{/}
         & $\rightarrow$ 
-        & Type1 
-        & Type2 
-        & Type3 
-        & Type4 
+        & $\times$
+        & 
+        & 
+        & 
         \\\hline
     \end{tabular}
     \caption{Operation symbols}
     \label{table:operatorsymbols}
 \end{table}
-
-\fxfatal{Fix types. Depends on implementation.}
