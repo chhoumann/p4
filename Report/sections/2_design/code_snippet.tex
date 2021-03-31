@@ -37,18 +37,6 @@ Screen SampleScreen1
         // Specific tile(s) or whole screen side
         Exit1 = Exit([4, 0], SampleScreen2.Exit1);
         ScreenExit(Bottom, SampleScreen2);
-    
-        // COULD HAVE: Floor exits that lead to another screen at the same normalized 
-        // coordinate |\fxfatal{Remove if we don't make FloorExits}|
-        FloorExits(  
-            [ 
-                [4, 0] 
-                [5, 0], 
-                [9, 0], 
-                [10, 0] 
-            ],
-            SampleScreen2
-        )
     }
 }
 \end{lstlisting}
