@@ -1,5 +1,8 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Threading;
+using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
@@ -21,6 +24,13 @@ namespace Interpreter.Ast
 
     public sealed class ExpressionVisitor : DazelBaseVisitor<ExpressionNode>, IExpressionVisitor
     {
+        public override ExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
+        {
+            ExpressionNode eval = VisitExpression(context.expression());
+            
+            return new AssignmentNode();
+        }
+        
         public override ExpressionNode VisitExpression(DazelParser.ExpressionContext context)
         {
             return VisitSumExpression(context.sumExpression());
@@ -37,7 +47,7 @@ namespace Interpreter.Ast
             return new SumExpression();
         }
         
-        public override ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
+       public override ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
         {
             if (context.GetType() == typeof(DazelParser.TerminalExpressionContext))
             {
@@ -74,46 +84,42 @@ namespace Interpreter.Ast
                 return VisitMemberAccess(context.memberAccess());
             }
             
-            DazelParser.ValueContext valueContext = context.
-
-
+            return new Value();
         }
         
-        public override ExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
-        {
-            return base.VisitAssignment(context);
-        }
-        
-        public override ExpressionNode VisitFactorOperation(DazelParser.FactorOperationContext context)
-        {
-            return base.VisitFactorOperation(context);
-        }
-        
-        public override ExpressionNode VisitSumOperation(DazelParser.SumOperationContext context)
-        {
-            return base.VisitSumOperation(context);
-        }
-
         public override ExpressionNode VisitArray(DazelParser.ArrayContext context)
         {
-            return base.VisitArray(context);
-        }
+            if (context.GetType() == typeof(DazelParser.ValueListContext))
+            {
+                return VisitValueList(context.valueList());
+            }
 
-        public override ExpressionNode VisitMemberAccess(DazelParser.MemberAccessContext context)
-        {
-            return base.VisitMemberAccess(context);
+            return new Array();
         }
         
         public override ExpressionNode VisitValueList(DazelParser.ValueListContext context)
         {
-            return base.VisitValueList(context);
-        }
+            if (context.ChildCount == 1)
+            {
+                return new Value();
+            }
 
-        public override ExpressionNode VisitTerminal(ITerminalNode node)
-        {
-            return base.VisitTerminal(node);
+            return new ValueList();
         }
-
         
+        public override ExpressionNode VisitFactorOperation(DazelParser.FactorOperationContext context)
+        {
+            return new FactorOperation();
+        }
+        
+        public override ExpressionNode VisitSumOperation(DazelParser.SumOperationContext context)
+        {
+            return new SumOperation();
+        }
+        
+        public override ExpressionNode VisitMemberAccess(DazelParser.MemberAccessContext context)
+        {
+            return new MemberAccess();
+        }
     }
 }
