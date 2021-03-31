@@ -59,6 +59,26 @@ namespace Interpreter.Ast
             return VisitExpression(expression);
         }
         
+        public override ExpressionNode VisitValue(DazelParser.ValueContext context)
+        {
+            if (context.GetType() == typeof(DazelParser.ArrayContext))
+            {
+                return VisitArray(context.array());
+            }
+            else if(context.GetType() == typeof(DazelParser.FunctionInvocationContext))
+            {
+                return VisitFunctionInvocation(context.functionInvocation());
+            }
+            else if (context.GetType() == typeof(DazelParser.MemberAccessContext))
+            {
+                return VisitMemberAccess(context.memberAccess());
+            }
+            
+            DazelParser.ValueContext valueContext = context.
+
+
+        }
+        
         public override ExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
         {
             return base.VisitAssignment(context);
@@ -83,12 +103,7 @@ namespace Interpreter.Ast
         {
             return base.VisitMemberAccess(context);
         }
-
-        public override ExpressionNode VisitValue(DazelParser.ValueContext context)
-        {
-            return base.VisitValue(context);
-        }
-
+        
         public override ExpressionNode VisitValueList(DazelParser.ValueListContext context)
         {
             return base.VisitValueList(context);
