@@ -42,7 +42,7 @@ statementList           : statement ';'
 
 statement               : repeatLoop
                         | assignment
-                        | functionInvocation
+                        | expression
                         | ifStatement
                         ;
 
@@ -91,8 +91,8 @@ value                   : IDENTIFIER
                         | INT
                         | FLOAT
                         | array
-                        | functionInvocation
                         | memberAccess
+                        | functionInvocation
                         ;
 
 array                   : L_BRACKET valueList R_BRACKET

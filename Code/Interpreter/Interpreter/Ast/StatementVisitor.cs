@@ -1,52 +1,63 @@
-﻿using Interpreter.Ast.Nodes.ExpressionNodes;
+﻿using System;
+using System.Collections.Generic;
+using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
-    public sealed class StatementVisitor : DazelBaseVisitor<StatementNode>, IStatementVisitor
+    public sealed class StatementVisitor : IStatementVisitor
     {
-        public override StatementNode VisitStatementList(DazelParser.StatementListContext context)
+        public List<StatementNode> VisitStatementList(DazelParser.StatementListContext context)
         {
-            if (context.ChildCount == 1)
+            List<StatementNode> statements = new();
+
+            statements.Add(VisitStatement(context.statement()));
+            
+            if (context.ChildCount > 1)
             {
-                return VisitStatement(context.statement());
+                statements.AddRange(VisitStatementList(context.statementList()));
             }
 
-            return new StatementList();
+            return statements;
         }
 
-        public override StatementNode VisitStatement(DazelParser.StatementContext context)
+        public StatementNode VisitStatement(DazelParser.StatementContext context)
         {
+            if (context.GetType() == typeof(DazelParser.AssignmentContext))
+            {
+                return VisitAssignment(context.assignment());
+            }
+
+            if (context.GetType() == typeof(DazelParser.IfStatementContext))
+            {
+                return VisitIfStatement(context.ifStatement());
+            }
+
             if (context.GetType() == typeof(DazelParser.RepeatLoopContext))
             {
                 return VisitRepeatLoop(context.repeatLoop());
             }
-            else if (context.GetType() == typeof(DazelParser.FunctionInvocationContext))
+
+            if (context.GetType() == typeof(DazelParser.ExpressionContext))
             {
-                return VisitFunctionInvocation(context.functionInvocation());
+                return new ExpressionVisitor().VisitFunctionInvocation(context.expression());
             }
-            else if (context.GetType() == typeof(DazelParser.AssignmentContext))
-            {
-                return VisitAssignment(context.assignment());
-            }
-            
-            return VisitIfStatement(context.ifStatement());
+
+            throw new ArgumentException("Invalid statement");
         }
         
-        public override StatementNode VisitAssignment(DazelParser.AssignmentContext context)
+        public AssignmentNode VisitAssignment(DazelParser.AssignmentContext context)
         {
-            StatementNode eval = VisitExpression(context.expression());
-            
             return new AssignmentNode();
         }
-        public override StatementNode VisitRepeatLoop(DazelParser.RepeatLoopContext context)
+        public RepeatNode VisitRepeatLoop(DazelParser.RepeatLoopContext context)
         {
-            StatementNode statements = VisitStatementList(context.statementList());
+            // RepeatNode statements = VisitStatementList(context.statementList());
 
             return new RepeatNode();
         }
 
-        public override StatementNode VisitIfStatement(DazelParser.IfStatementContext context)
+        public IfStatement VisitIfStatement(DazelParser.IfStatementContext context)
         {
             // TODO: update expression visitor
             var expression = new ExpressionVisitor().VisitExpression(context.expression());
@@ -55,7 +66,7 @@ namespace Interpreter.Ast
             return new IfStatement();
         }
 
-        public override StatementNode VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
+        public FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
         {
             var values = new ExpressionVisitor().VisitValueList(context.valueList());
 

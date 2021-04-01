@@ -50,11 +50,10 @@ namespace Interpreter.Ast
 
         public GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context)
         {
-            GameObjectContent content = new();
-            /*GameObjectContent content = new()
+            GameObjectContent content = new()
             {
                 Statements = new StatementVisitor().VisitStatementList(context.statementList());
-            };*/
+            };
 
             return content;
         }
