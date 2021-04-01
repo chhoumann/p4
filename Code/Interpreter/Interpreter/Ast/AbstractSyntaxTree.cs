@@ -4,32 +4,13 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter.Ast
 {
-    public sealed class AbstractSyntaxTree : IVisitor
+    public sealed class AbstractSyntaxTree 
     {
         public AbstractSyntaxTree(IParseTree parseTree)
         {
-            IParseTree gameObjectParseTreeNode = parseTree.GetChild(0);
+            GameObject gameObject = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
 
-            new GameObject().Accept(this);
-        }
-        
-        public void Visit(GameObject gameObject)
-        { 
-            Console.WriteLine(gameObject.Type);
-            Console.WriteLine(gameObject.Identifier);
-            
-            for (int i = 0; i < gameObject.Contents.ChildCount; i++)
-            {
-                Console.WriteLine(gameObject.Contents.GetChild(i).GetText());
-            }
-        }
-
-        public void Visit(GameObjectType gameObjectType)
-        {
-        }
-
-        public void Visit(GameObjectContents gameObjectContents)
-        {
+            Console.WriteLine(gameObject.Type.ToString());
         }
     }
 }

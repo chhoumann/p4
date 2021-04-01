@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.GameObjectNodes;
-using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
     public sealed class GameObjectVisitor : IGameObjectVisitor
     {
-        public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
+        public GameObject VisitGameObject(DazelParser.GameObjectContext context)
         {
             GameObjectType type;
             
@@ -40,40 +38,25 @@ namespace Interpreter.Ast
 
         public List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
         {
-            if (context.ChildCount == 1)
+            List<GameObjectContent> contents = new();
+
+            for (int i = 0; i < context.children.Count; i++)
             {
-                VisitGameObjectContent(context.gameObjectContent());
+                contents.Add(VisitGameObjectContent(context.gameObjectContent()));
             }
 
-            return new List<GameObjectContent>();
+            return contents;
         }
 
         public GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context)
         {
-            StatementNode statements = new StatementVisitor().VisitStatementList(context.statementList());
-
-            switch (context.screenContentType.Type)
+            GameObjectContent content = new();
+            /*GameObjectContent content = new()
             {
-                case DazelLexer.MAP:
-                    break;
-            }
-            
-            return new GameObjectContent();
-        }
+                Statements = new StatementVisitor().VisitStatementList(context.statementList());
+            };*/
 
-        public EntityType VisitEntityType(DazelParser.EntityTypeContext context)
-        {
-            return null;
-        }
-
-        public ScreenType VisitScreenType(DazelParser.ScreenTypeContext context)
-        {
-            return null;
-        }
-
-        public MovePatternType VisitMovePattern(DazelParser.MovePatternTypeContext context)
-        {
-            return null;
+            return content;
         }
     }
 }
