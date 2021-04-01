@@ -5,6 +5,6 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
     public sealed class GameObjectContent : GameObjectNode
     {
-        public List<Statement> Statements { get; set; }
+        public List<StatementNode> Statements { get; set; }
     }
 }
