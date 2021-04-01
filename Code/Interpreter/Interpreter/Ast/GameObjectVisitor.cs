@@ -52,7 +52,7 @@ namespace Interpreter.Ast
         {
             GameObjectContent content = new()
             {
-                Statements = new StatementVisitor().VisitStatementList(context.statementList());
+                Statements = new StatementVisitor().VisitStatementList(context.statementList()),
             };
 
             return content;

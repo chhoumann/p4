@@ -1,6 +1,7 @@
 using System;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
@@ -14,6 +15,10 @@ namespace Interpreter.Ast
             foreach (GameObjectContent vContent in gameObject.Contents)
             {
                 Console.WriteLine(vContent.GetType());
+                foreach (StatementNode vStatement in vContent.Statements)
+                {
+                    Console.WriteLine(vStatement.GetType());
+                }
             }
         }
     }

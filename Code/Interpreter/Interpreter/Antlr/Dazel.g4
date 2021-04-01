@@ -41,15 +41,19 @@ statementList           : statement ';'
                         ;
 
 statement               : repeatLoop
-                        | assignment
-                        | expression
                         | ifStatement
+                        | statementExpression
                         ;
 
 repeatLoop              : 'repeat' L_BRACES statementList R_BRACES
                         ;
 
 ifStatement             : 'if' expression L_BRACES statementList R_BRACES
+                        ;
+
+// https://cs.au.dk/~amoeller/RegAut/JavaBNF.html
+statementExpression     : assignment
+                        | functionInvocation
                         ;
 
 assignment              : IDENTIFIER ASSIGN_OP expression
