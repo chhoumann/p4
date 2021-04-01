@@ -91,15 +91,35 @@ public interface IDazelListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitGameObjectContent([NotNull] DazelParser.GameObjectContentContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.contentType"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.contentScreenType"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterContentType([NotNull] DazelParser.ContentTypeContext context);
+	void EnterContentScreenType([NotNull] DazelParser.ContentScreenTypeContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.contentType"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.contentScreenType"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitContentType([NotNull] DazelParser.ContentTypeContext context);
+	void ExitContentScreenType([NotNull] DazelParser.ContentScreenTypeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.contentEntityType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterContentEntityType([NotNull] DazelParser.ContentEntityTypeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.contentEntityType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitContentEntityType([NotNull] DazelParser.ContentEntityTypeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.contentMovePatternType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterContentMovePatternType([NotNull] DazelParser.ContentMovePatternTypeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.contentMovePatternType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitContentMovePatternType([NotNull] DazelParser.ContentMovePatternTypeContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// </summary>

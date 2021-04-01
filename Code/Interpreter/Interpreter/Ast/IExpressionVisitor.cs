@@ -15,7 +15,6 @@ namespace Interpreter.Ast
         ExpressionNode VisitMemberAccess(DazelParser.MemberAccessContext context);
         ExpressionNode VisitValue(DazelParser.ValueContext context);
         ExpressionNode VisitValueList(DazelParser.ValueListContext context);
-        ExpressionNode VisitTerminal(ITerminalNode node);
         ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context);
     }
 }

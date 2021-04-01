@@ -8,6 +8,8 @@ namespace Interpreter.Ast
         GameObjectNode VisitGameObjectType(DazelParser.GameObjectTypeContext context);
         GameObjectNode VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
         GameObjectNode VisitGameObjectContent(DazelParser.GameObjectContentContext context);
-        GameObjectNode VisitContentType(DazelParser.ContentTypeContext context);
+        GameObjectNode VisitContentScreenType(DazelParser.ContentScreenTypeContext context);
+        GameObjectNode VisitContentEntityType(DazelParser.ContentEntityTypeContext context);
+        GameObjectNode VisitContentMovePatternType(DazelParser.ContentMovePatternTypeContext context);
     }
 }

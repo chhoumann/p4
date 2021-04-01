@@ -68,35 +68,47 @@ public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	public Result VisitGameObjectContent([NotNull] DazelParser.GameObjectContentContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.contentType"/>.
+	/// Visit a parse tree produced by <see cref="DazelParser.contentScreenType"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public Result VisitContentType([NotNull] DazelParser.ContentTypeContext context);
+	public Result VisitContentScreenType([NotNull] DazelParser.ContentScreenTypeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DazelParser.contentEntityType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public Result VisitContentEntityType([NotNull] DazelParser.ContentEntityTypeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DazelParser.contentMovePatternType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public Result VisitContentMovePatternType([NotNull] DazelParser.ContentMovePatternTypeContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public Result VisitStatementList([NotNull] DazelParser.StatementListContext context);
+	Result VisitStatementList([NotNull] DazelParser.StatementListContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public Result VisitStatement([NotNull] DazelParser.StatementContext context);
+	Result VisitStatement([NotNull] DazelParser.StatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.repeatLoop"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public Result VisitRepeatLoop([NotNull] DazelParser.RepeatLoopContext context);
+	Result VisitRepeatLoop([NotNull] DazelParser.RepeatLoopContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.ifStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public Result VisitIfStatement([NotNull] DazelParser.IfStatementContext context);
+	Result VisitIfStatement([NotNull] DazelParser.IfStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.assignment"/>.
 	/// </summary>
@@ -144,7 +156,7 @@ public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public Result VisitFunctionInvocation([NotNull] DazelParser.FunctionInvocationContext context);
+	Result VisitFunctionInvocation([NotNull] DazelParser.FunctionInvocationContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.memberAccess"/>.
 	/// </summary>

@@ -11,7 +11,7 @@ gameObject              : gameObjectType IDENTIFIER L_BRACES gameObjectContents 
 empty                   : 
                         ;
 
-gameObjectType          : 'Screen ' | 'Entity ' | 'MovePattern'
+gameObjectType          : 'Screen ' | 'Entity ' | 'MovePattern' 
                         ;
 
 gameObjectContents      : gameObjectContent
@@ -19,15 +19,22 @@ gameObjectContents      : gameObjectContent
                         | empty
                         ;
 
-gameObjectContent       : contentType L_BRACES statementList R_BRACES
+gameObjectContent       : contentScreenType L_BRACES statementList R_BRACES
+                        | contentEntityType L_BRACES statementList R_BRACES
+                        | contentMovePatternType L_BRACES statementList R_BRACES
                         ;
 
-contentType             : 'Map'
+contentScreenType       : 'Map'                 
                         | 'OnScreenEntered'
                         | 'Entities'
                         | 'Exits'
-                        | 'Data'
-                        | 'Pattern'
+                        ;
+
+contentEntityType       : 'Data'
+                        ;
+
+
+contentMovePatternType  : 'Pattern'
                         ;
 
 statementList           : statement ';'

@@ -1,4 +1,5 @@
 ﻿using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
@@ -6,15 +7,16 @@ namespace Interpreter.Ast
     {
         public override GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
         {
-            var gameObjectType = VisitGameObjectType(context.gameObjectType());
-            var gameObjectContents = VisitGameObjectContents(context.gameObjectContents());
+            VisitGameObjectType(context.gameObjectType());
+            
 
             return new GameObject();
         }
 
         public override GameObjectNode VisitGameObjectType(DazelParser.GameObjectTypeContext context)
         {
-            return new GameObjectType();
+            VisitGameObjectContents(context.gameObjectContents());
+            return new GameObjectType(context);
         }
 
         public override GameObjectNode VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
@@ -29,15 +31,28 @@ namespace Interpreter.Ast
 
         public override GameObjectNode VisitGameObjectContent(DazelParser.GameObjectContentContext context)
         {
-            var contentType = VisitContentType(context.contentType());
-            var statements = new StatementVisitor().VisitStatementList(context.statementList());
+            GameObjectNode contentScreenType = VisitContentScreenType(context.contentScreenType());
+            GameObjectNode contentEntityType = VisitContentEntityType(context.contentEntityType());
+            GameObjectNode contentMovePattern = VisitContentMovePatternType(context.contentMovePatternType());
+            StatementNode statements = new StatementVisitor().VisitStatementList(context.statementList());
 
             return new GameObjectContent();
         }
 
-        public override GameObjectNode VisitContentType(DazelParser.ContentTypeContext context)
+        public override GameObjectNode VisitContentScreenType(DazelParser.ContentScreenTypeContext context)
         {
-            return new GameObjectContentType();
+            return new GameObjectScreenType();
         }
+
+        public override GameObjectNode VisitContentEntityType(DazelParser.ContentEntityTypeContext context)
+        {
+            return new GameObjectEntityType();
+        }
+
+        public override GameObjectNode VisitContentMovePatternType(DazelParser.ContentMovePatternTypeContext context)
+        {
+            return new GameObjectContentMovePattern();
+        }
+        
     }
 }

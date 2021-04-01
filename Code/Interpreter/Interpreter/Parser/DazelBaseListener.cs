@@ -108,17 +108,41 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitGameObjectContent([NotNull] DazelParser.GameObjectContentContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.contentType"/>.
+	/// Enter a parse tree produced by <see cref="DazelParser.contentScreenType"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterContentType([NotNull] DazelParser.ContentTypeContext context) { }
+	public virtual void EnterContentScreenType([NotNull] DazelParser.ContentScreenTypeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.contentType"/>.
+	/// Exit a parse tree produced by <see cref="DazelParser.contentScreenType"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitContentType([NotNull] DazelParser.ContentTypeContext context) { }
+	public virtual void ExitContentScreenType([NotNull] DazelParser.ContentScreenTypeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.contentEntityType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterContentEntityType([NotNull] DazelParser.ContentEntityTypeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.contentEntityType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitContentEntityType([NotNull] DazelParser.ContentEntityTypeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.contentMovePatternType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterContentMovePatternType([NotNull] DazelParser.ContentMovePatternTypeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.contentMovePatternType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitContentMovePatternType([NotNull] DazelParser.ContentMovePatternTypeContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// <para>The default implementation does nothing.</para>
