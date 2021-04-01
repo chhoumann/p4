@@ -2,6 +2,6 @@
 {
     public abstract class GameObjectNode
     {
-        
+        public virtual void Accept(IGameObjectVisitor visitor) { }
     }
 }
