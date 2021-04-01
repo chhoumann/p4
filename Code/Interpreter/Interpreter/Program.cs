@@ -4,9 +4,9 @@ using Interpreter.Ast;
 
 namespace Interpreter
 {
-    class Program
+    public sealed class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             ICharStream stream = CharStreams.fromPath(@".\Antlr\example.txt");
             ITokenSource lexer = new DazelLexer(stream);
