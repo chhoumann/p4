@@ -31,8 +31,6 @@ namespace Interpreter.Ast
                 Contents = VisitGameObjectContents(context.gameObjectContents())
             };
             
-            gameObject.Accept(this);
-
             return gameObject;
         }
 
@@ -40,9 +38,11 @@ namespace Interpreter.Ast
         {
             List<GameObjectContent> contents = new();
 
-            for (int i = 0; i < context.children.Count; i++)
+            contents.Add(VisitGameObjectContent(context.gameObjectContent()));
+            
+            if (context.ChildCount > 1)
             {
-                contents.Add(VisitGameObjectContent(context.gameObjectContent()));
+                contents.AddRange(VisitGameObjectContents(context.gameObjectContents()));
             }
 
             return contents;

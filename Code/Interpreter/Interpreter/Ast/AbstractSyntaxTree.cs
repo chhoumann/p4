@@ -11,6 +11,10 @@ namespace Interpreter.Ast
             GameObject gameObject = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
 
             Console.WriteLine(gameObject.Type.ToString());
+            foreach (GameObjectContent vContent in gameObject.Contents)
+            {
+                Console.WriteLine(vContent.GetType());
+            }
         }
     }
 }
