@@ -1,4 +1,6 @@
-﻿using Interpreter.Ast.Nodes.GameObjectNodes;
+﻿using System;
+using System.Collections.Generic;
+using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
@@ -7,55 +9,80 @@ namespace Interpreter.Ast
     {
         public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
         {
-            
-            var gameObject = new GameObject()
+            GameObject gameObject = new GameObject
             {
-                Type = (GameObjectType)VisitGameObjectType(context.gameObjectType())
+                Type = VisitGameObjectType(context.gameObjectType()),
+                Contents = VisitGameObjectContents(context.gameObjectContents())
             };
+            
+            gameObject.Accept(this);
 
-            return new GameObject();
+            return gameObject;
         }
 
-        public GameObjectNode VisitGameObjectType(DazelParser.GameObjectTypeContext context)
+        public GameObjectType VisitGameObjectType(DazelParser.GameObjectTypeContext context)
         {
-            VisitGameObjectContents(context.gameObjectContents());
-            return new GameObjectType(context);
+            GameObjectType type;
+            
+            
+            if (context.GetType() == typeof(DazelParser.ScreenContentTypeContext))
+            {
+                type = new ScreenType();
+            }
+            else if (context.GetType() == typeof(DazelParser.EntityContentTypeContext))
+            {
+                type = new EntityType();
+            }
+            else if (context.GetType() == typeof(DazelParser.MovePatternContentTypeContext))
+            {
+                type = new MovePatternType();
+            }
+            else
+            {
+                throw new ArgumentException("Type is not a GameObjectType!");
+            }
+                
+            type.Accept(this);
+            
+            return type;
         }
 
-        public GameObjectNode VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
+        public List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
         {
             if (context.ChildCount == 1)
             {
                 VisitGameObjectContent(context.gameObjectContent());
             }
 
-            return new GameObjectContents();
+            return new List<GameObjectContent>();
         }
 
-        public GameObjectNode VisitGameObjectContent(DazelParser.GameObjectContentContext context)
+        public GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context)
         {
-            GameObjectNode contentScreenType = VisitContentScreenType(context.contentScreenType());
-            GameObjectNode contentEntityType = VisitContentEntityType(context.contentEntityType());
-            GameObjectNode contentMovePattern = VisitContentMovePatternType(context.contentMovePatternType());
             StatementNode statements = new StatementVisitor().VisitStatementList(context.statementList());
 
+            switch (context.screenContentType.Type)
+            {
+                case DazelLexer.MAP:
+                    break;
+            }
+            
             return new GameObjectContent();
         }
 
-        public GameObjectNode VisitContentScreenType(DazelParser.ContentScreenTypeContext context)
+        public EntityType VisitEntityType(DazelParser.EntityTypeContext context)
         {
-            return new GameObjectScreenType();
+            return null;
         }
 
-        public GameObjectNode VisitContentEntityType(DazelParser.ContentEntityTypeContext context)
+        public ScreenType VisitScreenType(DazelParser.ScreenTypeContext context)
         {
-            return new GameObjectEntityType();
+            return null;
         }
 
-        public GameObjectNode VisitContentMovePatternType(DazelParser.ContentMovePatternTypeContext context)
+        public MovePatternType VisitMovePattern(DazelParser.MovePatternTypeContext context)
         {
-            return new GameObjectContentMovePattern();
+            return null;
         }
-        
     }
 }

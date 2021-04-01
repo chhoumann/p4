@@ -1,6 +1,6 @@
 ﻿namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public sealed class GameObjectEntityType : GameObjectNode
+    public sealed class ScreenType : GameObjectType
     {
         
     }

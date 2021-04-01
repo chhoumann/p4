@@ -19,22 +19,22 @@ gameObjectContents      : gameObjectContent
                         | empty
                         ;
 
-gameObjectContent       : contentScreenType L_BRACES statementList R_BRACES
-                        | contentEntityType L_BRACES statementList R_BRACES
-                        | contentMovePatternType L_BRACES statementList R_BRACES
+gameObjectContent       : screenType L_BRACES statementList R_BRACES
+                        | entityType L_BRACES statementList R_BRACES
+                        | movePatternType L_BRACES statementList R_BRACES
                         ;
 
-contentScreenType       : 'Map'                 
+screenType              : 'Map'                 
                         | 'OnScreenEntered'
                         | 'Entities'
                         | 'Exits'
                         ;
 
-contentEntityType       : 'Data'
+entityType              : 'Data'
                         ;
 
 
-contentMovePatternType  : 'Pattern'
+movePatternType         : 'Pattern'
                         ;
 
 statementList           : statement ';'
@@ -104,7 +104,7 @@ array                   : L_BRACKET valueList R_BRACKET
 /* Lexer rules */
 IDENTIFIER              : [a-zA-Z][a-zA-Z_0-9]*;
 INT                     : [0-9]+;
-FLOAT                   : [0-9]+.[0-9]+;
+FLOAT                   : [0-9]+'.'[0-9]+;
             
 L_PARANTHESIS           : '(';
 R_PARANTHESIS           : ')';

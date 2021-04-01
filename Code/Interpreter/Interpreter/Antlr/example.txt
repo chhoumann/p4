@@ -1,6 +1,6 @@
 Screen SampleScreen1 
 {
-	Map 
+	Map
 	{
 		Size(30, 24);
 
@@ -19,7 +19,7 @@ Screen SampleScreen1
 		SpawnEntity(Skeleton1, [4, 4]);
 	}
 	
-	Exits 
+	Exits
 	{
 		Exit1 = Exit([4, 0], SampleScreen2.Exit1);
 		ScreenExit(Bottom, SampleScreen2);

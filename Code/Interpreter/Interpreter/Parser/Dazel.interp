@@ -75,9 +75,9 @@ empty
 gameObjectType
 gameObjectContents
 gameObjectContent
-contentScreenType
-contentEntityType
-contentMovePatternType
+screenContentType
+entityContentType
+movePatternContentType
 statementList
 statement
 repeatLoop

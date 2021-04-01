@@ -1,4 +1,5 @@
-﻿using Interpreter.Ast.Nodes.GameObjectNodes;
+﻿using System.Collections.Generic;
+using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter.Ast
 {
@@ -6,10 +7,10 @@ namespace Interpreter.Ast
     {
         GameObjectNode VisitGameObject(DazelParser.GameObjectContext context);
         GameObjectType VisitGameObjectType(DazelParser.GameObjectTypeContext context);
-        GameObjectContents VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
+        List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
         GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context);
-        GameObjectEntityType VisitEntityType(DazelParser.ContentEntityTypeContext context);
-        GameObjectScreenType VisitScreenType(DazelParser.ContentScreenTypeContext context);
-        GameObjectContentMovePattern VisitContentMovePattern(DazelParser.ContentMovePatternTypeContext context);
+        EntityType VisitEntityType(DazelParser.EntityTypeContext context);
+        ScreenType VisitScreenType(DazelParser.ScreenTypeContext context);
+        MovePatternType VisitMovePattern(DazelParser.MovePatternTypeContext context);
     }
 }

@@ -19,22 +19,22 @@ gameObjectContents      : gameObjectContent
                         | empty
                         ;
 
-gameObjectContent       : contentScreenType L_BRACES statementList R_BRACES
-                        | contentEntityType L_BRACES statementList R_BRACES
-                        | contentMovePatternType L_BRACES statementList R_BRACES
+gameObjectContent       : screenContentType L_BRACES statementList R_BRACES
+                        | entityContentType L_BRACES statementList R_BRACES
+                        | movePatternContentType L_BRACES statementList R_BRACES
                         ;
 
-contentScreenType       : 'Map'                 
+screenContentType       : 'Map'                 
                         | 'OnScreenEntered'
                         | 'Entities'
                         | 'Exits'
                         ;
 
-contentEntityType       : 'Data'
+entityContentType       : 'Data'
                         ;
 
 
-contentMovePatternType  : 'Pattern'
+movePatternContentType  : 'Pattern'
                         ;
 
 statementList           : statement ';'
