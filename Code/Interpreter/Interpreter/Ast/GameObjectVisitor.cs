@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.StatementNodes;
 
@@ -9,42 +10,32 @@ namespace Interpreter.Ast
     {
         public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
         {
-            GameObject gameObject = new GameObject
+            GameObjectType type;
+            
+            switch (context.gameObjectType.Type)
             {
-                Type = VisitGameObjectType(context.gameObjectType()),
+                case DazelLexer.SCREEN:
+                    type = new ScreenType();
+                    break;
+                case DazelLexer.ENTITY:
+                    type = new EntityType();
+                    break;
+                case DazelLexer.MOVE_PATTERN:
+                    type = new MovePatternType();
+                    break;
+                default:
+                    throw new ArgumentException("Type is not a GameObjectType!");
+            }
+
+            GameObject gameObject = new()
+            {
+                Type = type,
                 Contents = VisitGameObjectContents(context.gameObjectContents())
             };
             
             gameObject.Accept(this);
 
             return gameObject;
-        }
-
-        public GameObjectType VisitGameObjectType(DazelParser.GameObjectTypeContext context)
-        {
-            GameObjectType type;
-            
-            
-            if (context.GetType() == typeof(DazelParser.ScreenContentTypeContext))
-            {
-                type = new ScreenType();
-            }
-            else if (context.GetType() == typeof(DazelParser.EntityContentTypeContext))
-            {
-                type = new EntityType();
-            }
-            else if (context.GetType() == typeof(DazelParser.MovePatternContentTypeContext))
-            {
-                type = new MovePatternType();
-            }
-            else
-            {
-                throw new ArgumentException("Type is not a GameObjectType!");
-            }
-                
-            type.Accept(this);
-            
-            return type;
         }
 
         public List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)

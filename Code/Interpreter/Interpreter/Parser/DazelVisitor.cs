@@ -50,12 +50,6 @@ public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitEmpty([NotNull] DazelParser.EmptyContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitGameObjectType([NotNull] DazelParser.GameObjectTypeContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.gameObjectContents"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

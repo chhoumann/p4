@@ -61,16 +61,6 @@ public interface IDazelListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitEmpty([NotNull] DazelParser.EmptyContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterGameObjectType([NotNull] DazelParser.GameObjectTypeContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitGameObjectType([NotNull] DazelParser.GameObjectTypeContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectContents"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

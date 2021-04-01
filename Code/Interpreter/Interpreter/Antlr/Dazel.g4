@@ -5,14 +5,12 @@ WS  :   [ \t\r\n]+ -> skip;
 /* PARSER RULES */
 start: gameObject;
 
-gameObject              : gameObjectType IDENTIFIER L_BRACES gameObjectContents R_BRACES
+gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER L_BRACES gameObjectContents R_BRACES
                         ;
 
 empty                   : 
                         ;
 
-gameObjectType          : 'Screen ' | 'Entity ' | 'MovePattern' 
-                        ;
 
 gameObjectContents      : gameObjectContent
                         | gameObjectContent gameObjectContents
@@ -106,6 +104,10 @@ IDENTIFIER              : [a-zA-Z][a-zA-Z_0-9]*;
 INT                     : [0-9]+;
 FLOAT                   : [0-9]+'.'[0-9]+;
             
+SCREEN                  : 'Screen ';
+ENTITY                  : 'Entity ';
+MOVE_PATTERN            : 'MovePattern ';
+
 L_PARANTHESIS           : '(';
 R_PARANTHESIS           : ')';
 L_BRACKET               : '[';

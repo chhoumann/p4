@@ -72,18 +72,6 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitEmpty([NotNull] DazelParser.EmptyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGameObjectType([NotNull] DazelParser.GameObjectTypeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.gameObjectType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGameObjectType([NotNull] DazelParser.GameObjectTypeContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectContents"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
