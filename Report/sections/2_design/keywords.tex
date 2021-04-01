@@ -1,0 +1,34 @@
+\subsection{Keywords}
+These are the reserved keywords that have been used.  A convention has been introduced that defines all block-indicators to be denoted by an upper-case first character.
+
+\begin{multicols}{4}
+    \begin{enumerate}
+        \item \texttt{repeat}\label{itm:repeat}
+        \item \texttt{until}\label{itm:until}
+        \item \texttt{or}\label{itm:or}
+        \item \texttt{and}\label{itm:and}
+        \item \texttt{forever}\label{itm:forever}
+        \item \texttt{Create}\label{itm:Create}
+        \item \texttt{Screen}\label{itm:Screen}
+        \item \texttt{Entity}\label{itm:Entity}
+        \item \texttt{MovePattern}\label{itm:MovePattern}
+        \item \texttt{Exit}\label{itm:Exit}
+        \item \texttt{ScreenExit}\label{itm:ScreenExit}
+        \item \texttt{FloorExit}\label{itm:FloorExit}
+        \item \texttt{Player}\label{itm:Player}
+    \end{enumerate}
+\end{multicols}
+
+\ref{itm:repeat} indicates a loop. It is followed by \ref{itm:until} and expression, which can contain \ref{itm:or} or \ref{itm:and}. Otherwise, it is followed by \ref{itm:forever}, which indicates a never-ending loop.
+
+\ref{itm:Create} is used to create a new instance. It is almost synonymous with \verb|new| in other languages.
+
+\ref{itm:Screen} denotes a screen block, which is a container for other blocks like \verb|Map|, \verb|OnScreenEntered|, \verb|Entities|, and \verb|Exits|.
+
+\ref{itm:Entity} is a block used to define what an entity is and what it does.
+
+\ref{itm:MovePattern} is a block used to define a move pattern which can be applied to an entity.
+
+\ref{itm:Exit}, \ref{itm:ScreenExit}, and \ref{itm:FloorExit} denotes exits or transitions to other screens. These are usually triggered by player movement.
+
+\ref{itm:Player} is globally accessible and always points to the player. This allows the programmer to create interactions involving the player. \fxfatal{unsure about how to describe this since there is nothing to describe at the moment - we do not have anything implemented}
