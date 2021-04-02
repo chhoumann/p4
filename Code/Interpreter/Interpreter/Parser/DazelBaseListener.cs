@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:/Users/Patrick/Documents/GitHub/p4/Code/Interpreter/Interpreter/Antlr\Dazel.g4 by ANTLR 4.9.1
+// Generated from D:/Mapper/Tools/Dev/Projects/p4/Code/Interpreter/Interpreter/Antlr\Dazel.g4 by ANTLR 4.9.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -96,42 +96,6 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitGameObjectContent([NotNull] DazelParser.GameObjectContentContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.screenContentType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterScreenContentType([NotNull] DazelParser.ScreenContentTypeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.screenContentType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitScreenContentType([NotNull] DazelParser.ScreenContentTypeContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.entityContentType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEntityContentType([NotNull] DazelParser.EntityContentTypeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.entityContentType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEntityContentType([NotNull] DazelParser.EntityContentTypeContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="DazelParser.movePatternContentType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMovePatternContentType([NotNull] DazelParser.MovePatternContentTypeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DazelParser.movePatternContentType"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMovePatternContentType([NotNull] DazelParser.MovePatternContentTypeContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -179,6 +143,18 @@ public partial class DazelBaseListener : IDazelListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitIfStatement([NotNull] DazelParser.IfStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.statementExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStatementExpression([NotNull] DazelParser.StatementExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.statementExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStatementExpression([NotNull] DazelParser.StatementExpressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.assignment"/>.
 	/// <para>The default implementation does nothing.</para>

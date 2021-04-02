@@ -7,5 +7,14 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
     {
         public GameObjectType Type { get; set; }
         public List<GameObjectContent> Contents { get; set; }
+
+        public override void PrintMe()
+        {
+            Type.PrintMe();
+            foreach (GameObjectContent gameObjectContent in Contents)
+            {
+                gameObjectContent.PrintMe();
+            }
+        }
     }
 }

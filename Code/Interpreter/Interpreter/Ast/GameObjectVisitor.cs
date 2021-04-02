@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 
 namespace Interpreter.Ast
 {
@@ -52,9 +53,36 @@ namespace Interpreter.Ast
 
         public GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context)
         {
+            GameObjectContentType gameObjectContentType;
+            
+            switch (context.gameObjectContentType.Type)
+            {
+                case DazelLexer.MAP:
+                    gameObjectContentType = new MapType();
+                    break;
+                case DazelLexer.ONSCREENENTERED:
+                    gameObjectContentType = new OnScreenEnteredType();
+                    break;
+                case DazelLexer.ENTITIES:
+                    gameObjectContentType = new EntitiesType();
+                    break;
+                case DazelLexer.EXITS:
+                    gameObjectContentType = new ExitsType();
+                    break;
+                case DazelLexer.DATA:
+                    gameObjectContentType = new DataType();
+                    break;
+                case DazelLexer.PATTERN:
+                    gameObjectContentType = new PatternType();
+                    break;
+                default:
+                    throw new ArgumentException("Invalid content type.");
+            }
+            
             GameObjectContent content = new()
             {
                 Statements = new StatementVisitor().VisitStatementList(context.statementList()),
+                Type = gameObjectContentType,
             };
 
             return content;

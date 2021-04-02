@@ -1,7 +1,14 @@
-﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
+﻿using System;
+
+namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
-    class FloatValue : Value
+    public sealed class FloatValue : Value
     {
         public float Value { get; set; }
+
+        public override void PrintMe()
+        {
+            Console.Write($"{Value}");
+        }
     }
 }

@@ -2,9 +2,6 @@
 {
     public abstract class ExpressionNode
     {
-        public virtual void Accept(IExpressionVisitor visitor)
-        {
-            
-        }
+        public abstract void PrintMe();
     }
 }

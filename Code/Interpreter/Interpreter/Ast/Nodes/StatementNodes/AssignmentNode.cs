@@ -1,4 +1,5 @@
-﻿using Interpreter.Ast.Nodes.ExpressionNodes;
+﻿using System;
+using Interpreter.Ast.Nodes.ExpressionNodes;
 
 namespace Interpreter.Ast.Nodes.StatementNodes
 {
@@ -6,5 +7,11 @@ namespace Interpreter.Ast.Nodes.StatementNodes
     {
         public string Identifier { get; set; }
         public ExpressionNode Expression { get; set; }
+        public override void PrintMe()
+        {
+            Console.Write($"{Identifier} = ");
+            Console.WriteLine(Expression.GetType());
+            Console.WriteLine();
+        }
     }
 }

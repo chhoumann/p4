@@ -2,6 +2,6 @@
 {
     public abstract class StatementNode
     {
-        
+        public virtual void PrintMe() { }
     }
 }

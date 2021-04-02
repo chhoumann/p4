@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:/Users/Patrick/Documents/GitHub/p4/Code/Interpreter/Interpreter/Antlr\Dazel.g4 by ANTLR 4.9.1
+// Generated from D:/Mapper/Tools/Dev/Projects/p4/Code/Interpreter/Interpreter/Antlr\Dazel.g4 by ANTLR 4.9.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -62,24 +62,6 @@ public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitGameObjectContent([NotNull] DazelParser.GameObjectContentContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.screenContentType"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitScreenContentType([NotNull] DazelParser.ScreenContentTypeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.entityContentType"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitEntityContentType([NotNull] DazelParser.EntityContentTypeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="DazelParser.movePatternContentType"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMovePatternContentType([NotNull] DazelParser.MovePatternContentTypeContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.statementList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -103,6 +85,12 @@ public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitIfStatement([NotNull] DazelParser.IfStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DazelParser.statementExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStatementExpression([NotNull] DazelParser.StatementExpressionContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.assignment"/>.
 	/// </summary>

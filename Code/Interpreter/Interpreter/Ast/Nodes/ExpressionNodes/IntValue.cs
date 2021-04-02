@@ -1,7 +1,13 @@
-﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
+﻿using System;
+
+namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
-    class IntValue : Value
+    public sealed class IntValue : Value
     {
         public int Value { get; set; }
+        public override void PrintMe()
+        {
+            Console.Write(Value);
+        }
     }
 }

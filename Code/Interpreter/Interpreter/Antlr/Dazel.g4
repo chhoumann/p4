@@ -17,22 +17,7 @@ gameObjectContents      : gameObjectContent
                         | empty
                         ;
 
-gameObjectContent       : screenContentType L_BRACES statementList R_BRACES
-                        | entityContentType L_BRACES statementList R_BRACES
-                        | movePatternContentType L_BRACES statementList R_BRACES
-                        ;
-
-screenContentType       : 'Map'                 
-                        | 'OnScreenEntered'
-                        | 'Entities'
-                        | 'Exits'
-                        ;
-
-entityContentType       : 'Data'
-                        ;
-
-
-movePatternContentType  : 'Pattern'
+gameObjectContent       : gameObjectContentType=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) L_BRACES statementList R_BRACES
                         ;
 
 statementList           : statement ';'
@@ -109,6 +94,13 @@ FLOAT                   : [0-9]+'.'[0-9]+;
 SCREEN                  : 'Screen ';
 ENTITY                  : 'Entity ';
 MOVE_PATTERN            : 'MovePattern ';
+
+MAP                     : 'Map ';
+ONSCREENENTERED         : 'OnScreenEntered ';
+ENTITIES                : 'Entities ';
+EXITS                   : 'Exits ';
+DATA                    : 'Data ';
+PATTERN                 : 'Pattern ';
 
 L_PARANTHESIS           : '(';
 R_PARANTHESIS           : ')';
