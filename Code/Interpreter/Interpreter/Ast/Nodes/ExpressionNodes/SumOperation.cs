@@ -6,7 +6,7 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
     {
         public override void PrintMe()
         {
-            Console.WriteLine("SumOP not implementeed.");
+            Console.Write($" {Operation} ");
         }
     }
 }

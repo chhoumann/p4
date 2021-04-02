@@ -6,7 +6,9 @@
 
         public override void PrintMe()
         {
+            Left.PrintMe();
             Operation.PrintMe();
+            Right.PrintMe();
         }
     }
 }

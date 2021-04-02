@@ -6,7 +6,7 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
     {
         public override void PrintMe()
         {
-            Console.WriteLine("FactorOP Not Implemented");
+            Console.Write($" {Operation} ");
         }
     }
 }

@@ -2,6 +2,7 @@ grammar Dazel; // Defines grammar
 
 WS  :   [ \t\r\n]+ -> skip;
 
+//SPACING : [\t\r\n]+?;
 /* PARSER RULES */
 start: gameObject;
 

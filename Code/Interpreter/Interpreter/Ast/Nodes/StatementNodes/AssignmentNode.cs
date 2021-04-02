@@ -10,7 +10,7 @@ namespace Interpreter.Ast.Nodes.StatementNodes
         public override void PrintMe()
         {
             Console.Write($"{Identifier} = ");
-            Console.WriteLine(Expression.GetType());
+            Expression.PrintMe();
             Console.WriteLine();
         }
     }
