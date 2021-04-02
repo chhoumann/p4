@@ -13,7 +13,7 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
         {
             return new IdentifierValue()
             {
-                Value = "Evaluate has not yet been implemented."
+                Value = "Function Evaluate has not yet been implemented."
             };
         }
 
