@@ -1240,6 +1240,7 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class ValueContext : ParserRuleContext {
+		public IToken terminalValue;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(DazelParser.IDENTIFIER, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INT() { return GetToken(DazelParser.INT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOAT() { return GetToken(DazelParser.FLOAT, 0); }
@@ -1263,49 +1264,44 @@ public partial class DazelParser : Parser {
 	public ValueContext value() {
 		ValueContext _localctx = new ValueContext(Context, State);
 		EnterRule(_localctx, 46, RULE_value);
+		int _la;
 		try {
-			State = 184;
+			State = 182;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,9,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 178;
-				Match(IDENTIFIER);
+				_localctx.terminalValue = TokenStream.LT(1);
+				_la = TokenStream.LA(1);
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << INT) | (1L << FLOAT))) != 0)) ) {
+					_localctx.terminalValue = ErrorHandler.RecoverInline(this);
+				}
+				else {
+					ErrorHandler.ReportMatch(this);
+				    Consume();
+				}
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 179;
-				Match(INT);
+				array();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 180;
-				Match(FLOAT);
+				memberAccess();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
 				State = 181;
-				array();
-				}
-				break;
-			case 5:
-				EnterOuterAlt(_localctx, 5);
-				{
-				State = 182;
-				memberAccess();
-				}
-				break;
-			case 6:
-				EnterOuterAlt(_localctx, 6);
-				{
-				State = 183;
 				functionInvocation();
 				}
 				break;
@@ -1342,11 +1338,11 @@ public partial class DazelParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 186;
+			State = 184;
 			Match(L_BRACKET);
-			State = 187;
+			State = 185;
 			valueList();
-			State = 188;
+			State = 186;
 			Match(R_BRACKET);
 			}
 		}
@@ -1383,7 +1379,7 @@ public partial class DazelParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\"', '\xC1', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', '\"', '\xBF', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
 		'\x4', '\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x4', '\v', '\t', '\v', 
@@ -1419,14 +1415,14 @@ public partial class DazelParser : Parser {
 		'\x3', '\x16', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', 
 		'\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', 
 		'\x3', '\x18', '\x5', '\x18', '\xB3', '\n', '\x18', '\x3', '\x19', '\x3', 
-		'\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x5', 
-		'\x19', '\xBB', '\n', '\x19', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', 
-		'\x3', '\x1A', '\x3', '\x1A', '\x2', '\x4', ' ', '\"', '\x1B', '\x2', 
-		'\x4', '\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x14', '\x16', 
-		'\x18', '\x1A', '\x1C', '\x1E', ' ', '\"', '$', '&', '(', '*', ',', '.', 
-		'\x30', '\x32', '\x2', '\x6', '\x3', '\x2', '\x12', '\x14', '\x3', '\x2', 
-		'\x3', '\x6', '\x3', '\x2', '\x1E', '\x1F', '\x3', '\x2', ' ', '!', '\x2', 
-		'\xBA', '\x2', '\x34', '\x3', '\x2', '\x2', '\x2', '\x4', '\x36', '\x3', 
+		'\x19', '\x3', '\x19', '\x3', '\x19', '\x5', '\x19', '\xB9', '\n', '\x19', 
+		'\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', 
+		'\x2', '\x4', ' ', '\"', '\x1B', '\x2', '\x4', '\x6', '\b', '\n', '\f', 
+		'\xE', '\x10', '\x12', '\x14', '\x16', '\x18', '\x1A', '\x1C', '\x1E', 
+		' ', '\"', '$', '&', '(', '*', ',', '.', '\x30', '\x32', '\x2', '\a', 
+		'\x3', '\x2', '\x12', '\x14', '\x3', '\x2', '\x3', '\x6', '\x3', '\x2', 
+		'\x1E', '\x1F', '\x3', '\x2', ' ', '!', '\x3', '\x2', '\xF', '\x11', '\x2', 
+		'\xB6', '\x2', '\x34', '\x3', '\x2', '\x2', '\x2', '\x4', '\x36', '\x3', 
 		'\x2', '\x2', '\x2', '\x6', '<', '\x3', '\x2', '\x2', '\x2', '\b', '\x43', 
 		'\x3', '\x2', '\x2', '\x2', '\n', 'T', '\x3', '\x2', '\x2', '\x2', '\f', 
 		'V', '\x3', '\x2', '\x2', '\x2', '\xE', 'X', '\x3', '\x2', '\x2', '\x2', 
@@ -1439,7 +1435,7 @@ public partial class DazelParser : Parser {
 		'\x2', '\x2', '&', '\x9F', '\x3', '\x2', '\x2', '\x2', '(', '\xA1', '\x3', 
 		'\x2', '\x2', '\x2', '*', '\xA3', '\x3', '\x2', '\x2', '\x2', ',', '\xA8', 
 		'\x3', '\x2', '\x2', '\x2', '.', '\xB2', '\x3', '\x2', '\x2', '\x2', '\x30', 
-		'\xBA', '\x3', '\x2', '\x2', '\x2', '\x32', '\xBC', '\x3', '\x2', '\x2', 
+		'\xB8', '\x3', '\x2', '\x2', '\x2', '\x32', '\xBA', '\x3', '\x2', '\x2', 
 		'\x2', '\x34', '\x35', '\x5', '\x4', '\x3', '\x2', '\x35', '\x3', '\x3', 
 		'\x2', '\x2', '\x2', '\x36', '\x37', '\t', '\x2', '\x2', '\x2', '\x37', 
 		'\x38', '\a', '\xF', '\x2', '\x2', '\x38', '\x39', '\a', '\x19', '\x2', 
@@ -1520,18 +1516,16 @@ public partial class DazelParser : Parser {
 		'\x2', '\x2', '\x2', '\xB1', '\xB3', '\x5', '\x6', '\x4', '\x2', '\xB2', 
 		'\xAC', '\x3', '\x2', '\x2', '\x2', '\xB2', '\xAD', '\x3', '\x2', '\x2', 
 		'\x2', '\xB2', '\xB1', '\x3', '\x2', '\x2', '\x2', '\xB3', '/', '\x3', 
-		'\x2', '\x2', '\x2', '\xB4', '\xBB', '\a', '\xF', '\x2', '\x2', '\xB5', 
-		'\xBB', '\a', '\x10', '\x2', '\x2', '\xB6', '\xBB', '\a', '\x11', '\x2', 
-		'\x2', '\xB7', '\xBB', '\x5', '\x32', '\x1A', '\x2', '\xB8', '\xBB', '\x5', 
-		',', '\x17', '\x2', '\xB9', '\xBB', '\x5', '*', '\x16', '\x2', '\xBA', 
-		'\xB4', '\x3', '\x2', '\x2', '\x2', '\xBA', '\xB5', '\x3', '\x2', '\x2', 
-		'\x2', '\xBA', '\xB6', '\x3', '\x2', '\x2', '\x2', '\xBA', '\xB7', '\x3', 
-		'\x2', '\x2', '\x2', '\xBA', '\xB8', '\x3', '\x2', '\x2', '\x2', '\xBA', 
-		'\xB9', '\x3', '\x2', '\x2', '\x2', '\xBB', '\x31', '\x3', '\x2', '\x2', 
-		'\x2', '\xBC', '\xBD', '\a', '\x17', '\x2', '\x2', '\xBD', '\xBE', '\x5', 
-		'.', '\x18', '\x2', '\xBE', '\xBF', '\a', '\x18', '\x2', '\x2', '\xBF', 
-		'\x33', '\x3', '\x2', '\x2', '\x2', '\f', '\x43', 'T', '\x64', 'i', 'x', 
-		'\x89', '\x95', '\x9D', '\xB2', '\xBA',
+		'\x2', '\x2', '\x2', '\xB4', '\xB9', '\t', '\x6', '\x2', '\x2', '\xB5', 
+		'\xB9', '\x5', '\x32', '\x1A', '\x2', '\xB6', '\xB9', '\x5', ',', '\x17', 
+		'\x2', '\xB7', '\xB9', '\x5', '*', '\x16', '\x2', '\xB8', '\xB4', '\x3', 
+		'\x2', '\x2', '\x2', '\xB8', '\xB5', '\x3', '\x2', '\x2', '\x2', '\xB8', 
+		'\xB6', '\x3', '\x2', '\x2', '\x2', '\xB8', '\xB7', '\x3', '\x2', '\x2', 
+		'\x2', '\xB9', '\x31', '\x3', '\x2', '\x2', '\x2', '\xBA', '\xBB', '\a', 
+		'\x17', '\x2', '\x2', '\xBB', '\xBC', '\x5', '.', '\x18', '\x2', '\xBC', 
+		'\xBD', '\a', '\x18', '\x2', '\x2', '\xBD', '\x33', '\x3', '\x2', '\x2', 
+		'\x2', '\f', '\x43', 'T', '\x64', 'i', 'x', '\x89', '\x95', '\x9D', '\xB2', 
+		'\xB8',
 	};
 
 	public static readonly ATN _ATN =

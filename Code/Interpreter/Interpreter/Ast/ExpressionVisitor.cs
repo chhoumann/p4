@@ -1,102 +1,145 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
 using Interpreter.Ast.Nodes.ExpressionNodes;
-using Interpreter.Ast.Nodes.StatementNodes;
+using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Interpreter.Ast
 {
-    public sealed class ExpressionVisitor : DazelBaseVisitor<ExpressionNode>, IExpressionVisitor
+    public sealed class ExpressionVisitor : IExpressionVisitor
     {
         
-        public override ExpressionNode VisitExpression(DazelParser.ExpressionContext context)
+        public ExpressionNode VisitExpression(DazelParser.ExpressionContext context)
         {
             return VisitSumExpression(context.sumExpression());
         }
 
-        public override ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context)
+        public ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context)
         {
-            if (context.GetType() == typeof(DazelParser.FactorExpressionContext))
+            if (context.ChildCount > 1)
             {
-                return VisitFactorExpression(context.factorExpression());
+                return new SumExpression
+                {
+                    Left = VisitSumExpression(context.sumExpression()),
+                    Operation = VisitSumOperation(context.sumOperation()),
+                    Right = VisitFactorExpression(context.factorExpression())
+                };
             }
 
-            DazelParser.SumExpressionContext sumExpression = context.sumExpression();
-            return new SumExpression();
+            return VisitFactorExpression(context.factorExpression());
         }
         
-       public override ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
+        public ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context)
         {
-            if (context.GetType() == typeof(DazelParser.TerminalExpressionContext))
+            if (context.ChildCount > 1)
             {
-                return VisitTerminalExpression(context.terminalExpression());
+                return new FactorExpression
+                {
+                    Left = VisitFactorExpression(context.factorExpression()),
+                    Operation = VisitFactorOperation(context.factorOperation()),
+                    Right = VisitTerminalExpression(context.terminalExpression())
+                };
             }
 
-            DazelParser.FactorExpressionContext factorExpression = context.factorExpression();
-            return new FactorExpression();
+            return VisitTerminalExpression(context.terminalExpression());
         }
         
-        public override ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context)
+        public ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context)
         {
-            if (context.GetType() == typeof(DazelParser.ValueContext))
+            if (context.expression() != null)
             {
-                return VisitValue(context.value());
+                return VisitExpression(context.expression());
             }
 
-            DazelParser.ExpressionContext expression = context.expression();
-            return VisitExpression(expression);
+            return VisitValue(context.value());
         }
         
-        public override ExpressionNode VisitValue(DazelParser.ValueContext context)
+        public Value VisitValue(DazelParser.ValueContext context)
         {
-            if (context.GetType() == typeof(DazelParser.ArrayContext))
+            if (context.array() != null)
             {
                 return VisitArray(context.array());
             }
-            else if(context.GetType() == typeof(DazelParser.FunctionInvocationContext))
-            {
-                return VisitFunctionInvocation(context.functionInvocation());
-            }
-            else if (context.GetType() == typeof(DazelParser.MemberAccessContext))
+
+            if (context.memberAccess() != null)
             {
                 return VisitMemberAccess(context.memberAccess());
             }
+
+            if (context.functionInvocation() != null)
+            {
+                return new StatementVisitor().VisitFunctionInvocation(context.functionInvocation());
+            }
             
-            return new Value();
+            switch (context.terminalValue.Type)
+            {
+                case DazelLexer.IDENTIFIER:
+                    return new IdentifierValue()
+                    {
+                        Value = context.GetText()
+                    };
+                case DazelLexer.INT:
+                    return new IntValue()
+                    {
+                        Value = int.Parse(context.GetText())
+                    };
+                case DazelLexer.FLOAT:
+                    return new FloatValue()
+                    {
+                        Value = float.Parse(context.GetText())
+                    };
+                default:
+                    throw new ArgumentException("Invalid value passed.");
+            }
         }
         
-        public override ExpressionNode VisitArray(DazelParser.ArrayContext context)
+        public Array VisitArray(DazelParser.ArrayContext context)
         {
-            if (context.GetType() == typeof(DazelParser.ValueListContext))
-            {
-                return VisitValueList(context.valueList());
-            }
-
             return new Array();
         }
-        
-        public override ExpressionNode VisitValueList(DazelParser.ValueListContext context)
+
+        public List<Value> VisitValueList(DazelParser.ValueListContext context)
         {
-            if (context.ChildCount == 1)
+            List<Value> values = new();
+            
+            if (context.value() == null) return values;
+            
+            values.Add(VisitValue(context.value()));
+
+            if (context.valueList() != null)
             {
-                return new Value();
+                values.AddRange(VisitValueList(context.valueList()));
             }
 
-            return new ValueList();
+            return values;
+        }
+
+        public FactorOperation VisitFactorOperation(DazelParser.FactorOperationContext context)
+        {
+            char op = context.DIVISION_OP() != null ? Operators.DivOp : Operators.MultOp;
+            
+            return new FactorOperation()
+            {
+                Operation = op
+            };
         }
         
-        public override ExpressionNode VisitFactorOperation(DazelParser.FactorOperationContext context)
+        public SumOperation VisitSumOperation(DazelParser.SumOperationContext context)
         {
-            return new FactorOperation();
+            char op = context.PLUS_OP() != null ? Operators.AddOp : Operators.MinOp;
+
+            return new SumOperation()
+            {
+                Operation = op
+            };
         }
         
-        public override ExpressionNode VisitSumOperation(DazelParser.SumOperationContext context)
+        public MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context)
         {
-            return new SumOperation();
-        }
-        
-        public override ExpressionNode VisitMemberAccess(DazelParser.MemberAccessContext context)
-        {
-            return new MemberAccess();
+            return new MemberAccess()
+            {
+                Left = context.GetChild(0).GetText(),
+                Right = context.GetChild(1).GetText()
+            };
         }
     }
 }

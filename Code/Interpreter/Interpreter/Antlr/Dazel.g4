@@ -91,9 +91,7 @@ valueList               : value
                         | empty
                         ;
 
-value                   : IDENTIFIER
-                        | INT
-                        | FLOAT
+value                   : terminalValue=(IDENTIFIER|INT|FLOAT)
                         | array
                         | memberAccess
                         | functionInvocation

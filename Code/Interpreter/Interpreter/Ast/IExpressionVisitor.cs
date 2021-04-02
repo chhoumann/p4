@@ -1,4 +1,4 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
 using Interpreter.Ast.Nodes.ExpressionNodes;
 
 namespace Interpreter.Ast
@@ -6,15 +6,14 @@ namespace Interpreter.Ast
     public interface IExpressionVisitor
     {
         ExpressionNode VisitExpression(DazelParser.ExpressionContext context);
-        ExpressionNode VisitAssignment(DazelParser.AssignmentContext context);
-        ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context);
-        ExpressionNode VisitFactorOperation(DazelParser.FactorOperationContext context);
         ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context);
-        ExpressionNode VisitSumOperation(DazelParser.SumOperationContext context);
-        ExpressionNode VisitArray(DazelParser.ArrayContext context);
-        ExpressionNode VisitMemberAccess(DazelParser.MemberAccessContext context);
-        ExpressionNode VisitValue(DazelParser.ValueContext context);
-        ExpressionNode VisitValueList(DazelParser.ValueListContext context);
+        ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context);
         ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context);
+        Value VisitValue(DazelParser.ValueContext context);
+        Array VisitArray(DazelParser.ArrayContext context);
+        List<Value> VisitValueList(DazelParser.ValueListContext context);
+        FactorOperation VisitFactorOperation(DazelParser.FactorOperationContext context);
+        SumOperation VisitSumOperation(DazelParser.SumOperationContext context);
+        MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context);
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
+﻿using System.Collections.Generic;
+
+namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
     public sealed class Array : Value
     {
-        public ValueList Values { get; set; }
+        public List<Value> Values { get; set; }
     }
 }

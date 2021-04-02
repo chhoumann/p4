@@ -46,6 +46,7 @@ namespace Interpreter.Ast
             throw new ArgumentException("Invalid statement");
         }
         
+        // TOOD: Undecided
         public RepeatNode VisitRepeatLoop(DazelParser.RepeatLoopContext context)
         {
             // RepeatNode statements = VisitStatementList(context.statementList());
@@ -53,6 +54,7 @@ namespace Interpreter.Ast
             return new RepeatNode();
         }
 
+        // TOOD: Undecided
         public IfStatement VisitIfStatement(DazelParser.IfStatementContext context)
         {
             // // TODO: update expression visitor
@@ -64,14 +66,30 @@ namespace Interpreter.Ast
 
         public StatementExpression VisitStatementExpression(DazelParser.StatementExpressionContext context)
         {
-            return new StatementExpression();
+            if (context.assignment() != null)
+            {
+                return VisitAssignment(context.assignment());
+            }
+
+            return VisitFunctionInvocation(context.functionInvocation());
         }
 
-        public FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
+        public StatementExpression VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
         {
-            //var values = new ExpressionVisitor().VisitValueList(context.valueList());
+            return new FunctionInvocation()
+            {
+                Identifier = context.IDENTIFIER().GetText(),
+                Parameters = new ExpressionVisitor().VisitValueList(context.valueList())
+            };
+        }
 
-            return new FunctionInvocation();
+        public StatementExpression VisitAssignment(DazelParser.AssignmentContext context)
+        {
+            return new AssignmentNode()
+            {
+                Identifier = context.IDENTIFIER().GetText(),
+                Expression = new ExpressionVisitor().VisitExpression(context.expression())
+            };
         }
     }
 }

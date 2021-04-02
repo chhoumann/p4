@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.StatementNodes
 {
-    public sealed class StatementExpression : StatementNode
+    public class StatementExpression : StatementNode
     {
         public ExpressionNode Expression { get; set; }
     }

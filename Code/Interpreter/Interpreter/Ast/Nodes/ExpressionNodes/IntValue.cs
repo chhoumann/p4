@@ -1,6 +1,7 @@
 ﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
-    public abstract class Value : ExpressionNode
+    class IntValue : Value
     {
+        public int Value { get; set; }
     }
 }
