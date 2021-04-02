@@ -88,21 +88,20 @@ array                   : L_BRACKET valueList R_BRACKET
 
 
 /* Lexer rules */
+SCREEN                  : 'Screen';
+ENTITY                  : 'Entity';
+MOVE_PATTERN            : 'MovePattern';
+MAP                     : 'Map';
+ONSCREENENTERED         : 'OnScreenEntered';
+ENTITIES                : 'Entities';
+EXITS                   : 'Exits';
+DATA                    : 'Data';
+PATTERN                 : 'Pattern';
+
 IDENTIFIER              : [a-zA-Z][a-zA-Z_0-9]*;
 INT                     : [0-9]+;
 FLOAT                   : [0-9]+'.'[0-9]+;
             
-SCREEN                  : 'Screen ';
-ENTITY                  : 'Entity ';
-MOVE_PATTERN            : 'MovePattern ';
-
-MAP                     : 'Map ';
-ONSCREENENTERED         : 'OnScreenEntered ';
-ENTITIES                : 'Entities ';
-EXITS                   : 'Exits ';
-DATA                    : 'Data ';
-PATTERN                 : 'Pattern ';
-
 L_PARANTHESIS           : '(';
 R_PARANTHESIS           : ')';
 L_BRACKET               : '[';
