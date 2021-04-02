@@ -7,5 +7,10 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
     {
         public string Identifier { get; set; }
         public List<Value> Parameters { get; set; }
+
+        public Value Evaluate()
+        {
+            return new IntValue();
+        }
     }
 }

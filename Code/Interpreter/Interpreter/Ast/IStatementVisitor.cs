@@ -11,7 +11,7 @@ namespace Interpreter.Ast
         RepeatNode VisitRepeatLoop(DazelParser.RepeatLoopContext context);
         IfStatement VisitIfStatement(DazelParser.IfStatementContext context);
         StatementExpression VisitStatementExpression(DazelParser.StatementExpressionContext context);
-        StatementExpression VisitFunctionInvocation(DazelParser.FunctionInvocationContext context);
+        FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context);
         StatementExpression VisitAssignment(DazelParser.AssignmentContext context);
     }
 }

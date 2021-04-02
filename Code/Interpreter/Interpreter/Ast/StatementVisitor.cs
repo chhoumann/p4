@@ -74,9 +74,9 @@ namespace Interpreter.Ast
             return VisitFunctionInvocation(context.functionInvocation());
         }
 
-        public StatementExpression VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
+        public FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
         {
-            return new FunctionInvocation()
+            return new()
             {
                 Identifier = context.IDENTIFIER().GetText(),
                 Parameters = new ExpressionVisitor().VisitValueList(context.valueList())

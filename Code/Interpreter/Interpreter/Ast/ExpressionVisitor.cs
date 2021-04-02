@@ -67,9 +67,9 @@ namespace Interpreter.Ast
 
             if (context.functionInvocation() != null)
             {
-                return new StatementVisitor().VisitFunctionInvocation(context.functionInvocation());
+                return new StatementVisitor().VisitFunctionInvocation(context.functionInvocation()).Evaluate();
             }
-            
+
             switch (context.terminalValue.Type)
             {
                 case DazelLexer.IDENTIFIER:
@@ -94,7 +94,10 @@ namespace Interpreter.Ast
         
         public Array VisitArray(DazelParser.ArrayContext context)
         {
-            return new Array();
+            return new()
+            {
+                Values = VisitValueList(context.valueList())
+            };
         }
 
         public List<Value> VisitValueList(DazelParser.ValueListContext context)
