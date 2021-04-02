@@ -38,9 +38,11 @@ namespace Interpreter.Ast
         {
             List<GameObjectContent> contents = new();
 
+            if (context.gameObjectContent() == null) return contents;
+
             contents.Add(VisitGameObjectContent(context.gameObjectContent()));
             
-            if (context.ChildCount > 1)
+            if (context.gameObjectContents() != null)
             {
                 contents.AddRange(VisitGameObjectContents(context.gameObjectContents()));
             }

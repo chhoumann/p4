@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.StatementNodes;
 
@@ -10,6 +11,8 @@ namespace Interpreter.Ast
         public List<StatementNode> VisitStatementList(DazelParser.StatementListContext context)
         {
             List<StatementNode> statements = new();
+            
+            if (context.statement() == null) return statements;
             
             statements.Add(VisitStatement(context.statement()));
 
@@ -23,7 +26,8 @@ namespace Interpreter.Ast
 
         public StatementNode VisitStatement(DazelParser.StatementContext context)
         {
-            var child = context.GetChild(0);
+            IParseTree child = context.GetChild(0);
+            
             if (child.GetType() == typeof(DazelParser.IfStatementContext))
             {
                 return VisitIfStatement(context.ifStatement());
