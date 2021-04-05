@@ -2,102 +2,105 @@ grammar Dazel; // Defines grammar
 
 WS  :   [ \t\r\n]+ -> skip;
 
+//SPACING : [\t\r\n]+?;
 /* PARSER RULES */
-start: game_object;
+start: gameObject;
 
-game_object             : game_object_type IDENTIFIER L_BRACES game_object_contents R_BRACES
+gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER L_BRACES gameObjectContents R_BRACES
                         ;
 
 empty                   : 
                         ;
 
-game_object_type        : 'Screen ' | 'Entity ' | 'MovePattern'
-                        ;
 
-game_object_contents    : game_object_content
-                        | game_object_content game_object_contents
+gameObjectContents      : gameObjectContent
+                        | gameObjectContent gameObjectContents
                         | empty
                         ;
 
-game_object_content     : content_type L_BRACES statement_list R_BRACES
+gameObjectContent       : gameObjectContentType=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) L_BRACES statementList R_BRACES
                         ;
 
-content_type            : 'Map'
-                        | 'OnScreenEntered'
-                        | 'Entities'
-                        | 'Exits'
-                        | 'Data'
-                        | 'Pattern'
-                        ;
-
-statement_list          : statement ';'
-                        | statement ';' statement_list
+statementList           : statement ';'
+                        | statement ';' statementList
                         | empty
                         ;
 
-statement               : repeat_loop
-                        | assignment
-                        | function_invocation
-                        | if_statement
+statement               : repeatLoop
+                        | ifStatement
+                        | statementExpression
                         ;
 
-repeat_loop             : 'repeat' L_BRACES statement_list R_BRACES
+repeatLoop              : 'repeat' L_BRACES statementList R_BRACES
                         ;
 
-if_statement            : 'if' expression L_BRACES statement_list R_BRACES
+ifStatement             : 'if' expression L_BRACES statementList R_BRACES
+                        ;
+
+// https://cs.au.dk/~amoeller/RegAut/JavaBNF.html
+statementExpression     : assignment
+                        | functionInvocation
                         ;
 
 assignment              : IDENTIFIER ASSIGN_OP expression
                         ;
 
-expression              : sum_expression;
+expression              : sumExpression;
 
-sum_expression          : sum_expression sum_operation factor_expression
-                        | factor_expression
+sumExpression           : sumExpression sumOperation factorExpression
+                        | factorExpression
                         ;
 
-factor_expression       : factor_expression factor_operation terminal_expression
-                        | terminal_expression
+factorExpression        : factorExpression factorOperation terminalExpression
+                        | terminalExpression
                         ;
 
-terminal_expression     : value
+terminalExpression      : value
 	                    | L_PARANTHESIS expression R_PARANTHESIS
                         ;
 
-sum_operation           : PLUS_OP 
+sumOperation            : PLUS_OP 
                         | MINUS_OP;
 
-factor_operation        : MULTIPLICATION_OP 
+factorOperation         : MULTIPLICATION_OP 
                         | DIVISION_OP
                         ;
 
-function_invocation     : IDENTIFIER L_PARANTHESIS value_list R_PARANTHESIS
+functionInvocation      : IDENTIFIER L_PARANTHESIS valueList R_PARANTHESIS
                         ;
 
-member_access           : IDENTIFIER '.' IDENTIFIER
+memberAccess            : IDENTIFIER '.' IDENTIFIER
                         ;
 
-value_list              : value
-                        | value ',' value_list
+valueList               : value
+                        | value ',' valueList
                         | empty
                         ;
 
-value                   : IDENTIFIER
-                        | INT
-                        | FLOAT
+value                   : terminalValue=(IDENTIFIER|INT|FLOAT)
                         | array
-                        | function_invocation
-                        | member_access
+                        | memberAccess
+                        | functionInvocation
                         ;
 
-array                   : L_BRACKET value_list R_BRACKET
+array                   : L_BRACKET valueList R_BRACKET
                         ;
 
 
 /* Lexer rules */
+SCREEN                  : 'Screen';
+ENTITY                  : 'Entity';
+MOVE_PATTERN            : 'MovePattern';
+MAP                     : 'Map';
+ONSCREENENTERED         : 'OnScreenEntered';
+ENTITIES                : 'Entities';
+EXITS                   : 'Exits';
+DATA                    : 'Data';
+PATTERN                 : 'Pattern';
+
 IDENTIFIER              : [a-zA-Z][a-zA-Z_0-9]*;
 INT                     : [0-9]+;
-FLOAT                   : [0-9]+.[0-9]+;
+FLOAT                   : [0-9]+'.'[0-9]+;
             
 L_PARANTHESIS           : '(';
 R_PARANTHESIS           : ')';

@@ -14,7 +14,7 @@ Screen SampleScreen1
 		Square([8, 8], 4, Cliff);
 	}
 
-	Entities
+	Entities 
 	{
 		SpawnEntity(Skeleton1, [4, 4]);
 	}
@@ -23,6 +23,8 @@ Screen SampleScreen1
 	{
 		Exit1 = Exit([4, 0], SampleScreen2.Exit1);
 		ScreenExit(Bottom, SampleScreen2);
+		SomeVar = 3 + 3 + (3 + 3 + 3 + 3 * 3 * 2 * 1 * 5 * 1 - 3 + 8419);
+		SomeVar = SomeVar + 3;
 	
 		FloorExits(  
 			[ 

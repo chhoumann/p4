@@ -1,12 +1,12 @@
-﻿using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using Interpreter.Ast;
 
 namespace Interpreter
 {
-    class Program
+    public sealed class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             ICharStream stream = CharStreams.fromPath(@".\Antlr\example.txt");
             ITokenSource lexer = new DazelLexer(stream);
@@ -15,6 +15,7 @@ namespace Interpreter
 
             parser.BuildParseTree = true;
             IParseTree tree = parser.start();
+            AbstractSyntaxTree ast = new(tree);
         }
     }
 }
