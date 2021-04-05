@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Interpreter.Ast.Nodes.ExpressionNodes;
 
 namespace Interpreter.Ast
 {
@@ -11,13 +10,18 @@ namespace Interpreter.Ast
         public List<SymbolTable> Tables { get; set; }
 
         private static readonly Lazy<SymbolTables> Singleton = new(() => new SymbolTables());
+        
+        public void OpenScope(){}
+        public void CloseScope(){}
+        public void EnterSymbol(string identifier, string type) {}
+        public void RetrieveSymbol(string identifier){} // Maybe return SymbolTableRow
 
         public sealed class SymbolTable
         {
             private SymbolTable Parent { get; set; }
             private List<SymbolTable> Children { get; set; } = new();
 
-            public Dictionary<string, Value> Values { get; set; } = new();
+            public Dictionary<string, SymbolTableRow> Values { get; set; } = new();
             
             private SymbolTable() { }
 
