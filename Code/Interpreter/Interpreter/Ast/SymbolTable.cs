@@ -4,26 +4,34 @@ using Interpreter.Ast.Nodes.ExpressionNodes;
 
 namespace Interpreter.Ast
 {
-    public sealed class SymbolTable
+    public sealed class SymbolTables
     {
-        public static SymbolTable Instance => Singleton.Value;
-        private SymbolTable Parent { get; set; }
-        private List<SymbolTable> Children { get; set; } = new();
+        public static SymbolTables Instance => Singleton.Value;
 
-        public Dictionary<string, Value> Values { get; set; } = new();
+        public List<SymbolTable> Tables { get; set; }
 
-        private static readonly Lazy<SymbolTable> Singleton = new(() => new SymbolTable());
+        private static readonly Lazy<SymbolTables> Singleton = new(() => new SymbolTables());
 
-        public SymbolTable OpenAdjacentScope()
+        public sealed class SymbolTable
         {
-            return Parent.OpenChildScope();
-        }
+            private SymbolTable Parent { get; set; }
+            private List<SymbolTable> Children { get; set; } = new();
 
-        public SymbolTable OpenChildScope()
-        {
-            SymbolTable childTable = new();
-            Children.Add(childTable);
-            return childTable;
+            public Dictionary<string, Value> Values { get; set; } = new();
+            
+            private SymbolTable() { }
+
+            public SymbolTable OpenAdjacentScope()
+            {
+                return Parent.OpenChildScope();
+            }
+
+            public SymbolTable OpenChildScope()
+            {
+                SymbolTable childTable = new();
+                Children.Add(childTable);
+                return childTable;
+            }
         }
     }
 }
