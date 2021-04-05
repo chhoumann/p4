@@ -44,6 +44,12 @@ public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitGameObject([NotNull] DazelParser.GameObjectContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="DazelParser.gameObjectBlock"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitGameObjectBlock([NotNull] DazelParser.GameObjectBlockContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.empty"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -67,6 +73,12 @@ public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitStatementList([NotNull] DazelParser.StatementListContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DazelParser.statementBlock"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStatementBlock([NotNull] DazelParser.StatementBlockContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.statement"/>.
 	/// </summary>

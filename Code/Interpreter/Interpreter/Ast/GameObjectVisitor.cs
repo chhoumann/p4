@@ -28,8 +28,9 @@ namespace Interpreter.Ast
 
             GameObject gameObject = new()
             {
+                Identifier = context.GetChild(1).GetText(),
                 Type = type,
-                Contents = VisitGameObjectContents(context.gameObjectContents())
+                Contents = VisitGameObjectContents(context.gameObjectBlock().gameObjectContents())
             };
             
             return gameObject;
@@ -81,7 +82,7 @@ namespace Interpreter.Ast
             
             GameObjectContent content = new()
             {
-                Statements = new StatementVisitor().VisitStatementList(context.statementList()),
+                Statements = new StatementVisitor().VisitStatementBlock(context.statementBlock()),
                 Type = gameObjectContentType,
             };
 

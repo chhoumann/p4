@@ -2,13 +2,21 @@ Screen SampleScreen1
 {
 	Map 
 	{
+	    
 		Size(30, 24);
 
+	    {
+	        SomeVar3 = 3 + 3;
+	    }
+	    
 		Walls(Stone); 
 		Floor(Grass);
-
-		Line(TopLeft, TopRight, Cliff);
-		Line([2, 2], [2, 4], Cliff);
+		
+        {
+		    Line(TopLeft, TopRight, Cliff);
+		    Line([2, 2], [2, 4], Cliff);
+        }
+        
 
 		Square(position, size, Cliff);
 		Square([8, 8], 4, Cliff);

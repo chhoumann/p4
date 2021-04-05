@@ -6,7 +6,10 @@ WS  :   [ \t\r\n]+ -> skip;
 /* PARSER RULES */
 start: gameObject;
 
-gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER L_BRACES gameObjectContents R_BRACES
+gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER gameObjectBlock
+                        ;
+                        
+gameObjectBlock         : L_BRACES gameObjectContents R_BRACES
                         ;
 
 empty                   : 
@@ -18,18 +21,25 @@ gameObjectContents      : gameObjectContent
                         | empty
                         ;
 
-gameObjectContent       : gameObjectContentType=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) L_BRACES statementList R_BRACES
+gameObjectContent       : gameObjectContentType=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) statementBlock 
                         ;
+                       
 
 statementList           : statement ';'
                         | statement ';' statementList
+                        | statementBlock statementList
                         | empty
+                        ;
+                        
+statementBlock          : L_BRACES statementList R_BRACES
                         ;
 
 statement               : repeatLoop
                         | ifStatement
                         | statementExpression
                         ;
+
+
 
 repeatLoop              : 'repeat' L_BRACES statementList R_BRACES
                         ;

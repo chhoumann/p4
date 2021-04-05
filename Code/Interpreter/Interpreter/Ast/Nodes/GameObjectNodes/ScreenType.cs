@@ -6,7 +6,7 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
     {
         public override void PrintMe()
         {
-            Console.WriteLine("Screen");
+            Console.Write("Screen ");
         }
     }
 }

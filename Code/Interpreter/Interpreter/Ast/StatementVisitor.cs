@@ -12,9 +12,15 @@ namespace Interpreter.Ast
         {
             List<StatementNode> statements = new();
             
-            if (context.statement() == null) return statements;
+            if (context.statementBlock() != null)
+            {
+                statements.AddRange(VisitStatementBlock(context.statementBlock()));                
+            }
             
-            statements.Add(VisitStatement(context.statement()));
+            if (context.statement() != null)
+            {
+                statements.Add(VisitStatement(context.statement()));
+            }
 
             if (context.statementList() != null)
             {
@@ -90,6 +96,16 @@ namespace Interpreter.Ast
                 Identifier = context.IDENTIFIER().GetText(),
                 Expression = new ExpressionVisitor().VisitExpression(context.expression())
             };
+        }
+
+        public List<StatementNode> VisitStatementBlock(DazelParser.StatementBlockContext context)
+        {
+            if (context.statementList().statementBlock() != null)
+            {
+                return VisitStatementBlock(context.statementList().statementBlock());
+            }
+            
+            return VisitStatementList(context.statementList());
         }
     }
 }
