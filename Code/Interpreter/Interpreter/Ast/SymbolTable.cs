@@ -12,7 +12,17 @@ namespace Interpreter.Ast
         public List<SymbolTable> SymbolTables { get; set; } = new List<SymbolTable>();
 
         private static readonly Lazy<SymbolTable> Singleton = new(() => new SymbolTable());
-        
-        
+
+        private int scopeCounter;
+
+        public void OpenScope()
+        {
+            scopeCounter++;
+        }
+
+        public void CloseScope()
+        {
+            scopeCounter--;
+        }
     }
 }
