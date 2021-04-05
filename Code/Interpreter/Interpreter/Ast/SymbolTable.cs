@@ -7,22 +7,23 @@ namespace Interpreter.Ast
     public sealed class SymbolTable
     {
         public static SymbolTable Instance => Singleton.Value;
-        
-        public Dictionary<string, Value> Values { get; set; } = new Dictionary<string, Value>();
-        public List<SymbolTable> SymbolTables { get; set; } = new List<SymbolTable>();
+        private SymbolTable Parent { get; set; }
+        private List<SymbolTable> Children { get; set; } = new();
+
+        public Dictionary<string, Value> Values { get; set; } = new();
 
         private static readonly Lazy<SymbolTable> Singleton = new(() => new SymbolTable());
 
-        private int scopeCounter;
-
-        public void OpenScope()
+        public SymbolTable OpenAdjacentScope()
         {
-            scopeCounter++;
+            return Parent.OpenChildScope();
         }
 
-        public void CloseScope()
+        public SymbolTable OpenChildScope()
         {
-            scopeCounter--;
+            SymbolTable childTable = new();
+            Children.Add(childTable);
+            return childTable;
         }
     }
 }

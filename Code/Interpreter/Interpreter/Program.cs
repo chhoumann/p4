@@ -16,6 +16,8 @@ namespace Interpreter
             parser.BuildParseTree = true;
             IParseTree tree = parser.start();
             AbstractSyntaxTree ast = new(tree);
+
+            SymbolTable a = SymbolTable.Instance;
         }
     }
 }
