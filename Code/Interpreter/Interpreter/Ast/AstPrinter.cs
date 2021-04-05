@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
@@ -88,6 +89,8 @@ namespace Interpreter.Ast
             {
                 gameObjectContent.Accept(this);
             }
+
+            Console.WriteLine(sb);
         }
 
         public void Visit(GameObjectContent gameObjectContent)
@@ -177,11 +180,6 @@ namespace Interpreter.Ast
         public void Visit(PatternType patternType)
         {
             sb.AppendLine("Pattern");
-        }
-
-        public override string ToString()
-        {
-            return sb.ToString();
         }
     }
 }

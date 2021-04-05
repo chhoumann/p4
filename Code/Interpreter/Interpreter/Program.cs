@@ -1,4 +1,3 @@
-using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
@@ -12,18 +11,13 @@ namespace Interpreter
             ICharStream stream = CharStreams.fromPath(@".\Antlr\example.txt");
             ITokenSource lexer = new DazelLexer(stream);
             ITokenStream tokens = new CommonTokenStream(lexer);
-            DazelParser parser = new DazelParser(tokens);
+            DazelParser parser = new(tokens) { BuildParseTree = true };
 
-            parser.BuildParseTree = true;
-            IParseTree tree = parser.start();
-            AbstractSyntaxTree ast = new(tree);
-            var x = new AstPrinter();
-            x.Visit(ast.root);
-            Console.WriteLine(x);
-
-            var a = SymbolTables.Instance;
+            IParseTree parseTree = parser.start();
+            AbstractSyntaxTree ast = new(parseTree);
             
-            
+            AstPrinter astPrinter = new();
+            astPrinter.Visit(ast.Root);
         }
     }
 }

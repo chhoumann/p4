@@ -5,11 +5,11 @@ namespace Interpreter.Ast
 {
     public sealed class AbstractSyntaxTree
     {
-        public GameObject root;
+        public GameObject Root { get; }
+        
         public AbstractSyntaxTree(IParseTree parseTree)
         {
-            root = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
-            //gameObject.PrintMe();
+            Root = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
         }
     }
 }
