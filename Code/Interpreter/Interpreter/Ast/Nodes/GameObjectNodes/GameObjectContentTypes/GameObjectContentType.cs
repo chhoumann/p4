@@ -1,6 +1,6 @@
 ﻿namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public abstract class GameObjectContentType
+    public abstract class GameObjectContentType : Node
     {
     }
 }

@@ -10,6 +10,11 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
         public GameObjectType Type { get; set; }
         public List<GameObjectContent> Contents { get; set; }
 
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override void PrintMe()
         {
             Type.PrintMe();

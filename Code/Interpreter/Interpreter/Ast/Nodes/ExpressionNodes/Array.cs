@@ -7,6 +7,11 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
     {
         public List<Value> Values { get; set; }
 
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override void PrintMe()
         {
             Console.Write("[");

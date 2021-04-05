@@ -7,6 +7,11 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
         public string Left { get; set; }
         public string Right { get; set; }
 
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override void PrintMe()
         {
             Console.WriteLine($"Left: {Left}, Right: {Right}");

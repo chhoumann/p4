@@ -3,12 +3,13 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter.Ast
 {
-    public sealed class AbstractSyntaxTree 
+    public sealed class AbstractSyntaxTree
     {
+        public GameObject root;
         public AbstractSyntaxTree(IParseTree parseTree)
         {
-            GameObject gameObject = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
-            gameObject.PrintMe();
+            root = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
+            //gameObject.PrintMe();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
@@ -16,8 +17,13 @@ namespace Interpreter
             parser.BuildParseTree = true;
             IParseTree tree = parser.start();
             AbstractSyntaxTree ast = new(tree);
+            var x = new AstPrinter();
+            x.Visit(ast.root);
+            Console.WriteLine(x);
 
             var a = SymbolTables.Instance;
+            
+            
         }
     }
 }

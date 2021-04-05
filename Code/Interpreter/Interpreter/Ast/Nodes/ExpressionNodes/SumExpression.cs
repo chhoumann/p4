@@ -4,6 +4,11 @@
     {
         public SumOperation Operation { get; set; }
 
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override void PrintMe()
         {
             Left.PrintMe();

@@ -85,7 +85,7 @@ namespace Interpreter.Ast
             return new()
             {
                 Identifier = context.IDENTIFIER().GetText(),
-                Parameters = new ExpressionVisitor().VisitValueList(context.valueList())
+                Parameters = new ExpressionVisitor().VisitValueList(context.valueList()),
             };
         }
 

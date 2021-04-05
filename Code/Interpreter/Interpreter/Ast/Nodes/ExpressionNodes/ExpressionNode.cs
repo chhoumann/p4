@@ -1,7 +1,6 @@
 ﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
-    public abstract class ExpressionNode
+    public abstract class ExpressionNode : Node
     {
-        public abstract void PrintMe();
     }
 }

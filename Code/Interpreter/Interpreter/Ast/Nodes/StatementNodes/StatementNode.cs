@@ -1,7 +1,6 @@
 ﻿namespace Interpreter.Ast.Nodes.StatementNodes
 {
-    public abstract class StatementNode
+    public abstract class StatementNode : Node
     {
-        public virtual void PrintMe() { }
     }
 }
