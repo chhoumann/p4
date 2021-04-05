@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
