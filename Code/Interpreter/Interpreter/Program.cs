@@ -15,7 +15,7 @@ namespace Interpreter
 
             parser.BuildParseTree = true;
             IParseTree tree = parser.start();
-            AbstractSyntaxTree ast = new AbstractSyntaxTree(tree);
+            AbstractSyntaxTree ast = new(tree);
         }
     }
 }
