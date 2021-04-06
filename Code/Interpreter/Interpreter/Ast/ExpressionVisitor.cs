@@ -141,7 +141,7 @@ namespace Interpreter.Ast
             return new MemberAccess()
             {
                 Left = context.GetChild(0).GetText(),
-                Right = context.GetChild(1).GetText()
+                Right = context.GetChild(2).GetText()
             };
         }
     }

@@ -9,6 +9,8 @@ Screen SampleScreen1
 	        SomeVar3 = 3 + 3;
 	    }
 	    
+	    let = member.access;
+	    	    
 		Walls(Stone); 
 		Floor(Grass);
 		
