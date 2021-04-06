@@ -11,6 +11,12 @@ namespace Interpreter.Ast
     class AstPrinter : IVisitor
     {
         private StringBuilder sb = new();
+        private int indentCount = 0;
+
+        private void Indent()
+        {
+            sb.Append(new string(' ', indentCount * 2));
+        }
         public void Visit(Array array)
         {
             sb.Append('[');
@@ -56,7 +62,7 @@ namespace Interpreter.Ast
 
         public void Visit(MemberAccess memberAccess)
         {
-            sb.AppendLine($"{memberAccess.Left}.{memberAccess.Right}");
+            sb.Append($"{memberAccess.Left}.{memberAccess.Right}");
         }
 
         public void Visit(SumExpression sumExpression)
@@ -78,16 +84,20 @@ namespace Interpreter.Ast
 
         public void Visit(EntityType entityType)
         {
-            sb.AppendLine("Entity Type (not implemented)");
+            sb.Append("Entity");
         }
 
         public void Visit(GameObject gameObject)
         {
             gameObject.Type.Accept(this);
+            sb.Append(" ");
             sb.AppendLine(gameObject.Identifier);
             foreach (GameObjectContent gameObjectContent in gameObject.Contents)
             {
+                indentCount += 2;
+                Indent();
                 gameObjectContent.Accept(this);
+                indentCount -= 2;
             }
 
             Console.WriteLine(sb);
@@ -104,12 +114,12 @@ namespace Interpreter.Ast
 
         public void Visit(MovePatternType movePatternType)
         {
-            sb.AppendLine("MovePattern");
+            sb.Append("MovePattern");
         }
 
         public void Visit(ScreenType gameObjectContent)
         {
-            sb.AppendLine("Screen");
+            sb.Append("Screen");
         }
 
         public void Visit(IfStatement ifStatement)
@@ -126,6 +136,9 @@ namespace Interpreter.Ast
         {
             if (statementExpression is FunctionInvocation functionInvocation)
             {
+                indentCount += 2;
+                Indent();
+                
                 sb.Append(functionInvocation.Identifier);
                 sb.Append('(');
                 
@@ -141,12 +154,17 @@ namespace Interpreter.Ast
                 }
                 
                 sb.Append(')');
+                indentCount -= 2;
             }
 
             if (statementExpression is AssignmentNode assignmentNode)
             {
+                indentCount += 2;
+                Indent();
+                
                 sb.Append($"{assignmentNode.Identifier} = ");
                 assignmentNode.Expression.Accept(this);
+                indentCount -= 2;
             }
 
             sb.AppendLine("");
