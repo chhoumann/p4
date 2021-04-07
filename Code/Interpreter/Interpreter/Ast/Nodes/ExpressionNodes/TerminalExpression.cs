@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Interpreter.Ast.Nodes.ExpressionNodes
+﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
     public sealed class TerminalExpression : ExpressionNode
     {
