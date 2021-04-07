@@ -3,39 +3,59 @@ using System.Collections.Generic;
 
 namespace Interpreter.Ast
 {
-    public sealed class SymbolTables
+    public class SymbolTable
     {
-        public static SymbolTables Instance => Singleton.Value;
+        public static List<Scope> Instance => Singleton.Value;
+        private static readonly Lazy<List<Scope>> Singleton = new(new SymbolTable().Scopes);
 
-        public List<SymbolTable> Tables { get; set; }
+        private List<Scope> Scopes { get; } = new();
 
-        private static readonly Lazy<SymbolTables> Singleton = new(() => new SymbolTables());
-        
-        public void OpenScope(){}
-        public void CloseScope(){}
-        public void EnterSymbol(string identifier, string type) {}
-        public void RetrieveSymbol(string identifier){} // Maybe return SymbolTableRow
-
-        public sealed class SymbolTable
+        public void RetrieveSymbol(string[] identifier)
         {
-            private SymbolTable Parent { get; set; }
-            private List<SymbolTable> Children { get; set; } = new();
+            foreach (Scope scope in Scopes)
+            {
+                if (scope.Identifier == identifier[0])
+                {
+                    // osv
+                }
+            }
+        }
+    }
 
-            public Dictionary<string, SymbolTableRow> Values { get; set; } = new();
+    public class Scope
+    {
+        public string Identifier { get; set; }
+        private List<Scope> Scopes { get; } = new();
+        private readonly List<ScopeRow> values = new();
+
+        public void OpenAdjacentScope(Scope scope)
+        {
+            SymbolTable.Instance.Add(scope);
+        }
+
+        public void OpenChildScope(Scope scope)
+        {
+            Scopes.Add(scope);
+        }
+
+        public void EnterSymbol(string identifier, ScopeRow data)
+        {
+            // values.Add(identifier, data);
+        }
+
+        public ScopeRow RetrieveSymbol(string identifier)
+        {
+            // if (values.ContainsKey(identifier))
+            //     return values[identifier];
+
+            ScopeRow symbol = null;
             
-            private SymbolTable() { }
-
-            public SymbolTable OpenAdjacentScope()
+            foreach (Scope scope in Scopes)
             {
-                return Parent.OpenChildScope();
+                symbol = scope.RetrieveSymbol(identifier);
             }
 
-            public SymbolTable OpenChildScope()
-            {
-                SymbolTable childTable = new();
-                Children.Add(childTable);
-                return childTable;
-            }
+            return symbol;
         }
     }
 }

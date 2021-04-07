@@ -1,7 +1,8 @@
 ﻿namespace Interpreter.Ast
 {
-    public class SymbolTableRow
+    public class ScopeRow
     {
+        public string Identifier { get; set; }
         public string Type { get; set; }
     }
 }

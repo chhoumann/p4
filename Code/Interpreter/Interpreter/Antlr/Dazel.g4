@@ -1,6 +1,7 @@
 grammar Dazel; // Defines grammar
 
 WS  :   [ \t\r\n]+ -> skip;
+COMMENT : '//' ~[\r\n]* -> skip;
 
 //SPACING : [\t\r\n]+?;
 /* PARSER RULES */
@@ -79,7 +80,7 @@ factorOperation         : MULTIPLICATION_OP
 functionInvocation      : IDENTIFIER L_PARANTHESIS valueList R_PARANTHESIS
                         ;
 
-memberAccess            : IDENTIFIER '.' IDENTIFIER
+memberAccess            : IDENTIFIER '.' type=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) '.' IDENTIFIER
                         ;
 
 valueList               : value

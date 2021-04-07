@@ -4,6 +4,7 @@ using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Microsoft.VisualBasic;
 using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Interpreter.Ast
@@ -62,7 +63,7 @@ namespace Interpreter.Ast
 
         public void Visit(MemberAccess memberAccess)
         {
-            sb.Append($"{memberAccess.Left}.{memberAccess.Right}");
+            sb.Append(Strings.Join(memberAccess.Identifiers.ToArray(), "."));
         }
 
         public void Visit(SumExpression sumExpression)

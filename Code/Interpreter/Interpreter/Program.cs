@@ -18,7 +18,7 @@ namespace Interpreter
             
             AstPrinter astPrinter = new();
             astPrinter.Visit(ast.Root);
-            
+
             // Front-end
             // Lexer -> Parser -> Build Parse Tree -> Transform to AST -> Static Semantic Analysis (Symbol Table)
             // Back-end

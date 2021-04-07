@@ -5,10 +5,15 @@ Screen SampleScreen1
 		Size(30, 24);
 
 	    {
-	        SomeVar3 = 3 + 3;
+	        SomeVar3 = 3 + 3; // Binding
 	    }
 	    
-	    let = member.access;
+	    x = SomeVar3; // Applied - not possible
+	    
+	    cl = asd; // This should not be possible
+	    a = cl;     // -!-
+	    
+	    let = SampleScreen1.Exits.exit1;
 	    	    
 		Walls(Stone); 
 		Floor(Grass);
@@ -30,7 +35,7 @@ Screen SampleScreen1
 	
 	Exits 
 	{
-		Exit1 = Exit([4, 0], SampleScreen2.Exit1);
+		Exit1 = Exit([4, 0], SampleScreen1.Exits.Exit1);
 		ScreenExit(Bottom, SampleScreen2);
 		SomeVar = 3 + 3 + (3 + 3 + 3 + 3 * 3 * 2 * 1 * 5 * 1 - 3 + 8419);
 		SomeVar = SomeVar + 3;

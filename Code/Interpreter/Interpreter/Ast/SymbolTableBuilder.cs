@@ -29,7 +29,7 @@ namespace Interpreter.Ast
 
         public void Visit(EntityType entityType)
         {
-            SymbolTables.Instance.OpenScope();
+            // SymbolTable.Instance[0].
         }
 
         public void Visit(GameObject gameObject) { }

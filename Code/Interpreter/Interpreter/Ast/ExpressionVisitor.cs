@@ -138,11 +138,17 @@ namespace Interpreter.Ast
         
         public MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context)
         {
-            return new MemberAccess()
+            MemberAccess memberAccess = new()
             {
-                Left = context.GetChild(0).GetText(),
-                Right = context.GetChild(2).GetText()
+                Identifiers =
+                {
+                    context.GetChild(0).GetText(),
+                    context.GetChild(2).GetText(),
+                    context.GetChild(4).GetText(),
+                }
             };
+            
+            return memberAccess;
         }
     }
 }
