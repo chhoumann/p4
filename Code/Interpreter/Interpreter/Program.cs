@@ -17,8 +17,8 @@ namespace Interpreter
             AbstractSyntaxTree ast = new(parseTree);
             
             AstPrinter astPrinter = new();
-            astPrinter.Visit(ast.Root);
-
+            //astPrinter.Visit(ast.Root);
+            SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder(ast.Root);
             // Front-end
             // Lexer -> Parser -> Build Parse Tree -> Transform to AST -> Static Semantic Analysis (Symbol Table)
             // Back-end
