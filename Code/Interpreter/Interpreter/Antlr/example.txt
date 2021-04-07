@@ -4,8 +4,9 @@ Screen SampleScreen1
 	{
 		Size(30, 24);
 
+        SomeVar3 = 2; // Binding
 	    {
-	        SomeVar3 = 3 + 3; // Binding
+	        SomeVar3 = 3 + 3;
 	    }
 	    
 	    x = SomeVar3; // Applied - not possible
