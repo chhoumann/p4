@@ -31,5 +31,6 @@ namespace Interpreter.Ast
         void Visit(MapType mapType);
         void Visit(OnScreenEnteredType onScreenEnteredType);
         void Visit(PatternType patternType);
+        void Visit(StatementBlock statementBlock);
     }
 }

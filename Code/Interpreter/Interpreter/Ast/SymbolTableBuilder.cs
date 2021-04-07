@@ -63,5 +63,9 @@ namespace Interpreter.Ast
         public void Visit(OnScreenEnteredType onScreenEnteredType) { }
 
         public void Visit(PatternType patternType) { }
+        public void Visit(StatementBlock statementBlock)
+        {
+            
+        }
     }
 }

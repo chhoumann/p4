@@ -199,5 +199,21 @@ namespace Interpreter.Ast
         {
             sb.AppendLine("Pattern");
         }
+
+        public void Visit(StatementBlock statementBlock)
+        {
+            indentCount += 2;
+            Indent();
+            sb.AppendLine("{");
+            
+            foreach (StatementNode statementBlockStatement in statementBlock.Statements)
+            {
+                statementBlockStatement.Accept(this);
+            }
+            
+            Indent();
+            sb.AppendLine("}");
+            indentCount -= 2;
+        }
     }
 }

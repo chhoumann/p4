@@ -2,7 +2,6 @@ Screen SampleScreen1
 {
 	Map 
 	{
-	    
 		Size(30, 24);
 
 	    {

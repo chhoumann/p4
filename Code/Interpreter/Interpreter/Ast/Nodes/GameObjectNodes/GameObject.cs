@@ -14,15 +14,5 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
         {
             visitor.Visit(this);
         }
-
-        public override void PrintMe()
-        {
-            Type.PrintMe();
-            Console.WriteLine(Identifier);
-            foreach (GameObjectContent gameObjectContent in Contents)
-            {
-                gameObjectContent.PrintMe();
-            }
-        }
     }
 }

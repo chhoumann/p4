@@ -7,12 +7,5 @@ namespace Interpreter.Ast.Nodes.StatementNodes
     {
         public string Identifier { get; set; }
         public ExpressionNode Expression { get; set; }
-        
-        public override void PrintMe()
-        {
-            Console.Write($"{Identifier} = ");
-            Expression.PrintMe();
-            Console.WriteLine();
-        }
     }
 }

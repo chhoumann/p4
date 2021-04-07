@@ -14,7 +14,10 @@ namespace Interpreter.Ast
             
             if (context.statementBlock() != null)
             {
-                statements.AddRange(VisitStatementBlock(context.statementBlock()));                
+                statements.Add(new StatementBlock()
+                {
+                    Statements = new List<StatementNode>(VisitStatementBlock(context.statementBlock()))
+                });
             }
             
             if (context.statement() != null)

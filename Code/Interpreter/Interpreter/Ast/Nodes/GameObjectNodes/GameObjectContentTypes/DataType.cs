@@ -6,10 +6,5 @@
         {
             visitor.Visit(this);
         }
-
-        public override void PrintMe()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

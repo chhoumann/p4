@@ -11,10 +11,5 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
         {
             visitor.Visit(this);
         }
-
-        public override void PrintMe()
-        {
-            Console.WriteLine($"Left: {Left}, Right: {Right}");
-        }
     }
 }
