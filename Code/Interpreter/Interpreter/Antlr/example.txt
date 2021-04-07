@@ -7,6 +7,11 @@ Screen SampleScreen1
         SomeVar3 = 2; // Binding
 	    {
 	        SomeVar3 = 3 + 3;
+	        {
+	            {
+	                SomeVar3 = 2+SomeVar3;
+	            }
+	        }
 	    }
 	    
 	    x = SomeVar3; // Applied - not possible

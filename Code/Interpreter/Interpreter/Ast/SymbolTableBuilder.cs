@@ -23,7 +23,9 @@ namespace Interpreter.Ast
         {
             ScopeRoot = new Scope(gameObject.Identifier, null);
             currentScope = ScopeRoot;
+            
             gameObject.Type.Accept(this);
+            
             foreach (GameObjectContent gameObjectContent in gameObject.Contents)
             {
                 Visit(gameObjectContent);
@@ -32,55 +34,66 @@ namespace Interpreter.Ast
 
         public void Visit(MapType mapType)
         {
-            currentScope.Type = "Map";
+            currentScope.Type = typeof(MapType);
+            currentScope.Identifier = nameof(MapType);
         }
 
         public void Visit(PatternType patternType)
         {
-            currentScope.Type = "Pattern";
+            currentScope.Type = typeof(PatternType);
+            currentScope.Identifier = nameof(PatternType);
         }
 
         public void Visit(OnScreenEnteredType onScreenEnteredType)
         {
-            currentScope.Type = "OnScreenEntered";
+            currentScope.Type = typeof(OnScreenEnteredType);
+            currentScope.Identifier = nameof(OnScreenEnteredType);
         }
 
         public void Visit(EntityType entityType)
         {
-            currentScope.Type = "Entity";
+            currentScope.Type = typeof(EntityType);
+            currentScope.Identifier = nameof(EntityType);
         }
 
         public void Visit(DataType dataType)
         {
-            currentScope.Type = "Data";
+            currentScope.Type = typeof(DataType);
+            currentScope.Identifier = nameof(DataType);
         }
 
         public void Visit(EntitiesType entitiesType)
         {
-            currentScope.Type = "Entities";
+            currentScope.Type = typeof(EntitiesType);
+            currentScope.Identifier = nameof(EntitiesType);
         }
 
         public void Visit(ExitsType exitsType)
         {
-            currentScope.Type = "Exits";
+            currentScope.Type = typeof(ExitsType);
+            currentScope.Identifier = nameof(ExitsType);
         }
         
         public void Visit(MovePatternType movePatternType)
         {
-            currentScope.Type = "MovePatternType";
+            currentScope.Type = typeof(MovePatternType);
+            currentScope.Identifier = nameof(MovePatternType);
+
         }
 
         public void Visit(ScreenType screenType)
         {
-            currentScope.Type = "Screen";
+            currentScope.Type = typeof(ScreenType);
+            currentScope.Identifier = nameof(ScreenType);
         }
 
         public void Visit(GameObjectContent gameObjectContent)
         {
             currentScope = ScopeRoot.OpenChildScope("");
             Scope thisLevel = currentScope;
+            
             gameObjectContent.Type.Accept(this);
-            currentScope.Identifier = currentScope.Type;
+
             foreach (StatementNode statementNode in gameObjectContent.Statements)
             {
                 statementNode.Accept(this);
@@ -106,7 +119,7 @@ namespace Interpreter.Ast
                 {
                     Identifier = functionInvocation.Identifier,
                     IsDeclaration = false,
-                    Type = "Function"
+                    Type = typeof(FunctionInvocation)
                 });
                 
                 // functionInvocation.Parameters
@@ -118,7 +131,7 @@ namespace Interpreter.Ast
                 {
                     Identifier = assignmentNode.Identifier,
                     IsDeclaration = currentScope.IsDeclaration(assignmentNode.Identifier),
-                    Type = ""
+                    //TODO: Type = typeof(AssignmentNode) // This should be evaluated and set to a proper type.
                 });
             }
         }
