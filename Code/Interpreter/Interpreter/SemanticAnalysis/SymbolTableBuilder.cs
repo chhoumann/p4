@@ -90,7 +90,7 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(GameObjectContent gameObjectContent)
         {
-            currentSymbolTable = SymbolTableRoot.OpenChildScope("");
+            currentSymbolTable = SymbolTableRoot.OpenChildScope();
             SymbolTable thisLevel = currentSymbolTable;
             
             gameObjectContent.Type.Accept(this);
@@ -104,7 +104,7 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(StatementBlock statementBlock)
         {
-            SymbolTable symbolTable = currentSymbolTable.OpenChildScope("");
+            SymbolTable symbolTable = currentSymbolTable.OpenChildScope();
             currentSymbolTable = symbolTable;
             
             foreach (StatementNode statementBlockStatement in statementBlock.Statements)
