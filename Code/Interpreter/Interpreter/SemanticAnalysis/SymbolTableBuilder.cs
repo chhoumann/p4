@@ -79,7 +79,6 @@ namespace Interpreter.SemanticAnalysis
         {
             currentSymbolTable.Type = typeof(MovePatternType);
             currentSymbolTable.Identifier = nameof(MovePatternType);
-
         }
 
         public void Visit(ScreenType screenType)
@@ -136,7 +135,7 @@ namespace Interpreter.SemanticAnalysis
                 {
                     Identifier = assignmentNode.Identifier,
                     IsDeclaration = currentSymbolTable.IsDeclaration(assignmentNode.Identifier),
-                    Type = typeof(AssignmentNode) // This should be evaluated and set to a proper type.
+                    Type = typeof(AssignmentNode) // TODO: This should be evaluated and set to a proper type.
                 });
 
                 assignmentNode.Expression.Accept(this);
@@ -172,7 +171,7 @@ namespace Interpreter.SemanticAnalysis
         {
             string joinedIdentifiers = string.Join('.', memberAccess.Identifiers);
             
-            currentSymbolTable.EnterSymbol(new SymbolTableEntry()
+            currentSymbolTable.EnterSymbol(new SymbolTableEntry
             {
                 Identifier = joinedIdentifiers,
                 Type = typeof(MemberAccess),
@@ -184,7 +183,7 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(IdentifierValue identifierValue)
         {
-            currentSymbolTable.EnterSymbol(new SymbolTableEntry()
+            currentSymbolTable.EnterSymbol(new SymbolTableEntry
             {
                 Identifier = identifierValue.Value,
                 IsDeclaration = currentSymbolTable.IsDeclaration(identifierValue.Value),
