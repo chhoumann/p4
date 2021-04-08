@@ -21,8 +21,8 @@ namespace Interpreter
             AstPrinter astPrinter = new();
             //astPrinter.Visit(ast.Root);
             SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder(ast.Root);
-            
-            Console.WriteLine(SymbolTable.Instance.Scopes[0].RetrieveSymbol("SomeVar"));
+ 
+            //Console.WriteLine(SymbolTable.Instance.Scopes[0].RetrieveSymbol("SomeVar"));
 
             // Front-end
             // Lexer -> Parser -> Build Parse Tree -> Transform to AST -> Static Semantic Analysis (Symbol Table)

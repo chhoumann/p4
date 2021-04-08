@@ -2,7 +2,7 @@
 
 namespace Interpreter.SemanticAnalysis
 {
-    public sealed class ScopeRow : IScopeRow
+    public sealed class SymbolTableEntry : ISymbolTableEntry
     {
         public string Identifier { get; set; }
         public Type Type { get; set; }
