@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast
 {
-    public class ScopeRow : IScopeRow
+    public sealed class ScopeRow : IScopeRow
     {
         public string Identifier { get; set; }
         public Type Type { get; set; }

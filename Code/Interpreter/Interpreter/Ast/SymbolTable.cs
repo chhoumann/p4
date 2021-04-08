@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Interpreter.Ast.Nodes.GameObjectNodes;
+﻿using System.Collections.Generic;
 
 namespace Interpreter.Ast
 {
     public class SymbolTable
     {
-        public static List<Scope> Instance => Singleton.Value;
-        private static readonly Lazy<List<Scope>> Singleton = new(new SymbolTable().Scopes);
+        public static SymbolTable Instance => Singleton;
+        private static readonly SymbolTable Singleton = new();
 
-        private List<Scope> Scopes { get; } = new();
+        public List<Scope> Scopes { get; } = new();
 
         // public Scope BuildSymbolTable(Node astRoot)
         // {

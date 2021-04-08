@@ -1,5 +1,4 @@
-﻿using System;
-using Interpreter.Ast.Nodes.ExpressionNodes;
+﻿using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
@@ -7,9 +6,9 @@ using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Interpreter.Ast
 {
-    public class SymbolTableBuilder : IVisitor
+    public sealed class SymbolTableBuilder : IVisitor
     {
-        public Scope ScopeRoot { get; set; }
+        public Scope ScopeRoot { get; private set; }
         private Scope currentScope;
 
         public SymbolTableBuilder(GameObject astRoot)
@@ -105,6 +104,7 @@ namespace Interpreter.Ast
         {
             Scope scope = currentScope.OpenChildScope("");
             currentScope = scope;
+            
             foreach (StatementNode statementBlockStatement in statementBlock.Statements)
             {
                 statementBlockStatement.Accept(this);
@@ -121,8 +121,11 @@ namespace Interpreter.Ast
                     IsDeclaration = false,
                     Type = typeof(FunctionInvocation)
                 });
-                
-                // functionInvocation.Parameters
+
+                foreach (Value param in functionInvocation.Parameters)
+                {
+                    param.Accept(this);
+                }
             }
 
             if (statementExpression is AssignmentNode assignmentNode)
@@ -131,8 +134,10 @@ namespace Interpreter.Ast
                 {
                     Identifier = assignmentNode.Identifier,
                     IsDeclaration = currentScope.IsDeclaration(assignmentNode.Identifier),
-                    //TODO: Type = typeof(AssignmentNode) // This should be evaluated and set to a proper type.
+                    Type = typeof(AssignmentNode) // This should be evaluated and set to a proper type.
                 });
+
+                assignmentNode.Expression.Accept(this);
             }
         }
 
@@ -163,24 +168,30 @@ namespace Interpreter.Ast
 
         public void Visit(MemberAccess memberAccess)
         {
+            string joinedIdentifiers = string.Join('.', memberAccess.Identifiers);
             
+            currentScope.EnterSymbol(new ScopeRow()
+            {
+                Identifier = joinedIdentifiers,
+                Type = typeof(MemberAccess),
+                IsDeclaration = currentScope.IsDeclaration(joinedIdentifiers),
+            });
         }
 
         public void Visit(FloatValue floatValue) { }
 
         public void Visit(IdentifierValue identifierValue)
         {
-            
+            currentScope.EnterSymbol(new ScopeRow()
+            {
+                Identifier = identifierValue.Value,
+                IsDeclaration = currentScope.IsDeclaration(identifierValue.Value),
+                Type = typeof(IdentifierValue)
+            });
         }
 
-        public void Visit(IntValue intValue)
-        {
-            
-        }
+        public void Visit(IntValue intValue) { }
 
-        public void Visit(Array array)
-        {
-            
-        }
+        public void Visit(Array array) { }
     }
 }

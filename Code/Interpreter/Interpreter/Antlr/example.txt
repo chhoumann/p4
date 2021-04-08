@@ -14,10 +14,10 @@ Screen SampleScreen1
 	        }
 	    }
 	    
-	    x = SomeVar3; // Applied - not possible
+	    x = SomeVar3;
 	    
+	    a = cl;   // -!-
 	    cl = asd; // This should not be possible
-	    a = cl;     // -!-
 	    
 	    let = SampleScreen1.Exits.exit1;
 	    	    

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Interpreter.Ast
 {
-    public class Scope : IScopeRow
+    public sealed class Scope : IScopeRow
     {
         public string Identifier { get; set; }
         public Type Type { get; set; }
@@ -40,24 +40,18 @@ namespace Interpreter.Ast
         {
             foreach (IScopeRow value in values)
             {
-                if (value is ScopeRow row && row.Identifier.Equals(identifier)) return row;
+                if (value is ScopeRow row && row.Identifier.Equals(identifier))
+                {
+                    return row;
+                }
             }
 
-            if (Parent != null) return Parent.RetrieveSymbol(identifier);
-            throw new ArgumentException(identifier, $"Could not find symbol with identifier {identifier}");
+            return Parent?.RetrieveSymbol(identifier);
         }
 
-        public Boolean IsDeclaration(string identifier)
+        public bool IsDeclaration(string identifier)
         {
-            try
-            {
-                RetrieveSymbol(identifier);
-                return false;
-            }
-            catch
-            {
-                return true;
-            }
+            return RetrieveSymbol(identifier) == null;
         }
 
         public void Print(int indentation)
@@ -81,8 +75,8 @@ namespace Interpreter.Ast
 
         public override string ToString()
         {
-            int amountOfNestedScopes = values.FindAll(s => s is Scope).Count;
-            return $"Scope: {Identifier ?? "Statement Scope"} has type {(Type == null ? "" : Type.Name)}: {values.Count - amountOfNestedScopes} values and {amountOfNestedScopes} scopes.";
+            int numNestedScopes = values.FindAll(s => s is Scope).Count;
+            return $"Scope: {Identifier ?? "Statement Scope"} has type {(Type == null ? "" : Type.Name)}: {values.Count - numNestedScopes} values and {numNestedScopes} scopes.";
         }
     }
 }
