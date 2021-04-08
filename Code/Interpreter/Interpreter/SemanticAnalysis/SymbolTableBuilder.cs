@@ -16,7 +16,7 @@ namespace Interpreter.SemanticAnalysis
         {
             Visit(astRoot);
             
-            GlobalSymbolTable.SymbolTables.Add(SymbolTableRoot);
+            GlobalSymbolTable.SymbolTables.Add(SymbolTableRoot.Identifier, SymbolTableRoot);
             SymbolTableRoot.Print(0);
         }
         

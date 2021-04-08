@@ -4,6 +4,6 @@ namespace Interpreter.SemanticAnalysis
 {
     public static class GlobalSymbolTable
     {
-        public static List<SymbolTable> SymbolTables { get; } = new();
+        public static Dictionary<string, SymbolTable> SymbolTables { get; } = new();
     }
 }
