@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Interpreter.Ast
+namespace Interpreter.SemanticAnalysis
 {
     public class SymbolTable
     {

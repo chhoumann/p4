@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Interpreter.Ast
+namespace Interpreter.SemanticAnalysis
 {
     public interface IScopeRow
     {

@@ -1,10 +1,11 @@
-﻿using Interpreter.Ast.Nodes.ExpressionNodes;
+﻿using Interpreter.Ast;
+using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
-namespace Interpreter.Ast
+namespace Interpreter.SemanticAnalysis
 {
     public sealed class SymbolTableBuilder : IVisitor
     {
@@ -14,10 +15,10 @@ namespace Interpreter.Ast
         public SymbolTableBuilder(GameObject astRoot)
         {
             Visit(astRoot);
+            SymbolTable.Instance.Scopes.Add(ScopeRoot);
             ScopeRoot.Print(0);
         }
-
-
+        
         public void Visit(GameObject gameObject)
         {
             ScopeRoot = new Scope(gameObject.Identifier, null);

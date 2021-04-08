@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Interpreter.Ast
+namespace Interpreter.SemanticAnalysis
 {
     public sealed class Scope : IScopeRow
     {
