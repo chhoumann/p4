@@ -28,8 +28,30 @@ To start designing the programming language, we set out to specify a minimum via
 
 \section{Semantics for Dazel}
 
-In this section we will be presenting, in an informal manner, the semantics of \dazel. Firstly, we will present the type rules which is then followed by a presentation
-of the scope rules.
+In this section we will be presenting, in an informal manner, the semantics of \dazel. 
+Firstly, we will present the type rules which is then followed by a presentation of the scope rules.
+
 
 
 \subsection*{Type rules}
+\dazel has implicitly declared strongly types.
+This means the programmer does not need to explicitly define the type of every variable, however, once declared, a variable
+cannot dynamically change type.
+For example, as can be seen in \ref{lst:IllegalAssignment}, \textbf{Exit1} is declared to be of type \textbf{Exit} so it cannot be be
+assigned to an integer afterwards.
+
+\begin{lstlisting}[caption={Example of an illegal assingment}, label={lst:IllegalAssignment},escapechar=|]
+// ./Screens/SampleScreen1.txt
+Screen SampleScreen1 
+{
+	Exits 
+	{
+		Exit1 = Exit([4, 0], SampleScreen2.Exit1);
+		Exit1 = 1; // Not legal because Exit1 has type Exit
+	}
+}
+\end{lstlisting}
+
+The decision to use this system is based on the fact that strongly typed languages offer greater safety, however being required to
+specify the type of each variable as part of its declaration is often confusing to beginners as mentioned \secref{sec:scientific_research}.
+Therefore it was decided to go with a hybrid approach.
