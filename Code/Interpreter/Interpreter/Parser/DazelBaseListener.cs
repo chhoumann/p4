@@ -60,6 +60,18 @@ public partial class DazelBaseListener : IDazelListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitGameObject([NotNull] DazelParser.GameObjectContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectBlock"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGameObjectBlock([NotNull] DazelParser.GameObjectBlockContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.gameObjectBlock"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGameObjectBlock([NotNull] DazelParser.GameObjectBlockContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.empty"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -107,6 +119,18 @@ public partial class DazelBaseListener : IDazelListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStatementList([NotNull] DazelParser.StatementListContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.statementBlock"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStatementBlock([NotNull] DazelParser.StatementBlockContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.statementBlock"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStatementBlock([NotNull] DazelParser.StatementBlockContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.statement"/>.
 	/// <para>The default implementation does nothing.</para>

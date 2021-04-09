@@ -6,9 +6,9 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
     {
         public float Value { get; set; }
 
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Console.Write($"{Value}");
+            visitor.Visit(this);
         }
     }
 }

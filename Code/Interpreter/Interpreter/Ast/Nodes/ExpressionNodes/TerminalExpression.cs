@@ -1,13 +1,11 @@
-﻿using System;
-
-namespace Interpreter.Ast.Nodes.ExpressionNodes
+﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
     public sealed class TerminalExpression : ExpressionNode
     {
         public ExpressionNode Child { get; set; }
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Child.PrintMe();
+            visitor.Visit(this);
         }
     }
 }

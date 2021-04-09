@@ -2,5 +2,9 @@
 {
     public sealed class MapType : GameObjectContentType
     {
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

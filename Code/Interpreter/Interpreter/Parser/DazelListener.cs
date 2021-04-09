@@ -51,6 +51,16 @@ public interface IDazelListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitGameObject([NotNull] DazelParser.GameObjectContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.gameObjectBlock"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGameObjectBlock([NotNull] DazelParser.GameObjectBlockContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.gameObjectBlock"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGameObjectBlock([NotNull] DazelParser.GameObjectBlockContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.empty"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -90,6 +100,16 @@ public interface IDazelListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitStatementList([NotNull] DazelParser.StatementListContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DazelParser.statementBlock"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStatementBlock([NotNull] DazelParser.StatementBlockContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DazelParser.statementBlock"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStatementBlock([NotNull] DazelParser.StatementBlockContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.statement"/>.
 	/// </summary>

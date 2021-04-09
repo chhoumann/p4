@@ -4,9 +4,9 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
     public sealed class EntityType : GameObjectType
     {
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Console.WriteLine("EntityType Not Implemented.");
+            visitor.Visit(this);
         }
     }
 }

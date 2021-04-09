@@ -4,9 +4,9 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
     public sealed class SumOperation : OperationNode
     {
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Console.Write($" {Operation} ");
+            visitor.Visit(this);
         }
     }
 }

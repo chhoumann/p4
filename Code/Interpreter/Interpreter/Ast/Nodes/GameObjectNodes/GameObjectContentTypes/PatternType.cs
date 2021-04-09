@@ -2,5 +2,9 @@
 {
     public sealed class PatternType : GameObjectContentType
     {
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

@@ -4,11 +4,9 @@
     {
         public FactorOperation Operation { get; set; }
 
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Left.PrintMe();
-            Operation.PrintMe();
-            Right.PrintMe();
+            visitor.Visit(this);
         }
     }
 }

@@ -4,9 +4,9 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
     public sealed class ScreenType : GameObjectType
     {
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Console.WriteLine("Screen");
+            visitor.Visit(this);
         }
     }
 }

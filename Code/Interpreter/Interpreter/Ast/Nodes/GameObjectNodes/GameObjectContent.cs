@@ -10,13 +10,9 @@ namespace Interpreter.Ast.Nodes.GameObjectNodes
         public GameObjectContentType Type { get; set; }
         public List<StatementNode> Statements { get; set; }
 
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Console.WriteLine(Type.ToString());
-            foreach (var statementNode in Statements)
-            {
-                statementNode.PrintMe();
-            }
+            visitor.Visit(this);
         }
     }
 }

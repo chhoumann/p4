@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
     public sealed class MemberAccess : Value
     {
-        public string Left { get; set; }
-        public string Right { get; set; }
+        public readonly List<string> Identifiers = new();
 
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Console.WriteLine($"Left: {Left}, Right: {Right}");
+            visitor.Visit(this);
         }
     }
 }

@@ -5,9 +5,9 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
     public sealed class IntValue : Value
     {
         public int Value { get; set; }
-        public override void PrintMe()
+        public override void Accept(IVisitor visitor)
         {
-            Console.Write(Value);
+            visitor.Visit(this);
         }
     }
 }

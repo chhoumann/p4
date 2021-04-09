@@ -1,7 +1,6 @@
 ﻿namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public abstract class GameObjectNode
+    public abstract class GameObjectNode : Node
     {
-        public abstract void PrintMe();
     }
 }
