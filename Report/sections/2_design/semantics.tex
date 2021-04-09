@@ -3,6 +3,9 @@
 In this section we will be presenting, in an informal manner, the semantics of \dazel.
 Firstly, we will present the type rules which is then followed by a presentation of the scope rules.
 
+\subsection*{Type checking}
+
+
 
 \subsection*{Type rules}
 \dazel has implicitly declared strongly types.
@@ -27,3 +30,7 @@ The decision to use this system is based on the fact that strongly typed languag
 specify the type of each variable as part of its declaration is often confusing to beginners as mentioned in \secref{sec:scientific_research}.
 Therefore it was decided to go with a hybrid approach.
 
+\subsection*{Type checking}
+
+Because \dazel is a strongly typed language, and the goal is to offer safety and ease of use, we decided to perform type checking at compile time - that is, to make it
+statically typed.
