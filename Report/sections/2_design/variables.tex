@@ -1,7 +1,7 @@
 \subsection{Variables}
 
-Variables in programming, also called a program variable, is a way of creating an abstraction of one or more memory cells. In the book "Concepts of Programming Languages" by
-Robert W. Sebesta\cite{sebesta_concepts_2016}, he describes that a variable can be characterized as a sextuple consisting of the attributes:
+Variables in programming, also called a program variable, is a way of creating an abstraction of one or more memory cells. 
+In \cite{sebesta_concepts_2016}, a variable is characterized as a sextuple consisting of the attributes:
 
 \begin{itemize}
     \item Name
@@ -12,11 +12,10 @@ Robert W. Sebesta\cite{sebesta_concepts_2016}, he describes that a variable can 
     \item Scope
 \end{itemize}
 
-In the following sections we will describe the basic theory behind each of the items, in the list above, and how we have chosen to approach them for our language design for Dazel.
-As a note, we will not be concerning ourselves with address and lifetime. This is due to the fact, that they are not important since we will be designing an interpreter that makes use of the .NET runtime
-and therefore will be out of our control. \fxfatal{Skal rettes - er ikke korrekt}
+In the following sections we will describe the basic theory behind each of the items, in the list above, and how we have chosen to approach them for our language design for \dazel{}.
+As a note, we will not be concerning ourselves with address and lifetime. 
+This is due to the fact, that they are not important since we will be designing an interpreter that makes use of the .NET runtime and therefore will be out of our control. \fxfatal{Skal rettes - er ikke korrekt}
 Also the discussion about value is a given, as it relates to the value stored in memory\cite{sebesta_concepts_2016}.
-
 
 \subsubsection{Name}
 
