@@ -8,7 +8,6 @@ on:
 
 jobs:
   test:
-    if: contains( github.event.pull_request.labels.*.name, 'code')
     runs-on: ubuntu-latest
     env:
       config: 'Release'
@@ -19,7 +18,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101    
+        dotnet-version: 3.1.x
 
       # restore dependencies  
     - name: Install dependencies

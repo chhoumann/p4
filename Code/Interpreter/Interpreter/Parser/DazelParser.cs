@@ -36,39 +36,42 @@ public partial class DazelParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, WS=15, IDENTIFIER=16, 
-		INT=17, FLOAT=18, L_PARANTHESIS=19, R_PARANTHESIS=20, L_BRACKET=21, R_BRACKET=22, 
-		L_BRACES=23, R_BRACES=24, ASSIGN_OP=25, LESSTHAN_OP=26, GREATERTHAN_OP=27, 
-		PLUS_OP=28, MINUS_OP=29, MULTIPLICATION_OP=30, DIVISION_OP=31, QUOTATION_MARK=32;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, WS=6, COMMENT=7, SCREEN=8, ENTITY=9, 
+		MOVE_PATTERN=10, MAP=11, ONSCREENENTERED=12, ENTITIES=13, EXITS=14, DATA=15, 
+		PATTERN=16, IDENTIFIER=17, INT=18, FLOAT=19, L_PARANTHESIS=20, R_PARANTHESIS=21, 
+		L_BRACKET=22, R_BRACKET=23, L_BRACES=24, R_BRACES=25, ASSIGN_OP=26, LESSTHAN_OP=27, 
+		GREATERTHAN_OP=28, PLUS_OP=29, MINUS_OP=30, MULTIPLICATION_OP=31, DIVISION_OP=32, 
+		QUOTATION_MARK=33;
 	public const int
-		RULE_start = 0, RULE_game_object = 1, RULE_empty = 2, RULE_game_object_type = 3, 
-		RULE_game_object_contents = 4, RULE_game_object_content = 5, RULE_content_type = 6, 
-		RULE_statement_list = 7, RULE_statement = 8, RULE_repeat_loop = 9, RULE_if_statement = 10, 
-		RULE_assignment = 11, RULE_expression = 12, RULE_sum_expression = 13, 
-		RULE_factor_expression = 14, RULE_terminal_expression = 15, RULE_sum_operation = 16, 
-		RULE_factor_operation = 17, RULE_function_invocation = 18, RULE_member_access = 19, 
-		RULE_value_list = 20, RULE_value = 21, RULE_array = 22;
+		RULE_start = 0, RULE_gameObject = 1, RULE_gameObjectBlock = 2, RULE_empty = 3, 
+		RULE_gameObjectContents = 4, RULE_gameObjectContent = 5, RULE_statementList = 6, 
+		RULE_statementBlock = 7, RULE_statement = 8, RULE_repeatLoop = 9, RULE_ifStatement = 10, 
+		RULE_statementExpression = 11, RULE_assignment = 12, RULE_expression = 13, 
+		RULE_sumExpression = 14, RULE_factorExpression = 15, RULE_terminalExpression = 16, 
+		RULE_sumOperation = 17, RULE_factorOperation = 18, RULE_functionInvocation = 19, 
+		RULE_memberAccess = 20, RULE_valueList = 21, RULE_value = 22, RULE_array = 23;
 	public static readonly string[] ruleNames = {
-		"start", "game_object", "empty", "game_object_type", "game_object_contents", 
-		"game_object_content", "content_type", "statement_list", "statement", 
-		"repeat_loop", "if_statement", "assignment", "expression", "sum_expression", 
-		"factor_expression", "terminal_expression", "sum_operation", "factor_operation", 
-		"function_invocation", "member_access", "value_list", "value", "array"
+		"start", "gameObject", "gameObjectBlock", "empty", "gameObjectContents", 
+		"gameObjectContent", "statementList", "statementBlock", "statement", "repeatLoop", 
+		"ifStatement", "statementExpression", "assignment", "expression", "sumExpression", 
+		"factorExpression", "terminalExpression", "sumOperation", "factorOperation", 
+		"functionInvocation", "memberAccess", "valueList", "value", "array"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'Screen '", "'Entity '", "'MovePattern'", "'Map'", "'OnScreenEntered'", 
-		"'Entities'", "'Exits'", "'Data'", "'Pattern'", "';'", "'repeat'", "'if'", 
-		"'.'", "','", null, null, null, null, "'('", "')'", "'['", "']'", "'{'", 
-		"'}'", "'='", "'<'", "'>'", "'+'", "'-'", "'*'", "'/'", "'\"'"
+		null, "';'", "'repeat'", "'if'", "'.'", "','", null, null, "'Screen'", 
+		"'Entity'", "'MovePattern'", "'Map'", "'OnScreenEntered'", "'Entities'", 
+		"'Exits'", "'Data'", "'Pattern'", null, null, null, "'('", "')'", "'['", 
+		"']'", "'{'", "'}'", "'='", "'<'", "'>'", "'+'", "'-'", "'*'", "'/'", 
+		"'\"'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, "WS", "IDENTIFIER", "INT", "FLOAT", "L_PARANTHESIS", 
-		"R_PARANTHESIS", "L_BRACKET", "R_BRACKET", "L_BRACES", "R_BRACES", "ASSIGN_OP", 
-		"LESSTHAN_OP", "GREATERTHAN_OP", "PLUS_OP", "MINUS_OP", "MULTIPLICATION_OP", 
-		"DIVISION_OP", "QUOTATION_MARK"
+		null, null, null, null, null, null, "WS", "COMMENT", "SCREEN", "ENTITY", 
+		"MOVE_PATTERN", "MAP", "ONSCREENENTERED", "ENTITIES", "EXITS", "DATA", 
+		"PATTERN", "IDENTIFIER", "INT", "FLOAT", "L_PARANTHESIS", "R_PARANTHESIS", 
+		"L_BRACKET", "R_BRACKET", "L_BRACES", "R_BRACES", "ASSIGN_OP", "LESSTHAN_OP", 
+		"GREATERTHAN_OP", "PLUS_OP", "MINUS_OP", "MULTIPLICATION_OP", "DIVISION_OP", 
+		"QUOTATION_MARK"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -103,14 +106,30 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class StartContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Game_objectContext game_object() {
-			return GetRuleContext<Game_objectContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContext gameObject() {
+			return GetRuleContext<GameObjectContext>(0);
 		}
 		public StartContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_start; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterStart(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitStart(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitStart(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
@@ -120,8 +139,8 @@ public partial class DazelParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 46;
-			game_object();
+			State = 48;
+			gameObject();
 			}
 		}
 		catch (RecognitionException re) {
@@ -135,39 +154,114 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Game_objectContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_typeContext game_object_type() {
-			return GetRuleContext<Game_object_typeContext>(0);
-		}
+	public partial class GameObjectContext : ParserRuleContext {
+		public IToken gameObjectType;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(DazelParser.IDENTIFIER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_contentsContext game_object_contents() {
-			return GetRuleContext<Game_object_contentsContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectBlockContext gameObjectBlock() {
+			return GetRuleContext<GameObjectBlockContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public Game_objectContext(ParserRuleContext parent, int invokingState)
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SCREEN() { return GetToken(DazelParser.SCREEN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ENTITY() { return GetToken(DazelParser.ENTITY, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MOVE_PATTERN() { return GetToken(DazelParser.MOVE_PATTERN, 0); }
+		public GameObjectContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_game_object; } }
+		public override int RuleIndex { get { return RULE_gameObject; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterGameObject(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitGameObject(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitGameObject(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Game_objectContext game_object() {
-		Game_objectContext _localctx = new Game_objectContext(Context, State);
-		EnterRule(_localctx, 2, RULE_game_object);
+	public GameObjectContext gameObject() {
+		GameObjectContext _localctx = new GameObjectContext(Context, State);
+		EnterRule(_localctx, 2, RULE_gameObject);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 48;
-			game_object_type();
-			State = 49;
-			Match(IDENTIFIER);
 			State = 50;
-			Match(L_BRACES);
+			_localctx.gameObjectType = TokenStream.LT(1);
+			_la = TokenStream.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SCREEN) | (1L << ENTITY) | (1L << MOVE_PATTERN))) != 0)) ) {
+				_localctx.gameObjectType = ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
 			State = 51;
-			game_object_contents();
+			Match(IDENTIFIER);
 			State = 52;
+			gameObjectBlock();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class GameObjectBlockContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContentsContext gameObjectContents() {
+			return GetRuleContext<GameObjectContentsContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
+		public GameObjectBlockContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_gameObjectBlock; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterGameObjectBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitGameObjectBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitGameObjectBlock(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public GameObjectBlockContext gameObjectBlock() {
+		GameObjectBlockContext _localctx = new GameObjectBlockContext(Context, State);
+		EnterRule(_localctx, 4, RULE_gameObjectBlock);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 54;
+			Match(L_BRACES);
+			State = 55;
+			gameObjectContents();
+			State = 56;
 			Match(R_BRACES);
 			}
 		}
@@ -188,12 +282,28 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_empty; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterEmpty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitEmpty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitEmpty(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
 	public EmptyContext empty() {
 		EmptyContext _localctx = new EmptyContext(Context, State);
-		EnterRule(_localctx, 4, RULE_empty);
+		EnterRule(_localctx, 6, RULE_empty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
@@ -210,89 +320,67 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Game_object_typeContext : ParserRuleContext {
-		public Game_object_typeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
+	public partial class GameObjectContentsContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContentContext gameObjectContent() {
+			return GetRuleContext<GameObjectContentContext>(0);
 		}
-		public override int RuleIndex { get { return RULE_game_object_type; } }
-	}
-
-	[RuleVersion(0)]
-	public Game_object_typeContext game_object_type() {
-		Game_object_typeContext _localctx = new Game_object_typeContext(Context, State);
-		EnterRule(_localctx, 6, RULE_game_object_type);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 56;
-			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2))) != 0)) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class Game_object_contentsContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_contentContext game_object_content() {
-			return GetRuleContext<Game_object_contentContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public Game_object_contentsContext game_object_contents() {
-			return GetRuleContext<Game_object_contentsContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public GameObjectContentsContext gameObjectContents() {
+			return GetRuleContext<GameObjectContentsContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public EmptyContext empty() {
 			return GetRuleContext<EmptyContext>(0);
 		}
-		public Game_object_contentsContext(ParserRuleContext parent, int invokingState)
+		public GameObjectContentsContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_game_object_contents; } }
+		public override int RuleIndex { get { return RULE_gameObjectContents; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterGameObjectContents(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitGameObjectContents(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitGameObjectContents(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Game_object_contentsContext game_object_contents() {
-		Game_object_contentsContext _localctx = new Game_object_contentsContext(Context, State);
-		EnterRule(_localctx, 8, RULE_game_object_contents);
+	public GameObjectContentsContext gameObjectContents() {
+		GameObjectContentsContext _localctx = new GameObjectContentsContext(Context, State);
+		EnterRule(_localctx, 8, RULE_gameObjectContents);
 		try {
-			State = 63;
+			State = 65;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,0,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 58;
-				game_object_content();
+				State = 60;
+				gameObjectContent();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 59;
-				game_object_content();
-				State = 60;
-				game_object_contents();
+				State = 61;
+				gameObjectContent();
+				State = 62;
+				gameObjectContents();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 62;
+				State = 64;
 				empty();
 				}
 				break;
@@ -309,75 +397,60 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Game_object_contentContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Content_typeContext content_type() {
-			return GetRuleContext<Content_typeContext>(0);
+	public partial class GameObjectContentContext : ParserRuleContext {
+		public IToken gameObjectContentType;
+		[System.Diagnostics.DebuggerNonUserCode] public StatementBlockContext statementBlock() {
+			return GetRuleContext<StatementBlockContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public Game_object_contentContext(ParserRuleContext parent, int invokingState)
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MAP() { return GetToken(DazelParser.MAP, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ONSCREENENTERED() { return GetToken(DazelParser.ONSCREENENTERED, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ENTITIES() { return GetToken(DazelParser.ENTITIES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EXITS() { return GetToken(DazelParser.EXITS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DATA() { return GetToken(DazelParser.DATA, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PATTERN() { return GetToken(DazelParser.PATTERN, 0); }
+		public GameObjectContentContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_game_object_content; } }
+		public override int RuleIndex { get { return RULE_gameObjectContent; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterGameObjectContent(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitGameObjectContent(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitGameObjectContent(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Game_object_contentContext game_object_content() {
-		Game_object_contentContext _localctx = new Game_object_contentContext(Context, State);
-		EnterRule(_localctx, 10, RULE_game_object_content);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 65;
-			content_type();
-			State = 66;
-			Match(L_BRACES);
-			State = 67;
-			statement_list();
-			State = 68;
-			Match(R_BRACES);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class Content_typeContext : ParserRuleContext {
-		public Content_typeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_content_type; } }
-	}
-
-	[RuleVersion(0)]
-	public Content_typeContext content_type() {
-		Content_typeContext _localctx = new Content_typeContext(Context, State);
-		EnterRule(_localctx, 12, RULE_content_type);
+	public GameObjectContentContext gameObjectContent() {
+		GameObjectContentContext _localctx = new GameObjectContentContext(Context, State);
+		EnterRule(_localctx, 10, RULE_gameObjectContent);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 70;
+			State = 67;
+			_localctx.gameObjectContentType = TokenStream.LT(1);
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8))) != 0)) ) {
-			ErrorHandler.RecoverInline(this);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MAP) | (1L << ONSCREENENTERED) | (1L << ENTITIES) | (1L << EXITS) | (1L << DATA) | (1L << PATTERN))) != 0)) ) {
+				_localctx.gameObjectContentType = ErrorHandler.RecoverInline(this);
 			}
 			else {
 				ErrorHandler.ReportMatch(this);
 			    Consume();
 			}
+			State = 68;
+			statementBlock();
 			}
 		}
 		catch (RecognitionException re) {
@@ -391,58 +464,141 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Statement_listContext : ParserRuleContext {
+	public partial class StatementListContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext statement() {
 			return GetRuleContext<StatementContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public StatementBlockContext statementBlock() {
+			return GetRuleContext<StatementBlockContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public EmptyContext empty() {
 			return GetRuleContext<EmptyContext>(0);
 		}
-		public Statement_listContext(ParserRuleContext parent, int invokingState)
+		public StatementListContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_statement_list; } }
+		public override int RuleIndex { get { return RULE_statementList; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterStatementList(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitStatementList(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitStatementList(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Statement_listContext statement_list() {
-		Statement_listContext _localctx = new Statement_listContext(Context, State);
-		EnterRule(_localctx, 14, RULE_statement_list);
+	public StatementListContext statementList() {
+		StatementListContext _localctx = new StatementListContext(Context, State);
+		EnterRule(_localctx, 12, RULE_statementList);
 		try {
-			State = 80;
+			State = 81;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 72;
+				State = 70;
 				statement();
-				State = 73;
-				Match(T__9);
+				State = 71;
+				Match(T__0);
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 75;
+				State = 73;
 				statement();
-				State = 76;
-				Match(T__9);
-				State = 77;
-				statement_list();
+				State = 74;
+				Match(T__0);
+				State = 75;
+				statementList();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 79;
+				State = 77;
+				statementBlock();
+				State = 78;
+				statementList();
+				}
+				break;
+			case 4:
+				EnterOuterAlt(_localctx, 4);
+				{
+				State = 80;
 				empty();
 				}
 				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class StatementBlockContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
+		public StatementBlockContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_statementBlock; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterStatementBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitStatementBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitStatementBlock(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public StatementBlockContext statementBlock() {
+		StatementBlockContext _localctx = new StatementBlockContext(Context, State);
+		EnterRule(_localctx, 14, RULE_statementBlock);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 83;
+			Match(L_BRACES);
+			State = 84;
+			statementList();
+			State = 85;
+			Match(R_BRACES);
 			}
 		}
 		catch (RecognitionException re) {
@@ -457,23 +613,36 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class StatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Repeat_loopContext repeat_loop() {
-			return GetRuleContext<Repeat_loopContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public RepeatLoopContext repeatLoop() {
+			return GetRuleContext<RepeatLoopContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public AssignmentContext assignment() {
-			return GetRuleContext<AssignmentContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public IfStatementContext ifStatement() {
+			return GetRuleContext<IfStatementContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Function_invocationContext function_invocation() {
-			return GetRuleContext<Function_invocationContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public If_statementContext if_statement() {
-			return GetRuleContext<If_statementContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public StatementExpressionContext statementExpression() {
+			return GetRuleContext<StatementExpressionContext>(0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_statement; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterStatement(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitStatement(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitStatement(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
@@ -481,124 +650,216 @@ public partial class DazelParser : Parser {
 		StatementContext _localctx = new StatementContext(Context, State);
 		EnterRule(_localctx, 16, RULE_statement);
 		try {
-			State = 86;
+			State = 90;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
+			switch (TokenStream.LA(1)) {
+			case T__1:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 87;
+				repeatLoop();
+				}
+				break;
+			case T__2:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 88;
+				ifStatement();
+				}
+				break;
+			case IDENTIFIER:
+				EnterOuterAlt(_localctx, 3);
+				{
+				State = 89;
+				statementExpression();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class RepeatLoopContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
+		public RepeatLoopContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_repeatLoop; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterRepeatLoop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitRepeatLoop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitRepeatLoop(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public RepeatLoopContext repeatLoop() {
+		RepeatLoopContext _localctx = new RepeatLoopContext(Context, State);
+		EnterRule(_localctx, 18, RULE_repeatLoop);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 92;
+			Match(T__1);
+			State = 93;
+			Match(L_BRACES);
+			State = 94;
+			statementList();
+			State = 95;
+			Match(R_BRACES);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class IfStatementContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public StatementListContext statementList() {
+			return GetRuleContext<StatementListContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
+		public IfStatementContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_ifStatement; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterIfStatement(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitIfStatement(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitIfStatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public IfStatementContext ifStatement() {
+		IfStatementContext _localctx = new IfStatementContext(Context, State);
+		EnterRule(_localctx, 20, RULE_ifStatement);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 97;
+			Match(T__2);
+			State = 98;
+			expression();
+			State = 99;
+			Match(L_BRACES);
+			State = 100;
+			statementList();
+			State = 101;
+			Match(R_BRACES);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class StatementExpressionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public AssignmentContext assignment() {
+			return GetRuleContext<AssignmentContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public FunctionInvocationContext functionInvocation() {
+			return GetRuleContext<FunctionInvocationContext>(0);
+		}
+		public StatementExpressionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_statementExpression; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterStatementExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitStatementExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitStatementExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public StatementExpressionContext statementExpression() {
+		StatementExpressionContext _localctx = new StatementExpressionContext(Context, State);
+		EnterRule(_localctx, 22, RULE_statementExpression);
+		try {
+			State = 105;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,3,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 82;
-				repeat_loop();
+				State = 103;
+				assignment();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 83;
-				assignment();
+				State = 104;
+				functionInvocation();
 				}
 				break;
-			case 3:
-				EnterOuterAlt(_localctx, 3);
-				{
-				State = 84;
-				function_invocation();
-				}
-				break;
-			case 4:
-				EnterOuterAlt(_localctx, 4);
-				{
-				State = 85;
-				if_statement();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class Repeat_loopContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public Repeat_loopContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_repeat_loop; } }
-	}
-
-	[RuleVersion(0)]
-	public Repeat_loopContext repeat_loop() {
-		Repeat_loopContext _localctx = new Repeat_loopContext(Context, State);
-		EnterRule(_localctx, 18, RULE_repeat_loop);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 88;
-			Match(T__10);
-			State = 89;
-			Match(L_BRACES);
-			State = 90;
-			statement_list();
-			State = 91;
-			Match(R_BRACES);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class If_statementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACES() { return GetToken(DazelParser.L_BRACES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Statement_listContext statement_list() {
-			return GetRuleContext<Statement_listContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACES() { return GetToken(DazelParser.R_BRACES, 0); }
-		public If_statementContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_if_statement; } }
-	}
-
-	[RuleVersion(0)]
-	public If_statementContext if_statement() {
-		If_statementContext _localctx = new If_statementContext(Context, State);
-		EnterRule(_localctx, 20, RULE_if_statement);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 93;
-			Match(T__11);
-			State = 94;
-			expression();
-			State = 95;
-			Match(L_BRACES);
-			State = 96;
-			statement_list();
-			State = 97;
-			Match(R_BRACES);
 			}
 		}
 		catch (RecognitionException re) {
@@ -623,20 +884,36 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_assignment; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterAssignment(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitAssignment(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitAssignment(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
 	public AssignmentContext assignment() {
 		AssignmentContext _localctx = new AssignmentContext(Context, State);
-		EnterRule(_localctx, 22, RULE_assignment);
+		EnterRule(_localctx, 24, RULE_assignment);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 99;
+			State = 107;
 			Match(IDENTIFIER);
-			State = 100;
+			State = 108;
 			Match(ASSIGN_OP);
-			State = 101;
+			State = 109;
 			expression();
 			}
 		}
@@ -652,25 +929,41 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class ExpressionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Sum_expressionContext sum_expression() {
-			return GetRuleContext<Sum_expressionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public SumExpressionContext sumExpression() {
+			return GetRuleContext<SumExpressionContext>(0);
 		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_expression; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitExpression(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
 	public ExpressionContext expression() {
 		ExpressionContext _localctx = new ExpressionContext(Context, State);
-		EnterRule(_localctx, 24, RULE_expression);
+		EnterRule(_localctx, 26, RULE_expression);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 103;
-			sum_expression(0);
+			State = 111;
+			sumExpression(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -684,121 +977,61 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Sum_expressionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Factor_expressionContext factor_expression() {
-			return GetRuleContext<Factor_expressionContext>(0);
+	public partial class SumExpressionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public FactorExpressionContext factorExpression() {
+			return GetRuleContext<FactorExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Sum_expressionContext sum_expression() {
-			return GetRuleContext<Sum_expressionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public SumExpressionContext sumExpression() {
+			return GetRuleContext<SumExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Sum_operationContext sum_operation() {
-			return GetRuleContext<Sum_operationContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public SumOperationContext sumOperation() {
+			return GetRuleContext<SumOperationContext>(0);
 		}
-		public Sum_expressionContext(ParserRuleContext parent, int invokingState)
+		public SumExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_sum_expression; } }
+		public override int RuleIndex { get { return RULE_sumExpression; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterSumExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitSumExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitSumExpression(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Sum_expressionContext sum_expression() {
-		return sum_expression(0);
+	public SumExpressionContext sumExpression() {
+		return sumExpression(0);
 	}
 
-	private Sum_expressionContext sum_expression(int _p) {
+	private SumExpressionContext sumExpression(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Sum_expressionContext _localctx = new Sum_expressionContext(Context, _parentState);
-		Sum_expressionContext _prevctx = _localctx;
-		int _startState = 26;
-		EnterRecursionRule(_localctx, 26, RULE_sum_expression, _p);
-		try {
-			int _alt;
-			EnterOuterAlt(_localctx, 1);
-			{
-			{
-			State = 106;
-			factor_expression(0);
-			}
-			Context.Stop = TokenStream.LT(-1);
-			State = 114;
-			ErrorHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( ParseListeners!=null )
-						TriggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					{
-					_localctx = new Sum_expressionContext(_parentctx, _parentState);
-					PushNewRecursionContext(_localctx, _startState, RULE_sum_expression);
-					State = 108;
-					if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
-					State = 109;
-					sum_operation();
-					State = 110;
-					factor_expression(0);
-					}
-					} 
-				}
-				State = 116;
-				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			UnrollRecursionContexts(_parentctx);
-		}
-		return _localctx;
-	}
-
-	public partial class Factor_expressionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Terminal_expressionContext terminal_expression() {
-			return GetRuleContext<Terminal_expressionContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public Factor_expressionContext factor_expression() {
-			return GetRuleContext<Factor_expressionContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public Factor_operationContext factor_operation() {
-			return GetRuleContext<Factor_operationContext>(0);
-		}
-		public Factor_expressionContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_factor_expression; } }
-	}
-
-	[RuleVersion(0)]
-	public Factor_expressionContext factor_expression() {
-		return factor_expression(0);
-	}
-
-	private Factor_expressionContext factor_expression(int _p) {
-		ParserRuleContext _parentctx = Context;
-		int _parentState = State;
-		Factor_expressionContext _localctx = new Factor_expressionContext(Context, _parentState);
-		Factor_expressionContext _prevctx = _localctx;
+		SumExpressionContext _localctx = new SumExpressionContext(Context, _parentState);
+		SumExpressionContext _prevctx = _localctx;
 		int _startState = 28;
-		EnterRecursionRule(_localctx, 28, RULE_factor_expression, _p);
+		EnterRecursionRule(_localctx, 28, RULE_sumExpression, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
-			State = 118;
-			terminal_expression();
+			State = 114;
+			factorExpression(0);
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 126;
+			State = 122;
 			ErrorHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(TokenStream,4,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
@@ -808,18 +1041,18 @@ public partial class DazelParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Factor_expressionContext(_parentctx, _parentState);
-					PushNewRecursionContext(_localctx, _startState, RULE_factor_expression);
-					State = 120;
+					_localctx = new SumExpressionContext(_parentctx, _parentState);
+					PushNewRecursionContext(_localctx, _startState, RULE_sumExpression);
+					State = 116;
 					if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
-					State = 121;
-					factor_operation();
-					State = 122;
-					terminal_expression();
+					State = 117;
+					sumOperation();
+					State = 118;
+					factorExpression(0);
 					}
 					} 
 				}
-				State = 128;
+				State = 124;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,4,Context);
 			}
@@ -836,7 +1069,99 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Terminal_expressionContext : ParserRuleContext {
+	public partial class FactorExpressionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public TerminalExpressionContext terminalExpression() {
+			return GetRuleContext<TerminalExpressionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public FactorExpressionContext factorExpression() {
+			return GetRuleContext<FactorExpressionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public FactorOperationContext factorOperation() {
+			return GetRuleContext<FactorOperationContext>(0);
+		}
+		public FactorExpressionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_factorExpression; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterFactorExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitFactorExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFactorExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public FactorExpressionContext factorExpression() {
+		return factorExpression(0);
+	}
+
+	private FactorExpressionContext factorExpression(int _p) {
+		ParserRuleContext _parentctx = Context;
+		int _parentState = State;
+		FactorExpressionContext _localctx = new FactorExpressionContext(Context, _parentState);
+		FactorExpressionContext _prevctx = _localctx;
+		int _startState = 30;
+		EnterRecursionRule(_localctx, 30, RULE_factorExpression, _p);
+		try {
+			int _alt;
+			EnterOuterAlt(_localctx, 1);
+			{
+			{
+			State = 126;
+			terminalExpression();
+			}
+			Context.Stop = TokenStream.LT(-1);
+			State = 134;
+			ErrorHandler.Sync(this);
+			_alt = Interpreter.AdaptivePredict(TokenStream,5,Context);
+			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( ParseListeners!=null )
+						TriggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					{
+					_localctx = new FactorExpressionContext(_parentctx, _parentState);
+					PushNewRecursionContext(_localctx, _startState, RULE_factorExpression);
+					State = 128;
+					if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
+					State = 129;
+					factorOperation();
+					State = 130;
+					terminalExpression();
+					}
+					} 
+				}
+				State = 136;
+				ErrorHandler.Sync(this);
+				_alt = Interpreter.AdaptivePredict(TokenStream,5,Context);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			UnrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
+	public partial class TerminalExpressionContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ValueContext value() {
 			return GetRuleContext<ValueContext>(0);
 		}
@@ -845,19 +1170,35 @@ public partial class DazelParser : Parser {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_PARANTHESIS() { return GetToken(DazelParser.R_PARANTHESIS, 0); }
-		public Terminal_expressionContext(ParserRuleContext parent, int invokingState)
+		public TerminalExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_terminal_expression; } }
+		public override int RuleIndex { get { return RULE_terminalExpression; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterTerminalExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitTerminalExpression(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitTerminalExpression(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Terminal_expressionContext terminal_expression() {
-		Terminal_expressionContext _localctx = new Terminal_expressionContext(Context, State);
-		EnterRule(_localctx, 30, RULE_terminal_expression);
+	public TerminalExpressionContext terminalExpression() {
+		TerminalExpressionContext _localctx = new TerminalExpressionContext(Context, State);
+		EnterRule(_localctx, 32, RULE_terminalExpression);
 		try {
-			State = 134;
+			State = 142;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case IDENTIFIER:
@@ -866,18 +1207,18 @@ public partial class DazelParser : Parser {
 			case L_BRACKET:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 129;
+				State = 137;
 				value();
 				}
 				break;
 			case L_PARANTHESIS:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 130;
+				State = 138;
 				Match(L_PARANTHESIS);
-				State = 131;
+				State = 139;
 				expression();
-				State = 132;
+				State = 140;
 				Match(R_PARANTHESIS);
 				}
 				break;
@@ -896,25 +1237,41 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Sum_operationContext : ParserRuleContext {
+	public partial class SumOperationContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS_OP() { return GetToken(DazelParser.PLUS_OP, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS_OP() { return GetToken(DazelParser.MINUS_OP, 0); }
-		public Sum_operationContext(ParserRuleContext parent, int invokingState)
+		public SumOperationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_sum_operation; } }
+		public override int RuleIndex { get { return RULE_sumOperation; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterSumOperation(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitSumOperation(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitSumOperation(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Sum_operationContext sum_operation() {
-		Sum_operationContext _localctx = new Sum_operationContext(Context, State);
-		EnterRule(_localctx, 32, RULE_sum_operation);
+	public SumOperationContext sumOperation() {
+		SumOperationContext _localctx = new SumOperationContext(Context, State);
+		EnterRule(_localctx, 34, RULE_sumOperation);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 136;
+			State = 144;
 			_la = TokenStream.LA(1);
 			if ( !(_la==PLUS_OP || _la==MINUS_OP) ) {
 			ErrorHandler.RecoverInline(this);
@@ -936,25 +1293,41 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Factor_operationContext : ParserRuleContext {
+	public partial class FactorOperationContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MULTIPLICATION_OP() { return GetToken(DazelParser.MULTIPLICATION_OP, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DIVISION_OP() { return GetToken(DazelParser.DIVISION_OP, 0); }
-		public Factor_operationContext(ParserRuleContext parent, int invokingState)
+		public FactorOperationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_factor_operation; } }
+		public override int RuleIndex { get { return RULE_factorOperation; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterFactorOperation(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitFactorOperation(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFactorOperation(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Factor_operationContext factor_operation() {
-		Factor_operationContext _localctx = new Factor_operationContext(Context, State);
-		EnterRule(_localctx, 34, RULE_factor_operation);
+	public FactorOperationContext factorOperation() {
+		FactorOperationContext _localctx = new FactorOperationContext(Context, State);
+		EnterRule(_localctx, 36, RULE_factorOperation);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 138;
+			State = 146;
 			_la = TokenStream.LA(1);
 			if ( !(_la==MULTIPLICATION_OP || _la==DIVISION_OP) ) {
 			ErrorHandler.RecoverInline(this);
@@ -976,34 +1349,50 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Function_invocationContext : ParserRuleContext {
+	public partial class FunctionInvocationContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(DazelParser.IDENTIFIER, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_PARANTHESIS() { return GetToken(DazelParser.L_PARANTHESIS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Value_listContext value_list() {
-			return GetRuleContext<Value_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ValueListContext valueList() {
+			return GetRuleContext<ValueListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_PARANTHESIS() { return GetToken(DazelParser.R_PARANTHESIS, 0); }
-		public Function_invocationContext(ParserRuleContext parent, int invokingState)
+		public FunctionInvocationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_function_invocation; } }
+		public override int RuleIndex { get { return RULE_functionInvocation; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterFunctionInvocation(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitFunctionInvocation(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFunctionInvocation(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Function_invocationContext function_invocation() {
-		Function_invocationContext _localctx = new Function_invocationContext(Context, State);
-		EnterRule(_localctx, 36, RULE_function_invocation);
+	public FunctionInvocationContext functionInvocation() {
+		FunctionInvocationContext _localctx = new FunctionInvocationContext(Context, State);
+		EnterRule(_localctx, 38, RULE_functionInvocation);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 140;
+			State = 148;
 			Match(IDENTIFIER);
-			State = 141;
+			State = 149;
 			Match(L_PARANTHESIS);
-			State = 142;
-			value_list();
-			State = 143;
+			State = 150;
+			valueList();
+			State = 151;
 			Match(R_PARANTHESIS);
 			}
 		}
@@ -1018,30 +1407,69 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Member_accessContext : ParserRuleContext {
+	public partial class MemberAccessContext : ParserRuleContext {
+		public IToken type;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(DazelParser.IDENTIFIER); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
 			return GetToken(DazelParser.IDENTIFIER, i);
 		}
-		public Member_accessContext(ParserRuleContext parent, int invokingState)
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SCREEN() { return GetToken(DazelParser.SCREEN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ENTITY() { return GetToken(DazelParser.ENTITY, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MOVE_PATTERN() { return GetToken(DazelParser.MOVE_PATTERN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MAP() { return GetToken(DazelParser.MAP, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ONSCREENENTERED() { return GetToken(DazelParser.ONSCREENENTERED, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ENTITIES() { return GetToken(DazelParser.ENTITIES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EXITS() { return GetToken(DazelParser.EXITS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DATA() { return GetToken(DazelParser.DATA, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PATTERN() { return GetToken(DazelParser.PATTERN, 0); }
+		public MemberAccessContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_member_access; } }
+		public override int RuleIndex { get { return RULE_memberAccess; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterMemberAccess(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitMemberAccess(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMemberAccess(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Member_accessContext member_access() {
-		Member_accessContext _localctx = new Member_accessContext(Context, State);
-		EnterRule(_localctx, 38, RULE_member_access);
+	public MemberAccessContext memberAccess() {
+		MemberAccessContext _localctx = new MemberAccessContext(Context, State);
+		EnterRule(_localctx, 40, RULE_memberAccess);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 145;
+			State = 153;
 			Match(IDENTIFIER);
-			State = 146;
-			Match(T__12);
-			State = 147;
+			State = 154;
+			Match(T__3);
+			State = 155;
+			_localctx.type = TokenStream.LT(1);
+			_la = TokenStream.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SCREEN) | (1L << ENTITY) | (1L << MOVE_PATTERN) | (1L << MAP) | (1L << ONSCREENENTERED) | (1L << ENTITIES) | (1L << EXITS) | (1L << DATA) | (1L << PATTERN))) != 0)) ) {
+				_localctx.type = ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
+			State = 156;
+			Match(T__3);
+			State = 157;
 			Match(IDENTIFIER);
 			}
 		}
@@ -1056,53 +1484,69 @@ public partial class DazelParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Value_listContext : ParserRuleContext {
+	public partial class ValueListContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ValueContext value() {
 			return GetRuleContext<ValueContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Value_listContext value_list() {
-			return GetRuleContext<Value_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ValueListContext valueList() {
+			return GetRuleContext<ValueListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public EmptyContext empty() {
 			return GetRuleContext<EmptyContext>(0);
 		}
-		public Value_listContext(ParserRuleContext parent, int invokingState)
+		public ValueListContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_value_list; } }
+		public override int RuleIndex { get { return RULE_valueList; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterValueList(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitValueList(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitValueList(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public Value_listContext value_list() {
-		Value_listContext _localctx = new Value_listContext(Context, State);
-		EnterRule(_localctx, 40, RULE_value_list);
+	public ValueListContext valueList() {
+		ValueListContext _localctx = new ValueListContext(Context, State);
+		EnterRule(_localctx, 42, RULE_valueList);
 		try {
-			State = 155;
+			State = 165;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,6,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 149;
+				State = 159;
 				value();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 150;
+				State = 160;
 				value();
-				State = 151;
-				Match(T__13);
-				State = 152;
-				value_list();
+				State = 161;
+				Match(T__4);
+				State = 162;
+				valueList();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 154;
+				State = 164;
 				empty();
 				}
 				break;
@@ -1120,73 +1564,85 @@ public partial class DazelParser : Parser {
 	}
 
 	public partial class ValueContext : ParserRuleContext {
+		public IToken terminalValue;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(DazelParser.IDENTIFIER, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INT() { return GetToken(DazelParser.INT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOAT() { return GetToken(DazelParser.FLOAT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ArrayContext array() {
 			return GetRuleContext<ArrayContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Function_invocationContext function_invocation() {
-			return GetRuleContext<Function_invocationContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public MemberAccessContext memberAccess() {
+			return GetRuleContext<MemberAccessContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Member_accessContext member_access() {
-			return GetRuleContext<Member_accessContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public FunctionInvocationContext functionInvocation() {
+			return GetRuleContext<FunctionInvocationContext>(0);
 		}
 		public ValueContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_value; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterValue(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitValue(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitValue(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
 	public ValueContext value() {
 		ValueContext _localctx = new ValueContext(Context, State);
-		EnterRule(_localctx, 42, RULE_value);
+		EnterRule(_localctx, 44, RULE_value);
+		int _la;
 		try {
-			State = 163;
+			State = 171;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,8,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 157;
-				Match(IDENTIFIER);
+				State = 167;
+				_localctx.terminalValue = TokenStream.LT(1);
+				_la = TokenStream.LA(1);
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIFIER) | (1L << INT) | (1L << FLOAT))) != 0)) ) {
+					_localctx.terminalValue = ErrorHandler.RecoverInline(this);
+				}
+				else {
+					ErrorHandler.ReportMatch(this);
+				    Consume();
+				}
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 158;
-				Match(INT);
+				State = 168;
+				array();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 159;
-				Match(FLOAT);
+				State = 169;
+				memberAccess();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 160;
-				array();
-				}
-				break;
-			case 5:
-				EnterOuterAlt(_localctx, 5);
-				{
-				State = 161;
-				function_invocation();
-				}
-				break;
-			case 6:
-				EnterOuterAlt(_localctx, 6);
-				{
-				State = 162;
-				member_access();
+				State = 170;
+				functionInvocation();
 				}
 				break;
 			}
@@ -1204,8 +1660,8 @@ public partial class DazelParser : Parser {
 
 	public partial class ArrayContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode L_BRACKET() { return GetToken(DazelParser.L_BRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Value_listContext value_list() {
-			return GetRuleContext<Value_listContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ValueListContext valueList() {
+			return GetRuleContext<ValueListContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode R_BRACKET() { return GetToken(DazelParser.R_BRACKET, 0); }
 		public ArrayContext(ParserRuleContext parent, int invokingState)
@@ -1213,20 +1669,36 @@ public partial class DazelParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_array; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.EnterArray(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IDazelListener typedListener = listener as IDazelListener;
+			if (typedListener != null) typedListener.ExitArray(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IDazelVisitor<TResult> typedVisitor = visitor as IDazelVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitArray(this);
+			else return visitor.VisitChildren(this);
+		}
 	}
 
 	[RuleVersion(0)]
 	public ArrayContext array() {
 		ArrayContext _localctx = new ArrayContext(Context, State);
-		EnterRule(_localctx, 44, RULE_array);
+		EnterRule(_localctx, 46, RULE_array);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 165;
+			State = 173;
 			Match(L_BRACKET);
-			State = 166;
-			value_list();
-			State = 167;
+			State = 174;
+			valueList();
+			State = 175;
 			Match(R_BRACKET);
 			}
 		}
@@ -1243,18 +1715,18 @@ public partial class DazelParser : Parser {
 
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 13: return sum_expression_sempred((Sum_expressionContext)_localctx, predIndex);
-		case 14: return factor_expression_sempred((Factor_expressionContext)_localctx, predIndex);
+		case 14: return sumExpression_sempred((SumExpressionContext)_localctx, predIndex);
+		case 15: return factorExpression_sempred((FactorExpressionContext)_localctx, predIndex);
 		}
 		return true;
 	}
-	private bool sum_expression_sempred(Sum_expressionContext _localctx, int predIndex) {
+	private bool sumExpression_sempred(SumExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0: return Precpred(Context, 2);
 		}
 		return true;
 	}
-	private bool factor_expression_sempred(Factor_expressionContext _localctx, int predIndex) {
+	private bool factorExpression_sempred(FactorExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 1: return Precpred(Context, 2);
 		}
@@ -1263,7 +1735,7 @@ public partial class DazelParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\"', '\xAC', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', '#', '\xB4', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
 		'\x4', '\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x4', '\v', '\t', '\v', 
@@ -1272,129 +1744,135 @@ public partial class DazelParser : Parser {
 		'\x11', '\t', '\x11', '\x4', '\x12', '\t', '\x12', '\x4', '\x13', '\t', 
 		'\x13', '\x4', '\x14', '\t', '\x14', '\x4', '\x15', '\t', '\x15', '\x4', 
 		'\x16', '\t', '\x16', '\x4', '\x17', '\t', '\x17', '\x4', '\x18', '\t', 
-		'\x18', '\x3', '\x2', '\x3', '\x2', '\x3', '\x3', '\x3', '\x3', '\x3', 
+		'\x18', '\x4', '\x19', '\t', '\x19', '\x3', '\x2', '\x3', '\x2', '\x3', 
 		'\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x4', '\x3', 
-		'\x4', '\x3', '\x5', '\x3', '\x5', '\x3', '\x6', '\x3', '\x6', '\x3', 
-		'\x6', '\x3', '\x6', '\x3', '\x6', '\x5', '\x6', '\x42', '\n', '\x6', 
-		'\x3', '\a', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x3', 
-		'\b', '\x3', '\b', '\x3', '\t', '\x3', '\t', '\x3', '\t', '\x3', '\t', 
-		'\x3', '\t', '\x3', '\t', '\x3', '\t', '\x3', '\t', '\x5', '\t', 'S', 
-		'\n', '\t', '\x3', '\n', '\x3', '\n', '\x3', '\n', '\x3', '\n', '\x5', 
-		'\n', 'Y', '\n', '\n', '\x3', '\v', '\x3', '\v', '\x3', '\v', '\x3', '\v', 
-		'\x3', '\v', '\x3', '\f', '\x3', '\f', '\x3', '\f', '\x3', '\f', '\x3', 
-		'\f', '\x3', '\f', '\x3', '\r', '\x3', '\r', '\x3', '\r', '\x3', '\r', 
-		'\x3', '\xE', '\x3', '\xE', '\x3', '\xF', '\x3', '\xF', '\x3', '\xF', 
-		'\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\a', '\xF', 's', 
-		'\n', '\xF', '\f', '\xF', '\xE', '\xF', 'v', '\v', '\xF', '\x3', '\x10', 
-		'\x3', '\x10', '\x3', '\x10', '\x3', '\x10', '\x3', '\x10', '\x3', '\x10', 
-		'\x3', '\x10', '\a', '\x10', '\x7F', '\n', '\x10', '\f', '\x10', '\xE', 
-		'\x10', '\x82', '\v', '\x10', '\x3', '\x11', '\x3', '\x11', '\x3', '\x11', 
-		'\x3', '\x11', '\x3', '\x11', '\x5', '\x11', '\x89', '\n', '\x11', '\x3', 
-		'\x12', '\x3', '\x12', '\x3', '\x13', '\x3', '\x13', '\x3', '\x14', '\x3', 
-		'\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x15', '\x3', 
-		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x16', '\x3', '\x16', '\x3', 
-		'\x16', '\x3', '\x16', '\x3', '\x16', '\x3', '\x16', '\x5', '\x16', '\x9E', 
-		'\n', '\x16', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', 
-		'\x3', '\x17', '\x3', '\x17', '\x5', '\x17', '\xA6', '\n', '\x17', '\x3', 
-		'\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x2', 
-		'\x4', '\x1C', '\x1E', '\x19', '\x2', '\x4', '\x6', '\b', '\n', '\f', 
-		'\xE', '\x10', '\x12', '\x14', '\x16', '\x18', '\x1A', '\x1C', '\x1E', 
-		' ', '\"', '$', '&', '(', '*', ',', '.', '\x2', '\x6', '\x3', '\x2', '\x3', 
-		'\x5', '\x3', '\x2', '\x6', '\v', '\x3', '\x2', '\x1E', '\x1F', '\x3', 
-		'\x2', ' ', '!', '\x2', '\xA5', '\x2', '\x30', '\x3', '\x2', '\x2', '\x2', 
-		'\x4', '\x32', '\x3', '\x2', '\x2', '\x2', '\x6', '\x38', '\x3', '\x2', 
-		'\x2', '\x2', '\b', ':', '\x3', '\x2', '\x2', '\x2', '\n', '\x41', '\x3', 
-		'\x2', '\x2', '\x2', '\f', '\x43', '\x3', '\x2', '\x2', '\x2', '\xE', 
-		'H', '\x3', '\x2', '\x2', '\x2', '\x10', 'R', '\x3', '\x2', '\x2', '\x2', 
-		'\x12', 'X', '\x3', '\x2', '\x2', '\x2', '\x14', 'Z', '\x3', '\x2', '\x2', 
-		'\x2', '\x16', '_', '\x3', '\x2', '\x2', '\x2', '\x18', '\x65', '\x3', 
-		'\x2', '\x2', '\x2', '\x1A', 'i', '\x3', '\x2', '\x2', '\x2', '\x1C', 
-		'k', '\x3', '\x2', '\x2', '\x2', '\x1E', 'w', '\x3', '\x2', '\x2', '\x2', 
-		' ', '\x88', '\x3', '\x2', '\x2', '\x2', '\"', '\x8A', '\x3', '\x2', '\x2', 
-		'\x2', '$', '\x8C', '\x3', '\x2', '\x2', '\x2', '&', '\x8E', '\x3', '\x2', 
-		'\x2', '\x2', '(', '\x93', '\x3', '\x2', '\x2', '\x2', '*', '\x9D', '\x3', 
-		'\x2', '\x2', '\x2', ',', '\xA5', '\x3', '\x2', '\x2', '\x2', '.', '\xA7', 
-		'\x3', '\x2', '\x2', '\x2', '\x30', '\x31', '\x5', '\x4', '\x3', '\x2', 
-		'\x31', '\x3', '\x3', '\x2', '\x2', '\x2', '\x32', '\x33', '\x5', '\b', 
-		'\x5', '\x2', '\x33', '\x34', '\a', '\x12', '\x2', '\x2', '\x34', '\x35', 
-		'\a', '\x19', '\x2', '\x2', '\x35', '\x36', '\x5', '\n', '\x6', '\x2', 
-		'\x36', '\x37', '\a', '\x1A', '\x2', '\x2', '\x37', '\x5', '\x3', '\x2', 
-		'\x2', '\x2', '\x38', '\x39', '\x3', '\x2', '\x2', '\x2', '\x39', '\a', 
-		'\x3', '\x2', '\x2', '\x2', ':', ';', '\t', '\x2', '\x2', '\x2', ';', 
-		'\t', '\x3', '\x2', '\x2', '\x2', '<', '\x42', '\x5', '\f', '\a', '\x2', 
-		'=', '>', '\x5', '\f', '\a', '\x2', '>', '?', '\x5', '\n', '\x6', '\x2', 
-		'?', '\x42', '\x3', '\x2', '\x2', '\x2', '@', '\x42', '\x5', '\x6', '\x4', 
-		'\x2', '\x41', '<', '\x3', '\x2', '\x2', '\x2', '\x41', '=', '\x3', '\x2', 
-		'\x2', '\x2', '\x41', '@', '\x3', '\x2', '\x2', '\x2', '\x42', '\v', '\x3', 
-		'\x2', '\x2', '\x2', '\x43', '\x44', '\x5', '\xE', '\b', '\x2', '\x44', 
-		'\x45', '\a', '\x19', '\x2', '\x2', '\x45', '\x46', '\x5', '\x10', '\t', 
-		'\x2', '\x46', 'G', '\a', '\x1A', '\x2', '\x2', 'G', '\r', '\x3', '\x2', 
-		'\x2', '\x2', 'H', 'I', '\t', '\x3', '\x2', '\x2', 'I', '\xF', '\x3', 
-		'\x2', '\x2', '\x2', 'J', 'K', '\x5', '\x12', '\n', '\x2', 'K', 'L', '\a', 
-		'\f', '\x2', '\x2', 'L', 'S', '\x3', '\x2', '\x2', '\x2', 'M', 'N', '\x5', 
-		'\x12', '\n', '\x2', 'N', 'O', '\a', '\f', '\x2', '\x2', 'O', 'P', '\x5', 
-		'\x10', '\t', '\x2', 'P', 'S', '\x3', '\x2', '\x2', '\x2', 'Q', 'S', '\x5', 
-		'\x6', '\x4', '\x2', 'R', 'J', '\x3', '\x2', '\x2', '\x2', 'R', 'M', '\x3', 
-		'\x2', '\x2', '\x2', 'R', 'Q', '\x3', '\x2', '\x2', '\x2', 'S', '\x11', 
-		'\x3', '\x2', '\x2', '\x2', 'T', 'Y', '\x5', '\x14', '\v', '\x2', 'U', 
-		'Y', '\x5', '\x18', '\r', '\x2', 'V', 'Y', '\x5', '&', '\x14', '\x2', 
-		'W', 'Y', '\x5', '\x16', '\f', '\x2', 'X', 'T', '\x3', '\x2', '\x2', '\x2', 
-		'X', 'U', '\x3', '\x2', '\x2', '\x2', 'X', 'V', '\x3', '\x2', '\x2', '\x2', 
-		'X', 'W', '\x3', '\x2', '\x2', '\x2', 'Y', '\x13', '\x3', '\x2', '\x2', 
-		'\x2', 'Z', '[', '\a', '\r', '\x2', '\x2', '[', '\\', '\a', '\x19', '\x2', 
-		'\x2', '\\', ']', '\x5', '\x10', '\t', '\x2', ']', '^', '\a', '\x1A', 
-		'\x2', '\x2', '^', '\x15', '\x3', '\x2', '\x2', '\x2', '_', '`', '\a', 
-		'\xE', '\x2', '\x2', '`', '\x61', '\x5', '\x1A', '\xE', '\x2', '\x61', 
-		'\x62', '\a', '\x19', '\x2', '\x2', '\x62', '\x63', '\x5', '\x10', '\t', 
-		'\x2', '\x63', '\x64', '\a', '\x1A', '\x2', '\x2', '\x64', '\x17', '\x3', 
-		'\x2', '\x2', '\x2', '\x65', '\x66', '\a', '\x12', '\x2', '\x2', '\x66', 
-		'g', '\a', '\x1B', '\x2', '\x2', 'g', 'h', '\x5', '\x1A', '\xE', '\x2', 
-		'h', '\x19', '\x3', '\x2', '\x2', '\x2', 'i', 'j', '\x5', '\x1C', '\xF', 
-		'\x2', 'j', '\x1B', '\x3', '\x2', '\x2', '\x2', 'k', 'l', '\b', '\xF', 
-		'\x1', '\x2', 'l', 'm', '\x5', '\x1E', '\x10', '\x2', 'm', 't', '\x3', 
-		'\x2', '\x2', '\x2', 'n', 'o', '\f', '\x4', '\x2', '\x2', 'o', 'p', '\x5', 
-		'\"', '\x12', '\x2', 'p', 'q', '\x5', '\x1E', '\x10', '\x2', 'q', 's', 
-		'\x3', '\x2', '\x2', '\x2', 'r', 'n', '\x3', '\x2', '\x2', '\x2', 's', 
-		'v', '\x3', '\x2', '\x2', '\x2', 't', 'r', '\x3', '\x2', '\x2', '\x2', 
-		't', 'u', '\x3', '\x2', '\x2', '\x2', 'u', '\x1D', '\x3', '\x2', '\x2', 
-		'\x2', 'v', 't', '\x3', '\x2', '\x2', '\x2', 'w', 'x', '\b', '\x10', '\x1', 
-		'\x2', 'x', 'y', '\x5', ' ', '\x11', '\x2', 'y', '\x80', '\x3', '\x2', 
-		'\x2', '\x2', 'z', '{', '\f', '\x4', '\x2', '\x2', '{', '|', '\x5', '$', 
-		'\x13', '\x2', '|', '}', '\x5', ' ', '\x11', '\x2', '}', '\x7F', '\x3', 
-		'\x2', '\x2', '\x2', '~', 'z', '\x3', '\x2', '\x2', '\x2', '\x7F', '\x82', 
-		'\x3', '\x2', '\x2', '\x2', '\x80', '~', '\x3', '\x2', '\x2', '\x2', '\x80', 
-		'\x81', '\x3', '\x2', '\x2', '\x2', '\x81', '\x1F', '\x3', '\x2', '\x2', 
-		'\x2', '\x82', '\x80', '\x3', '\x2', '\x2', '\x2', '\x83', '\x89', '\x5', 
-		',', '\x17', '\x2', '\x84', '\x85', '\a', '\x15', '\x2', '\x2', '\x85', 
-		'\x86', '\x5', '\x1A', '\xE', '\x2', '\x86', '\x87', '\a', '\x16', '\x2', 
-		'\x2', '\x87', '\x89', '\x3', '\x2', '\x2', '\x2', '\x88', '\x83', '\x3', 
-		'\x2', '\x2', '\x2', '\x88', '\x84', '\x3', '\x2', '\x2', '\x2', '\x89', 
-		'!', '\x3', '\x2', '\x2', '\x2', '\x8A', '\x8B', '\t', '\x4', '\x2', '\x2', 
-		'\x8B', '#', '\x3', '\x2', '\x2', '\x2', '\x8C', '\x8D', '\t', '\x5', 
-		'\x2', '\x2', '\x8D', '%', '\x3', '\x2', '\x2', '\x2', '\x8E', '\x8F', 
-		'\a', '\x12', '\x2', '\x2', '\x8F', '\x90', '\a', '\x15', '\x2', '\x2', 
-		'\x90', '\x91', '\x5', '*', '\x16', '\x2', '\x91', '\x92', '\a', '\x16', 
-		'\x2', '\x2', '\x92', '\'', '\x3', '\x2', '\x2', '\x2', '\x93', '\x94', 
-		'\a', '\x12', '\x2', '\x2', '\x94', '\x95', '\a', '\xF', '\x2', '\x2', 
-		'\x95', '\x96', '\a', '\x12', '\x2', '\x2', '\x96', ')', '\x3', '\x2', 
-		'\x2', '\x2', '\x97', '\x9E', '\x5', ',', '\x17', '\x2', '\x98', '\x99', 
-		'\x5', ',', '\x17', '\x2', '\x99', '\x9A', '\a', '\x10', '\x2', '\x2', 
-		'\x9A', '\x9B', '\x5', '*', '\x16', '\x2', '\x9B', '\x9E', '\x3', '\x2', 
-		'\x2', '\x2', '\x9C', '\x9E', '\x5', '\x6', '\x4', '\x2', '\x9D', '\x97', 
-		'\x3', '\x2', '\x2', '\x2', '\x9D', '\x98', '\x3', '\x2', '\x2', '\x2', 
-		'\x9D', '\x9C', '\x3', '\x2', '\x2', '\x2', '\x9E', '+', '\x3', '\x2', 
-		'\x2', '\x2', '\x9F', '\xA6', '\a', '\x12', '\x2', '\x2', '\xA0', '\xA6', 
-		'\a', '\x13', '\x2', '\x2', '\xA1', '\xA6', '\a', '\x14', '\x2', '\x2', 
-		'\xA2', '\xA6', '\x5', '.', '\x18', '\x2', '\xA3', '\xA6', '\x5', '&', 
-		'\x14', '\x2', '\xA4', '\xA6', '\x5', '(', '\x15', '\x2', '\xA5', '\x9F', 
-		'\x3', '\x2', '\x2', '\x2', '\xA5', '\xA0', '\x3', '\x2', '\x2', '\x2', 
-		'\xA5', '\xA1', '\x3', '\x2', '\x2', '\x2', '\xA5', '\xA2', '\x3', '\x2', 
-		'\x2', '\x2', '\xA5', '\xA3', '\x3', '\x2', '\x2', '\x2', '\xA5', '\xA4', 
-		'\x3', '\x2', '\x2', '\x2', '\xA6', '-', '\x3', '\x2', '\x2', '\x2', '\xA7', 
-		'\xA8', '\a', '\x17', '\x2', '\x2', '\xA8', '\xA9', '\x5', '*', '\x16', 
-		'\x2', '\xA9', '\xAA', '\a', '\x18', '\x2', '\x2', '\xAA', '/', '\x3', 
-		'\x2', '\x2', '\x2', '\n', '\x41', 'R', 'X', 't', '\x80', '\x88', '\x9D', 
-		'\xA5',
+		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x5', '\x3', '\x5', '\x3', 
+		'\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x5', 
+		'\x6', '\x44', '\n', '\x6', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x3', 
+		'\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', 
+		'\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x5', 
+		'\b', 'T', '\n', '\b', '\x3', '\t', '\x3', '\t', '\x3', '\t', '\x3', '\t', 
+		'\x3', '\n', '\x3', '\n', '\x3', '\n', '\x5', '\n', ']', '\n', '\n', '\x3', 
+		'\v', '\x3', '\v', '\x3', '\v', '\x3', '\v', '\x3', '\v', '\x3', '\f', 
+		'\x3', '\f', '\x3', '\f', '\x3', '\f', '\x3', '\f', '\x3', '\f', '\x3', 
+		'\r', '\x3', '\r', '\x5', '\r', 'l', '\n', '\r', '\x3', '\xE', '\x3', 
+		'\xE', '\x3', '\xE', '\x3', '\xE', '\x3', '\xF', '\x3', '\xF', '\x3', 
+		'\x10', '\x3', '\x10', '\x3', '\x10', '\x3', '\x10', '\x3', '\x10', '\x3', 
+		'\x10', '\x3', '\x10', '\a', '\x10', '{', '\n', '\x10', '\f', '\x10', 
+		'\xE', '\x10', '~', '\v', '\x10', '\x3', '\x11', '\x3', '\x11', '\x3', 
+		'\x11', '\x3', '\x11', '\x3', '\x11', '\x3', '\x11', '\x3', '\x11', '\a', 
+		'\x11', '\x87', '\n', '\x11', '\f', '\x11', '\xE', '\x11', '\x8A', '\v', 
+		'\x11', '\x3', '\x12', '\x3', '\x12', '\x3', '\x12', '\x3', '\x12', '\x3', 
+		'\x12', '\x5', '\x12', '\x91', '\n', '\x12', '\x3', '\x13', '\x3', '\x13', 
+		'\x3', '\x14', '\x3', '\x14', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', 
+		'\x3', '\x15', '\x3', '\x15', '\x3', '\x16', '\x3', '\x16', '\x3', '\x16', 
+		'\x3', '\x16', '\x3', '\x16', '\x3', '\x16', '\x3', '\x17', '\x3', '\x17', 
+		'\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x5', '\x17', 
+		'\xA8', '\n', '\x17', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', 
+		'\x18', '\x5', '\x18', '\xAE', '\n', '\x18', '\x3', '\x19', '\x3', '\x19', 
+		'\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x2', '\x4', '\x1E', ' ', 
+		'\x1A', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', 
+		'\x14', '\x16', '\x18', '\x1A', '\x1C', '\x1E', ' ', '\"', '$', '&', '(', 
+		'*', ',', '.', '\x30', '\x2', '\b', '\x3', '\x2', '\n', '\f', '\x3', '\x2', 
+		'\r', '\x12', '\x3', '\x2', '\x1F', ' ', '\x3', '\x2', '!', '\"', '\x3', 
+		'\x2', '\n', '\x12', '\x3', '\x2', '\x13', '\x15', '\x2', '\xAB', '\x2', 
+		'\x32', '\x3', '\x2', '\x2', '\x2', '\x4', '\x34', '\x3', '\x2', '\x2', 
+		'\x2', '\x6', '\x38', '\x3', '\x2', '\x2', '\x2', '\b', '<', '\x3', '\x2', 
+		'\x2', '\x2', '\n', '\x43', '\x3', '\x2', '\x2', '\x2', '\f', '\x45', 
+		'\x3', '\x2', '\x2', '\x2', '\xE', 'S', '\x3', '\x2', '\x2', '\x2', '\x10', 
+		'U', '\x3', '\x2', '\x2', '\x2', '\x12', '\\', '\x3', '\x2', '\x2', '\x2', 
+		'\x14', '^', '\x3', '\x2', '\x2', '\x2', '\x16', '\x63', '\x3', '\x2', 
+		'\x2', '\x2', '\x18', 'k', '\x3', '\x2', '\x2', '\x2', '\x1A', 'm', '\x3', 
+		'\x2', '\x2', '\x2', '\x1C', 'q', '\x3', '\x2', '\x2', '\x2', '\x1E', 
+		's', '\x3', '\x2', '\x2', '\x2', ' ', '\x7F', '\x3', '\x2', '\x2', '\x2', 
+		'\"', '\x90', '\x3', '\x2', '\x2', '\x2', '$', '\x92', '\x3', '\x2', '\x2', 
+		'\x2', '&', '\x94', '\x3', '\x2', '\x2', '\x2', '(', '\x96', '\x3', '\x2', 
+		'\x2', '\x2', '*', '\x9B', '\x3', '\x2', '\x2', '\x2', ',', '\xA7', '\x3', 
+		'\x2', '\x2', '\x2', '.', '\xAD', '\x3', '\x2', '\x2', '\x2', '\x30', 
+		'\xAF', '\x3', '\x2', '\x2', '\x2', '\x32', '\x33', '\x5', '\x4', '\x3', 
+		'\x2', '\x33', '\x3', '\x3', '\x2', '\x2', '\x2', '\x34', '\x35', '\t', 
+		'\x2', '\x2', '\x2', '\x35', '\x36', '\a', '\x13', '\x2', '\x2', '\x36', 
+		'\x37', '\x5', '\x6', '\x4', '\x2', '\x37', '\x5', '\x3', '\x2', '\x2', 
+		'\x2', '\x38', '\x39', '\a', '\x1A', '\x2', '\x2', '\x39', ':', '\x5', 
+		'\n', '\x6', '\x2', ':', ';', '\a', '\x1B', '\x2', '\x2', ';', '\a', '\x3', 
+		'\x2', '\x2', '\x2', '<', '=', '\x3', '\x2', '\x2', '\x2', '=', '\t', 
+		'\x3', '\x2', '\x2', '\x2', '>', '\x44', '\x5', '\f', '\a', '\x2', '?', 
+		'@', '\x5', '\f', '\a', '\x2', '@', '\x41', '\x5', '\n', '\x6', '\x2', 
+		'\x41', '\x44', '\x3', '\x2', '\x2', '\x2', '\x42', '\x44', '\x5', '\b', 
+		'\x5', '\x2', '\x43', '>', '\x3', '\x2', '\x2', '\x2', '\x43', '?', '\x3', 
+		'\x2', '\x2', '\x2', '\x43', '\x42', '\x3', '\x2', '\x2', '\x2', '\x44', 
+		'\v', '\x3', '\x2', '\x2', '\x2', '\x45', '\x46', '\t', '\x3', '\x2', 
+		'\x2', '\x46', 'G', '\x5', '\x10', '\t', '\x2', 'G', '\r', '\x3', '\x2', 
+		'\x2', '\x2', 'H', 'I', '\x5', '\x12', '\n', '\x2', 'I', 'J', '\a', '\x3', 
+		'\x2', '\x2', 'J', 'T', '\x3', '\x2', '\x2', '\x2', 'K', 'L', '\x5', '\x12', 
+		'\n', '\x2', 'L', 'M', '\a', '\x3', '\x2', '\x2', 'M', 'N', '\x5', '\xE', 
+		'\b', '\x2', 'N', 'T', '\x3', '\x2', '\x2', '\x2', 'O', 'P', '\x5', '\x10', 
+		'\t', '\x2', 'P', 'Q', '\x5', '\xE', '\b', '\x2', 'Q', 'T', '\x3', '\x2', 
+		'\x2', '\x2', 'R', 'T', '\x5', '\b', '\x5', '\x2', 'S', 'H', '\x3', '\x2', 
+		'\x2', '\x2', 'S', 'K', '\x3', '\x2', '\x2', '\x2', 'S', 'O', '\x3', '\x2', 
+		'\x2', '\x2', 'S', 'R', '\x3', '\x2', '\x2', '\x2', 'T', '\xF', '\x3', 
+		'\x2', '\x2', '\x2', 'U', 'V', '\a', '\x1A', '\x2', '\x2', 'V', 'W', '\x5', 
+		'\xE', '\b', '\x2', 'W', 'X', '\a', '\x1B', '\x2', '\x2', 'X', '\x11', 
+		'\x3', '\x2', '\x2', '\x2', 'Y', ']', '\x5', '\x14', '\v', '\x2', 'Z', 
+		']', '\x5', '\x16', '\f', '\x2', '[', ']', '\x5', '\x18', '\r', '\x2', 
+		'\\', 'Y', '\x3', '\x2', '\x2', '\x2', '\\', 'Z', '\x3', '\x2', '\x2', 
+		'\x2', '\\', '[', '\x3', '\x2', '\x2', '\x2', ']', '\x13', '\x3', '\x2', 
+		'\x2', '\x2', '^', '_', '\a', '\x4', '\x2', '\x2', '_', '`', '\a', '\x1A', 
+		'\x2', '\x2', '`', '\x61', '\x5', '\xE', '\b', '\x2', '\x61', '\x62', 
+		'\a', '\x1B', '\x2', '\x2', '\x62', '\x15', '\x3', '\x2', '\x2', '\x2', 
+		'\x63', '\x64', '\a', '\x5', '\x2', '\x2', '\x64', '\x65', '\x5', '\x1C', 
+		'\xF', '\x2', '\x65', '\x66', '\a', '\x1A', '\x2', '\x2', '\x66', 'g', 
+		'\x5', '\xE', '\b', '\x2', 'g', 'h', '\a', '\x1B', '\x2', '\x2', 'h', 
+		'\x17', '\x3', '\x2', '\x2', '\x2', 'i', 'l', '\x5', '\x1A', '\xE', '\x2', 
+		'j', 'l', '\x5', '(', '\x15', '\x2', 'k', 'i', '\x3', '\x2', '\x2', '\x2', 
+		'k', 'j', '\x3', '\x2', '\x2', '\x2', 'l', '\x19', '\x3', '\x2', '\x2', 
+		'\x2', 'm', 'n', '\a', '\x13', '\x2', '\x2', 'n', 'o', '\a', '\x1C', '\x2', 
+		'\x2', 'o', 'p', '\x5', '\x1C', '\xF', '\x2', 'p', '\x1B', '\x3', '\x2', 
+		'\x2', '\x2', 'q', 'r', '\x5', '\x1E', '\x10', '\x2', 'r', '\x1D', '\x3', 
+		'\x2', '\x2', '\x2', 's', 't', '\b', '\x10', '\x1', '\x2', 't', 'u', '\x5', 
+		' ', '\x11', '\x2', 'u', '|', '\x3', '\x2', '\x2', '\x2', 'v', 'w', '\f', 
+		'\x4', '\x2', '\x2', 'w', 'x', '\x5', '$', '\x13', '\x2', 'x', 'y', '\x5', 
+		' ', '\x11', '\x2', 'y', '{', '\x3', '\x2', '\x2', '\x2', 'z', 'v', '\x3', 
+		'\x2', '\x2', '\x2', '{', '~', '\x3', '\x2', '\x2', '\x2', '|', 'z', '\x3', 
+		'\x2', '\x2', '\x2', '|', '}', '\x3', '\x2', '\x2', '\x2', '}', '\x1F', 
+		'\x3', '\x2', '\x2', '\x2', '~', '|', '\x3', '\x2', '\x2', '\x2', '\x7F', 
+		'\x80', '\b', '\x11', '\x1', '\x2', '\x80', '\x81', '\x5', '\"', '\x12', 
+		'\x2', '\x81', '\x88', '\x3', '\x2', '\x2', '\x2', '\x82', '\x83', '\f', 
+		'\x4', '\x2', '\x2', '\x83', '\x84', '\x5', '&', '\x14', '\x2', '\x84', 
+		'\x85', '\x5', '\"', '\x12', '\x2', '\x85', '\x87', '\x3', '\x2', '\x2', 
+		'\x2', '\x86', '\x82', '\x3', '\x2', '\x2', '\x2', '\x87', '\x8A', '\x3', 
+		'\x2', '\x2', '\x2', '\x88', '\x86', '\x3', '\x2', '\x2', '\x2', '\x88', 
+		'\x89', '\x3', '\x2', '\x2', '\x2', '\x89', '!', '\x3', '\x2', '\x2', 
+		'\x2', '\x8A', '\x88', '\x3', '\x2', '\x2', '\x2', '\x8B', '\x91', '\x5', 
+		'.', '\x18', '\x2', '\x8C', '\x8D', '\a', '\x16', '\x2', '\x2', '\x8D', 
+		'\x8E', '\x5', '\x1C', '\xF', '\x2', '\x8E', '\x8F', '\a', '\x17', '\x2', 
+		'\x2', '\x8F', '\x91', '\x3', '\x2', '\x2', '\x2', '\x90', '\x8B', '\x3', 
+		'\x2', '\x2', '\x2', '\x90', '\x8C', '\x3', '\x2', '\x2', '\x2', '\x91', 
+		'#', '\x3', '\x2', '\x2', '\x2', '\x92', '\x93', '\t', '\x4', '\x2', '\x2', 
+		'\x93', '%', '\x3', '\x2', '\x2', '\x2', '\x94', '\x95', '\t', '\x5', 
+		'\x2', '\x2', '\x95', '\'', '\x3', '\x2', '\x2', '\x2', '\x96', '\x97', 
+		'\a', '\x13', '\x2', '\x2', '\x97', '\x98', '\a', '\x16', '\x2', '\x2', 
+		'\x98', '\x99', '\x5', ',', '\x17', '\x2', '\x99', '\x9A', '\a', '\x17', 
+		'\x2', '\x2', '\x9A', ')', '\x3', '\x2', '\x2', '\x2', '\x9B', '\x9C', 
+		'\a', '\x13', '\x2', '\x2', '\x9C', '\x9D', '\a', '\x6', '\x2', '\x2', 
+		'\x9D', '\x9E', '\t', '\x6', '\x2', '\x2', '\x9E', '\x9F', '\a', '\x6', 
+		'\x2', '\x2', '\x9F', '\xA0', '\a', '\x13', '\x2', '\x2', '\xA0', '+', 
+		'\x3', '\x2', '\x2', '\x2', '\xA1', '\xA8', '\x5', '.', '\x18', '\x2', 
+		'\xA2', '\xA3', '\x5', '.', '\x18', '\x2', '\xA3', '\xA4', '\a', '\a', 
+		'\x2', '\x2', '\xA4', '\xA5', '\x5', ',', '\x17', '\x2', '\xA5', '\xA8', 
+		'\x3', '\x2', '\x2', '\x2', '\xA6', '\xA8', '\x5', '\b', '\x5', '\x2', 
+		'\xA7', '\xA1', '\x3', '\x2', '\x2', '\x2', '\xA7', '\xA2', '\x3', '\x2', 
+		'\x2', '\x2', '\xA7', '\xA6', '\x3', '\x2', '\x2', '\x2', '\xA8', '-', 
+		'\x3', '\x2', '\x2', '\x2', '\xA9', '\xAE', '\t', '\a', '\x2', '\x2', 
+		'\xAA', '\xAE', '\x5', '\x30', '\x19', '\x2', '\xAB', '\xAE', '\x5', '*', 
+		'\x16', '\x2', '\xAC', '\xAE', '\x5', '(', '\x15', '\x2', '\xAD', '\xA9', 
+		'\x3', '\x2', '\x2', '\x2', '\xAD', '\xAA', '\x3', '\x2', '\x2', '\x2', 
+		'\xAD', '\xAB', '\x3', '\x2', '\x2', '\x2', '\xAD', '\xAC', '\x3', '\x2', 
+		'\x2', '\x2', '\xAE', '/', '\x3', '\x2', '\x2', '\x2', '\xAF', '\xB0', 
+		'\a', '\x18', '\x2', '\x2', '\xB0', '\xB1', '\x5', ',', '\x17', '\x2', 
+		'\xB1', '\xB2', '\a', '\x19', '\x2', '\x2', '\xB2', '\x31', '\x3', '\x2', 
+		'\x2', '\x2', '\v', '\x43', 'S', '\\', 'k', '|', '\x88', '\x90', '\xA7', 
+		'\xAD',
 	};
 
 	public static readonly ATN _ATN =
