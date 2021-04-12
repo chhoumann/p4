@@ -13,11 +13,14 @@ In \cite{sebesta_concepts_2016}, a variable is characterized as a sextuple consi
 \end{itemize}
 
 In the following sections we will describe the basic theory behind each of the items, in the list above, and how we have chosen to approach them for our language design for \dazel{}.
-As a note, we will not be concerning ourselves with address and lifetime. 
-This is due to the fact, that they are not important since we will be designing an interpreter that makes use of the .NET runtime and therefore will be out of our control. \fxfatal{Skal rettes - er ikke korrekt}
-Also the discussion about value is a given, as it relates to the value stored in memory\cite{sebesta_concepts_2016}.
 
-\subsubsection{Name}
+\subsubsection*{Address, lifetime and values of variables}
+Since \dazel{} will be translated to C\#, the addressing and lifetime of variables is primarily handled by the .NET runtime, 
+however we can influence it through the scope rules described in \secref{sec:semantics}.
+In doing so, we can ensure that no two variables share the same address as long as they are declared within different scopes.
+It is also worth noting that, while our language dictates the actual value of a variable, its memory allocation is still managed by the .NET runtime.
+
+\subsubsection*{Name}
 
 Variable names in a programming language is a string of characters used to identify an entity in the program\cite{sebesta_concepts_2016}. A name can be defined to be consisting of either capital letters,
 lower case letters, some symbols or a mixture of all.
@@ -36,3 +39,5 @@ Specifically for our language design we have decided that a variable name can be
 
 The list of rules mentioned can be simplified using the regular expression: [a-zA-Z][a-zA-Z\_0-9]*. Any construction of a variable outside of these rules will be considered
 a non-valid construction.
+
+How variables are defined in relation to their scope and type will be discussed in the description of the language semantics in \secref{sec:semantics}.
