@@ -1,25 +1,23 @@
-\section{Similar Solutions}
-% ! See Notion -> Outline. We should have defined an initial problem which we can refer to. Just like I do below.
-This section aims to give an overview of how other technologies attempt to solve a problem similar to ours. We decided to research these similar solutions such that we can draw inspiration from them.
+\section{Existing solutions}\label{sec:existing_solutions}
+There are many services and solutions that, in their own way, attempt to teach new programmers how to program.
+We will attempt to get an overview of some of the more popular ones.
 
 \subsection{Scratch}\label{ScratchSection}
 \begin{quote}
     ``\emph{A key goal of Scratch is to introduce programming to those with no previous programming experience.}'' - Maloney et al, 2010\cite{maloneyScratchProgrammingLanguage2010}
 \end{quote}
 
-Scratch\cite{ScratchImagineProgram} is the first programming language that comes to mind - and for good reason. At the time of writing, Scratch has 68 million registered users\cite{ScratchImagineProgramStatistics}. This makes it the most popular solution for a closely adjacent problem to ours. It also indicates that there is a desire to learn how to program through a largely visual and interactive platform.
+Scratch\cite{ScratchImagineProgram} is the first programming language that comes to mind - and for good reason. At the time of writing, Scratch has 68 million registered users\cite{ScratchImagineProgramStatistics}. This could indicate that there is a desire to learn how to program through a largely visual and interactive platform.
 
-
-% !! I have chosen to expand exhaustively on what makes Scratch stand out. It is, by far, the most popular and well-developed platform. They also provided a paper, which made it much more scientifically valid for us to use. There is much to learn from it. If we do not draw inspiration from any of the below features, we could (and perhaps, should) make this a bit shorter.
-There are a few features which makes Scratch stand out as a platform to learn programming.
+There are a few features which makes Scratch stand out as a platform to learn programming. Some of these are highlighted below.
 \begin{itemize}
-    \item Scratch is always live. A user is not restricted from editing while their script is running. This helps users stay engaged in ``testing, debugging, and improving their projects.''\cite{maloneyScratchProgrammingLanguage2010}
-    \item Scratch provides visual feedback to their users.\cite{maloneyScratchProgrammingLanguage2010}
-    \item Scratch does not show error messages. Instead, it attempts error-recovery.\cite{maloneyScratchProgrammingLanguage2010}
-    \item Scratchs' syntax consists of four types of blocks; command blocks, function blocks, trigger blocks, and control structure blocks.\cite{maloneyScratchProgrammingLanguage2010}
-    \item There are only three data types; boolean, number, and string.\cite{maloneyScratchProgrammingLanguage2010}
-    \item Concurrency, or multi-threading, is supported. A sprite can do several things at once.\cite{maloneyScratchProgrammingLanguage2010}
-\end{itemize}
+    \item Scratch is always live. A user is not restricted from editing while their script is running. This helps users stay engaged in ``testing, debugging, and improving their projects''
+    \item Scratch provides visual feedback to their users
+    \item Scratch does not show error messages. Instead, it attempts error-recovery
+    \item Scratch's syntax consists of four types of blocks; command blocks, function blocks, trigger blocks, and control structure blocks
+    \item There are only three data types; boolean, number, and string
+    \item Concurrency, or multi-threading, is supported. A sprite can do several things at once
+\end{itemize}\cite{maloneyScratchProgrammingLanguage2010}
 
 \subsection{CodeCombat}\label{CodeCombatSection}
 CodeCombat is similar to Scratch in that it aims to teach users how to program.
@@ -32,8 +30,18 @@ In CodeCombat, you learn about various programming concepts such as syntax, meth
 \subsection{Conclusion}
 Both \secref{CodeCombatSection} and \secref{ScratchSection} present existing solutions that are designed to introduce users to programming.
 
-They provide different approaches in order to achieve this. CodeCombat provides a representation of programming that is closer to writing code than Scratch, as Scratch provides blocks as an abstraction over textual code.
-Another difference is how users are taught programming. Using Scratch, learning happens implicitly. There are no levels designed to teach you programming concepts - but there are tutorials. The primary focus is how to build a program. CodeCombat, on the other hand, is more explicit in teaching the user programming concepts. Learning is necessary in order to progress through the levels.
+CodeCombat provides a representation of programming that is closer to writing code than Scratch, whereas Scratch provides blocks as an abstraction over textual code.
+Another difference is how users are taught programming.
+Using Scratch, learning happens implicitly.
+You are taught to be creative through code. There are tutorials on how to do specific things, but no specific problems to solve.
+CodeCombat, on the other hand, is more explicit in teaching the user programming concepts.
+Learning is necessary in order to progress through the levels. You are taught to solve problems through code.
 
-% ! Should this section be rounded off more? I have given a generalized conclusion as this section should come before the problem definition. We can draw upon inspiration from these existing solutions there.
-% ! I guess you could say that we draw inspiration from both. We, like Scratch, focus on world- and story-creation, which gives more freedom than the linear story of CodeCombat. We draw from CodeCombat in that we provide a textual way of creating.
+While the services have different approaches, they have a few important similarities.
+For one, users are urged to learn through practice.
+In Scratch, you get to create whatever your imagination allows. You are taught programming through creation and exploration.
+CodeCombat teaches you programming through games; specific problems and obstacles that can be solved by putting what you have learned to practice.
+
+Both services are also primarily visual.
+Code is used to facilitate movement and action.
+There is a direct connection between the written code and what the characters do.
