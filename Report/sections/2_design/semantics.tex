@@ -1,12 +1,12 @@
 \section{Semantics for Dazel}
 
-In this section we will be presenting, in an informal manner, the semantics of \dazel.
+In this section we will be presenting, in an informal manner, the semantics of \dazel{}.
 Firstly, we will present the type rules which is then followed by a presentation of the scope rules.
 
-\subsection*{Type checking}
+\subsection{Type Rules}
 
-When designing a compiler, decisions have to be made concerning how you approach type checking. Type checking can be divided into two categories, each of which have
-drawbacks and benefits. The categories are:
+When designing a compiler, decisions have to be made concerning how you approach type checking.
+Type checking can be divided into two categories, each of which have drawbacks and benefits. The categories are:
 
 \begin{enumerate}
 	\item \textbf{Strong} versus \textbf{Weak} types
@@ -14,18 +14,20 @@ drawbacks and benefits. The categories are:
 \end{enumerate}
 
 \subsubsection*{Strong and weak typing}
-Strong and weak typing relates to how the type of a given variable can be determined at either run time or compile time. Strong typing implies that the compiler is
-able to detect all the incorrect uses of variables that would otherwise result in type errors or illegal coercions.
+Strong and weak typing relates to how the type of a given variable can be determined at either run time or compile time. 
+Strong typing implies that the compiler is able to detect all the incorrect uses of variables that would otherwise result in type errors or illegal coercions.
 Weak typing implies that types will automically be converted from one type to another or that type rule enforcement can easily be subverted.
-For example, using a string in a numeric context will convert it to the string's numerical representation.
+For example, using a string in a numeric context will convert it to the string's numerical representation\cite{sebesta_concepts_2016}.
 
 \subsubsection*{Static and dynamic typing}
 Static typing means that the type is statically bound to the \emph{variable} and that types are checked at compile time.
-In contrast dynamic typing is where the type is bound to the \emph{value} and that the type is checked at run time.
+In contrast, dynamic typing is where the type is bound to the \emph{value} and that the type is checked at run time\cite{sebesta_concepts_2016}.\\
 
+The type of a variable can also either an implicit or explicit declaration. 
+The type then determines the value range and the set of operations available to this variable.
 
-\subsection*{Type rules}
-\dazel has implicitly declared strong types.
+\subsection*{Type rules in \dazel{}}
+\dazel{} has implicitly declared strong types.
 This means the programmer does not need to explicitly define the type of every variable, however, once declared, a variable
 cannot dynamically change type.
 For example, as can be seen in \ref{lst:IllegalAssignment}, \textbf{Exit1} is declared to be of type \textbf{Exit} so it cannot be be
@@ -35,11 +37,11 @@ assigned to an integer afterwards.
 // ./Screens/SampleScreen1.txt
 Screen SampleScreen1 
 {
-	Exits 
-	{
-		Exit1 = Exit([4, 0], SampleScreen2.Exit1);
-		Exit1 = 1; // Not legal because Exit1 has type Exit
-	}
+    Exits 
+    {
+        Exit1 = Exit([4, 0], SampleScreen2.Exit1);
+        Exit1 = 1; // Not legal because Exit1 has type Exit
+    }
 }
 \end{lstlisting}
 
@@ -47,5 +49,62 @@ The decision to use this system is based on the fact that strongly typed languag
 specify the type of each variable as part of its declaration is often confusing to beginners as mentioned in \secref{sec:scientific_research}.
 Therefore it was decided to go with a hybrid approach.
 
-\subsection*{Type checking}
+In addition, we decided to include four different types with corresponding array-types. These will be implicity declared.
 
+\begin{multicols}{3}
+    \begin{enumerate}
+        \item Numbers\label{item:numbertype}
+        \item Booleans\label{item:booleantype}
+        \item Strings\label{item:stringtype}
+        \item Tiles\label{item:tiletype}
+        \item Arrays*\label{item:arraytype}
+    \end{enumerate}
+\end{multicols}
+
+\ref{item:numbertype} should denote both integer and floating point types. The actual type will be determined through context. \ref{item:booleantype} will be used for conditional expressions and control flow.
+\ref{item:stringtype} will be used for naming.
+\ref{item:tiletype} is an important type: it is the type behind every tile in the generated games.
+\ref{item:arraytype} means that every type in the list will have a corresponding array type. This is to say that arrays are parametric - for example, an array could be an array of numbers.
+
+\subsection{Scope}
+In this section we describe different types of scope rules, specifically static scopes, block scopes and dynamic scopes.
+We will ultimately use this to determine the best fit for \dazel{}.
+
+\subsubsection{Static Scopes}
+Originally introduced by ALGOL 60\cite{backus_revised_1963}, \texttt{static scoping} is the act of binding names to nonlocal variables such that the scope of a variable
+can be determined prior to program execution. This way, one can determine the type of every variable via the source code.
+Static-scoped languages can be split into two categories: those that allow sub-programs to be nested and those that do not.
+The former creates nested static scopes while the latter only creates nested scopes through nested class definitions and blocks.
+Static scope rules are quite commonly used in modern languages due to their emphasis on static type checking\cite{sebesta_concepts_2016}.
+
+\subsection{Dynamic Scopes}
+In contrast to static scoping, variables declared in languages with \texttt{dynamic scoping} are determined at runtime through the calling sequence of subprograms.
+
+\begin{lstlisting}[caption={Example of dynamic scoping}, label={lst:DynamicScopeExample}]
+function main() {
+	function nested1() {
+		var x = 7;
+	}
+	
+	function nested2() {
+		var y = x;
+	}
+
+	var x = 3;
+}
+\end{lstlisting}
+
+In listing \ref{DynamicScopeExample}, assuming that dynamic scoping rules apply, the meaning of the identifier \texttt{x} cannot be determined at compile time.
+Specifically, the declaration of an identifier is first searched for in the local function.
+If no declaration for \texttt{x} is found, the search continues to the function's caller, its \texttt{dynamic parent}, and so on up the call-stack\cite{sebesta_concepts_2016}.
+
+\subsubsection{Blocks}
+The concept of \texttt{block scoping} allows specific sections of code called blocks to have their own localized variables.
+Variables declared within a block are local, meaning they cannot be accessed from outside the scope. However, nested blocks can still access variables from outer scopes.
+A variable declaed within a block is allocated when the block is entered and deallocated when it is exited\cite{sebesta_concepts_2016}.
+
+\subsubsection{Choice of Scope}
+Due to the nature of action maps in games, we decided to use block scopes in order to separate the elements found within a screen.
+In particular, a screen on the map is defined by a block containing nested blocks that describe the maps layout, its exits and the entities that spawn within the given screen.
+For instance, the tilemap layout of a screen would be defined in a \texttt{Map} block containing definitions for tile placements.
+This separation of screen elements made sense as it achieves decoupling between the different parts of a screen by default.
