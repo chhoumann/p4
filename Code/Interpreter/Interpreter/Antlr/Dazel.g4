@@ -75,7 +75,6 @@ function_invocation     : IDENTIFIER L_PARANTHESIS value_list R_PARANTHESIS
                         ;
 
 member_access           : IDENTIFIER '.' IDENTIFIER
-                        | IDENTIFIER '.' function_invocation
                         ;
 
 value_list              : value
