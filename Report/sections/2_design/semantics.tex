@@ -94,7 +94,7 @@ function main() {
 }
 \end{lstlisting}
 
-In listing \ref{DynamicScopeExample}, assuming that dynamic scoping rules apply, the meaning of the identifier \texttt{x} cannot be determined at compile time.
+In snippet \ref{lst:DynamicScopeExample}, assuming that dynamic scoping rules apply, the meaning of the identifier \texttt{x} cannot be determined at compile time.
 Specifically, the declaration of an identifier is first searched for in the local function.
 If no declaration for \texttt{x} is found, the search continues to the function's caller, its \texttt{dynamic parent}, and so on up the call-stack\cite{sebesta_concepts_2016}.
 
