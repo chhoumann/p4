@@ -1,8 +1,8 @@
-\section{Antlr}
-In order to parse a language using a grammar, one must decide whether to manually do all the mechanical work involed in parsing or use a tool to generate the parser.
-Based on the fact that parsing is primarily a repetitious, mechanical task, we followed our proffessor's advice and decided to use the parser generator Antlr for our language, which was recommended in the Languages and Compilers course. 
-This tool not only makes the initial parser generation much less tedious, but it also allows us to make changes to the grammar in the future without having to also meticulously update the parser code, ultimately lifting a large manual work burden in the project.
-We decided to use Antlr as it can generate parsers in C\#, which not only is a language we are already very familiar with, but it is also conviently the same language used to build games in Unity. 
+\section{Antlr Parsing Tool}
+In order to parse a language using a grammar, one must decide whether to manually write the parser or use a tool to generate it\cite{crafting_a_compiler}.
+Based on the fact that writing a parser is a rather repetitious and mechanical task, we followed our proffessor's advice and decided to use the parser generator Antlr for our language, which was recommended in the Languages and Compilers course. 
+This tool not only makes the initial parser generation much less tedious, but it also allows us to make changes to the grammar in the future without having to also meticulously update the parser code, ultimately freeing us from a large, manual work burden.
+We decided to use Antlr as it can generate parsers in C\#, which not only is a language we are already very familiar with, but, as previously mentioned, it is also the language used to build games in Unity. Having a parser - and consequently a compiler - written in C\# will allow us to easily interlope our compiler code with Unity code.
 
 
 Antlr is written in Java and therefore the Java Runtime Environment must be installed to use it. 
@@ -54,4 +54,4 @@ FLOAT                   : [0-9]+'.'[0-9]+;
 
 It is important to note that Antlr will look up the lexer rules in the order that they are defined. 
 This means that, if it encounters a sentence structure that is present within multiple different rules, it will attempt to parse it using the first lexer rule, then the second one and so forth until it finds a rule that matches. 
-Because of this, our built-in types are the first rules defined within the lexer as it would otherwise incorrectly parse the keyword Screen using the IDENTIFIER rule instead of the SCREEN rule.
+Because of this, our built-in types are the first rules defined within the lexer as it would otherwise incorrectly parse the keyword Screen using the \texttt{IDENTIFIER} rule instead of the \texttt{SCREEN} rule\cite{parrDefinitiveANTLRReference2012}.
