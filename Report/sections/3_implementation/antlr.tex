@@ -10,7 +10,7 @@ More specifically, Antlr generates a recursive-descent parser that ultimately ge
 This parse tree can then be traversed easily using built-in functionality, and from it we can construct an Abstract Syntax Tree later on.
 As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by Antlr is the familiar BNF notation.
 
-\begin{lstlisting}[caption={A snippet of the grammar used by Antlr to generate the parser}, label={lst:GrammarSnippet},escapechar=|]
+\begin{lstlisting}[caption={A snippet of the \dazel{} grammar used by Antlr to generate the parser}, label={lst:GrammarSnippet},escapechar=|]
 start: gameObject;
 
 gameObject              : gameObjectType IDENTIFIER L_BRACES gameObjectContents R_BRACES
@@ -36,5 +36,15 @@ screenType              : 'Map'
                         | 'OnScreenEntered'
                         | 'Entities'
                         | 'Exits'
+\end{lstlisting}
 
+In addition, lexer rules can just as easily be defined using regular expressions, and these rules will also be present within the generated parser such that one may also use the lexer when constructing the AST.
+
+\begin{lstlisting}[caption={A snippet of few lexer rules for \dazel{}.}, label={lst:GrammarSnippet},escapechar=|]
+IDENTIFIER              : [a-zA-Z][a-zA-Z_0-9]*;
+INT                     : [0-9]+;
+FLOAT                   : [0-9]+'.'[0-9]+;
+            
+L_PARANTHESIS           : '(';
+R_PARANTHESIS           : ')';
 \end{lstlisting}
