@@ -21,7 +21,6 @@ namespace Tests
             parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
         }
         
-        
         [Test]
         public void AbstractSyntaxTree_Create_VisitGameObject()
         {
