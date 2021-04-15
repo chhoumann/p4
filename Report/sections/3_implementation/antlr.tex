@@ -2,7 +2,8 @@
 In order to parse a language using a grammar, one must decide whether to manually do all the mechanical work involed in parsing or use a tool to generate the parser.
 Based on the fact that parsing is primarily a repetitious, mechanical task, we followed our proffessor's advice and decided to use the parser generator Antlr for our language, which was recommended in the Languages and Compilers course. 
 This tool not only makes the initial parser generation much less tedious, but it also allows us to make changes to the grammar in the future without having to also meticulously update the parser code, ultimately lifting a large manual work burden in the project.
-We decided to use Antlr as it can generate parsers in C\#, which not only is a language we are already very familiar with, but it is also conviently the same language used to build games in Unity. \
+We decided to use Antlr as it can generate parsers in C\#, which not only is a language we are already very familiar with, but it is also conviently the same language used to build games in Unity. 
+
 
 Antlr is written in Java and therefore the Java Runtime Environment must be installed to use it. 
 Once setup, Antlr can convert a grammar into a program that recognizes sentences written in the language defined by the grammar.
@@ -10,41 +11,47 @@ More specifically, Antlr generates a recursive-descent parser that ultimately ge
 This parse tree can then be traversed easily using built-in functionality, and from it we can construct an Abstract Syntax Tree later on.
 As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by Antlr is the familiar BNF notation.
 
-\begin{lstlisting}[caption={A snippet of the \dazel{} grammar used by Antlr to generate the parser}, label={lst:GrammarSnippet},escapechar=|]
+
+\begin{lstlisting}[caption={A snippet of the \dazel{} grammar used by Antlr to generate the parser}, label={lst:GrammarSnippet}]
 start: gameObject;
 
-gameObject              : gameObjectType IDENTIFIER L_BRACES gameObjectContents R_BRACES
-                        ;
+gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER gameObjectBlock
+						;
+						
+gameObjectBlock         : L_BRACES gameObjectContents R_BRACES
+						;
 
 empty                   : 
-                        ;
+						;
 
-gameObjectType          : 'Screen ' | 'Entity ' | 'MovePattern' 
-                        ;
 
 gameObjectContents      : gameObjectContent
-                        | gameObjectContent gameObjectContents
-                        | empty
-                        ;
+						| gameObjectContent gameObjectContents
+						| empty
+						;
 
-gameObjectContent       : screenType L_BRACES statementList R_BRACES
-                        | entityType L_BRACES statementList R_BRACES
-                        | movePatternType L_BRACES statementList R_BRACES
-                        ;
-
-screenType              : 'Map'                 
-                        | 'OnScreenEntered'
-                        | 'Entities'
-                        | 'Exits'
+gameObjectContent       : gameObjectContentType=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) statementBlock 
 \end{lstlisting}
 
-In addition, lexer rules can just as easily be defined using regular expressions, and these rules will also be present within the generated parser such that one may also use the lexer when constructing the AST.
+In addition, lexer rules can just as easily be defined using regular expressions and strings as can be seen in \ref{lst:LexerSnippet}.
+These rules will also be present within the generated parser such that one may also access and use the lexer rules when constructing the AST. 
 
-\begin{lstlisting}[caption={A snippet of few lexer rules for \dazel{}.}, label={lst:GrammarSnippet},escapechar=|]
+\begin{lstlisting}[caption={A snippet of few lexer rules for \dazel{}.}, label={lst:LexerSnippet},escapechar=|]
+SCREEN                  : 'Screen';
+ENTITY                  : 'Entity';
+MOVE_PATTERN            : 'MovePattern';
+MAP                     : 'Map';
+ONSCREENENTERED         : 'OnScreenEntered';
+ENTITIES                : 'Entities';
+EXITS                   : 'Exits';
+DATA                    : 'Data';
+PATTERN                 : 'Pattern';
+
 IDENTIFIER              : [a-zA-Z][a-zA-Z_0-9]*;
 INT                     : [0-9]+;
-FLOAT                   : [0-9]+'.'[0-9]+;
-            
-L_PARANTHESIS           : '(';
-R_PARANTHESIS           : ')';
+FLOAT                   : [0-9]+'.'[0-9]+;	
 \end{lstlisting}
+
+It is important to note that Antlr will look up the lexer rules in the order that they are defined. 
+This means that, if it encounters a sentence structure that is present within multiple different rules, it will attempt to parse it using the first lexer rule, then the second one and so forth until it finds a rule that matches. 
+Because of this, our built-in types are the first rules defined within the lexer as it would otherwise incorrectly parse the keyword Screen using the IDENTIFIER rule instead of the SCREEN rule.
