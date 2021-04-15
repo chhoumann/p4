@@ -8,3 +8,33 @@ Antlr is written in Java and therefore the Java Runtime Environment must be inst
 Once setup, Antlr can convert a grammar into a program that recognizes sentences written in the language defined by the grammar.
 More specifically, Antlr generates a recursive-descent parser that ultimately generates a parse tree.
 This parse tree can then be traversed easily using built-in functionality, and from it we can construct an Abstract Syntax Tree later on.
+As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by Antlr is the familiar BNF notation.
+
+\begin{lstlisting}[caption={A snippet of the grammar used by Antlr to generate the parser}, label={lst:GrammarSnippet},escapechar=|]
+start: gameObject;
+
+gameObject              : gameObjectType IDENTIFIER L_BRACES gameObjectContents R_BRACES
+                        ;
+
+empty                   : 
+                        ;
+
+gameObjectType          : 'Screen ' | 'Entity ' | 'MovePattern' 
+                        ;
+
+gameObjectContents      : gameObjectContent
+                        | gameObjectContent gameObjectContents
+                        | empty
+                        ;
+
+gameObjectContent       : screenType L_BRACES statementList R_BRACES
+                        | entityType L_BRACES statementList R_BRACES
+                        | movePatternType L_BRACES statementList R_BRACES
+                        ;
+
+screenType              : 'Map'                 
+                        | 'OnScreenEntered'
+                        | 'Entities'
+                        | 'Exits'
+
+\end{lstlisting}
