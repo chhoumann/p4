@@ -15,7 +15,7 @@ namespace Interpreter
             DazelParser parser = new(tokens) { BuildParseTree = true };
 
             IParseTree parseTree = parser.start();
-            AbstractSyntaxTree ast = new(parseTree, new GameObjectVisitor());
+            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTree);
             
             AstPrinter astPrinter = new();
             astPrinter.Visit(ast.Root);
