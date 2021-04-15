@@ -1,3 +1,4 @@
+using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
@@ -15,10 +16,10 @@ namespace Interpreter
             DazelParser parser = new(tokens) { BuildParseTree = true };
 
             IParseTree parseTree = parser.start();
-            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTree);
+            AbstractSyntaxTree ast = new(parseTree);
             
             AstPrinter astPrinter = new();
-            astPrinter.Visit(ast.Root);
+            //astPrinter.Visit(ast.Root);
             SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder(ast.Root);
  
             //Console.WriteLine(SymbolTable.Instance.Scopes[0].RetrieveSymbol("SomeVar"));
