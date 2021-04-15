@@ -7,9 +7,9 @@ namespace Interpreter.Ast
     {
         public GameObject Root { get; }
         
-        public AbstractSyntaxTree(IParseTree parseTree)
+        public AbstractSyntaxTree(IParseTree parseTree, IGameObjectVisitor visitor)
         {
-            Root = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
+            Root = visitor.VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
         }
     }
 }
