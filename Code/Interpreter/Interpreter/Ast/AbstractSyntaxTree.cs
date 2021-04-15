@@ -1,4 +1,3 @@
-using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter.Ast
@@ -7,9 +6,9 @@ namespace Interpreter.Ast
     {
         public GameObject Root { get; }
         
-        public AbstractSyntaxTree(IParseTree parseTree)
+        public AbstractSyntaxTree(GameObject root)
         {
-            Root = new GameObjectVisitor().VisitGameObject(parseTree.GetChild(0) as DazelParser.GameObjectContext);
+            Root = root;
         }
     }
 }
