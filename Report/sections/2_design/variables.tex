@@ -38,7 +38,7 @@ Specifically for our language design we have decided that a variable name can be
 \end{itemize}
 
 The list of rules mentioned can be simplified using the regular expression: [a-zA-Z][a-zA-Z\_0-9]*. Any construction of a variable outside of these rules will be considered
-a non-valid construction.
+a non-valid construction. Note that, since keywords are reserved, variables cannot be named the same as any of the keywords defined in \secref{sec:keywords}.
 
 How variables are defined in relation to their scope and type will be discussed in the description of the language semantics in \secref{sec:semantics}.
 

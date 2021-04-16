@@ -9,12 +9,12 @@ When designing a compiler, decisions have to be made concerning how you approach
 Type checking can be divided into two categories, each of which have drawbacks and benefits. The categories are:
 
 \begin{enumerate}
-	\item \textbf{Strong} versus \textbf{Weak} types
-	\item \textbf{Static} versus \textbf{Dynamic} types
+    \item \textbf{Strong} versus \textbf{Weak} types
+    \item \textbf{Static} versus \textbf{Dynamic} types
 \end{enumerate}
 
 \subsubsection*{Strong and weak typing}
-Strong and weak typing relates to how the type of a given variable can be determined at either run time or compile time. 
+Strong and weak typing relates to how the type of a given variable can be determined at either run time or compile time.
 Strong typing implies that the compiler is able to detect all the incorrect uses of variables that would otherwise result in type errors or illegal coercions.
 Weak typing implies that types will automically be converted from one type to another or that type rule enforcement can easily be subverted.
 For example, using a string in a numeric context will convert it to the string's numerical representation\cite{sebesta_concepts_2016}.
@@ -23,7 +23,7 @@ For example, using a string in a numeric context will convert it to the string's
 Static typing means that the type is statically bound to the \emph{variable} and that types are checked at compile time.
 In contrast, dynamic typing is where the type is bound to the \emph{value} and that the type is checked at run time\cite{sebesta_concepts_2016}.\\
 
-The type of a variable can also either an implicit or explicit declaration. 
+The type of a variable can also either an implicit or explicit declaration.
 The type then determines the value range and the set of operations available to this variable.
 
 \subsection*{Type rules in \dazel{}}
@@ -75,7 +75,7 @@ Originally introduced by ALGOL 60\cite{backus_revised_1963}, \texttt{static scop
 can be determined prior to program execution. This way, one can determine the type of every variable via the source code.
 Static-scoped languages can be split into two categories: those that allow sub-programs to be nested and those that do not.
 The former creates nested static scopes while the latter only creates nested scopes through nested class definitions and blocks.
-Static scope rules are quite commonly used in modern languages due to their emphasis on static type checking\cite{sebesta_concepts_2016}.
+Static scope rules are commonly used in modern languages due to their emphasis on static type checking\cite{sebesta_concepts_2016}.
 
 \subsection{Dynamic Scopes}
 In contrast to static scoping, variables declared in languages with \texttt{dynamic scoping} are determined at runtime through the calling sequence of subprograms.
@@ -99,9 +99,10 @@ Specifically, the declaration of an identifier is first searched for in the loca
 If no declaration for \texttt{x} is found, the search continues to the function's caller, its \texttt{dynamic parent}, and so on up the call-stack\cite{sebesta_concepts_2016}.
 
 \subsubsection{Blocks}
-The concept of \texttt{block scoping} allows specific sections of code called blocks to have their own localized variables.
-Variables declared within a block are local, meaning they cannot be accessed from outside the scope. However, nested blocks can still access variables from outer scopes.
-A variable declaed within a block is allocated when the block is entered and deallocated when it is exited\cite{sebesta_concepts_2016}.
+\texttt{Blocks} serve as way to declare new static scopes within executable code.
+This allows variables declared within a block to be local to that scope, meaning they cannot be accessed from outside the scope.
+However, nested blocks can still access variables from outer scopes.
+A variable declared within a block is allocated when the block is entered and deallocated when it is exited\cite{sebesta_concepts_2016}.
 
 \subsubsection{Choice of Scope}
 Due to the nature of action maps in games, we decided to use block scopes in order to separate the elements found within a screen.

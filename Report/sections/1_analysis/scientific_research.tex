@@ -1,39 +1,39 @@
 \section{Studies on intuitive language design} \label{sec:scientific_research}
 In this section, we discuss relevant scientific research on the difficulties of programming for beginners.
-Later, we shall use this as a basis for various design decisions in \dazel{} such that we can make more 
+Later, we shall use this as a basis for various design decisions in \dazel{} such that we can make more
 informed decisions about the language's syntax and semantics.
 
-In an investigation by A. Stefik, S. Siebert, M. Stefik and K. Slattery from 2011, participants - all of whom were
-programming novices - would use different programming languages to solve the same tasks so as to compare intuitiveness. 
-It was concluded that keywords having names that directly alluded to their purpose was important to the novices. 
-For example, the keyword \emph{repeat} was rated to be nearly seven times more intuitive to use than the keyword \emph{for}\cite{stefik_empirical_2011}.
+In an investigation by Stefik et al.\cite{stefik_empirical_2011}, participants - all of whom were
+programming novices - would use different programming languages to solve the same tasks so as to compare intuitiveness.
+It was concluded that keywords having names that directly alluded to their purpose was important to the novices.
+For example, the keyword \emph{repeat} was rated to be nearly seven times more intuitive to use than the keyword \emph{for}.
 
 \noindent
 As language designers, such discoveries are important to take note of, as it emphasizes the importance of selecting intuitive for keywords.
 
-A different investigation from 2019 about children and programming by S. Papavlasopoulou, M. N. Giannakos and L. Jaccheri discovered that 
-programming stereotypes exist, even among children. 
-In the study, it was found that many of the participating girls had no experience with programming at all, and that they believed it 
-to be an activity exclusively performed by "geeks". 
-To remedy this prejudice, the authors had the children develop storyboards in groups from which they would develop games using the 
-Scratch programming language. 
-This made the girls realize the potential of storytelling by programming video games, and it helped motivate them to learn programming\cite{papavlasopoulou_exploring_2019}.
+A different investigation from 2019 about children and programming by Papavlasopoulou et al.\cite{papavlasopoulou_exploring_2019} discovered that
+programming stereotypes exist, even among children.
+In the study, it was found that many of the participating girls had no experience with programming at all, and that they believed it
+to be an activity exclusively performed by "geeks".
+To remedy this prejudice, the authors had the children develop storyboards in groups from which they would develop games using the
+Scratch programming language.
+This made the girls realize the potential of storytelling by programming video games, and it helped motivate them to learn programming.
 
 \noindent
-This study highlights the importance of presenting not just the mathematical aspect of programming to novices, but also 
-showing them other uses, such as being able to develop entertainment. 
+This study highlights the importance of presenting not just the mathematical aspect of programming to novices, but also
+showing them other uses, such as being able to develop entertainment.
 It also shows that being able to tell a story makes learning programming more engaging for beginners.
 
 
-A final investigation we would like to discuss is by Y. Bosse og M. Gerosa from 2017.
+A final investigation we would like to discuss is by Bosse et al.\cite{bosseWhyProgrammingDifficult2017}.
 It followed different progamming courses and gathered data from the participants' diaries as well as through interviews with the teachers.
 This investigation found that variable typing was quite troublesome for the participants, as they had trouble understanding out when to use
 types such as \emph{double}, \emph{float} or \emph{int} to represent numbers. This also led to issues when using division, as participants
 did not understand why the expression 1/2 yielded the integer 0 when they expected 0.5.
-It was also found that functions and return types were difficult to grasp for the course participants, implying that basic mathematical 
+It was also found that functions and return types were difficult to grasp for the course participants, implying that basic mathematical
 knowledge is an important prerequisite for learning programming, as both concepts are a major part of both mathematics and science in general.
 Finally, the participants also had trouble understanding scope rules, which may suggest that language designers should consider how to
-be more explicit about how scoping rules apply in their language\cite{bosseWhyProgrammingDifficult2017}.
+be more explicit about how scoping rules apply in their language.
 
 
 When we design our language in \chapref{chap:language_design}, we will use the results of these investigations to help us design a language that will suit our target demographic
