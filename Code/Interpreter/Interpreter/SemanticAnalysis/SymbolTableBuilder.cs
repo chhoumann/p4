@@ -112,34 +112,31 @@ namespace Interpreter.SemanticAnalysis
             }
         }
         
-        public void Visit(StatementExpression statementExpression)
+        public void Visit(FunctionInvocation functionInvocation)
         {
-            if (statementExpression is FunctionInvocation functionInvocation)
+            currentSymbolTable.EnterSymbol(new SymbolTableEntry()
             {
-                currentSymbolTable.EnterSymbol(new SymbolTableEntry()
-                {
-                    Identifier = functionInvocation.Identifier,
-                    IsDeclaration = false,
-                    Type = typeof(FunctionInvocation)
-                });
+                Identifier = functionInvocation.Identifier,
+                IsDeclaration = false,
+                Type = typeof(FunctionInvocation)
+            });
 
-                foreach (Value param in functionInvocation.Parameters)
-                {
-                    param.Accept(this);
-                }
-            }
-
-            if (statementExpression is AssignmentNode assignmentNode)
+            foreach (Value param in functionInvocation.Parameters)
             {
-                currentSymbolTable.EnterSymbol(new SymbolTableEntry
-                {
-                    Identifier = assignmentNode.Identifier,
-                    IsDeclaration = currentSymbolTable.IsDeclaration(assignmentNode.Identifier),
-                    Type = typeof(AssignmentNode) // TODO: This should be evaluated and set to a proper type.
-                });
-
-                assignmentNode.Expression.Accept(this);
+                param.Accept(this);
             }
+        }
+
+        public void Visit(AssignmentNode assignmentNode)
+        {
+            currentSymbolTable.EnterSymbol(new SymbolTableEntry
+            {
+                Identifier = assignmentNode.Identifier,
+                IsDeclaration = currentSymbolTable.IsDeclaration(assignmentNode.Identifier),
+                Type = typeof(AssignmentNode) // TODO: This should be evaluated and set to a proper type.
+            });
+
+            assignmentNode.Expression.Accept(this);
         }
 
         public void Visit(FactorExpression factorExpression)

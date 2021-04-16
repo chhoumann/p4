@@ -9,7 +9,7 @@ using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Interpreter.Ast
 {
-    class AstPrinter : IVisitor
+    sealed class AstPrinter : IVisitor
     {
         private StringBuilder sb = new();
         private int indentCount = 0;
@@ -133,41 +133,38 @@ namespace Interpreter.Ast
             sb.AppendLine("repeat - not implemented");
         }
 
-        public void Visit(StatementExpression statementExpression)
+        public void Visit(FunctionInvocation functionInvocation)
         {
-            if (statementExpression is FunctionInvocation functionInvocation)
+            indentCount += 2;
+            Indent();
+                
+            sb.Append(functionInvocation.Identifier);
+            sb.Append('(');
+                
+            for (int i = 0; i < functionInvocation.Parameters.Count; i++)
             {
-                indentCount += 2;
-                Indent();
-                
-                sb.Append(functionInvocation.Identifier);
-                sb.Append('(');
-                
-                for (int i = 0; i < functionInvocation.Parameters.Count; i++)
-                {
-                    Value functionInvocationParameter = functionInvocation.Parameters[i];
-                    functionInvocationParameter.Accept(this);
+                Value functionInvocationParameter = functionInvocation.Parameters[i];
+                functionInvocationParameter.Accept(this);
                     
-                    if (i < functionInvocation.Parameters.Count - 1)
-                    {
-                        sb.Append(", ");
-                    }
+                if (i < functionInvocation.Parameters.Count - 1)
+                {
+                    sb.Append(", ");
                 }
-                
-                sb.Append(')');
-                indentCount -= 2;
             }
-
-            if (statementExpression is AssignmentNode assignmentNode)
-            {
-                indentCount += 2;
-                Indent();
                 
-                sb.Append($"{assignmentNode.Identifier} = ");
-                assignmentNode.Expression.Accept(this);
-                indentCount -= 2;
-            }
+            sb.Append(')');
+            indentCount -= 2;
+            sb.AppendLine("");
+        }
 
+        public void Visit(AssignmentNode assignmentNode)
+        {
+            indentCount += 2;
+            Indent();
+                
+            sb.Append($"{assignmentNode.Identifier} = ");
+            assignmentNode.Expression.Accept(this);
+            indentCount -= 2;
             sb.AppendLine("");
         }
 

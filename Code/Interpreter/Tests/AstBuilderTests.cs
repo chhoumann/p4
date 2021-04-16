@@ -131,6 +131,16 @@ namespace Tests
             statementExpression.Accept(this);
         }
 
+        public void Visit(FunctionInvocation functionInvocation)
+        {
+            
+        }
+
+        public void Visit(AssignmentNode assignmentNode)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Visit(MemberAccess memberAccess)
         {
             throw new System.NotImplementedException();

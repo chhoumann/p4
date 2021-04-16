@@ -16,5 +16,10 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
                 Value = "Function Evaluate has not yet been implemented."
             };
         }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }
