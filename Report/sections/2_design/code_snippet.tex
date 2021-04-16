@@ -8,27 +8,39 @@ Screen SampleScreen1
     {
         Size(30, 24);
 
-        Walls(Stone); 
-        Floor(Grass);
+        Walls("Stone.png"); 
+        Floor("Grass.jpg");
 
-        Line(TopLeft, TopRight, Cliff);
-        Line([2, 2], [2, 4], Cliff);
+        Line(TopLeft, TopRight, "Cliff.png");
+        Line([2, 2], [2, 4], "Cliff.png");
 
-        Square(position, size, Cliff);
-        Square([8, 8], 4, Cliff);
+        Square(position, size, "Cliff.png");
+        Square([8, 8], 4, "Cliff.png");
     }
 
     OnScreenEntered
     {
-        if Player.CompletedQuest(...) 
+        if Player.KilledEntity(Entity.Skeleton1) 
         {
-            SetTile([4, 0], Stair);
+            // Player has killed a specific entity so a new exit appears
+            SetTile([4, 0], "Stair.png");
+            Exit([4, 0], SampleScreen3.Exit1);
+        }
+    }
+
+    OnUpdate
+    {
+        if Player.Position == [4, 4] 
+        {
+            // Player is standing on a specific tile so a new exit appears.
+            SetTile([4, 5], "Stair.png");
+            Exit([4, 4], SampleScreen4.Exit1);
         }
     }
 
     Entities
     {
-        SpawnEntity(Skeleton1, [4, 4]).SetMovePattern(Square1);
+        SpawnEntity(Skeleton1, [4, 4])
     }
     
     Exits 
