@@ -9,7 +9,7 @@ using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Interpreter.Ast
 {
-    sealed class AstPrinter : IVisitor
+    public sealed class AstPrinter : IVisitor
     {
         private StringBuilder sb = new();
         private int indentCount = 0;
