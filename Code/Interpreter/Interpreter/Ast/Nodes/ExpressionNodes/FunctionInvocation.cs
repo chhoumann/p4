@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes
