@@ -112,18 +112,18 @@ namespace Tests
                 functionInvocation.Identifier == "SpawnEntity"
                 );
             
-            if (functionInvocation.Identifier == "Size")
+            switch (functionInvocation.Identifier)
             {
-                Assert.That(functionInvocation.Parameters[0] is IntValue {Value: 30});
-                Assert.That(functionInvocation.Parameters[1] is IntValue {Value: 24});
-            }
-
-            if (functionInvocation.Identifier == "SpawnEntity")
-            {
-                Assert.That(functionInvocation.Parameters[0] is IdentifierValue {Value: "Skeleton1"});
-                Assert.That(functionInvocation.Parameters[1] is Array array && 
-                            array.Values[0] is IntValue {Value: 4} &&
-                            array.Values[1] is IntValue {Value: 5});
+                case "Size":
+                    Assert.That(functionInvocation.Parameters[0] is IntValue {Value: 30});
+                    Assert.That(functionInvocation.Parameters[1] is IntValue {Value: 24});
+                    break;
+                case "SpawnEntity":
+                    Assert.That(functionInvocation.Parameters[0] is IdentifierValue {Value: "Skeleton1"});
+                    Assert.That(functionInvocation.Parameters[1] is Array array && 
+                                array.Values[0] is IntValue {Value: 4} &&
+                                array.Values[1] is IntValue {Value: 5});
+                    break;
             }
         }
 
