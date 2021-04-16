@@ -41,4 +41,7 @@ Screen SampleScreen1
 }
 \end{lstlisting}
 
-Code snippet~\ref{lst:SampleScreen1} gives an example of a screen. The contents thereof are explained below.
+Code snippet~\ref{lst:SampleScreen1} shows an example of a screen. A screen represents a single area within the game, and each of the functions used within the Screen
+define the layout, what happens as the screen is loaded, the entities that should be present as well as the exits of the level.
+Objects such as Skeleton1 and the movement pattern Square1 on line 28 will be defined in a separate file.
+The purpose of defining these separetely is to allow ease of reuseability and have a clear separation of concerns.
