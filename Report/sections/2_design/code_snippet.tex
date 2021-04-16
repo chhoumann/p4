@@ -1,6 +1,6 @@
 \section{Code examples}
 
-\begin{lstlisting}[caption={Example screen}, label={lst:SampleScreen1},escapechar=|]
+\begin{lstlisting}[caption={Example screen.}, label={lst:SampleScreen1},escapechar=|]
 // ./Screens/SampleScreen1.txt
 Screen SampleScreen1 
 {
@@ -41,7 +41,10 @@ Screen SampleScreen1
 }
 \end{lstlisting}
 
-Code snippet~\ref{lst:SampleScreen1} shows an example of a screen. A screen represents a single area within the game, and each of the functions used within the Screen
-define the layout, what happens as the screen is loaded, the entities that should be present as well as the exits of the level.
-Objects such as Skeleton1 and the movement pattern Square1 on line 28 will be defined in a separate file.
-The purpose of defining these separetely is to allow ease of reuseability and have a clear separation of concerns.
+Code snippet~\ref{lst:SampleScreen1} shows an example of a screen. A screen represents a single area within the game, and each of the functions used within the \texttt{Screen} block define the layout, what happens when the screen is loaded, the entities that should be present as well as the exits of the screen. 
+
+When a ScreenExit is created, one must first define the direction of the exit, for example the bottom of the screen as shown on line 36.
+In the second actual parameter, one must then define the screen which the exit should connect to.
+Then, once the player leaves the screen in the defined direction, the connected screen will load. An example of multiple screens that are interconnected is illustrated in \figref{Screen_Example_Layout}.
+
+\fig{0.7}{Screen_Example_Layout}{Different screens can be interconnected via the \texttt{Exits} block shown in code snippet~\ref{lst:SampleScreen1}. Note that screens can have different sizes defined by the \texttt{Size} function shown on line 6 in the code snippet.}
