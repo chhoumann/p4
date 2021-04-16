@@ -248,7 +248,7 @@ namespace Interpreter.Ast
         #endregion
 
         #region Statements
-                public List<StatementNode> VisitStatementList(DazelParser.StatementListContext context)
+        public List<StatementNode> VisitStatementList(DazelParser.StatementListContext context)
         {
             List<StatementNode> statements = new();
             

@@ -37,101 +37,98 @@ namespace Tests
         public void Visit(GameObject gameObject)
         {
             Assert.That(gameObject.Type is ScreenType);
+            
+            gameObject.Contents.ForEach(Visit);
         }
 
-        public void Visit(MapType mapType)
-        {
-            throw new System.NotImplementedException();
-        }
+        #region Types
 
-        public void Visit(PatternType patternType)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(MapType mapType) { }
 
-        public void Visit(OnScreenEnteredType onScreenEnteredType)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(PatternType patternType) { }
 
-        public void Visit(EntityType entityType)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(OnScreenEnteredType onScreenEnteredType) { }
 
-        public void Visit(DataType dataType)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(EntityType entityType) { }
 
-        public void Visit(EntitiesType entitiesType)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(DataType dataType) { }
 
-        public void Visit(ExitsType exitsType)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(EntitiesType entitiesType) { }
+
+        public void Visit(ExitsType exitsType) { }
+        #endregion
 
         public void Visit(GameObjectContent gameObjectContent)
         {
-            throw new System.NotImplementedException();
+            Assert.That(
+                gameObjectContent.Type is DataType ||
+                gameObjectContent.Type is EntitiesType ||
+                gameObjectContent.Type is ExitsType ||
+                gameObjectContent.Type is MapType ||
+                gameObjectContent.Type is OnScreenEnteredType ||
+                gameObjectContent.Type is PatternType
+            );
+            
+            gameObjectContent.Statements.ForEach(statement =>
+            {
+                statement.Accept(this);
+            });
         }
 
         public void Visit(StatementBlock statementBlock)
         {
-            throw new System.NotImplementedException();
+            // If a block is created, there has to be statements inside.
+            Assert.That(statementBlock.Statements.Count > 0);
+
+            statementBlock.Statements.ForEach(statement => statement.Accept(this));
         }
 
         public void Visit(FactorExpression factorExpression)
         {
-            throw new System.NotImplementedException();
+            factorExpression.Left.Accept(this);
+            factorExpression.Operation.Accept(this);
+            factorExpression.Right.Accept(this);
         }
 
         public void Visit(FactorOperation factorOperation)
         {
-            throw new System.NotImplementedException();
+            Assert.That(
+                factorOperation.Operation == DazelLexer.MULTIPLICATION_OP ||
+                factorOperation.Operation == DazelLexer.DIVISION_OP
+                );
         }
 
         public void Visit(SumExpression sumExpression)
         {
-            throw new System.NotImplementedException();
+            sumExpression.Left.Accept(this);
+            sumExpression.Operation.Accept(this);
+            sumExpression.Right.Accept(this);
         }
 
         public void Visit(SumOperation sumOperation)
         {
-            throw new System.NotImplementedException();
+            Assert.That(
+                sumOperation.Operation == DazelLexer.PLUS_OP ||
+                sumOperation.Operation == DazelLexer.MINUS_OP
+                );
         }
 
         public void Visit(TerminalExpression terminalExpression)
         {
-            throw new System.NotImplementedException();
+            terminalExpression.Child.Accept(this);
         }
 
-        public void Visit(MovePatternType movePatternType)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(MovePatternType movePatternType) { }
 
-        public void Visit(ScreenType gameObjectContent)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(ScreenType gameObjectContent) { }
 
-        public void Visit(IfStatement ifStatement)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(IfStatement ifStatement) { }
 
-        public void Visit(RepeatNode repeatNode)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Visit(RepeatNode repeatNode) { }
 
         public void Visit(StatementExpression statementExpression)
         {
-            throw new System.NotImplementedException();
+            statementExpression.Accept(this);
         }
 
         public void Visit(MemberAccess memberAccess)
