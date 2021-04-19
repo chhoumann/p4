@@ -1,34 +1,46 @@
 \section{Code examples}
 
-\begin{lstlisting}[caption={Example screen}, label={lst:SampleScreen1},escapechar=|]
+\begin{lstlisting}[caption={Example screen.}, label={lst:SampleScreen1},escapechar=|]
 // ./Screens/SampleScreen1.txt
 Screen SampleScreen1 
 {
     Map 
     {
-        Size(30, 24);
+        Size(30, 24);|\label{SizeLabel}|
 
-        Walls(Stone); 
-        Floor(Grass);
+        Walls("Stone.png"); 
+        Floor("Grass.jpg");
 
-        Line(TopLeft, TopRight, Cliff);
-        Line([2, 2], [2, 4], Cliff);
+        Line(TopLeft, TopRight, "Cliff.png");
+        Line([2, 2], [2, 4], "Cliff.png");
 
-        Square(position, size, Cliff);
-        Square([8, 8], 4, Cliff);
+        Square(position, size, "Cliff.png");
+        Square([8, 8], 4, "Cliff.png");
     }
 
     OnScreenEntered
     {
-        if Player.CompletedQuest(...) 
+        if Player.KilledEntity(Entity.Skeleton1) 
         {
-            SetTile([4, 0], Stair);
+            // Player has killed a specific entity so a new exit appears
+            SetTile([4, 0], "Stair.png");
+            Exit([4, 0], SampleScreen3.Exit1);
+        }
+    }
+
+    OnUpdate
+    {
+        if Player.Position == [4, 4] 
+        {
+            // Player is standing on a specific tile so a new exit appears
+            SetTile([4, 5], "Stair.png");
+            Exit([4, 4], SampleScreen4.Exit1);
         }
     }
 
     Entities
     {
-        SpawnEntity(Skeleton1, [4, 4]).SetMovePattern(Square1);
+        SpawnEntity(Skeleton1, [4, 4])
     }
     
     Exits 
@@ -36,9 +48,17 @@ Screen SampleScreen1
         // Two different ways to create an exit
         // Specific tile(s) or whole screen side
         Exit1 = Exit([4, 0], SampleScreen2.Exit1);
-        ScreenExit(Bottom, SampleScreen2);
+        ScreenExit(Bottom, SampleScreen2);|\label{ScreenExitLabel}|
     }
 }
 \end{lstlisting}
 
-Code snippet~\ref{lst:SampleScreen1} gives an example of a screen. The contents thereof are explained below.
+Code \snipref{lst:SampleScreen1} shows an example of a screen. A screen represents a single area within the game. Each of the functions used within the \texttt{Screen} block define the layout, what happens when the screen is loaded, and the entities that should be present as well as the exits of the screen.
+
+When a ScreenExit is created, one must first define the direction of the exit, for example the bottom of the screen as shown on line \ref{ScreenExitLabel}.
+In the second actual parameter, one must then define the screen which the exit should connect to.
+Then, once the player leaves the screen in the defined direction, the connected screen will load. An example of multiple screens that are interconnected is illustrated in \figref{Screen_Example_Layout}.
+
+\fig{0.7}{Screen_Example_Layout}{Different screens can be interconnected via the \texttt{Exits} block shown in \snipref{lst:SampleScreen1}. Note that screens can have different sizes defined by the \texttt{Size} function shown on line \ref{SizeLabel} in the code snippet.}
+
+The definition of each built-in function is shown in \tabref{table:explanations_of_functions}.

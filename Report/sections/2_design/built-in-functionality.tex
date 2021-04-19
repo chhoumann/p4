@@ -1,42 +1,31 @@
 \subsection{Built-in functionality}
 These are also keywords, but they represent library-like functions that a user can use to manipulate data. Explanations of these can be seen in \tabref{table:explanations_of_functions}.
-\begin{table}[h!]
+
+\begin{table}
     \centering
-        \begin{tabular}{ l p{4.5cm} p{4cm} }
-            \hline
-            \textbf{Function} & \textbf{Explanation} & \textbf{Example} \\
-            \hline
-            \texttt{Size} 
-            & Sets the size of the map.
-            & \texttt{Size(30, 24)} \\\hline
-            \texttt{Walls} 
-            & Sets the outermost tiles on each side of the map to a certain tile type.
-            & \texttt{Walls(Stone)} \\\hline
-            \texttt{Floor} 
-            & Sets the floor layer of each tile to be of a certain tile type.
-            & \texttt{Floor(Grass)} \\\hline
-            \texttt{Line} 
-            & Creates a line of a certain tile type. Takes two coordinates denoting a start and end, as well as the tile type desired.
-            & \texttt{Line([2, 2], [2, 4], Stone)} \\\hline
-            \texttt{Square} 
-            & Creates a square of a certain tile type. Takes a coordinate of the center position, a size, and a tile type.
-            & \texttt{Square([8, 8], 4, Stone)} \\\hline
-            \texttt{MoveLeft} 
-            & Moves entity one tile left. This is used when specifying a MovePattern.
-            & \texttt{MoveLeft()} \\\hline
-            \texttt{MoveRight} 
-            & Moves entity one tile right. This is used when specifying a MovePattern.
-            & \texttt{MoveRight()} \\\hline
-            \texttt{MoveDown} 
-            & Moves entity one tile down. This is used when specifying a MovePattern.
-            & \texttt{MoveDown()} \\\hline
-            \texttt{MoveUp} 
-            & Moves entity one tile up. This is used when specifying a MovePattern.
-            & \texttt{MoveUp()} \\\hline
-            \texttt{PlayerInAggroRange} 
-            & Can only be called within a scope for an entity. Checks if the player is in aggro range for the given entity and returns a boolean representing the result of this check.
-            & \texttt{PlayerInAggroRange()} \\\hline
-        \end{tabular}
-        \caption{Explanations of built-in functionalities}
-        \label{table:explanations_of_functions}
+    \begin{tabular}{l|l}
+    \multicolumn{1}{c|}{\textbf{\textit{Function}}}                                                                                                                                                                                                                                              & \multicolumn{1}{c}{\textbf{\textit{Parameters}}}                                                                                                                                                                                                                                                                   \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{Size(x, y):}\textit{~}Sets the size of the map.\\\textbf{Return type:} void\\\textbf{Example:} Size(30, 24)\end{tabular}                                                                                                                                  & \begin{tabular}[c]{@{}l@{}}\textbf{x (int):} The width of the map in tiles.\\\textbf{y (int):}~The height of the map in tiles.\end{tabular}                                                                                                                                                                        \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{Walls(tile):} Sets the outermost\\tiles on each side of the map to \\a certain tile type.\\\textbf{Return type:} void\\\textbf{Example:} Walls("Stone.png")\end{tabular}                                                                                  & \begin{tabular}[c]{@{}l@{}}\textbf{tile(string):} The name of the image file\\for the tile.\end{tabular}                                                                                                                                                                                                           \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{Floor(tile):}\textit{~}Sets the floor layer of each\\tile to be of a certain tile type.\\\textit{}\textbf{Return type:} void\\\textbf{Example:}~Floor("Grass.png")\end{tabular}                                                                             & \begin{tabular}[c]{@{}l@{}}\textbf{tile(string):} The name of the image file \\for the tile.\end{tabular}                                                                                                                                                                                                          \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{Line(pos1, pos2,~tile):} Creates a line \\of a certain tile type.\\Takes two coordinates denoting start\\and end, as well as the~desired~tile type\textit{.}\\\textbf{Return type:} void\\\textbf{Example:} Line([2,2], [2, 4], "Stone.png")\end{tabular} & \begin{tabular}[c]{@{}l@{}}\textbf{pos1 (array), pos2 (array):} An array with\\length 2 where the first element is the \\x position and the second element is the \\y position.\\\textbf{tile(string):} The name of the image file\\for the tile.\end{tabular}                                                     \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{Square(pos, size,~tile):}~Creates a square \\of a certain tile type.\\Takes a coordinate for the center \\position, a size, and a tile type.\\\textbf{Return type:} void\\\textbf{Example:} Square([8, 8], 4, "Stone.png")\end{tabular}                   & \begin{tabular}[c]{@{}l@{}}\textbf{pos (array):}~An array with length 2~\\where the first~element~is the x position~\\and the second~element~is the y position.\\\textbf{size (int):} An integer denoting the size of\\the square.\\\textbf{tile(string):} The name of the image file\\for the tile.\end{tabular}  \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{MoveLeft()}\\\textbf{Return type:} void\end{tabular}                                                                                                                                                                                                      & \begin{tabular}[c]{@{}l@{}}Moves an entity one tile left.\\Used when specifying move patterns.\end{tabular}                                                                                                                                                                                                        \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{MoveUp()}\\\textbf{Return type:} void\end{tabular}                                                                                                                                                                                                        & \begin{tabular}[c]{@{}l@{}}Moves an entity one tile up.\\Used when specifying move patterns.\end{tabular}                                                                                                                                                                                                          \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{MoveDown()}\\\textbf{Return type:} void\end{tabular}                                                                                                                                                                                                      & \begin{tabular}[c]{@{}l@{}}Moves an entity one tile down.\\Used when specifying move patterns.\end{tabular}                                                                                                                                                                                                        \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{MoveUp()}\\\textbf{Return type:}\textit{ void}\end{tabular}                                                                                                                                                                                               & \begin{tabular}[c]{@{}l@{}}\textit{Moves an entity one tile up.}\\\textit{Used when specifying move patterns.}\end{tabular}                                                                                                                                                                                        \\ 
+    \hline
+    \begin{tabular}[c]{@{}l@{}}\textbf{PlayerInAggroRange()}\\\textbf{Return type:} bool\end{tabular}                                                                                                                                                                                            & \begin{tabular}[c]{@{}l@{}}Returns a boolean indicating whether \\the player is within the~aggro range of a \\given entity.\\Can only be called within the scope of\\an entity.\end{tabular}                                                                                                                      
+    \end{tabular}
+    \caption{Explanations of built-in functionalities}
+    \label{table:explanations_of_functions}
 \end{table}

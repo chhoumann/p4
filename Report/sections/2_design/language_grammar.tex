@@ -6,20 +6,17 @@ Finally, we will give a justification for this choice as well as concrete exampl
 
 \subsection{Backus-Naur form}
 
-Backus-Naur form was a an evolution of a formal notation used to describe the language ALGOL 58, introduced by John Backus in 1959. The evolution happened as a result of modifications
-made to this notation by Peter Naur in 1960, when he was describing ALGOL 60. Hence why the notation became known as Backus-Naur form (BNF)\cite{sebesta_concepts_2016}.
-
-As alluded to, BNF is used as a formal notation to describe the language, or more specifically its grammar. 
+Backus-Naur form (BNF) is used as a formal notation to describe the language, or more specifically its grammar.
 The construction of this grammar is made up of a collection of production rules that are formed as shown in \figref{BNF_Example}.
 
 \fig{0.4}{BNF_Example}{An example of a simple grammar written in BNF\cite{sebesta_concepts_2016}.}
 
 In \figref{BNF_Example} there is a left hand side (LHS) and a right hand side (RHS), separated by an arrow. The LHS is a variable, also called the abstraction, that is being defined and the RHS is the definition.
-This definition on the RHS consists of non-terminals and terminals. A non-terminal is a variable (sometimes called a symbol) that is an abstraction that have references to other abstractions. 
-These non-terminal variables can have multiple distinct definitions each being a possible form of the syntax. 
-If a non-terminal has multiple definitions these can either be represented as multiple rules as seen in \figref{BNF_Example} or as a single rule where each definition is seperated by an OR operator: '|'. 
-Terminals correlate to the outputs of the production rules of the grammar, as shown in figure \figref{BNF_Example_Terminals} where the terminals of the language are highlighted in red. 
-As the name implies, terminals cannot be derrived further. Terminals are also referred to as lexemes and tokens\cite{sebesta_concepts_2016}. 
+This definition on the RHS consists of non-terminals and terminals. A non-terminal is a variable (sometimes called a symbol) that is an abstraction that have references to other abstractions.
+These non-terminal variables can have multiple reductions each being a possible form of the syntax.
+If a non-terminal has multiple reductions these can either be represented as multiple rules as seen in \figref{BNF_Example} or as a single rule where each option for the reduction is seperated by the symbol '|'.
+The result of applying the production rules of the grammar is composed of terminals, as shown in figure \figref{BNF_Example_Terminals} where the terminals of the language are highlighted in red.
+As the name implies, terminals cannot be reduced further. Terminals are also referred to as lexemes and tokens\cite{sebesta_concepts_2016}.
 
 \fig{0.4}{BNF_Example_Terminals}{The terminal symbols in the grammar from \figref{BNF_Example} highlighted in red\cite{sebesta_concepts_2016}.}
 
@@ -29,15 +26,14 @@ BNF has seen several different extensions.
 These extended versions are commonly referred to as Extended BNF or just EBNF.
 EBNF is not any more powerful than BNF, rather it simply adjusts and adds to the syntax in an attempt to make it more readable.
 Whether EBNF succeeds in that regard is completely subjective.
-
 Most versions of ENBF usually include three extensions:
-- The use of square brackets to denote and optional part of the right-hand side of a production
-- The use of curly brackets to indicate that the enclosed part may be iterated any number of times
-- The use of the OR operator, |, to denote multiple-choice options for a production
+\begin{itemize}
+    \item The use of square brackets to denote and optional part of the right-hand side of a production.
+    \item The use of curly brackets to indicate that the enclosed part may be iterated any number of times
+    \item When an item must be selected from a group, the options are placed in parenthesis and are then separated with a '|' symbol. These options act as a single reduction.
+\end{itemize}
 
-Despite there being a standardized version of EBNF, it is rarely ever used.
-
-Whichever version a language designer decides to use is up to preference.
+Despite there being a standardized version of EBNF, it is rarely ever used. Whichever version a language designer decides to use is up to preference\cite{sebesta_concepts_2016}.
 
 \subsection{Derivation}
 
