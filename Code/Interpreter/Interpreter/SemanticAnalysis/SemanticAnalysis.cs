@@ -10,18 +10,29 @@ namespace Interpreter.SemanticAnalysis
         
     }
 
-    public sealed class SymbolTable
+    public sealed class SymbolTable<T>
     {
-        private readonly Dictionary<string, string> symbols = new();
+        private readonly Dictionary<string, T> symbols = new();
 
-        public string RetrieveSymbol(string identifier)
+        public T RetrieveSymbol(string identifier)
         {
-            if (symbols.TryGetValue(identifier, out string symbol))
+            if (symbols.TryGetValue(identifier, out T symbol))
             {
                 return symbol;
             }
             
             throw new ArgumentException($"Invalid identifier: {identifier}");
+        }
+
+        public void AddOrUpdateSymbol(string identifier, T data)
+        {
+            if (symbols.ContainsKey(identifier))
+            {
+                symbols[identifier] = data;
+                return;
+            }
+            
+            symbols.Add(identifier, data);
         }
     }
 }
