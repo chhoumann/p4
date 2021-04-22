@@ -2,13 +2,10 @@
 {
     public abstract class SymbolTableEntry
     {
-        public string Identifier { get; }
-
         public SymbolType Type { get; }
 
-        protected SymbolTableEntry(string identifier, SymbolType type)
+        protected SymbolTableEntry(SymbolType type)
         {
-            Identifier = identifier;
             Type = type;
         }
     }

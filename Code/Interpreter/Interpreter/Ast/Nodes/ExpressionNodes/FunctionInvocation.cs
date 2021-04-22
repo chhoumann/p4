@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
@@ -7,6 +8,7 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
     {
         public string Identifier { get; set; }
         public List<Value> Parameters { get; set; }
+        public SymbolType ReturnType { get; set; }
 
         public Value Evaluate()
         {

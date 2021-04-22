@@ -5,7 +5,6 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using Microsoft.VisualBasic;
-using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Interpreter.Ast
 {
@@ -18,14 +17,14 @@ namespace Interpreter.Ast
         {
             sb.Append(new string(' ', indentCount * 2));
         }
-        public void Visit(Array array)
+        public void Visit(ArrayNode arrayNode)
         {
             sb.Append('[');
-            for (int i = 0; i < array.Values.Count; i++)
+            for (int i = 0; i < arrayNode.Values.Count; i++)
             {
-                Value arrayValue = array.Values[i];
+                Value arrayValue = arrayNode.Values[i];
                 arrayValue.Accept(this);
-                if (i < array.Values.Count - 1)
+                if (i < arrayNode.Values.Count - 1)
                 {
                     sb.Append(',');
                 }
@@ -118,7 +117,7 @@ namespace Interpreter.Ast
             sb.Append("MovePattern");
         }
 
-        public void Visit(ScreenType gameObjectContent)
+        public void Visit(ScreenType screenType)
         {
             sb.Append("Screen");
         }

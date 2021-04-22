@@ -187,7 +187,7 @@ namespace Interpreter.Ast
             }
         }
         
-        public Nodes.ExpressionNodes.Array VisitArray(DazelParser.ArrayContext context)
+        public Nodes.ExpressionNodes.ArrayNode VisitArray(DazelParser.ArrayContext context)
         {
             return new()
             {

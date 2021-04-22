@@ -6,7 +6,6 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using NUnit.Framework;
-using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Tests
 {
@@ -99,7 +98,7 @@ namespace Tests
 
         public void Visit(MovePatternType movePatternType) { }
 
-        public void Visit(ScreenType gameObjectContent) { }
+        public void Visit(ScreenType screenType) { }
 
         public void Visit(IfStatement ifStatement) { }
 
@@ -120,7 +119,7 @@ namespace Tests
                     break;
                 case "SpawnEntity":
                     Assert.That(functionInvocation.Parameters[0] is IdentifierValue {Value: "Skeleton1"});
-                    Assert.That(functionInvocation.Parameters[1] is Array array && 
+                    Assert.That(functionInvocation.Parameters[1] is ArrayNode array && 
                                 array.Values[0] is IntValue {Value: 4} &&
                                 array.Values[1] is IntValue {Value: 5});
                     break;
@@ -171,7 +170,7 @@ namespace Tests
                     break;
                 // arr = [1, 2, 3]
                 case "arr":
-                    Assert.That(assignmentNode.Expression is Array arr &&
+                    Assert.That(assignmentNode.Expression is ArrayNode arr &&
                                 arr.Values[0] is IntValue {Value: 1} &&
                                 arr.Values[1] is IntValue {Value: 2} &&
                                 arr.Values[2] is IntValue {Value: 3}
@@ -188,6 +187,6 @@ namespace Tests
 
         public void Visit(IntValue intValue) { }
 
-        public void Visit(Array array) { }
+        public void Visit(ArrayNode arrayNode) { }
     }
 }

@@ -23,7 +23,7 @@ namespace Interpreter.Ast
         void Visit(SumOperation sumOperation);
         void Visit(TerminalExpression terminalExpression);
         void Visit(MovePatternType movePatternType);
-        void Visit(ScreenType gameObjectContent);
+        void Visit(ScreenType screenType);
         void Visit(IfStatement ifStatement);
         void Visit(RepeatNode repeatNode);
         void Visit(FunctionInvocation functionInvocation);
@@ -32,6 +32,6 @@ namespace Interpreter.Ast
         void Visit(FloatValue floatValue);
         void Visit(IdentifierValue identifierValue);
         void Visit(IntValue intValue);
-        void Visit(Array array);
+        void Visit(ArrayNode arrayNode);
     }
 }

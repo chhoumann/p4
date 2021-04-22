@@ -17,7 +17,7 @@ namespace Interpreter.Ast
         ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context);
         ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context);
         Value VisitValue(DazelParser.ValueContext context);
-        Nodes.ExpressionNodes.Array VisitArray(DazelParser.ArrayContext context);
+        Nodes.ExpressionNodes.ArrayNode VisitArray(DazelParser.ArrayContext context);
         List<Value> VisitValueList(DazelParser.ValueListContext context);
         FactorOperation VisitFactorOperation(DazelParser.FactorOperationContext context);
         SumOperation VisitSumOperation(DazelParser.SumOperationContext context);

@@ -2,6 +2,6 @@
 {
     public enum SymbolType
     {
-        Float, String, Integer, Boolean
+        Void, Float, String, Integer, Boolean
     }
 }
