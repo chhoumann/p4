@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes
@@ -15,6 +14,11 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes
             {
                 Value = "Function Evaluate has not yet been implemented."
             };
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

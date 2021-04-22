@@ -7,5 +7,10 @@ namespace Interpreter.Ast.Nodes.StatementNodes
     {
         public string Identifier { get; set; }
         public ExpressionNode Expression { get; set; }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

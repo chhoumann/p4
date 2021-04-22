@@ -26,7 +26,8 @@ namespace Interpreter.Ast
         void Visit(ScreenType gameObjectContent);
         void Visit(IfStatement ifStatement);
         void Visit(RepeatNode repeatNode);
-        void Visit(StatementExpression statementExpression);
+        void Visit(FunctionInvocation functionInvocation);
+        void Visit(AssignmentNode assignmentNode);
         void Visit(MemberAccess memberAccess);
         void Visit(FloatValue floatValue);
         void Visit(IdentifierValue identifierValue);
