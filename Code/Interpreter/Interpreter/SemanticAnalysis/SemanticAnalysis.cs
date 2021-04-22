@@ -9,21 +9,21 @@ namespace Interpreter.SemanticAnalysis
 {
     public abstract class SemanticAnalysis
     {
-        protected Stack<SymbolTable<SymbolTableEntry>> environmentStack = new();
+        protected readonly Stack<SymbolTable<SymbolTableEntry>> EnvironmentStack = new();
     }
 
     public class TypeChecker : SemanticAnalysis, IVisitor
     {
         public void Visit(GameObject gameObject)
         {
-            environmentStack.Push(new SymbolTable<SymbolTableEntry>());
+            EnvironmentStack.Push(new SymbolTable<SymbolTableEntry>());
             
             foreach (GameObjectContent gameObjectContent in gameObject.Contents)
             {
                 Visit(gameObjectContent);
             }
 
-            environmentStack.Pop();
+            EnvironmentStack.Pop();
         }
 
         public void Visit(MapType mapType)
@@ -56,26 +56,26 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(GameObjectContent gameObjectContent)
         {
-            environmentStack.Push(new SymbolTable<SymbolTableEntry>());
+            EnvironmentStack.Push(new SymbolTable<SymbolTableEntry>());
 
             foreach (StatementNode statementNode in gameObjectContent.Statements)
             {
                 statementNode.Accept(this);
             }
 
-            environmentStack.Pop();
+            EnvironmentStack.Pop();
         }
 
         public void Visit(StatementBlock statementBlock)
         {
-            environmentStack.Push(new SymbolTable<SymbolTableEntry>());
+            EnvironmentStack.Push(new SymbolTable<SymbolTableEntry>());
             
             foreach (StatementNode statement in statementBlock.Statements)
             {
                 statement.Accept(this);
             }
 
-            environmentStack.Pop();
+            EnvironmentStack.Pop();
         }
 
         public void Visit(FactorExpression factorExpression)
@@ -118,12 +118,12 @@ namespace Interpreter.SemanticAnalysis
         {
             FunctionSymbolTableEntry entry = new(functionInvocation.ReturnType, functionInvocation.Parameters);
             
-            environmentStack.Peek().AddOrUpdateSymbol(functionInvocation.Identifier, entry);
+            EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocation.Identifier, entry);
         }
 
         public void Visit(AssignmentNode assignmentNode)
         {
-            SymbolTable<SymbolTableEntry> currentSymbolTable = environmentStack.Peek();
+            SymbolTable<SymbolTableEntry> currentSymbolTable = EnvironmentStack.Peek();
             SymbolType expressionType = new ExpressionTypeChecker(currentSymbolTable).GetType(assignmentNode.Expression);
 
             VariableSymbolTableEntry entry = new(expressionType);
