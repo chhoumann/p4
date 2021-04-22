@@ -19,7 +19,6 @@ namespace Interpreter
             
             AstPrinter astPrinter = new();
             astPrinter.Visit(ast.Root);
-            SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder(ast.Root);
  
             //Console.WriteLine(SymbolTable.Instance.Scopes[0].RetrieveSymbol("SomeVar"));
 
