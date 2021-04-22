@@ -1,38 +1,129 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Interpreter.Ast;
+using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
+using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.SemanticAnalysis
 {
-    public class SemanticAnalysis
+    public abstract class SemanticAnalysis
     {
-        private Stack<SymbolTable> environmentStack;
-        
-        
+        protected Stack<SymbolTable<SymbolTableEntry>> environmentStack = new();
     }
 
-    public sealed class SymbolTable<T>
+    public class TypeChecker : SemanticAnalysis, IVisitor
     {
-        private readonly Dictionary<string, T> symbols = new();
-
-        public T RetrieveSymbol(string identifier)
+        public void Visit(GameObject gameObject)
         {
-            if (symbols.TryGetValue(identifier, out T symbol))
-            {
-                return symbol;
-            }
+            environmentStack.Push(new SymbolTable<SymbolTableEntry>());
             
-            throw new ArgumentException($"Invalid identifier: {identifier}");
+            foreach (GameObjectContent gameObjectContent in gameObject.Contents)
+            {
+                Visit(gameObjectContent);
+            }
+
+            environmentStack.Pop();
         }
 
-        public void AddOrUpdateSymbol(string identifier, T data)
+        public void Visit(MapType mapType)
         {
-            if (symbols.ContainsKey(identifier))
+        }
+
+        public void Visit(PatternType patternType)
+        {
+        }
+
+        public void Visit(OnScreenEnteredType onScreenEnteredType)
+        {
+        }
+
+        public void Visit(EntityType entityType)
+        {
+        }
+
+        public void Visit(DataType dataType)
+        {
+        }
+
+        public void Visit(EntitiesType entitiesType)
+        {
+        }
+
+        public void Visit(ExitsType exitsType)
+        {
+        }
+
+        public void Visit(GameObjectContent gameObjectContent)
+        {
+            foreach (StatementNode statementNode in gameObjectContent.Statements)
             {
-                symbols[identifier] = data;
-                return;
+                Visit(statementNode);
             }
-            
-            symbols.Add(identifier, data);
+        }
+
+        public void Visit(StatementBlock statementBlock)
+        {
+        }
+
+        public void Visit(FactorExpression factorExpression)
+        {
+        }
+
+        public void Visit(FactorOperation factorOperation)
+        {
+        }
+
+        public void Visit(SumExpression sumExpression)
+        {
+        }
+
+        public void Visit(SumOperation sumOperation)
+        {
+        }
+
+        public void Visit(TerminalExpression terminalExpression)
+        {
+        }
+
+        public void Visit(MovePatternType movePatternType)
+        {
+        }
+
+        public void Visit(ScreenType gameObjectContent)
+        {
+        }
+
+        public void Visit(IfStatement ifStatement)
+        {
+        }
+
+        public void Visit(RepeatNode repeatNode)
+        {
+        }
+
+        public void Visit(StatementExpression statementExpression)
+        {
+        }
+
+        public void Visit(MemberAccess memberAccess)
+        {
+        }
+
+        public void Visit(FloatValue floatValue)
+        {
+        }
+
+        public void Visit(IdentifierValue identifierValue)
+        {
+        }
+
+        public void Visit(IntValue intValue)
+        {
+        }
+
+        public void Visit(Array array)
+        {
         }
     }
 }
