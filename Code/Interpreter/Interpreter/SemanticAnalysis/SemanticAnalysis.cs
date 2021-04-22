@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Interpreter.SemanticAnalysis
 {
@@ -11,11 +12,16 @@ namespace Interpreter.SemanticAnalysis
 
     public sealed class SymbolTable
     {
-        public Dictionary<string, string> symbols { get; } = new();
+        private readonly Dictionary<string, string> symbols = new();
 
-        public string RetrieveSymbol()
+        public string RetrieveSymbol(string identifier)
         {
-            return symbols.
+            if (symbols.TryGetValue(identifier, out string symbol))
+            {
+                return symbol;
+            }
+            
+            throw new ArgumentException($"Invalid identifier: {identifier}");
         }
     }
 }
