@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr4.Runtime.Tree;
+using Interpreter.Ast.Nodes;
 using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
@@ -12,11 +13,23 @@ namespace Interpreter.Ast
 {
     public sealed class AstBuilder : IAstBuilder
     {
-        public AbstractSyntaxTree BuildAst(IParseTree parseTree)
+        public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
         {
-            DazelParser.GameObjectContext startSymbol = parseTree.GetChild(0) as DazelParser.GameObjectContext;
-            GameObject root = VisitGameObject(startSymbol);
+            Dictionary<string, GameObject> gameObjects = new();
+            
+            foreach (IParseTree parseTree in parseTrees)
+            {
+                DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext;
+                GameObject gameObject = VisitGameObject(gameObjectContext);
+                
+                gameObjects.Add(gameObject.Identifier, gameObject);
+            }
 
+            RootNode root = new()
+            {
+                GameObjects = gameObjects
+            };
+            
             return new AbstractSyntaxTree(root);
         }
         

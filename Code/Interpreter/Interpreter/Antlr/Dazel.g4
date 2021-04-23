@@ -5,7 +5,7 @@ COMMENT : '//' ~[\r\n]* -> skip;
 
 //SPACING : [\t\r\n]+?;
 /* PARSER RULES */
-start: gameObject;
+start                   : gameObject;
 
 gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER gameObjectBlock
                         ;

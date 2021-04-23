@@ -1,12 +1,12 @@
-using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.Ast.Nodes;
 
 namespace Interpreter.Ast
 {
     public sealed class AbstractSyntaxTree
     {
-        public GameObject Root { get; }
+        public RootNode Root { get; }
         
-        public AbstractSyntaxTree(GameObject root)
+        public AbstractSyntaxTree(RootNode root)
         {
             Root = root;
         }

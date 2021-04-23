@@ -10,7 +10,7 @@ namespace Interpreter.Ast
 {
     public interface IAstBuilder
     {
-        AbstractSyntaxTree BuildAst(IParseTree parseTree);
+        AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees);
         GameObject VisitGameObject(DazelParser.GameObjectContext context);
         List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
         GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context);

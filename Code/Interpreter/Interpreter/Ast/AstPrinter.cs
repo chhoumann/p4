@@ -19,6 +19,7 @@ namespace Interpreter.Ast
         {
             sb.Append(new string(' ', indentCount * 2));
         }
+        
         public void Visit(ArrayNode arrayNode)
         {
             sb.Append('[');
