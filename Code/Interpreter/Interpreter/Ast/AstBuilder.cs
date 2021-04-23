@@ -169,17 +169,17 @@ namespace Interpreter.Ast
             switch (context.terminalValue.Type)
             {
                 case DazelLexer.IDENTIFIER:
-                    return new IdentifierValue()
+                    return new IdentifierValue
                     {
                         Value = context.GetText()
                     };
                 case DazelLexer.INT:
-                    return new IntValue()
+                    return new IntValue
                     {
                         Value = int.Parse(context.GetText())
                     };
                 case DazelLexer.FLOAT:
-                    return new FloatValue()
+                    return new FloatValue
                     {
                         Value = float.Parse(context.GetText())
                     };

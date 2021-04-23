@@ -5,11 +5,12 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using Interpreter.Ast.Nodes.ValueNodes;
+using Interpreter.Ast.Visitors;
 using Microsoft.VisualBasic;
 
 namespace Interpreter.Ast
 {
-    public sealed class AstPrinter : IVisitor
+    public sealed class AstPrinter : IGameObjectVisitor, IExpressionVisitor, IValueVisitor, IStatementVisitor
     {
         private StringBuilder sb = new();
         private int indentCount = 0;
@@ -107,6 +108,7 @@ namespace Interpreter.Ast
         public void Visit(GameObjectContent gameObjectContent)
         {
             gameObjectContent.Type.Accept(this);
+            
             foreach (StatementNode statementNode in gameObjectContent.Statements)
             {
                 statementNode.Accept(this);
