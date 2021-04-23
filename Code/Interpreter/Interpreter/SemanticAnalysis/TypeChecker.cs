@@ -1,4 +1,5 @@
-﻿using Interpreter.Ast.Nodes.GameObjectNodes;
+﻿using Interpreter.Ast;
+using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using Interpreter.Ast.Visitors;
@@ -7,6 +8,13 @@ namespace Interpreter.SemanticAnalysis
 {
     public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
     {
+        private readonly AbstractSyntaxTree ast;
+
+        public TypeChecker(AbstractSyntaxTree ast)
+        {
+            this.ast = ast;
+        }
+        
         public void Visit(GameObject gameObject)
         {
             EnvironmentStack.Push(new SymbolTable<SymbolTableEntry>());
@@ -73,7 +81,7 @@ namespace Interpreter.SemanticAnalysis
         public void Visit(AssignmentNode assignmentNode)
         {
             SymbolTable<SymbolTableEntry> currentSymbolTable = EnvironmentStack.Peek();
-            SymbolType expressionType = new ExpressionTypeChecker(currentSymbolTable).GetType(assignmentNode.Expression);
+            SymbolType expressionType = new ExpressionTypeChecker(ast, currentSymbolTable).GetType(assignmentNode.Expression);
 
             VariableSymbolTableEntry entry = new(expressionType);
         }

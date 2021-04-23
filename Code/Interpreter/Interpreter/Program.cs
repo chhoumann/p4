@@ -3,6 +3,7 @@ using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
 using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.SemanticAnalysis;
 
 namespace Interpreter
 {
@@ -31,6 +32,11 @@ namespace Interpreter
             {
                 AstPrinter astPrinter = new();
                 astPrinter.Visit(gameObject);     
+            }
+            
+            foreach (GameObject gameObject in ast.Root.GameObjects.Values)
+            {
+                new TypeChecker(ast).Visit(gameObject);
             }
            
             //Console.WriteLine(SymbolTable.Instance.Scopes[0].RetrieveSymbol("SomeVar"));

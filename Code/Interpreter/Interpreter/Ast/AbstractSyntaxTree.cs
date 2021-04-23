@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Interpreter.Ast.Nodes;
 
 namespace Interpreter.Ast
@@ -9,6 +10,11 @@ namespace Interpreter.Ast
         public AbstractSyntaxTree(RootNode root)
         {
             Root = root;
+        }
+
+        public bool TryRetrieveNode<TNode>(List<string> identifierList, out TNode node)
+        {
+            return false;
         }
     }
 }

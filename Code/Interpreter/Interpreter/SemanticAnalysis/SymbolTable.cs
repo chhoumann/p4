@@ -16,11 +16,6 @@ namespace Interpreter.SemanticAnalysis
             
             throw new ArgumentException($"Invalid identifier: {identifier}");
         }
-        
-        public T RetrieveSymbol(IReadOnlyList<string> identifiers)
-        {
-            throw new NotImplementedException();
-        }
 
         public void AddOrUpdateSymbol(string identifier, T data)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Interpreter.Ast;
 using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
@@ -8,20 +9,22 @@ namespace Interpreter.SemanticAnalysis
 {
     public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
+        private readonly AbstractSyntaxTree ast;
         private readonly SymbolTable<SymbolTableEntry> symbolTable;
 
-        public ExpressionTypeChecker(SymbolTable<SymbolTableEntry> symbolTable)
+        public ExpressionTypeChecker(AbstractSyntaxTree ast, SymbolTable<SymbolTableEntry> symbolTable)
         {
+            this.ast = ast;
             this.symbolTable = symbolTable;
         }
         
-        private SymbolType currentType = SymbolType.Void;
+        private SymbolType currentType = SymbolType.Null;
         private SymbolType CurrentType
         {
             get => currentType;
             set
             {
-                if (currentType == SymbolType.Void || currentType == SymbolType.Integer && value == SymbolType.Float)
+                if (currentType == SymbolType.Null || currentType == SymbolType.Integer && value == SymbolType.Float)
                 {
                     currentType = value;
                     return;
@@ -57,12 +60,17 @@ namespace Interpreter.SemanticAnalysis
         
         public void Visit(MemberAccess memberAccess)
         {
-            CurrentType = symbolTable.RetrieveSymbol(memberAccess.Identifiers).Type;
+            if (ast.TryRetrieveNode(memberAccess.Identifiers, out ValueNode value))
+            {
+                CurrentType = value.Type;
+            }
+
+            //CurrentType = symbolTable.RetrieveSymbol(memberAccess.Identifiers).Type;
         }
 
         public void Visit(FloatValue floatValue)
         {
-            CurrentType = SymbolType.Float;
+            CurrentType = floatValue.Type = SymbolType.Float;
         }
 
         public void Visit(IdentifierValue identifierValue)
@@ -72,7 +80,7 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(IntValue intValue)
         {
-            CurrentType = SymbolType.Integer;
+            CurrentType = intValue.Type = SymbolType.Integer;
         }
 
         public void Visit(ArrayNode arrayNode)
@@ -80,6 +88,12 @@ namespace Interpreter.SemanticAnalysis
             foreach (ValueNode value in arrayNode.Values)
             {
                 value.Accept(this);
+            }
+
+            foreach (ValueNode value in arrayNode.Values)
+            {
+                // Throws if one of the types are different - see CurrentType setter
+                CurrentType = value.Type;
             }
         }
 
