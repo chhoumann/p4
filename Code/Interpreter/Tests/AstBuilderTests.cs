@@ -29,9 +29,12 @@ namespace Tests
         [Test]
         public void BuildAst_BuildsAst_IsCorrect()
         {
-            var ast = new AstBuilder().BuildAst(parseTree);
+            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTree);
             
-            Visit(ast.Root);
+            foreach (GameObject gameObject in ast.Root.GameObjects.Values)
+            {
+                Visit(gameObject);
+            }
         }
 
         

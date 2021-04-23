@@ -33,6 +33,11 @@ namespace Interpreter.Ast
             return new AbstractSyntaxTree(root);
         }
         
+        public AbstractSyntaxTree BuildAst(IParseTree parseTree)
+        {
+            return BuildAst(new[] {parseTree});
+        }
+
         #region GameObject
         public GameObject VisitGameObject(DazelParser.GameObjectContext context)
         {

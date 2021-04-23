@@ -11,6 +11,7 @@ namespace Interpreter.Ast
     public interface IAstBuilder
     {
         AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees);
+        AbstractSyntaxTree BuildAst(IParseTree parseTrees);
         GameObject VisitGameObject(DazelParser.GameObjectContext context);
         List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
         GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context);
