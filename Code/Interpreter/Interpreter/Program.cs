@@ -8,10 +8,12 @@ namespace Interpreter
 {
     public sealed class Program
     {
+        private const string SourceFileDirectory = @".\Antlr\";
+        
         private static void Main(string[] args)
         {
             List<IParseTree> parseTrees = new();
-            IEnumerable<string> files = SourceFileGetter.GetFilesInDirectory(@".\Antlr\");
+            IEnumerable<string> files = SourceFileGetter.GetFilesInDirectory(SourceFileDirectory);
 
             foreach (string file in files)
             {
