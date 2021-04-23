@@ -5,6 +5,7 @@ using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Nodes.ValueNodes;
 using NUnit.Framework;
 
 namespace Tests
@@ -36,7 +37,7 @@ namespace Tests
         public void Visit(GameObject gameObject)
         {
             // Line 1
-            Assert.That(gameObject.Type is ScreenType, "gameObject.Type is ScreenType");
+            Assert.That(gameObject.Type is Screen, "gameObject.Type is ScreenType");
             Assert.That(gameObject.Identifier == "SampleScreen1", "gameObject.Identifier == 'SampleScreen1'");
             
             // Contents: Map, Entities
@@ -62,7 +63,7 @@ namespace Tests
 
         public void Visit(OnScreenEnteredType onScreenEnteredType) { }
 
-        public void Visit(EntityType entityType) { }
+        public void Visit(Entity entity) { }
 
         public void Visit(DataType dataType) { }
 
@@ -96,9 +97,9 @@ namespace Tests
 
         public void Visit(TerminalExpression terminalExpression) { }
 
-        public void Visit(MovePatternType movePatternType) { }
+        public void Visit(MovePattern movePattern) { }
 
-        public void Visit(ScreenType screenType) { }
+        public void Visit(Screen screen) { }
 
         public void Visit(IfStatement ifStatement) { }
 

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ValueNodes;
 
 namespace Interpreter.SemanticAnalysis
 {
     public class FunctionSymbolTableEntry : SymbolTableEntry
     {
-        private readonly List<Value> parameters;
+        private readonly List<ValueNode> parameters;
 
-        public FunctionSymbolTableEntry(SymbolType type, List<Value> parameters) : base(type)
+        public FunctionSymbolTableEntry(SymbolType type, List<ValueNode> parameters) : base(type)
         {
             this.parameters = parameters;
         }

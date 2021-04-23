@@ -3,6 +3,7 @@ using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Nodes.ValueNodes;
 
 namespace Interpreter.Ast
 {
@@ -16,9 +17,9 @@ namespace Interpreter.Ast
         ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context);
         ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context);
         ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context);
-        Value VisitValue(DazelParser.ValueContext context);
-        Nodes.ExpressionNodes.ArrayNode VisitArray(DazelParser.ArrayContext context);
-        List<Value> VisitValueList(DazelParser.ValueListContext context);
+        ValueNode VisitValue(DazelParser.ValueContext context);
+        ArrayNode VisitArray(DazelParser.ArrayContext context);
+        List<ValueNode> VisitValueList(DazelParser.ValueListContext context);
         FactorOperation VisitFactorOperation(DazelParser.FactorOperationContext context);
         SumOperation VisitSumOperation(DazelParser.SumOperationContext context);
         MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context);

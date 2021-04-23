@@ -2,9 +2,9 @@
 
 namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public sealed class ExitsType : GameObjectContentType
+    public sealed class MovePattern : GameObjectType
     {
-        public override void Accept(IGameObjectContentTypeVisitor visitor)
+        public override void Accept(IGameObjectVisitor visitor)
         {
             visitor.Visit(this);
         }

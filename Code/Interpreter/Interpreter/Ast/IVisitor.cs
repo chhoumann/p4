@@ -2,6 +2,7 @@
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Nodes.ValueNodes;
 
 namespace Interpreter.Ast
 {
@@ -11,7 +12,7 @@ namespace Interpreter.Ast
         void Visit(MapType mapType);
         void Visit(PatternType patternType);
         void Visit(OnScreenEnteredType onScreenEnteredType);
-        void Visit(EntityType entityType);
+        void Visit(Entity entity);
         void Visit(DataType dataType);
         void Visit(EntitiesType entitiesType);
         void Visit(ExitsType exitsType);
@@ -22,8 +23,8 @@ namespace Interpreter.Ast
         void Visit(SumExpression sumExpression);
         void Visit(SumOperation sumOperation);
         void Visit(TerminalExpression terminalExpression);
-        void Visit(MovePatternType movePatternType);
-        void Visit(ScreenType screenType);
+        void Visit(MovePattern movePattern);
+        void Visit(Screen screen);
         void Visit(IfStatement ifStatement);
         void Visit(RepeatNode repeatNode);
         void Visit(FunctionInvocation functionInvocation);

@@ -4,6 +4,7 @@ using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Nodes.ValueNodes;
 
 namespace Interpreter.SemanticAnalysis
 {
@@ -38,7 +39,7 @@ namespace Interpreter.SemanticAnalysis
         {
         }
 
-        public void Visit(EntityType entityType)
+        public void Visit(Entity entity)
         {
         }
 
@@ -98,11 +99,11 @@ namespace Interpreter.SemanticAnalysis
         {
         }
 
-        public void Visit(MovePatternType movePatternType)
+        public void Visit(MovePattern movePattern)
         {
         }
 
-        public void Visit(ScreenType screenType)
+        public void Visit(Screen screen)
         {
         }
 

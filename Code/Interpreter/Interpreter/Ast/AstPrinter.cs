@@ -4,6 +4,7 @@ using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Nodes.ValueNodes;
 using Microsoft.VisualBasic;
 
 namespace Interpreter.Ast
@@ -22,7 +23,7 @@ namespace Interpreter.Ast
             sb.Append('[');
             for (int i = 0; i < arrayNode.Values.Count; i++)
             {
-                Value arrayValue = arrayNode.Values[i];
+                ValueNode arrayValue = arrayNode.Values[i];
                 arrayValue.Accept(this);
                 if (i < arrayNode.Values.Count - 1)
                 {
@@ -82,7 +83,7 @@ namespace Interpreter.Ast
             terminalExpression.Child.Accept(this);
         }
 
-        public void Visit(EntityType entityType)
+        public void Visit(Entity entity)
         {
             sb.Append("Entity");
         }
@@ -112,12 +113,12 @@ namespace Interpreter.Ast
             }
         }
 
-        public void Visit(MovePatternType movePatternType)
+        public void Visit(MovePattern movePattern)
         {
             sb.Append("MovePattern");
         }
 
-        public void Visit(ScreenType screenType)
+        public void Visit(Screen screen)
         {
             sb.Append("Screen");
         }
@@ -142,7 +143,7 @@ namespace Interpreter.Ast
                 
             for (int i = 0; i < functionInvocation.Parameters.Count; i++)
             {
-                Value functionInvocationParameter = functionInvocation.Parameters[i];
+                ValueNode functionInvocationParameter = functionInvocation.Parameters[i];
                 functionInvocationParameter.Accept(this);
                     
                 if (i < functionInvocation.Parameters.Count - 1)

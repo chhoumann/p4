@@ -5,6 +5,7 @@ using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Nodes.ValueNodes;
 
 namespace Interpreter.Ast
 {
@@ -26,13 +27,13 @@ namespace Interpreter.Ast
             switch (context.gameObjectType.Type)
             {
                 case DazelLexer.SCREEN:
-                    type = new ScreenType();
+                    type = new Screen();
                     break;
                 case DazelLexer.ENTITY:
-                    type = new EntityType();
+                    type = new Entity();
                     break;
                 case DazelLexer.MOVE_PATTERN:
-                    type = new MovePatternType();
+                    type = new MovePattern();
                     break;
                 default:
                     throw new ArgumentException("Type is not a GameObjectType!");
@@ -148,7 +149,7 @@ namespace Interpreter.Ast
             return VisitValue(context.value());
         }
         
-        public Value VisitValue(DazelParser.ValueContext context)
+        public ValueNode VisitValue(DazelParser.ValueContext context)
         {
             if (context.array() != null)
             {
@@ -187,7 +188,7 @@ namespace Interpreter.Ast
             }
         }
         
-        public Nodes.ExpressionNodes.ArrayNode VisitArray(DazelParser.ArrayContext context)
+        public ArrayNode VisitArray(DazelParser.ArrayContext context)
         {
             return new()
             {
@@ -195,9 +196,9 @@ namespace Interpreter.Ast
             };
         }
 
-        public List<Value> VisitValueList(DazelParser.ValueListContext context)
+        public List<ValueNode> VisitValueList(DazelParser.ValueListContext context)
         {
-            List<Value> values = new();
+            List<ValueNode> values = new();
             
             if (context.value() == null) return values;
             

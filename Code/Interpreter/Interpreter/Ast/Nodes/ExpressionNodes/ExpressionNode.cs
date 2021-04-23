@@ -1,6 +1,8 @@
-﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
+﻿using Interpreter.Ast.Visitors;
+
+namespace Interpreter.Ast.Nodes.ExpressionNodes
 {
-    public abstract class ExpressionNode : Node
+    public abstract class ExpressionNode : Node<IExpressionVisitor>
     {
     }
 }

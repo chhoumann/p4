@@ -1,5 +1,5 @@
-﻿using System;
-using Interpreter.Ast.Nodes.ExpressionNodes;
+﻿using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Visitors;
 
 namespace Interpreter.Ast.Nodes.StatementNodes
 {
@@ -8,7 +8,7 @@ namespace Interpreter.Ast.Nodes.StatementNodes
         public string Identifier { get; set; }
         public ExpressionNode Expression { get; set; }
 
-        public override void Accept(IVisitor visitor)
+        public override void Accept(IStatementVisitor visitor)
         {
             visitor.Visit(this);
         }
