@@ -10,7 +10,7 @@ using Microsoft.VisualBasic;
 
 namespace Interpreter.Ast
 {
-    public sealed class AstPrinter : IGameObjectVisitor, IExpressionVisitor, IStatementVisitor
+    public sealed class AstPrinter : IVisitor
     {
         private StringBuilder sb = new();
         private int indentCount = 0;
