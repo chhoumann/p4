@@ -1,14 +1,11 @@
 ﻿using System;
-using Interpreter.Ast;
 using Interpreter.Ast.Nodes.ExpressionNodes;
-using Interpreter.Ast.Nodes.GameObjectNodes;
-using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
-using Interpreter.Ast.Nodes.StatementNodes;
 using Interpreter.Ast.Nodes.ValueNodes;
+using Interpreter.Ast.Visitors;
 
 namespace Interpreter.SemanticAnalysis
 {
-    public sealed class ExpressionTypeChecker : IVisitor
+    public sealed class ExpressionTypeChecker : IValueVisitor, IExpressionVisitor
     {
         private readonly SymbolTable<SymbolTableEntry> symbolTable;
 
@@ -86,70 +83,6 @@ namespace Interpreter.SemanticAnalysis
         }
 
         #region IVisitor unimplemented
-        public void Visit(GameObject gameObject)
-        {
-        }
-
-        public void Visit(MapType mapType)
-        {
-        }
-
-        public void Visit(PatternType patternType)
-        {
-        }
-
-        public void Visit(OnScreenEnteredType onScreenEnteredType)
-        {
-        }
-
-        public void Visit(Entity entity)
-        {
-        }
-
-        public void Visit(DataType dataType)
-        {
-        }
-
-        public void Visit(EntitiesType entitiesType)
-        {
-        }
-
-        public void Visit(ExitsType exitsType)
-        {
-        }
-
-        public void Visit(GameObjectContent gameObjectContent)
-        {
-        }
-
-        public void Visit(StatementBlock statementBlock)
-        {
-        }
-
-        public void Visit(MovePattern movePattern)
-        {
-        }
-
-        public void Visit(Screen screen)
-        {
-        }
-
-        public void Visit(IfStatement ifStatement)
-        {
-        }
-
-        public void Visit(RepeatNode repeatNode)
-        {
-        }
-
-        public void Visit(FunctionInvocation functionInvocation)
-        {
-        }
-
-        public void Visit(AssignmentNode assignmentNode)
-        {
-        }
-        
         public void Visit(SumOperation sumOperation)
         {
         }
