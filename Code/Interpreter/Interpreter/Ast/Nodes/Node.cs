@@ -1,4 +1,4 @@
-﻿namespace Interpreter.Ast
+﻿namespace Interpreter.Ast.Nodes
 {
     public abstract class Node<TVisitor>
     {
