@@ -6,7 +6,7 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter
 {
-    public sealed class Program
+    public static class Program
     {
         private const string SourceFileDirectory = @".\Antlr\";
         
