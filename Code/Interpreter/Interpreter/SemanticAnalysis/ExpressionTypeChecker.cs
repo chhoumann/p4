@@ -6,7 +6,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.SemanticAnalysis
 {
-    public sealed class ExpressionTypeChecker : IValueVisitor, IExpressionVisitor
+    public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
         private readonly SymbolTable<SymbolTableEntry> symbolTable;
 
