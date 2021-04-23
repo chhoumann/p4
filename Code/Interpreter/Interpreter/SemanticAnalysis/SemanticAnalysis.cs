@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Interpreter.Ast;
-using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
-using Interpreter.Ast.Nodes.ValueNodes;
+using Interpreter.Ast.Visitors;
 
 namespace Interpreter.SemanticAnalysis
 {
@@ -13,7 +11,7 @@ namespace Interpreter.SemanticAnalysis
         protected readonly Stack<SymbolTable<SymbolTableEntry>> EnvironmentStack = new();
     }
 
-    public class TypeChecker : SemanticAnalysis, IVisitor
+    public class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
     {
         public void Visit(GameObject gameObject)
         {
@@ -27,31 +25,7 @@ namespace Interpreter.SemanticAnalysis
             EnvironmentStack.Pop();
         }
 
-        public void Visit(MapType mapType)
-        {
-        }
-
-        public void Visit(PatternType patternType)
-        {
-        }
-
-        public void Visit(OnScreenEnteredType onScreenEnteredType)
-        {
-        }
-
         public void Visit(Entity entity)
-        {
-        }
-
-        public void Visit(DataType dataType)
-        {
-        }
-
-        public void Visit(EntitiesType entitiesType)
-        {
-        }
-
-        public void Visit(ExitsType exitsType)
         {
         }
 
@@ -78,27 +52,7 @@ namespace Interpreter.SemanticAnalysis
 
             EnvironmentStack.Pop();
         }
-
-        public void Visit(FactorExpression factorExpression)
-        {
-        }
-
-        public void Visit(FactorOperation factorOperation)
-        {
-        }
-
-        public void Visit(SumExpression sumExpression)
-        {
-        }
-
-        public void Visit(SumOperation sumOperation)
-        {
-        }
-
-        public void Visit(TerminalExpression terminalExpression)
-        {
-        }
-
+        
         public void Visit(MovePattern movePattern)
         {
         }
@@ -128,26 +82,6 @@ namespace Interpreter.SemanticAnalysis
             SymbolType expressionType = new ExpressionTypeChecker(currentSymbolTable).GetType(assignmentNode.Expression);
 
             VariableSymbolTableEntry entry = new(expressionType);
-        }
-        
-        public void Visit(MemberAccess memberAccess)
-        {
-        }
-
-        public void Visit(FloatValue floatValue)
-        {
-        }
-
-        public void Visit(IdentifierValue identifierValue)
-        {
-        }
-
-        public void Visit(IntValue intValue)
-        {
-        }
-
-        public void Visit(ArrayNode arrayNode)
-        {
         }
     }
 }
