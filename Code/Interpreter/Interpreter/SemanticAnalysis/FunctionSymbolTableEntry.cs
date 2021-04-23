@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Interpreter.Ast.Nodes.ExpressionNodes;
-using Interpreter.Ast.Nodes.ValueNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 
 namespace Interpreter.SemanticAnalysis
 {

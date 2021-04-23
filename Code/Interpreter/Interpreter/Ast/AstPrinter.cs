@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Text;
-using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
-using Interpreter.Ast.Nodes.ValueNodes;
 using Interpreter.Ast.Visitors;
 using Microsoft.VisualBasic;
 
 namespace Interpreter.Ast
 {
-    public sealed class AstPrinter : IGameObjectVisitor, IExpressionVisitor, IValueVisitor, IStatementVisitor
+    public sealed class AstPrinter : IGameObjectVisitor, IExpressionVisitor, IStatementVisitor
     {
         private StringBuilder sb = new();
         private int indentCount = 0;

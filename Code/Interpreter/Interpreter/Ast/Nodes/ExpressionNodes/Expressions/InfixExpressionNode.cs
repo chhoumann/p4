@@ -1,4 +1,4 @@
-﻿namespace Interpreter.Ast.Nodes.ExpressionNodes
+﻿namespace Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
     public abstract class InfixExpressionNode : ExpressionNode
     {

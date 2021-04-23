@@ -1,6 +1,7 @@
 ﻿using System;
 using Interpreter.Ast.Nodes.ExpressionNodes;
-using Interpreter.Ast.Nodes.ValueNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Visitors;
 
 namespace Interpreter.SemanticAnalysis

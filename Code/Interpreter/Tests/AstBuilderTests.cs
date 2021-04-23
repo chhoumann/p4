@@ -2,10 +2,11 @@
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
 using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
-using Interpreter.Ast.Nodes.ValueNodes;
 using NUnit.Framework;
 
 namespace Tests

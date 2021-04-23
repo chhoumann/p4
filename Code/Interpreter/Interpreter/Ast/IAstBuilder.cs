@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.StatementNodes;
-using Interpreter.Ast.Nodes.ValueNodes;
 
 namespace Interpreter.Ast
 {

@@ -1,6 +1,6 @@
 ﻿using Interpreter.Ast.Visitors;
 
-namespace Interpreter.Ast.Nodes.ExpressionNodes
+namespace Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
     public sealed class FactorExpression : InfixExpressionNode
     {

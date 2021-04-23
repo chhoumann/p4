@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Interpreter.Ast.Nodes.ValueNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Visitors;
 using Interpreter.SemanticAnalysis;
 
