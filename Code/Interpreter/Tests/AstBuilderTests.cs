@@ -1,18 +1,18 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
-using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Visitors;
 using NUnit.Framework;
 
 namespace Tests
 {
     [TestFixture]
-    public sealed class AstBuilderTests : IVisitor
+    public sealed class AstBuilderTests : ICompleteVisitor
     {
         private IParseTree parseTree;
         private const string TestCodePath = "./dazel_test_code.txt";
