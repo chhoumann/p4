@@ -17,14 +17,14 @@ namespace Interpreter.SemanticAnalysis
         
         public void Visit(GameObject gameObject)
         {
-            EnvironmentStack.Push(new SymbolTable<SymbolTableEntry>());
+            OpenScope();
             
             foreach (GameObjectContent gameObjectContent in gameObject.Contents)
             {
                 Visit(gameObjectContent);
             }
 
-            EnvironmentStack.Pop();
+            CloseScope();
         }
 
         public void Visit(Entity entity)
@@ -33,26 +33,26 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(GameObjectContent gameObjectContent)
         {
-            EnvironmentStack.Push(new SymbolTable<SymbolTableEntry>());
+            OpenScope();
 
             foreach (StatementNode statementNode in gameObjectContent.Statements)
             {
                 statementNode.Accept(this);
             }
 
-            EnvironmentStack.Pop();
+            CloseScope();
         }
 
         public void Visit(StatementBlock statementBlock)
         {
-            EnvironmentStack.Push(new SymbolTable<SymbolTableEntry>());
+            OpenScope();
             
             foreach (StatementNode statement in statementBlock.Statements)
             {
                 statement.Accept(this);
             }
 
-            EnvironmentStack.Pop();
+            CloseScope();
         }
         
         public void Visit(MovePattern movePattern)
@@ -63,13 +63,9 @@ namespace Interpreter.SemanticAnalysis
         {
         }
 
-        public void Visit(IfStatement ifStatement)
-        {
-        }
+        public void Visit(IfStatement ifStatement) { }
 
-        public void Visit(RepeatNode repeatNode)
-        {
-        }
+        public void Visit(RepeatNode repeatNode) { }
 
         public void Visit(FunctionInvocation functionInvocation)
         {
@@ -84,6 +80,7 @@ namespace Interpreter.SemanticAnalysis
             SymbolType expressionType = new ExpressionTypeChecker(ast, currentSymbolTable).GetType(assignmentNode.Expression);
 
             VariableSymbolTableEntry entry = new(expressionType);
+            currentSymbolTable.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }
     }
 }

@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Interpreter.Ast.Nodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
@@ -13,7 +16,7 @@ namespace Interpreter.Ast
             Root = root;
         }
 
-        public bool TryRetrieveNode<TNode>(List<string> identifierList, out TNode node)
+        public bool TryRetrieveNode(List<string> identifierList, out ValueNode node)
         {
             GameObject start = Root.GameObjects[identifierList[0]];
 
@@ -21,10 +24,19 @@ namespace Interpreter.Ast
             {
                 if (nameof(gameObjectContent.Type) == identifierList[1])
                 {
-                    
+                    foreach (StatementNode statementNode in gameObjectContent.Statements)
+                    {
+                        if (statementNode is AssignmentNode assignmentNode &&
+                            assignmentNode.Identifier == identifierList[2])
+                        {
+                            node = assignmentNode.Expression as ValueNode;
+                            return true;
+                        }
+                    }
                 }
             }
-            
+
+            node = default;
             return false;
         }
     }

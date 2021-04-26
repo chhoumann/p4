@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Visitors;
 using Interpreter.SemanticAnalysis;
@@ -13,10 +14,7 @@ namespace Interpreter.Ast.Nodes.StatementNodes
 
         public ValueNode Evaluate()
         {
-            return new IdentifierValue
-            {
-                Value = "Function Evaluate has not yet been implemented."
-            };
+            throw new NotImplementedException("Function Evaluate not yet implemented");
         }
 
         public override void Accept(IStatementVisitor visitor)

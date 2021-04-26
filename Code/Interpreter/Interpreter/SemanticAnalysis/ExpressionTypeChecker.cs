@@ -24,13 +24,13 @@ namespace Interpreter.SemanticAnalysis
             get => currentType;
             set
             {
-                if (currentType == SymbolType.Null || currentType == SymbolType.Integer && value == SymbolType.Float)
+                if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value is SymbolType.Float or SymbolType.Integer))
                 {
                     currentType = value;
                     return;
                 }
                 
-                throw new InvalidOperationException("Type mismatch.");
+                throw new InvalidOperationException($"Type mismatch. {value} is not {currentType}");
             }
         }
         

@@ -4,20 +4,20 @@ Screen SampleScreen1
 	{
 		Size(30, 24);
 
-        SomeVar3 = 2; // Binding
+        SomeVar1 = 2; // Binding
 	    {
-	        SomeVar3 = 3 + 3;
+	        SomeVar2 = 3 + 3;
 	        {
 	            {
-	                SomeVar3 = 2+SomeVar3;
+	                SomeVar3 = 2+SomeVar2;
 	            }
 	        }
 	    }
 	    
-	    x = SomeVar3;
+	    x = SomeVar1;
 	    
-	    a = cl;   // -!-
-	    cl = asd; // This should not be possible
+	    //a = cl;   // -!-
+	    //cl = asd; // This should not be possible
 	    
 	    let = SampleScreen1.Exits.exit1;
 	    	    
