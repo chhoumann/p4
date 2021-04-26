@@ -9,13 +9,10 @@ namespace Interpreter.StandardLibrary.Functions.MapFunctions
     {
         public override int NumArguments => 1;
 
-        protected override Action Call { get; }
         public WallsFunction() : base(SymbolType.Void) { }
 
         public override ValueNode Execute(List<ValueNode> parameters)
         {
-            // call();
-
             return null;
         }
     }
