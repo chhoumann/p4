@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Visitors;
 using Interpreter.SemanticAnalysis;
+using Interpreter.StandardLibrary;
 
 namespace Interpreter.Ast.Nodes.StatementNodes
 {
@@ -14,7 +16,13 @@ namespace Interpreter.Ast.Nodes.StatementNodes
 
         public ValueNode Evaluate()
         {
-            throw new NotImplementedException("Function Evaluate not yet implemented");
+            if (DazelStdLib.Functions.TryGetValue(Identifier, out Function function))
+            {
+                return function.Execute(Parameters);
+            }
+            
+            // TODO: This is not the right exception. This should be called from within execute. Create a new exception type.
+            throw new ArgumentException($"{Identifier} called with wrong arguments: {string.Join(',', Parameters)}");
         }
 
         public override void Accept(IStatementVisitor visitor)

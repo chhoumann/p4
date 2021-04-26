@@ -166,7 +166,7 @@ namespace Interpreter.Ast
             Indent();
                 
             sb.Append($"{assignmentNode.Identifier} = ");
-            assignmentNode.Expression.Accept(this);
+            assignmentNode.Expression?.Accept(this);
             indentCount -= 2;
             sb.AppendLine("");
         }
@@ -215,6 +215,11 @@ namespace Interpreter.Ast
             Indent();
             sb.AppendLine("}");
             indentCount -= 2;
+        }
+
+        public void Visit(ExitValue exitValue)
+        {
+            sb.Append(exitValue);
         }
     }
 }

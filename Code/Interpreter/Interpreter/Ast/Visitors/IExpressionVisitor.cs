@@ -20,5 +20,7 @@ namespace Interpreter.Ast.Visitors
         void Visit(IntValue intValue);
         void Visit(ArrayNode arrayNode);
         #endregion
+
+        void Visit(ExitValue exitValue);
     }
 }

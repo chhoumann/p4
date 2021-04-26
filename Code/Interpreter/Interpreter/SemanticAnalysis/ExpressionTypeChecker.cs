@@ -97,6 +97,11 @@ namespace Interpreter.SemanticAnalysis
             }
         }
 
+        public void Visit(ExitValue exitValue)
+        {
+            
+        }
+
         #region IVisitor unimplemented
         public void Visit(SumOperation sumOperation)
         {
