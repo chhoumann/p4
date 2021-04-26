@@ -54,6 +54,7 @@ statementExpression     : assignment
                         ;
 
 assignment              : IDENTIFIER ASSIGN_OP expression
+                        | memberAccess ASSIGN_OP expression
                         ;
 
 expression              : sumExpression;
@@ -81,6 +82,7 @@ functionInvocation      : IDENTIFIER L_PARANTHESIS valueList R_PARANTHESIS
                         ;
 
 memberAccess            : IDENTIFIER '.' type=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) '.' IDENTIFIER
+                        | IDENTIFIER '.' IDENTIFIER
                         ;
 
 valueList               : value

@@ -169,6 +169,7 @@ namespace Interpreter.Ast
             sb.Append($"{assignmentNode.Identifier} = ");
             assignmentNode.Expression?.Accept(this);
             indentCount -= 2;
+            
             sb.AppendLine("");
         }
 
