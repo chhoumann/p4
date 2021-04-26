@@ -37,6 +37,11 @@ namespace Interpreter.Ast
             sb.Append(']');
         }
 
+        public void Visit(StringNode stringNode)
+        {
+            sb.Append($"\"{stringNode.Value}\"");
+        }
+
         public void Visit(FactorExpression factorExpression)
         {
             factorExpression.Left.Accept(this);

@@ -14,7 +14,7 @@ Screen SampleScreen1
 	        }
 	    }
 	    
-	    x = SomeVar1;
+	    x = "SomeVar1";
 	    
 	    //a = cl;   // -!-
 	    //cl = asd; // This should not be possible

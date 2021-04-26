@@ -98,6 +98,11 @@ namespace Interpreter.SemanticAnalysis
             }
         }
 
+        public void Visit(StringNode stringNode)
+        {
+            CurrentType = stringNode.Type;
+        }
+
         public void Visit(ExitValue exitValue)
         {
             

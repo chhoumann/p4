@@ -202,6 +202,11 @@ namespace Interpreter.Ast
                     {
                         Value = float.Parse(context.GetText())
                     };
+                case DazelLexer.STRING:
+                    return new StringNode
+                    {
+                        Value = context.GetText().Replace("\"", string.Empty)
+                    };
                 default:
                     throw new ArgumentException("Invalid value passed.");
             }
