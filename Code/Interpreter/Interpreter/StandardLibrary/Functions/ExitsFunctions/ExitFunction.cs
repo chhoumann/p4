@@ -26,7 +26,6 @@ namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 
                 Vector2 vectorCoords = new(x.Value, y.Value);
                 
-
                 return new ExitValue(vectorCoords);
             }
             

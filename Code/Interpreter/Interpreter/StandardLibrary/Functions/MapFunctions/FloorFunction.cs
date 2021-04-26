@@ -13,6 +13,7 @@ namespace Interpreter.StandardLibrary.Functions.MapFunctions
 
         public override ValueNode Execute(List<ValueNode> parameters)
         {
+            throw new NotImplementedException();
             // call();
 
             return null;
