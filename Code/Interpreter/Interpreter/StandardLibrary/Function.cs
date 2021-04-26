@@ -8,7 +8,6 @@ namespace Interpreter.StandardLibrary
     public abstract class Function
     {
         public abstract int NumArguments { get; }
-        protected abstract Action Call { get; }
         private SymbolType ReturnType { get; }
 
         protected Function(SymbolType returnType)
