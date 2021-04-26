@@ -194,6 +194,8 @@ namespace Tests
         public void Visit(IntValue intValue) { }
 
         public void Visit(ArrayNode arrayNode) { }
+        public void Visit(StringNode stringNode) { }
+
         public void Visit(ExitValue exitValue) {
         }
     }

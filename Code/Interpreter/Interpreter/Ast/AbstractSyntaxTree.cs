@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Interpreter.Ast.Nodes;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
@@ -9,9 +10,17 @@ namespace Interpreter.Ast
     public sealed class AbstractSyntaxTree
     {
         public RootNode Root { get; }
+
+        public static AbstractSyntaxTree Instance { get; private set; }
         
         public AbstractSyntaxTree(RootNode root)
         {
+            if (Instance != null)
+            {
+                throw new ArgumentException("AST Instance already exists.");
+            }
+
+            Instance = this;
             Root = root;
         }
 
@@ -37,6 +46,11 @@ namespace Interpreter.Ast
 
             node = default;
             return false;
+        }
+
+        public bool TryRetrieveGameObject(string identifier, out GameObject gameObject)
+        {
+            return Root.GameObjects.TryGetValue(identifier, out gameObject);
         }
     }
 }
