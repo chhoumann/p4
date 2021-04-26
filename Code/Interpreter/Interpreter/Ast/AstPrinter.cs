@@ -6,6 +6,7 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using Interpreter.Ast.Visitors;
+using Interpreter.SemanticAnalysis.API.Values;
 using Microsoft.VisualBasic;
 
 namespace Interpreter.Ast

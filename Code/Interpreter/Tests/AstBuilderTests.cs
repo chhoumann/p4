@@ -7,6 +7,7 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using Interpreter.Ast.Visitors;
+using Interpreter.SemanticAnalysis.API.Values;
 using NUnit.Framework;
 
 namespace Tests
@@ -193,5 +194,7 @@ namespace Tests
         public void Visit(IntValue intValue) { }
 
         public void Visit(ArrayNode arrayNode) { }
+        public void Visit(ExitValue exitValue) {
+        }
     }
 }

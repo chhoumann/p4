@@ -1,5 +1,6 @@
 ﻿using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Interpreter.SemanticAnalysis.API.Values;
 
 namespace Interpreter.Ast.Visitors
 {

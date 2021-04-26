@@ -1,7 +1,8 @@
 ﻿using System.Numerics;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Visitors;
 
-namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
+namespace Interpreter.SemanticAnalysis.API.Values
 {
     public sealed class ExitValue : ValueNode
     {
