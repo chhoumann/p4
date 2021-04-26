@@ -5,11 +5,13 @@ using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.StandardLibrary.Functions.EntitiesFunctions
 {
-    public class SpawnEntityFunction : Function
+    public sealed class SpawnEntityFunction : Function
     {
+        public override int NumArguments => 2;
+
+        protected override Action Call { get; }
         public SpawnEntityFunction() : base(SymbolType.Void) { }
 
-        private protected override Action call { get; }
         public override ValueNode Execute(List<ValueNode> parameters)
         {
             //call();

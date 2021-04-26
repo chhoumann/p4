@@ -7,9 +7,11 @@ namespace Interpreter.StandardLibrary.Functions
 {
     public sealed class SizeFunction : Function
     {
+        public override int NumArguments { get; }
+
+        protected override Action Call { get; }
         public SizeFunction() : base(SymbolType.Void) { }
 
-        private protected override Action call { get; }
         public override ValueNode Execute(List<ValueNode> parameters)
         {
             // call();

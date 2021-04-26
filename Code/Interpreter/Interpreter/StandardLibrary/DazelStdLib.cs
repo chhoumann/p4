@@ -2,6 +2,7 @@
 using Interpreter.StandardLibrary.Functions;
 using Interpreter.StandardLibrary.Functions.EntitiesFunctions;
 using Interpreter.StandardLibrary.Functions.ExitsFunctions;
+using Interpreter.StandardLibrary.Functions.MapFunctions;
 
 namespace Interpreter.StandardLibrary
 {

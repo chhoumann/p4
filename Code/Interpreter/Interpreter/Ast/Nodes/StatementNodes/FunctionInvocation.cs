@@ -16,7 +16,7 @@ namespace Interpreter.Ast.Nodes.StatementNodes
 
         public ValueNode Evaluate()
         {
-            if (DazelStdLib.Functions.TryGetValue(Identifier, out Function function))
+            if (DazelStdLib.Functions.TryGetValue(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
                 return function.Execute(Parameters);
             }

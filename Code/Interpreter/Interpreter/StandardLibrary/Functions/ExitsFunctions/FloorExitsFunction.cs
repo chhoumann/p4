@@ -7,9 +7,11 @@ namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
     public class FloorExitsFunction : Function
     {
-        public FloorExitsFunction() : base(SymbolType.Void) { }
+        public override int NumArguments => 2;
 
-        private protected override Action call { get; }
+        protected override Action Call { get; }
+        
+        public FloorExitsFunction() : base(SymbolType.Void) { }
         public override ValueNode Execute(List<ValueNode> parameters)
         {
             // call();

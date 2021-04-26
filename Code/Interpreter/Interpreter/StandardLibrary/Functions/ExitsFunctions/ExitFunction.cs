@@ -9,34 +9,29 @@ namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
     public sealed class ExitFunction : Function
     {
+        public override int NumArguments => 2;
+
+        protected override Action Call { get; }
+        
         public ExitFunction() : base(SymbolType.Void) { }
 
-        private protected override Action call { get; }
         public override ValueNode Execute(List<ValueNode> parameters)
         {
             // call();
 
-            try
+            if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccess memberAccess)
             {
-                if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccess memberAccess)
-                {
-                    IntValue x = coords.Values[0] as IntValue;
-                    IntValue y = coords.Values[1] as IntValue;
+                IntValue x = coords.Values[0] as IntValue;
+                IntValue y = coords.Values[1] as IntValue;
 
-                    Vector2 vectorCoords = new(x.Value, y.Value);
-                    
-
-                    return new ExitValue(vectorCoords);
-                }
+                Vector2 vectorCoords = new(x.Value, y.Value);
                 
-                // TODO: Should return some exit type so we can assign to exits
-                throw new ArgumentException("Invalid arguments passed to Exit function.");
+
+                return new ExitValue(vectorCoords);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw new ArgumentException("Invalid number of arguments");
-            }
+            
+            // TODO: Should return some exit type so we can assign to exits
+            throw new ArgumentException("Invalid arguments passed to Exit function.");
         }
     }
 }

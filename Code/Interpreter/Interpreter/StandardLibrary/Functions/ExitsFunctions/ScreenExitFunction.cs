@@ -7,9 +7,12 @@ namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
     public class ScreenExitFunction : Function
     {
+        public override int NumArguments => 2;
+
+        protected override Action Call { get; }
+        
         public ScreenExitFunction() : base(SymbolType.Void) { }
 
-        private protected override Action call { get; }
         public override ValueNode Execute(List<ValueNode> parameters)
         {
             // call();
