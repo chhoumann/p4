@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:/Mapper/Tools/Dev/Projects/p4/Code/Interpreter/Interpreter/Antlr\Dazel.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Patrick/Documents/GitHub/p4/Code/Interpreter/Interpreter/Antlr\Dazel.g4 by ANTLR 4.9.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -29,7 +29,7 @@ using IToken = Antlr4.Runtime.IToken;
 /// </summary>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.1")]
 [System.CLSCompliant(false)]
-public interface IDazelListener : IParseTreeListener {
+internal interface IDazelListener : IParseTreeListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.start"/>.
 	/// </summary>

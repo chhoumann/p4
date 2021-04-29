@@ -1,37 +1,46 @@
 ﻿using System;
 using System.Text;
-using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Visitors;
+using Interpreter.SemanticAnalysis.API.Values;
 using Microsoft.VisualBasic;
-using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Interpreter.Ast
 {
-    public sealed class AstPrinter : IVisitor
+    internal sealed class AstPrinter : ICompleteVisitor
     {
-        private StringBuilder sb = new();
-        private int indentCount = 0;
+        private readonly StringBuilder sb = new StringBuilder();
+
+        private int indentCount;
 
         private void Indent()
         {
             sb.Append(new string(' ', indentCount * 2));
         }
-        public void Visit(Array array)
+        
+        public void Visit(ArrayNode arrayNode)
         {
             sb.Append('[');
-            for (int i = 0; i < array.Values.Count; i++)
+            for (int i = 0; i < arrayNode.Values.Count; i++)
             {
-                Value arrayValue = array.Values[i];
+                ValueNode arrayValue = arrayNode.Values[i];
                 arrayValue.Accept(this);
-                if (i < array.Values.Count - 1)
+                if (i < arrayNode.Values.Count - 1)
                 {
                     sb.Append(',');
                 }
             }
 
             sb.Append(']');
+        }
+
+        public void Visit(StringNode stringNode)
+        {
+            sb.Append($"\"{stringNode.Value}\"");
         }
 
         public void Visit(FactorExpression factorExpression)
@@ -83,7 +92,7 @@ namespace Interpreter.Ast
             terminalExpression.Child.Accept(this);
         }
 
-        public void Visit(EntityType entityType)
+        public void Visit(Entity entity)
         {
             sb.Append("Entity");
         }
@@ -107,18 +116,19 @@ namespace Interpreter.Ast
         public void Visit(GameObjectContent gameObjectContent)
         {
             gameObjectContent.Type.Accept(this);
+            
             foreach (StatementNode statementNode in gameObjectContent.Statements)
             {
                 statementNode.Accept(this);
             }
         }
 
-        public void Visit(MovePatternType movePatternType)
+        public void Visit(MovePattern movePattern)
         {
             sb.Append("MovePattern");
         }
 
-        public void Visit(ScreenType gameObjectContent)
+        public void Visit(Screen screen)
         {
             sb.Append("Screen");
         }
@@ -143,7 +153,7 @@ namespace Interpreter.Ast
                 
             for (int i = 0; i < functionInvocation.Parameters.Count; i++)
             {
-                Value functionInvocationParameter = functionInvocation.Parameters[i];
+                ValueNode functionInvocationParameter = functionInvocation.Parameters[i];
                 functionInvocationParameter.Accept(this);
                     
                 if (i < functionInvocation.Parameters.Count - 1)
@@ -163,8 +173,9 @@ namespace Interpreter.Ast
             Indent();
                 
             sb.Append($"{assignmentNode.Identifier} = ");
-            assignmentNode.Expression.Accept(this);
+            assignmentNode.Expression?.Accept(this);
             indentCount -= 2;
+            
             sb.AppendLine("");
         }
 
@@ -212,6 +223,11 @@ namespace Interpreter.Ast
             Indent();
             sb.AppendLine("}");
             indentCount -= 2;
+        }
+
+        public void Visit(ExitValue exitValue)
+        {
+            sb.Append(exitValue);
         }
     }
 }

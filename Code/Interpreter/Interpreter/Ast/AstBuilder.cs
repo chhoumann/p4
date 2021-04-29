@@ -1,23 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr4.Runtime.Tree;
+using Interpreter.Ast.Nodes;
 using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
-    public sealed class AstBuilder : IAstBuilder
+    internal sealed class AstBuilder : IAstBuilder
     {
-        public AbstractSyntaxTree BuildAst(IParseTree parseTree)
+        public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
         {
-            DazelParser.GameObjectContext startSymbol = parseTree.GetChild(0) as DazelParser.GameObjectContext;
-            GameObject root = VisitGameObject(startSymbol);
+            Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
+            
+            foreach (IParseTree parseTree in parseTrees)
+            {
+                DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext;
+                GameObject gameObject = VisitGameObject(gameObjectContext);
+                
+                gameObjects.Add(gameObject.Identifier, gameObject);
+            }
 
+            RootNode root = new RootNode()
+            {
+                GameObjects = gameObjects
+            };
+            
             return new AbstractSyntaxTree(root);
         }
         
+        public AbstractSyntaxTree BuildAst(IParseTree parseTree)
+        {
+            return BuildAst(new[] {parseTree});
+        }
+
         #region GameObject
         public GameObject VisitGameObject(DazelParser.GameObjectContext context)
         {
@@ -26,19 +46,19 @@ namespace Interpreter.Ast
             switch (context.gameObjectType.Type)
             {
                 case DazelLexer.SCREEN:
-                    type = new ScreenType();
+                    type = new Screen();
                     break;
                 case DazelLexer.ENTITY:
-                    type = new EntityType();
+                    type = new Entity();
                     break;
                 case DazelLexer.MOVE_PATTERN:
-                    type = new MovePatternType();
+                    type = new MovePattern();
                     break;
                 default:
                     throw new ArgumentException("Type is not a GameObjectType!");
             }
 
-            GameObject gameObject = new()
+            GameObject gameObject = new GameObject()
             {
                 Identifier = context.GetChild(1).GetText(),
                 Type = type,
@@ -50,7 +70,7 @@ namespace Interpreter.Ast
 
         public List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
         {
-            List<GameObjectContent> contents = new();
+            List<GameObjectContent> contents = new List<GameObjectContent>();
 
             if (context.gameObjectContent() == null) return contents;
 
@@ -92,7 +112,7 @@ namespace Interpreter.Ast
                     throw new ArgumentException("Invalid content type.");
             }
             
-            GameObjectContent content = new()
+            GameObjectContent content = new GameObjectContent()
             {
                 Statements = VisitStatementBlock(context.statementBlock()),
                 Type = gameObjectContentType,
@@ -148,7 +168,7 @@ namespace Interpreter.Ast
             return VisitValue(context.value());
         }
         
-        public Value VisitValue(DazelParser.ValueContext context)
+        public ValueNode VisitValue(DazelParser.ValueContext context)
         {
             if (context.array() != null)
             {
@@ -162,42 +182,47 @@ namespace Interpreter.Ast
 
             if (context.functionInvocation() != null)
             {
-                return VisitFunctionInvocation(context.functionInvocation()).Evaluate();
+                return VisitFunctionInvocation(context.functionInvocation()).Create();
             }
 
             switch (context.terminalValue.Type)
             {
                 case DazelLexer.IDENTIFIER:
-                    return new IdentifierValue()
+                    return new IdentifierValue
                     {
                         Value = context.GetText()
                     };
                 case DazelLexer.INT:
-                    return new IntValue()
+                    return new IntValue
                     {
                         Value = int.Parse(context.GetText())
                     };
                 case DazelLexer.FLOAT:
-                    return new FloatValue()
+                    return new FloatValue
                     {
                         Value = float.Parse(context.GetText())
+                    };
+                case DazelLexer.STRING:
+                    return new StringNode
+                    {
+                        Value = context.GetText().Replace("\"", string.Empty)
                     };
                 default:
                     throw new ArgumentException("Invalid value passed.");
             }
         }
         
-        public Nodes.ExpressionNodes.Array VisitArray(DazelParser.ArrayContext context)
+        public ArrayNode VisitArray(DazelParser.ArrayContext context)
         {
-            return new()
+            return new ArrayNode()
             {
                 Values = VisitValueList(context.valueList())
             };
         }
 
-        public List<Value> VisitValueList(DazelParser.ValueListContext context)
+        public List<ValueNode> VisitValueList(DazelParser.ValueListContext context)
         {
-            List<Value> values = new();
+            List<ValueNode> values = new List<ValueNode>();
             
             if (context.value() == null) return values;
             
@@ -233,7 +258,7 @@ namespace Interpreter.Ast
         
         public MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context)
         {
-            MemberAccess memberAccess = new()
+            MemberAccess memberAccess = new MemberAccess()
             {
                 Identifiers =
                 {
@@ -250,7 +275,7 @@ namespace Interpreter.Ast
         #region Statements
         public List<StatementNode> VisitStatementList(DazelParser.StatementListContext context)
         {
-            List<StatementNode> statements = new();
+            List<StatementNode> statements = new List<StatementNode>();
             
             if (context.statementBlock() != null)
             {
@@ -325,7 +350,7 @@ namespace Interpreter.Ast
 
         public FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
         {
-            return new()
+            return new FunctionInvocation()
             {
                 Identifier = context.IDENTIFIER().GetText(),
                 Parameters = VisitValueList(context.valueList()),

@@ -5,7 +5,7 @@ COMMENT : '//' ~[\r\n]* -> skip;
 
 //SPACING : [\t\r\n]+?;
 /* PARSER RULES */
-start: gameObject;
+start                   : gameObject;
 
 gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER gameObjectBlock
                         ;
@@ -39,8 +39,6 @@ statement               : repeatLoop
                         | ifStatement
                         | statementExpression
                         ;
-
-
 
 repeatLoop              : 'repeat' L_BRACES statementList R_BRACES
                         ;
@@ -90,7 +88,7 @@ valueList               : value
                         | empty
                         ;
 
-value                   : terminalValue=(IDENTIFIER|INT|FLOAT)
+value                   : terminalValue=(IDENTIFIER|INT|FLOAT|STRING)
                         | array
                         | memberAccess
                         | functionInvocation
@@ -114,6 +112,7 @@ PATTERN                 : 'Pattern';
 IDENTIFIER              : [a-zA-Z][a-zA-Z_0-9]*;
 INT                     : [0-9]+;
 FLOAT                   : [0-9]+'.'[0-9]+;
+STRING                  : '"' .*? '"';
             
 L_PARANTHESIS           : '(';
 R_PARANTHESIS           : ')';
@@ -128,4 +127,3 @@ PLUS_OP                 : '+';
 MINUS_OP                : '-';
 MULTIPLICATION_OP       : '*';
 DIVISION_OP             : '/';
-QUOTATION_MARK          : '"';

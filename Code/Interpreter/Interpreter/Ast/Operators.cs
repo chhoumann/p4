@@ -1,6 +1,6 @@
 ﻿namespace Interpreter.Ast
 {
-    public static class Operators
+    internal static class Operators
     {
         public const char AddOp = '+';
         public const char MinOp = '-';

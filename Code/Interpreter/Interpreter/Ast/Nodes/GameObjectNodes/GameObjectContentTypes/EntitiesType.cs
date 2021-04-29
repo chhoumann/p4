@@ -1,8 +1,10 @@
-﻿namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
+﻿using Interpreter.Ast.Visitors;
+
+namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public sealed class EntitiesType : GameObjectContentType
+    internal sealed class EntitiesType : GameObjectContentType
     {
-        public override void Accept(IVisitor visitor)
+        public override void Accept(IGameObjectContentTypeVisitor visitor)
         {
             visitor.Visit(this);
         }

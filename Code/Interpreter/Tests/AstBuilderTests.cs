@@ -1,17 +1,19 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
-using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
+using Interpreter.Ast.Visitors;
+using Interpreter.SemanticAnalysis.API.Values;
 using NUnit.Framework;
-using Array = Interpreter.Ast.Nodes.ExpressionNodes.Array;
 
 namespace Tests
 {
     [TestFixture]
-    public sealed class AstBuilderTests : IVisitor
+    internal sealed class AstBuilderTests : ICompleteVisitor
     {
         private IParseTree parseTree;
         private const string TestCodePath = "./dazel_test_code.txt";
@@ -28,16 +30,19 @@ namespace Tests
         [Test]
         public void BuildAst_BuildsAst_IsCorrect()
         {
-            var ast = new AstBuilder().BuildAst(parseTree);
+            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTree);
             
-            Visit(ast.Root);
+            foreach (GameObject gameObject in ast.Root.GameObjects.Values)
+            {
+                Visit(gameObject);
+            }
         }
 
         
         public void Visit(GameObject gameObject)
         {
             // Line 1
-            Assert.That(gameObject.Type is ScreenType, "gameObject.Type is ScreenType");
+            Assert.That(gameObject.Type is Screen, "gameObject.Type is ScreenType");
             Assert.That(gameObject.Identifier == "SampleScreen1", "gameObject.Identifier == 'SampleScreen1'");
             
             // Contents: Map, Entities
@@ -63,7 +68,7 @@ namespace Tests
 
         public void Visit(OnScreenEnteredType onScreenEnteredType) { }
 
-        public void Visit(EntityType entityType) { }
+        public void Visit(Entity entity) { }
 
         public void Visit(DataType dataType) { }
 
@@ -97,9 +102,9 @@ namespace Tests
 
         public void Visit(TerminalExpression terminalExpression) { }
 
-        public void Visit(MovePatternType movePatternType) { }
+        public void Visit(MovePattern movePattern) { }
 
-        public void Visit(ScreenType gameObjectContent) { }
+        public void Visit(Screen screen) { }
 
         public void Visit(IfStatement ifStatement) { }
 
@@ -112,18 +117,18 @@ namespace Tests
                 functionInvocation.Identifier == "SpawnEntity"
                 );
             
-            if (functionInvocation.Identifier == "Size")
+            switch (functionInvocation.Identifier)
             {
-                Assert.That(functionInvocation.Parameters[0] is IntValue {Value: 30});
-                Assert.That(functionInvocation.Parameters[1] is IntValue {Value: 24});
-            }
-
-            if (functionInvocation.Identifier == "SpawnEntity")
-            {
-                Assert.That(functionInvocation.Parameters[0] is IdentifierValue {Value: "Skeleton1"});
-                Assert.That(functionInvocation.Parameters[1] is Array array && 
-                            array.Values[0] is IntValue {Value: 4} &&
-                            array.Values[1] is IntValue {Value: 5});
+                case "Size":
+                    Assert.That(functionInvocation.Parameters[0] is IntValue {Value: 30});
+                    Assert.That(functionInvocation.Parameters[1] is IntValue {Value: 24});
+                    break;
+                case "SpawnEntity":
+                    Assert.That(functionInvocation.Parameters[0] is IdentifierValue {Value: "Skeleton1"});
+                    Assert.That(functionInvocation.Parameters[1] is ArrayNode array && 
+                                array.Values[0] is IntValue {Value: 4} &&
+                                array.Values[1] is IntValue {Value: 5});
+                    break;
             }
         }
 
@@ -171,7 +176,7 @@ namespace Tests
                     break;
                 // arr = [1, 2, 3]
                 case "arr":
-                    Assert.That(assignmentNode.Expression is Array arr &&
+                    Assert.That(assignmentNode.Expression is ArrayNode arr &&
                                 arr.Values[0] is IntValue {Value: 1} &&
                                 arr.Values[1] is IntValue {Value: 2} &&
                                 arr.Values[2] is IntValue {Value: 3}
@@ -188,6 +193,10 @@ namespace Tests
 
         public void Visit(IntValue intValue) { }
 
-        public void Visit(Array array) { }
+        public void Visit(ArrayNode arrayNode) { }
+        public void Visit(StringNode stringNode) { }
+
+        public void Visit(ExitValue exitValue) {
+        }
     }
 }

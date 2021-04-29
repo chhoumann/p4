@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast.Nodes.ExpressionNodes;
+using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
-    public interface IAstBuilder
+    internal interface IAstBuilder
     {
-        AbstractSyntaxTree BuildAst(IParseTree parseTree);
+        AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees);
+        AbstractSyntaxTree BuildAst(IParseTree parseTrees);
         GameObject VisitGameObject(DazelParser.GameObjectContext context);
         List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
         GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context);
@@ -16,9 +19,9 @@ namespace Interpreter.Ast
         ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context);
         ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context);
         ExpressionNode VisitTerminalExpression(DazelParser.TerminalExpressionContext context);
-        Value VisitValue(DazelParser.ValueContext context);
-        Nodes.ExpressionNodes.Array VisitArray(DazelParser.ArrayContext context);
-        List<Value> VisitValueList(DazelParser.ValueListContext context);
+        ValueNode VisitValue(DazelParser.ValueContext context);
+        ArrayNode VisitArray(DazelParser.ArrayContext context);
+        List<ValueNode> VisitValueList(DazelParser.ValueListContext context);
         FactorOperation VisitFactorOperation(DazelParser.FactorOperationContext context);
         SumOperation VisitSumOperation(DazelParser.SumOperationContext context);
         MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context);
