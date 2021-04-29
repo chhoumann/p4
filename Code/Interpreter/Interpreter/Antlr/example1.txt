@@ -25,7 +25,7 @@ Screen SampleScreen1
 		Floor(Grass);
 		
         {
-		    Line(TopLeft, TopRight, Cliff);
+		    Line(TopLeft, TopRight, Cliff); 
 		    Line([2, 2], [2, 4], Cliff);
         }
         

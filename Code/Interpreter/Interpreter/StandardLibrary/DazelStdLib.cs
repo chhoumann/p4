@@ -8,7 +8,7 @@ namespace Interpreter.StandardLibrary
 {
     public static class DazelStdLib
     {
-        public static readonly Dictionary<string, Function> Functions = new();
+        public static readonly Dictionary<string, Function> Functions = new Dictionary<string, Function>();
 
         static DazelStdLib()
         {

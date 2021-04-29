@@ -5,7 +5,7 @@ namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
     public sealed class MemberAccess : ValueNode
     {
-        public readonly List<string> Identifiers = new();
+        public readonly List<string> Identifiers = new List<string>();
 
         public override void Accept(IExpressionVisitor visitor)
         {

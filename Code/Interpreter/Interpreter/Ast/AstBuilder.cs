@@ -15,7 +15,7 @@ namespace Interpreter.Ast
     {
         public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
         {
-            Dictionary<string, GameObject> gameObjects = new();
+            Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
             
             foreach (IParseTree parseTree in parseTrees)
             {
@@ -25,7 +25,7 @@ namespace Interpreter.Ast
                 gameObjects.Add(gameObject.Identifier, gameObject);
             }
 
-            RootNode root = new()
+            RootNode root = new RootNode()
             {
                 GameObjects = gameObjects
             };
@@ -58,7 +58,7 @@ namespace Interpreter.Ast
                     throw new ArgumentException("Type is not a GameObjectType!");
             }
 
-            GameObject gameObject = new()
+            GameObject gameObject = new GameObject()
             {
                 Identifier = context.GetChild(1).GetText(),
                 Type = type,
@@ -70,7 +70,7 @@ namespace Interpreter.Ast
 
         public List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
         {
-            List<GameObjectContent> contents = new();
+            List<GameObjectContent> contents = new List<GameObjectContent>();
 
             if (context.gameObjectContent() == null) return contents;
 
@@ -112,7 +112,7 @@ namespace Interpreter.Ast
                     throw new ArgumentException("Invalid content type.");
             }
             
-            GameObjectContent content = new()
+            GameObjectContent content = new GameObjectContent()
             {
                 Statements = VisitStatementBlock(context.statementBlock()),
                 Type = gameObjectContentType,
@@ -214,7 +214,7 @@ namespace Interpreter.Ast
         
         public ArrayNode VisitArray(DazelParser.ArrayContext context)
         {
-            return new()
+            return new ArrayNode()
             {
                 Values = VisitValueList(context.valueList())
             };
@@ -222,7 +222,7 @@ namespace Interpreter.Ast
 
         public List<ValueNode> VisitValueList(DazelParser.ValueListContext context)
         {
-            List<ValueNode> values = new();
+            List<ValueNode> values = new List<ValueNode>();
             
             if (context.value() == null) return values;
             
@@ -258,7 +258,7 @@ namespace Interpreter.Ast
         
         public MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context)
         {
-            MemberAccess memberAccess = new()
+            MemberAccess memberAccess = new MemberAccess()
             {
                 Identifiers =
                 {
@@ -275,7 +275,7 @@ namespace Interpreter.Ast
         #region Statements
         public List<StatementNode> VisitStatementList(DazelParser.StatementListContext context)
         {
-            List<StatementNode> statements = new();
+            List<StatementNode> statements = new List<StatementNode>();
             
             if (context.statementBlock() != null)
             {
@@ -350,7 +350,7 @@ namespace Interpreter.Ast
 
         public FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
         {
-            return new()
+            return new FunctionInvocation()
             {
                 Identifier = context.IDENTIFIER().GetText(),
                 Parameters = VisitValueList(context.valueList()),

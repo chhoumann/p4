@@ -69,7 +69,7 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(FunctionInvocation functionInvocation)
         {
-            FunctionSymbolTableEntry entry = new(functionInvocation.ReturnType, functionInvocation.Parameters);
+            FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocation.ReturnType, functionInvocation.Parameters);
             
             EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocation.Identifier, entry);
         }
@@ -79,7 +79,7 @@ namespace Interpreter.SemanticAnalysis
             SymbolTable<SymbolTableEntry> currentSymbolTable = EnvironmentStack.Peek();
             SymbolType expressionType = new ExpressionTypeChecker(ast, currentSymbolTable).GetType(assignmentNode.Expression);
 
-            VariableSymbolTableEntry entry = new(expressionType);
+            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionType);
             currentSymbolTable.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }
     }

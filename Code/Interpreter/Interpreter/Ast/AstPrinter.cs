@@ -13,8 +13,9 @@ namespace Interpreter.Ast
 {
     public sealed class AstPrinter : ICompleteVisitor
     {
-        private StringBuilder sb = new();
-        private int indentCount = 0;
+        private readonly StringBuilder sb = new StringBuilder();
+
+        private int indentCount;
 
         private void Indent()
         {

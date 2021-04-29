@@ -13,7 +13,7 @@ namespace Interpreter
         
         private static void Main(string[] args)
         {
-            List<IParseTree> parseTrees = new();
+            List<IParseTree> parseTrees = new List<IParseTree>();
             IEnumerable<string> files = SourceFileGetter.GetFilesInDirectory(SourceFileDirectory);
 
             foreach (string file in files)
@@ -21,7 +21,7 @@ namespace Interpreter
                 ICharStream stream = CharStreams.fromPath(file);
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
-                DazelParser parser = new(tokens) {BuildParseTree = true};
+                DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
                 
                 parseTrees.Add(parser.start());
             }
@@ -30,7 +30,7 @@ namespace Interpreter
         
             foreach (GameObject gameObject in ast.Root.GameObjects.Values)
             {
-                AstPrinter astPrinter = new();
+                AstPrinter astPrinter = new AstPrinter();
                 astPrinter.Visit(gameObject);     
             }
             

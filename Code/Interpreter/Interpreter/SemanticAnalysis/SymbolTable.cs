@@ -5,7 +5,7 @@ namespace Interpreter.SemanticAnalysis
 {
     public sealed class SymbolTable<T>
     {
-        private readonly Dictionary<string, T> symbols = new();
+        private readonly Dictionary<string, T> symbols = new Dictionary<string, T>();
         private readonly SymbolTable<T> parent;
 
         public SymbolTable(SymbolTable<T> parent)

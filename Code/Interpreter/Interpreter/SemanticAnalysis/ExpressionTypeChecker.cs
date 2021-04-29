@@ -25,7 +25,7 @@ namespace Interpreter.SemanticAnalysis
             get => currentType;
             set
             {
-                if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value is SymbolType.Float or SymbolType.Integer))
+                if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
                 {
                     currentType = value;
                     return;
