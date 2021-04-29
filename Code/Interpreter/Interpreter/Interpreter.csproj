@@ -23,4 +23,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\IntermediateModels\IntermediateModels.csproj" />
+    </ItemGroup>
+
 </Project>
