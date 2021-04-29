@@ -11,7 +11,7 @@ using Microsoft.VisualBasic;
 
 namespace Interpreter.Ast
 {
-    public sealed class AstPrinter : ICompleteVisitor
+    internal sealed class AstPrinter : ICompleteVisitor
     {
         private readonly StringBuilder sb = new StringBuilder();
 

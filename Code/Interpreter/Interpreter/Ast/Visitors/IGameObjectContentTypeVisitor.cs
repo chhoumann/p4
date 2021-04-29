@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Visitors
 {
-    public interface IGameObjectContentTypeVisitor
+    internal interface IGameObjectContentTypeVisitor
     {
         void Visit(MapType mapType);
         void Visit(OnScreenEnteredType onScreenEnteredType);

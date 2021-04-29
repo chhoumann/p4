@@ -5,7 +5,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public sealed class ArrayNode : ValueNode
+    internal sealed class ArrayNode : ValueNode
     {
         public List<ValueNode> Values { get; set; }
 

@@ -6,7 +6,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.SemanticAnalysis
 {
-    public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
+    internal sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
     {
         private readonly AbstractSyntaxTree ast;
 
@@ -14,15 +14,12 @@ namespace Interpreter.SemanticAnalysis
         {
             this.ast = ast;
         }
-        
+
         public void Visit(GameObject gameObject)
         {
             OpenScope();
-            
-            foreach (GameObjectContent gameObjectContent in gameObject.Contents)
-            {
-                Visit(gameObjectContent);
-            }
+
+            foreach (GameObjectContent gameObjectContent in gameObject.Contents) Visit(gameObjectContent);
 
             CloseScope();
         }
@@ -35,26 +32,11 @@ namespace Interpreter.SemanticAnalysis
         {
             OpenScope();
 
-            foreach (StatementNode statementNode in gameObjectContent.Statements)
-            {
-                statementNode.Accept(this);
-            }
+            foreach (StatementNode statementNode in gameObjectContent.Statements) statementNode.Accept(this);
 
             CloseScope();
         }
 
-        public void Visit(StatementBlock statementBlock)
-        {
-            OpenScope();
-            
-            foreach (StatementNode statement in statementBlock.Statements)
-            {
-                statement.Accept(this);
-            }
-
-            CloseScope();
-        }
-        
         public void Visit(MovePattern movePattern)
         {
         }
@@ -63,14 +45,27 @@ namespace Interpreter.SemanticAnalysis
         {
         }
 
-        public void Visit(IfStatement ifStatement) { }
+        public void Visit(StatementBlock statementBlock)
+        {
+            OpenScope();
 
-        public void Visit(RepeatNode repeatNode) { }
+            foreach (StatementNode statement in statementBlock.Statements) statement.Accept(this);
+
+            CloseScope();
+        }
+
+        public void Visit(IfStatement ifStatement)
+        {
+        }
+
+        public void Visit(RepeatNode repeatNode)
+        {
+        }
 
         public void Visit(FunctionInvocation functionInvocation)
         {
             FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocation.ReturnType, functionInvocation.Parameters);
-            
+
             EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocation.Identifier, entry);
         }
 

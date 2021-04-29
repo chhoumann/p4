@@ -4,7 +4,7 @@ using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
-    public class ScreenExitFunction : Function
+    internal class ScreenExitFunction : Function
     {
         public override int NumArguments => 2;
         public ScreenExitFunction() : base(SymbolType.Void) { }

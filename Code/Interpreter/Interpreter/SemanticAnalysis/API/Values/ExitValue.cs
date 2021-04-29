@@ -4,7 +4,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.SemanticAnalysis.API.Values
 {
-    public sealed class ExitValue : ValueNode
+    internal sealed class ExitValue : ValueNode
     {
         public Vector2 Coordinates { get; }
 

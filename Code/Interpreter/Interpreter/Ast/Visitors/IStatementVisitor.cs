@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Visitors
 {
-    public interface IStatementVisitor
+    internal interface IStatementVisitor
     {
         void Visit(StatementBlock statementBlock);
         void Visit(IfStatement ifStatement);

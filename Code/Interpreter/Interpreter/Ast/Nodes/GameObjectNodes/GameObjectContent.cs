@@ -5,7 +5,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public sealed class GameObjectContent : GameObjectNode
+    internal sealed class GameObjectContent : GameObjectNode
     {
         public GameObjectContentType Type { get; set; }
         public List<StatementNode> Statements { get; set; }

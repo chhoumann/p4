@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Tests
 {
     [TestFixture]
-    public class SymbolTableBuilderTest
+    internal class SymbolTableBuilderTest
     {
         private AbstractSyntaxTree ast;
         private const string TestCodePath = "./dazel_test_code.txt";

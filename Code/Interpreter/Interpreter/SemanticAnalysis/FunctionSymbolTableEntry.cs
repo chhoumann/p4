@@ -4,7 +4,7 @@ using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 
 namespace Interpreter.SemanticAnalysis
 {
-    public class FunctionSymbolTableEntry : SymbolTableEntry
+    internal class FunctionSymbolTableEntry : SymbolTableEntry
     {
         private readonly List<ValueNode> parameters;
 

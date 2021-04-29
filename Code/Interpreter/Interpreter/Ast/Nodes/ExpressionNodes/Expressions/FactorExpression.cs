@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    public sealed class FactorExpression : InfixExpressionNode
+    internal sealed class FactorExpression : InfixExpressionNode
     {
         public FactorOperation Operation { get; set; }
 

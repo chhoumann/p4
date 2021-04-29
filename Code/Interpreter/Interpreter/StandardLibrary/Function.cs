@@ -4,7 +4,7 @@ using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.StandardLibrary
 {
-    public abstract class Function
+    internal abstract class Function
     {
         public abstract int NumArguments { get; }
         private SymbolType ReturnType { get; }

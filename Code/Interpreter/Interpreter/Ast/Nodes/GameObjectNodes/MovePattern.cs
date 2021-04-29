@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public sealed class MovePattern : GameObjectType
+    internal sealed class MovePattern : GameObjectType
     {
         public override void Accept(IGameObjectVisitor visitor)
         {

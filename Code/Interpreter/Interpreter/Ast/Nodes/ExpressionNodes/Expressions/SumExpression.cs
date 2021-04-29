@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    public sealed class SumExpression : InfixExpressionNode
+    internal sealed class SumExpression : InfixExpressionNode
     {
         public SumOperation Operation { get; set; }
 

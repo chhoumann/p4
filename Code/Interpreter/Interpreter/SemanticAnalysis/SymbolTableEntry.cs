@@ -1,6 +1,6 @@
 ﻿namespace Interpreter.SemanticAnalysis
 {
-    public abstract class SymbolTableEntry
+    internal abstract class SymbolTableEntry
     {
         public SymbolType Type { get; }
 

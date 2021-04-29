@@ -30,7 +30,7 @@ using IToken = Antlr4.Runtime.IToken;
 /// <typeparam name="Result">The return type of the visit operation.</typeparam>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.1")]
 [System.CLSCompliant(false)]
-public interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
+internal interface IDazelVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DazelParser.start"/>.
 	/// </summary>

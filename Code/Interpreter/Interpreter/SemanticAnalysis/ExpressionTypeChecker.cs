@@ -8,7 +8,7 @@ using Interpreter.SemanticAnalysis.API.Values;
 
 namespace Interpreter.SemanticAnalysis
 {
-    public sealed class ExpressionTypeChecker : IExpressionVisitor
+    internal sealed class ExpressionTypeChecker : IExpressionVisitor
     {
         private readonly AbstractSyntaxTree ast;
         private readonly SymbolTable<SymbolTableEntry> symbolTable;

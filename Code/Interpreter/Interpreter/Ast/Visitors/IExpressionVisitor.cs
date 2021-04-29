@@ -4,7 +4,7 @@ using Interpreter.SemanticAnalysis.API.Values;
 
 namespace Interpreter.Ast.Visitors
 {
-    public interface IExpressionVisitor
+    internal interface IExpressionVisitor
     {
         #region Expression
         void Visit(FactorExpression factorExpression);

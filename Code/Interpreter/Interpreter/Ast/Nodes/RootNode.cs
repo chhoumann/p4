@@ -3,7 +3,7 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace Interpreter.Ast.Nodes
 {
-    public sealed class RootNode
+    internal sealed class RootNode
     {
         public Dictionary<string, GameObject> GameObjects { get; set; }
     }

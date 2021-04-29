@@ -4,7 +4,7 @@ using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.StandardLibrary.Functions
 {
-    public sealed class SizeFunction : Function
+    internal sealed class SizeFunction : Function
     {
         public override int NumArguments => 2;
 

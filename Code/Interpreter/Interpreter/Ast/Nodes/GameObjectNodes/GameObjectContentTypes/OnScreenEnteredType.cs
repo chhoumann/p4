@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public sealed class OnScreenEnteredType : GameObjectContentType
+    internal sealed class OnScreenEnteredType : GameObjectContentType
     {
         public override void Accept(IGameObjectContentTypeVisitor visitor)
         {

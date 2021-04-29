@@ -6,7 +6,7 @@ using Interpreter.StandardLibrary.Functions.MapFunctions;
 
 namespace Interpreter.StandardLibrary
 {
-    public static class DazelStdLib
+    internal static class DazelStdLib
     {
         public static readonly Dictionary<string, Function> Functions = new Dictionary<string, Function>();
 

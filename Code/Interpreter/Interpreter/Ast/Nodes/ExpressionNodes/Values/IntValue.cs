@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public sealed class IntValue : ValueNode
+    internal sealed class IntValue : ValueNode
     {
         public int Value { get; set; }
         

@@ -3,7 +3,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.Ast.Nodes.StatementNodes
 {
-    public sealed class StatementBlock : StatementNode
+    internal sealed class StatementBlock : StatementNode
     {
         public List<StatementNode> Statements;
         

@@ -3,7 +3,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public sealed class MemberAccess : ValueNode
+    internal sealed class MemberAccess : ValueNode
     {
         public readonly List<string> Identifiers = new List<string>();
 

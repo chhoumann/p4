@@ -7,7 +7,7 @@ using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
-    public sealed class AbstractSyntaxTree
+    internal sealed class AbstractSyntaxTree
     {
         public RootNode Root { get; }
 

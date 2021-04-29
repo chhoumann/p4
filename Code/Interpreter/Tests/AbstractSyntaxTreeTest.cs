@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Tests
 {
     [TestFixture]
-    public class AbstractSyntaxTreeTest
+    internal class AbstractSyntaxTreeTest
     {
         private IParseTree parseTree;
         private const string TestCodePath = "./dazel_test_code.txt";

@@ -11,7 +11,7 @@ using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
-    public sealed class AstBuilder : IAstBuilder
+    internal sealed class AstBuilder : IAstBuilder
     {
         public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
         {

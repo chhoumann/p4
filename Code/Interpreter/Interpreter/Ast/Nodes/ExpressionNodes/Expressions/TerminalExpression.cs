@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    public sealed class TerminalExpression : ExpressionNode
+    internal sealed class TerminalExpression : ExpressionNode
     {
         public ExpressionNode Child { get; set; }
         

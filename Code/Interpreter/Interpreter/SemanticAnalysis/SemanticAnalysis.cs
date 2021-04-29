@@ -2,7 +2,7 @@
 
 namespace Interpreter.SemanticAnalysis
 {
-    public abstract class SemanticAnalysis
+    internal abstract class SemanticAnalysis
     {
         protected readonly Stack<SymbolTable<SymbolTableEntry>> EnvironmentStack = new Stack<SymbolTable<SymbolTableEntry>>();
 

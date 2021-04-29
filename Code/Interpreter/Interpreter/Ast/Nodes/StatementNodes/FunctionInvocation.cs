@@ -7,7 +7,7 @@ using Interpreter.StandardLibrary;
 
 namespace Interpreter.Ast.Nodes.StatementNodes
 {
-    public sealed class FunctionInvocation : StatementExpression
+    internal sealed class FunctionInvocation : StatementExpression
     {
         public string Identifier { get; set; }
         public List<ValueNode> Parameters { get; set; }

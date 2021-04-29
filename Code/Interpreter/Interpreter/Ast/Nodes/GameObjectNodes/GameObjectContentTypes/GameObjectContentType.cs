@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public abstract class GameObjectContentType : Node<IGameObjectContentTypeVisitor>
+    internal abstract class GameObjectContentType : Node<IGameObjectContentTypeVisitor>
     {
         
     }

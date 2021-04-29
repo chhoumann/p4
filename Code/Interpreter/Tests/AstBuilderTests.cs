@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace Tests
 {
     [TestFixture]
-    public sealed class AstBuilderTests : ICompleteVisitor
+    internal sealed class AstBuilderTests : ICompleteVisitor
     {
         private IParseTree parseTree;
         private const string TestCodePath = "./dazel_test_code.txt";

@@ -8,7 +8,7 @@ using Interpreter.Ast.Nodes.StatementNodes;
 
 namespace Interpreter.Ast
 {
-    public interface IAstBuilder
+    internal interface IAstBuilder
     {
         AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees);
         AbstractSyntaxTree BuildAst(IParseTree parseTrees);

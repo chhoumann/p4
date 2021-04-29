@@ -29,7 +29,7 @@ using IToken = Antlr4.Runtime.IToken;
 /// </summary>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.1")]
 [System.CLSCompliant(false)]
-public interface IDazelListener : IParseTreeListener {
+internal interface IDazelListener : IParseTreeListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.start"/>.
 	/// </summary>

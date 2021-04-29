@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public sealed class Screen : GameObjectType
+    internal sealed class Screen : GameObjectType
     {
         public override void Accept(IGameObjectVisitor visitor)
         {

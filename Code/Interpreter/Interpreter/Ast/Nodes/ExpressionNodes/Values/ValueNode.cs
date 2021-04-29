@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public abstract class ValueNode : ExpressionNode
+    internal abstract class ValueNode : ExpressionNode
     {
         public SymbolType Type { get; set; }
     }

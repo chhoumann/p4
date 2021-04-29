@@ -1,6 +1,6 @@
 ﻿namespace Interpreter.StandardLibrary
 {
-    public sealed class Coordinate
+    internal sealed class Coordinate
     {
         
     }

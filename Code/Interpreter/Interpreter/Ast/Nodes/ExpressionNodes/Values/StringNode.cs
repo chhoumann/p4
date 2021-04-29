@@ -2,7 +2,7 @@
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public class StringNode : ValueNode
+    internal class StringNode : ValueNode
     {
         public string Value { get; set; }
         

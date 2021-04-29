@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Interpreter
 {
-    public static class SourceFileGetter
+    internal static class SourceFileGetter
     {
         public static IEnumerable<string> GetFilesInDirectory(string directory)
         {

@@ -3,7 +3,7 @@ using Interpreter.Ast.Visitors;
 
 namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public sealed class GameObject : GameObjectNode
+    internal sealed class GameObject : GameObjectNode
     {
         public string Identifier { get; set; }
         public GameObjectType Type { get; set; }

@@ -4,7 +4,7 @@ using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
-    public class FloorExitsFunction : Function
+    internal class FloorExitsFunction : Function
     {
         public override int NumArguments => 2;
         

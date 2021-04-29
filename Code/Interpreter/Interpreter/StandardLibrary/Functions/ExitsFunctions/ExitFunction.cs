@@ -6,7 +6,7 @@ using Interpreter.SemanticAnalysis.API.Values;
 
 namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
-    public sealed class ExitFunction : Function
+    internal sealed class ExitFunction : Function
     {
         public override int NumArguments => 2;
 

@@ -5,7 +5,7 @@ using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.StandardLibrary.Functions.MapFunctions
 {
-    public sealed class FloorFunction : Function
+    internal sealed class FloorFunction : Function
     {
         public override int NumArguments => 1;
         
