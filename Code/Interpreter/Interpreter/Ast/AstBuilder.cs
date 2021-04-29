@@ -182,7 +182,7 @@ namespace Interpreter.Ast
 
             if (context.functionInvocation() != null)
             {
-                return VisitFunctionInvocation(context.functionInvocation()).Evaluate();
+                return VisitFunctionInvocation(context.functionInvocation()).Create();
             }
 
             switch (context.terminalValue.Type)

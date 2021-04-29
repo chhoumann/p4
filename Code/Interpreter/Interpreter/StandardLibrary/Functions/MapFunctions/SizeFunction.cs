@@ -10,7 +10,7 @@ namespace Interpreter.StandardLibrary.Functions
 
         public SizeFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Execute(List<ValueNode> parameters)
+        public override ValueNode Build(List<ValueNode> parameters)
         {
             return null;
         }

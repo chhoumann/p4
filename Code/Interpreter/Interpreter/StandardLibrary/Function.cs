@@ -14,6 +14,6 @@ namespace Interpreter.StandardLibrary
             ReturnType = returnType;
         }
         
-        public abstract ValueNode Execute(List<ValueNode> parameters);
+        public abstract ValueNode Build(List<ValueNode> parameters);
     }
 }

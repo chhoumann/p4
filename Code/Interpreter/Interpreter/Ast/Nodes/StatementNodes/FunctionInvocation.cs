@@ -13,15 +13,15 @@ namespace Interpreter.Ast.Nodes.StatementNodes
         public List<ValueNode> Parameters { get; set; }
         public SymbolType ReturnType { get; set; }
 
-        public ValueNode Evaluate()
+        public ValueNode Create()
         {
             if (DazelStdLib.Functions.TryGetValue(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
-                return function.Execute(Parameters);
+                return function.Build(Parameters);
             }
             
             // TODO: This is not the right exception. This should be called from within execute. Create a new exception type.
-            throw new ArgumentException($"{Identifier} called with wrong arguments: {string.Join(',', Parameters)}");
+            throw new ArgumentException($"{Identifier} function not found in Dazel Standard Library.");
         }
 
         public override void Accept(IStatementVisitor visitor)

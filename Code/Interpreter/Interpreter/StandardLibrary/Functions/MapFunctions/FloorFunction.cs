@@ -11,7 +11,7 @@ namespace Interpreter.StandardLibrary.Functions.MapFunctions
         
         public FloorFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Execute(List<ValueNode> parameters)
+        public override ValueNode Build(List<ValueNode> parameters)
         {
             throw new NotImplementedException();
         }

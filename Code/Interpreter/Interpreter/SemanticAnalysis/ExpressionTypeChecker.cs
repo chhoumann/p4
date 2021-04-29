@@ -65,8 +65,6 @@ namespace Interpreter.SemanticAnalysis
             {
                 CurrentType = value.Type;
             }
-
-            //CurrentType = symbolTable.RetrieveSymbol(memberAccess.Identifiers).Type;
         }
 
         public void Visit(FloatValue floatValue)

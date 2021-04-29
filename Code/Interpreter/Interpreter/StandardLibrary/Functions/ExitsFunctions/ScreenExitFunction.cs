@@ -9,7 +9,7 @@ namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
         public override int NumArguments => 2;
         public ScreenExitFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Execute(List<ValueNode> parameters)
+        public override ValueNode Build(List<ValueNode> parameters)
         {
             // TODO: Should return some exit type so we can assign to exits
             return null;

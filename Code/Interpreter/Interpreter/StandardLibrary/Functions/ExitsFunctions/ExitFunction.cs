@@ -12,7 +12,7 @@ namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 
         public ExitFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Execute(List<ValueNode> parameters)
+        public override ValueNode Build(List<ValueNode> parameters)
         {
             if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccess memberAccess)
             {
