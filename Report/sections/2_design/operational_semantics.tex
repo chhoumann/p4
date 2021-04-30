@@ -4,19 +4,34 @@
 An abstract syntax is a description of a programs' structure that is used to represent its behavior. 
 The abstract syntax of a given language contains a collection of syntactic categories. 
 For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
+\Figref{SyntaticCategoriesMetavariables} shows the specific syntatic categories and metavariables for \dazel{}.
 
 \begin{figure}[htbp]
 	\centering
+	\textit{Syntatic categories}
+	\vspace{4mm}
+
+
 	\begin{tabular}{l l}
 		$a \in \textbf{ArithExp}$ & $\text{Arithmetic expressions}$ \\ 
 		$n \in \textbf{Num}$ & $\text{Numerals}$ \\
 		$x \in \textbf{Var}$ & $\text{Variables}$ \\
 		$A_v \in \textbf{AssignV}$ & $\text{Variable assignments}$ \\
 		$D_v \in \textbf{DeclV}$ & $\text{Variable declarations}$ \\
-		$C_m \in \textbf{ContDecl}$ & $\text{Content declarations}$
+		$C_m \in \textbf{ContDecl}$ & $\text{Content declarations}$ \\
+		$S \in \textbf{Stm}$ & $\text{Statements}$
 	\end{tabular}
-	\caption{Syntatic Categories for \dazel{}}
-	\label{aaa}
+
+	\vspace{4mm}
+	\textit{Formation rules}
+	\begin{align*}
+		S&::=x=a\mid \texttt{skip}\mid S_1;S_2\mid \texttt{repeat }\{S\}; \\
+		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1); \\
+		VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon];
+	\end{align*}
+
+	\caption{Syntatic categories and metavariables for \dazel{}}
+	\label{fig:SyntaticCategoriesMetavariables}
 \end{figure}
 
 \subsubsection*{Transition System}
