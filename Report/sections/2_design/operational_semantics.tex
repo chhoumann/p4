@@ -30,8 +30,63 @@ For each of these, we give a finite set of formation rules that define how each 
 		VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon]
 	\end{align*}
 
-	\caption{Abstract syntax for \dazel{}}
+	\caption{Abstract syntax for \dazel{}.}
 	\label{fig:AbstractSyntax}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[PLUS_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 + a_2 \rightarrow_a v}
+		\qquad \text{ where }v = v_1 + v_2
+		\\
+		% 
+		\\
+		[MINUS_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 - a_2 \rightarrow_a v}
+		\qquad \text{ where }v = v_1 - v_2
+		\\
+		% 
+		\\
+		[MULTIPLY_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 * a_2 \rightarrow_a v}
+		\qquad \text{ where }v = v_1 \cdot v_2
+		\\
+		% 
+		\\
+		[DIVIDE_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 / a_2 \rightarrow_a v}
+		\qquad \text{ where }v = \dfrac{v_1}{v_2}
+		\\
+		% 
+		\\
+		[PARENTHESES_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1}
+		{s \vdash (a_1) \rightarrow_a v_1}
+		\\
+		% 
+		\\
+		[NUM_\text{BSS}] 
+		\qquad s \vdash n \rightarrow_a v
+		\qquad \text{ if } \mathbb{R}[\![n]\!] = v
+		\\
+		% 
+		\\
+		[VAR_\text{BSS}] 
+		\qquad s \vdash x \rightarrow_a v
+		\qquad \text{ if } sx = v
+	\end{gather*}
+	\caption{Big-step transition rules for \textbf{ArithExp}.}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -50,7 +105,12 @@ For each of these, we give a finite set of formation rules that define how each 
 		\\
 		% 
 		\\
+		[REPEAT_\text{BSS}] 
+		\qquad \dfrac
+		{\langle S_1, s\rangle \rightarrow s'' \;\langle \texttt{repeat} \{S\}, s\rangle \rightarrow s'}
+		{\langle \texttt{repeat} \{S\}, s\rangle\rightarrow s'}
 	\end{gather*}
+	\caption{Big-step transition rules for \textbf{Stm}.}
 \end{figure}
 
 
