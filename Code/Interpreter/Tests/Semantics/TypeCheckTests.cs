@@ -1,12 +1,14 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
+using Interpreter.Ast.Nodes.GameObjectNodes;
+using Interpreter.SemanticAnalysis;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Semantics
 {
     [TestFixture]
-    internal class SymbolTableBuilderTest
+    internal class TypeCheckTests
     {
         private AbstractSyntaxTree ast;
         private const string TestCodePath = "./dazel_test_code.txt";
@@ -19,7 +21,18 @@ namespace Tests
             ITokenStream tokens = new CommonTokenStream(lexer);
             IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
 
-            this.ast = new AstBuilder().BuildAst(parseTree);
+            ast = new AstBuilder().BuildAst(parseTree);
         }
+
+        [Test]
+        public void TypeCheck_ExpectPass()
+        {
+            var tc = new TypeChecker(ast);
+            tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            Assert.That(tc.EnvironmentStack.Count == 0);
+        }
+        
+        
+        
     }
 }

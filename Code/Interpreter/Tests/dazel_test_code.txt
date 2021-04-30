@@ -8,7 +8,7 @@ Screen SampleScreen1 // Test GameObject
 	    
 	    { // Test statement block
 	        SomeVar2 = 3 + 3 / 3; // Test expressions & integers
-	        x = SomeVar3; // Test identifier values
+	        x = SomeVar2; // Test identifier values
 	    }
 	    
 	    let = SampleScreen1.Exits.exit1; // Test member access
