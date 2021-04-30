@@ -4,7 +4,7 @@
 An abstract syntax is a description of a programs' structure that is used to represent its behavior. 
 The abstract syntax of a given language contains a collection of syntactic categories. 
 For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
-\Figref{SyntaticCategoriesMetavariables} shows the abstract syntax \dazel{}.
+\Figref{AbstractSyntax} shows the abstract syntax \dazel{}.
 
 \begin{figure}[htbp]
 	\centering
@@ -31,7 +31,19 @@ For each of these, we give a finite set of formation rules that define how each 
 	\end{align*}
 
 	\caption{Abstract syntax for \dazel{}}
-	\label{fig:SyntaticCategoriesMetavariables}
+	\label{fig:AbstractSyntax}
 \end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[ASSIGNMENT_\text{BSS}] 
+		\qquad \langle x=a,s\rangle \rightarrow s[x\mapsto v]
+		\qquad \text{ where }s\vdash a \rightarrow_a v \\
+
+		aroesi \\
+	\end{gather*}
+\end{figure}
+
 
 \subsubsection*{Transition System}
