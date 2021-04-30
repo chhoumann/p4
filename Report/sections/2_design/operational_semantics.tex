@@ -39,9 +39,17 @@ For each of these, we give a finite set of formation rules that define how each 
 	\begin{gather*}
 		[ASSIGNMENT_\text{BSS}] 
 		\qquad \langle x=a,s\rangle \rightarrow s[x\mapsto v]
-		\qquad \text{ where }s\vdash a \rightarrow_a v \\
-
-		aroesi \\
+		\qquad \text{ where }s\vdash a \rightarrow_a v
+		\\
+		% 
+		\\
+		[COMPOUND_\text{BSS}] 
+		\qquad \dfrac
+		{\langle S_1, s\rangle \rightarrow s'' \;\langle S_2, s''\rangle \rightarrow s'}
+		{\langle S_1;S_2,s\rangle\rightarrow s'}
+		\\
+		% 
+		\\
 	\end{gather*}
 \end{figure}
 
