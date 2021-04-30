@@ -1,6 +1,26 @@
 \subsection{Structural Operational Semantics}
 
 \subsubsection*{Abstract Syntax}
-Abstract syntax relates itself to the description of the structure of the program in order to describe its behaviour. 
+An abstract syntax is a description of a programs' structure that is used to represent its behavior. 
+The abstract syntax of a given language contains a collection of syntactic categories. 
+For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
+
+\begin{figure}[htbp]
+	\begin{center}
+		\textbf{Syntactic Categories of \dazel{}}
+		\vspace{4mm}
+
+
+		\begin{math}
+			\begin{gather*}
+				a \in \textbf{ArithExp} &\\ 
+				n \in \textbf{Num} &\\
+				x \in \textbf{Var} &\\
+			\end{gather*}
+		\end{math}
+	\end{center}
+	\caption{The Epic}
+	\label{aaa}
+\end{figure}
 
 \subsubsection*{Transition System}
