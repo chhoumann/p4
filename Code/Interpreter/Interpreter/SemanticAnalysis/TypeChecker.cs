@@ -1,4 +1,5 @@
-﻿using Interpreter.Ast;
+﻿using System;
+using Interpreter.Ast;
 using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
