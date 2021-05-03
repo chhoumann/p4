@@ -11,13 +11,20 @@ Finally, binary operators are usually \textit{infix}, meaning they appear betwee
 \subsubsection*{Operator evaluation order}
 The \textit{precedence} of an operator along with the \textit{associativity} rules in a language dictate the order in which operators are evaluated.
 Different languages implement this differently. Some languages simply evaluate operators in the order that they appear. Usually, however, languages follow the order of operations defined in mathematics such as multiplication being of higher priority than addition.
+
+
 Parentheses are also often part of expressions in programming languages and typically impacts the evaluation order of operators such that the contents of the parentheses are evaluated first.
+
+
 Associativity in languages is most commonly implemented as left to right, however some operators like the exponentation operator sometimes associates right to left. 
 
 \subsubsection*{Relational expressions}
 
 
 \subsubsection*{Boolean expressions}
+Boolean expressions are constructed using different mathematical logic operators such as the logical \texttt{AND}, \texttt{OR} and \texttt{EQUALS}. 
+When evaluated, a whole expression is either true or false. 
+This is then often combined with statements such as \texttt{if-then-else} statements to achieve a conditional program flow - if the expression evaluates to true, the code in the \texttt{then} block is executed, and if it evaluates to false, code in the \texttt{else} block is executed instead.
 
 \subsubsection*{Expressions in \dazel{}}
 \dazel{} features a variety of binary operators to support arithmetic as well as unary operations for boolean expressions.
