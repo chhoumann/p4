@@ -1,34 +1,37 @@
 \subsection{Keywords}\label{sec:keywords}
-These are the reserved keywords that have been used.  A convention has been introduced that defines all block-indicators to be denoted by an upper-case first character.
+\Tabref{table:KeyWordsTable} introduces the reserved keywords in \dazel.  A convention has been introduced that defines all block-indicators to be denoted by an upper-case first character.
 
-\begin{multicols}{4}
-    \begin{enumerate}
-        \item \texttt{repeat}\label{itm:repeat}
-        \item \texttt{until}\label{itm:until}
-        \item \texttt{or}\label{itm:or}
-        \item \texttt{and}\label{itm:and}
-        \item \texttt{forever}\label{itm:forever}
-        \item \texttt{Create}\label{itm:Create}
-        \item \texttt{Screen}\label{itm:Screen}
-        \item \texttt{Entity}\label{itm:Entity}
-        \item \texttt{MovePattern}\label{itm:MovePattern}
-        \item \texttt{Exit}\label{itm:Exit}
-        \item \texttt{ScreenExit}\label{itm:ScreenExit}
-        \item \texttt{FloorExit}\label{itm:FloorExit}
-        \item \texttt{Player}\label{itm:Player}
-    \end{enumerate}
-\end{multicols}
-
-\ref{itm:repeat} indicates a loop. It is followed by \ref{itm:until} and expression, which can contain \ref{itm:or} or \ref{itm:and}. Otherwise, it is followed by \ref{itm:forever}, which indicates a never-ending loop.
-
-\ref{itm:Create} is used to create a new instance. It is almost synonymous with \verb|new| in other languages.
-
-\ref{itm:Screen} denotes a screen block, which is a container for other blocks like \verb|Map|, \verb|OnScreenEntered|, \verb|Entities|, and \verb|Exits|.
-
-\ref{itm:Entity} is a block used to define what an entity is and what it does.
-
-\ref{itm:MovePattern} is a block used to define a move pattern which can be applied to an entity.
-
-\ref{itm:Exit}, \ref{itm:ScreenExit}, and \ref{itm:FloorExit} denotes exits or transitions to other screens. These are usually triggered by player movement.
-
-\ref{itm:Player} is globally accessible and always points to the player. This allows the programmer to create interactions involving the player as well providing access to their properties such as health and move speed. 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|l}
+    \textbf{Keyword}             & \textbf{Description}                                                                                                                                                                                                                                            \\ 
+    \hline
+    Player                       & \begin{tabular}[c]{@{}l@{}}A globally accessible reference\\ to the player. This allows the\\ programmer to create interactions \\involving the player's properties such \\as health or position.\end{tabular}  \\ 
+    \hline
+    until                        & \begin{tabular}[c]{@{}l@{}}Used to indicate that there is a condition\\for a repeat loop.\end{tabular}                                                                                                                                                          \\ 
+    \hline
+    or                           & Logical OR operator.                                                                                                                                                                                                                                            \\ 
+    \hline
+    and                          & Logical AND operator.                                                                                                                                                                                                                                           \\ 
+    \hline
+    Screen                       & \begin{tabular}[c]{@{}l@{}}Denotes a screen block, which is a \\container for other blocks such as \\'Map', 'OnScreenEntered', 'Entities', \\and 'Exits'.\end{tabular}                                                                                          \\ 
+    \hline
+    Entity                       & \begin{tabular}[c]{@{}l@{}}Denotes an entity block used to define the \\behavior of an entity.\end{tabular}                                                                                                                                                     \\ 
+    \hline
+    MovePattern                  & \begin{tabular}[c]{@{}l@{}}Denotes a move pattern block which \\can be used to apply movement to\\entities.\end{tabular}                                                                                                                                        \\ 
+    \hline
+    Exits, ScreenExit, FloorExit & \begin{tabular}[c]{@{}l@{}}Denotes exits or transitions to other screens.\\These are usually triggered by player \\movement.\end{tabular}                                                                                                                       \\ 
+    \hline
+    Map                          & \begin{tabular}[c]{@{}l@{}}Denotes a map block which can be used\\to define a screen's size and its tile layout.\end{tabular}                                                                                                                                   \\ 
+    \hline
+    OnUpdate                     & \begin{tabular}[c]{@{}l@{}}Denotes an update block whose code is\\executed every frame.\end{tabular}                                                                                                                                                            \\ 
+    \hline
+    Data                         & \begin{tabular}[c]{@{}l@{}}Denotes a data block which can define\\properties such as health on entities.\end{tabular}                                                                                                                                           \\ 
+    \hline
+    Pattern                      & \begin{tabular}[c]{@{}l@{}}Denotes a pattern block which can be used\\to define specific movement patterns\\that may be reused across\\multiple entities.\end{tabular}                                                                                          \\ 
+    \hline
+    Entities                     & \begin{tabular}[c]{@{}l@{}}Denotes an entities block which can be\\used to define placement of entities on\\a given screen.\end{tabular}                                                                                                                       
+    \end{tabular}
+    \caption{Table explaining reserved keywords in \dazel}
+    \label{table:KeyWordsTable}
+\end{table}

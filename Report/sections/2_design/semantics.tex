@@ -66,18 +66,18 @@ In addition, we decided to include four different types with corresponding array
 \ref{item:tiletype} is an important type: it is the type behind every tile in the generated games.
 \ref{item:arraytype} means that every type in the list will have a corresponding array type. This is to say that arrays are parametric - for example, an array could be an array of numbers.
 
-\subsection{Scope}
+\subsection{Scope Rules}
 In this section we describe different types of scope rules, specifically static scopes, block scopes and dynamic scopes.
 We will ultimately use this to determine the best fit for \dazel{}.
 
 \subsubsection{Static Scopes}
-Originally introduced by ALGOL 60\cite{backus_revised_1963}, \texttt{static scoping} is the act of binding names to nonlocal variables such that the scope of a variable
+\texttt{Static scoping} is the act of binding names to nonlocal variables such that the scope of a variable
 can be determined prior to program execution. This way, one can determine the type of every variable via the source code.
 Static-scoped languages can be split into two categories: those that allow sub-programs to be nested and those that do not.
 The former creates nested static scopes while the latter only creates nested scopes through nested class definitions and blocks.
 Static scope rules are commonly used in modern languages due to their emphasis on static type checking\cite{sebesta_concepts_2016}.
 
-\subsection{Dynamic Scopes}
+\subsubsection{Dynamic Scopes}
 In contrast to static scoping, variables declared in languages with \texttt{dynamic scoping} are determined at runtime through the calling sequence of subprograms.
 
 \begin{lstlisting}[caption={Example of dynamic scoping}, label={lst:DynamicScopeExample}]
