@@ -10,8 +10,6 @@ namespace Tests.Semantics
     [TestFixture]
     internal class TypeCheckTests
     {
-        private IParseTree parseTree;
-
         private const string TestCode =
             "Screen SampleScreen1" + // Test GameObject
             "{" +
@@ -32,15 +30,6 @@ namespace Tests.Semantics
             "       SpawnEntity(Skeleton1, [4, 5]);" +
             "   }" +
             "}";
-
-        private AbstractSyntaxTree BuildAst(string code)
-        {
-            ICharStream stream = CharStreams.fromString(code);
-            ITokenSource lexer = new DazelLexer(stream);
-            ITokenStream tokens = new CommonTokenStream(lexer);
-            IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
-            return new AstBuilder().BuildAst(parseTree);
-        }
 
         [Test]
         public void TypeCheck_Visit_AllScopesAccountedFor()
@@ -102,6 +91,15 @@ namespace Tests.Semantics
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<InvalidOperationException>(TestDelegate);
+        }
+        
+        private AbstractSyntaxTree BuildAst(string code)
+        {
+            ICharStream stream = CharStreams.fromString(code);
+            ITokenSource lexer = new DazelLexer(stream);
+            ITokenStream tokens = new CommonTokenStream(lexer);
+            IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
+            return new AstBuilder().BuildAst(parseTree);
         }
     }
 }
