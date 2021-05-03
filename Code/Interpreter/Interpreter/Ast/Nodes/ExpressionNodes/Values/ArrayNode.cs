@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Numerics;
 using Interpreter.Ast.Visitors;
+using Interpreter.SemanticAnalysis;
 
 namespace Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
     internal sealed class ArrayNode : ValueNode
     {
         public List<ValueNode> Values { get; set; }
+
+        public ArrayNode()
+        {
+            this.Type = SymbolType.Array;
+        }
 
         public override void Accept(IExpressionVisitor visitor)
         {
