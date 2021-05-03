@@ -164,7 +164,7 @@ namespace Tests
                     break;
                 // x = SomeVar3
                 case "x":
-                    Assert.That(assignmentNode.Expression is IdentifierValue {Value: "SomeVar3"});
+                    Assert.That(assignmentNode.Expression is IdentifierValue {Value: "SomeVar2"});
                     break;
                 // let = SampleScreen1.Exits.exit1
                 case "let":
