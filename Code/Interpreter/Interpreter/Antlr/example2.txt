@@ -1,0 +1,15 @@
+Screen SampleScreen2
+{
+	Map 
+	{
+		Size(20, 20);
+        
+		Walls(Grass); 
+		Floor(Stone);
+	}
+	
+	Exits 
+	{
+		Exit1 = Exit([4, 0], SampleScreen1.Exits.Exit1);
+	}
+}

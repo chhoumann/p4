@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <LangVersion>9</LangVersion>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,9 +15,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Antlr\example.txt">
+      <None Update="Antlr\example1.txt">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Antlr\example2.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\IntermediateModels\IntermediateModels.csproj" />
     </ItemGroup>
 
 </Project>

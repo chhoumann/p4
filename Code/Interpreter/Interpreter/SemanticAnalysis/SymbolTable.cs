@@ -3,81 +3,45 @@ using System.Collections.Generic;
 
 namespace Interpreter.SemanticAnalysis
 {
-    public sealed class SymbolTable : ISymbolTableEntry
+    internal sealed class SymbolTable<T>
     {
-        public string Identifier { get; set; }
-        public Type Type { get; set; }
-        
-        private SymbolTable Parent { get; }
-        private readonly List<ISymbolTableEntry> values = new();
+        private readonly Dictionary<string, T> symbols = new Dictionary<string, T>();
+        private readonly SymbolTable<T> parent;
 
-        public SymbolTable(string identifier, SymbolTable parent)
+        public SymbolTable(SymbolTable<T> parent)
         {
-            Identifier = identifier;
-            Parent = parent;
+            this.parent = parent;
         }
 
-        public SymbolTable OpenChildScope(string identifier = "")
+        public T RetrieveSymbol(string identifier)
         {
-            SymbolTable nestedSymbolTable = new(identifier, this);
-
-            values.Add(nestedSymbolTable);
-
-            return nestedSymbolTable;
-        }
-
-        public void EnterSymbol(SymbolTableEntry data)
-        {
-            values.Add(data);
-        }
-
-        /// <summary>
-        /// Looks for identifier in current scope and all parent scopes
-        /// </summary>
-        /// <param name="identifier">Identifier to look for</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">Thrown if no identifier with given name found</exception>
-        public SymbolTableEntry RetrieveSymbol(string identifier)
-        {
-            foreach (ISymbolTableEntry value in values)
+            if (symbols.TryGetValue(identifier, out T symbol))
             {
-                if (value is SymbolTableEntry row && row.Identifier.Equals(identifier))
-                {
-                    return row;
-                }
+                return symbol;
             }
-
-            return Parent?.RetrieveSymbol(identifier);
-        }
-
-        public bool IsDeclaration(string identifier)
-        {
-            return RetrieveSymbol(identifier) == null;
-        }
-
-        public void Print(int indentation)
-        {
-            Console.WriteLine(new string(' ', indentation) + this);
             
-            foreach (ISymbolTableEntry scopeRow in values)
+            if (parent != null)
             {
-                Console.Write(new string(' ', indentation));
-                switch (scopeRow)
+                T parentSymbol = parent.RetrieveSymbol(identifier);
+
+                if (parentSymbol != null)
                 {
-                    case SymbolTableEntry row:
-                        Console.WriteLine(new string(' ', indentation + 2) + $"ID: {row}");
-                        break;
-                    case SymbolTable scope:
-                        scope.Print(indentation + 2);
-                        break;
+                    return parentSymbol;
                 }
             }
+
+            throw new ArgumentException($"Invalid identifier: {identifier}");
         }
 
-        public override string ToString()
+        public void AddOrUpdateSymbol(string identifier, T data)
         {
-            int numNestedScopes = values.FindAll(s => s is SymbolTable).Count;
-            return $"Scope: {Identifier ?? "Statement Scope"} has type {(Type == null ? "" : Type.Name)}: {values.Count - numNestedScopes} values and {numNestedScopes} scopes.";
+            if (symbols.ContainsKey(identifier))
+            {
+                symbols[identifier] = data;
+                return;
+            }
+            
+            symbols.Add(identifier, data);
         }
     }
 }

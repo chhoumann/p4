@@ -1,6 +1,8 @@
-﻿namespace Interpreter.Ast.Nodes.StatementNodes
+﻿using Interpreter.Ast.Visitors;
+
+namespace Interpreter.Ast.Nodes.StatementNodes
 {
-    public abstract class StatementNode : Node
+    internal abstract class StatementNode : Node<IStatementVisitor>
     {
     }
 }
