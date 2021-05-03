@@ -89,7 +89,6 @@ namespace Interpreter.SemanticAnalysis
             SymbolType valueType = arrayNode.Values[0].Type;
             foreach (ValueNode value in arrayNode.Values)
             {
-                // Throws if one of the types are different - see CurrentType setter
                 if (value.Type == valueType)
                 {
                     valueType = value.Type;
