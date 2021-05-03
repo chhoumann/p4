@@ -10,7 +10,7 @@ namespace Tests.Semantics
     [TestFixture]
     internal class TypeCheckTests
     {
-        private AbstractSyntaxTree ast;
+        private IParseTree parseTree;
         private const string TestCodePath = "./dazel_test_code.txt";
 
         [SetUp]
@@ -19,14 +19,22 @@ namespace Tests.Semantics
             ICharStream stream = CharStreams.fromPath(TestCodePath);
             ITokenSource lexer = new DazelLexer(stream);
             ITokenStream tokens = new CommonTokenStream(lexer);
-            IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
-
-            ast = new AstBuilder().BuildAst(parseTree);
+            parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
         }
 
         [Test]
         public void TypeCheck_ExpectPass()
         {
+            var ast = new AstBuilder().BuildAst(parseTree);
+            var tc = new TypeChecker(ast);
+            tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            Assert.That(tc.EnvironmentStack.Count == 0);
+        }
+        
+        [Test]
+        public void TypeCheck_ExpectaPass()
+        {
+            var ast = new AstBuilder().BuildAst(parseTree);
             var tc = new TypeChecker(ast);
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.That(tc.EnvironmentStack.Count == 0);

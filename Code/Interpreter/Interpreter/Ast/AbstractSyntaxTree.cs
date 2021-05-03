@@ -17,10 +17,9 @@ namespace Interpreter.Ast
         {
             if (Instance != null)
             {
-                throw new ArgumentException("AST Instance already exists.");
+                Instance = this;
             }
 
-            Instance = this;
             Root = root;
         }
 
