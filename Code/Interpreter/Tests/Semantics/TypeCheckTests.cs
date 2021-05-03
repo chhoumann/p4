@@ -3,8 +3,6 @@ using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
 using Interpreter.SemanticAnalysis;
-using NSubstitute;
-using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace Tests.Semantics
@@ -57,18 +55,18 @@ namespace Tests.Semantics
         }
         
         private const string TestCode2 =
-            "Screen SampleScreen1" + // Test GameObject
+            "Screen SampleScreen1" +
             "{" +
-            "   Map" + // Test GameObjectContent & GameObjectContentType
+            "   Map" +
             "   {" +
-            "       arr = [1, 2, 3] + 3;" + // Test arrays
-            "       Size(30, 24);" + // Test function invocation
-            "       SomeVar1 = 2.0;" + // Test assignment & floats
-            "       { " + // Test statement block
-            "           SomeVar2 = 1 + 2 / 3;" + // Test expressions & integers
-            "           x = SomeVar2 + 2;" + // Test identifier values
+            "       arr = [1, 2, 3] + 3;" +
+            "       Size(30, 24);" +
+            "       SomeVar1 = 2.0;" +
+            "       { " +
+            "           SomeVar2 = 1 + 2 / 3;" +
+            "           x = SomeVar2 + 2;" +
             "       }" +
-            "       let = SampleScreen1.Exits.exit1;" + // Test member access 
+            "       let = SampleScreen1.Exits.exit1;" + 
             "   }" +
             "" +
             "   Entities" +

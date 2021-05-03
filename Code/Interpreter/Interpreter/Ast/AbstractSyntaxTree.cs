@@ -25,8 +25,15 @@ namespace Interpreter.Ast
 
         public bool TryRetrieveNode(List<string> identifierList, out ValueNode node)
         {
-            GameObject start = Root.GameObjects[identifierList[0]];
+            // TODO: Temporary handling for player member access.
+            if (identifierList[0] == "Player")
+            {
+                PlayerModel player = new PlayerModel();
+                node = player.Get<IntValue>(identifierList[1]);
+                return true;
+            }
 
+            GameObject start = Root.GameObjects[identifierList[0]];
             foreach (GameObjectContent gameObjectContent in start.Contents)
             {
                 if (nameof(gameObjectContent.Type) == identifierList[1])
