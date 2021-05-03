@@ -7,16 +7,17 @@ Testing was performed during the development of the \dazel{} interpreter.
 Through testing, we sought to verify that both language syntax and semantics were being correctly interpreted, and that the components involved in the interpreter were being built properly.
 We used several different techniques to test the behavior of the different components. 
 
-\textbf{Automated testing} in which we used unit testing and integration testing to ensure correct program behavior by expecting specific results when using our methods and classes. 
+\subsection*{Automated testing}
+While developing the interpreter, we wrote unit tests and integration tests to ensure correct program behavior by expecting specific results when using our methods and classes. 
+These tests were automatically run by our version control every time we wanted to update our codebase, and the code would only be accepted if these tests passed.
 Code coverage was calculated by the IDE used in the project, JetBrains Rider, so we did not need to use any external tools to measure this\cite{rider_test_coverage}.
 The tests are also responsible for testing type and scope rules among other language design features in order to ensure that our implementation complies with the language specification.
 
+\subsection*{Manual testing}
 \textbf{Manual testing} where we would consult the ANTLR parse tree to verify that the source code was being correctly parsed based on our grammar. 
 Intermittently, console logs were also used to give quick feeckback during the development of a given component.
 In addition to this, we also wrote a pretty printer for the abstact syntax tree such that we could view how the source code was being interpreted.
 While these tests do not prove correctness, they aided us in rapid prototyping such that we could finish a given component faster and then write proper automated tests afterwards that verified the expected behavior.  
-
-\textbf{Source code testing}
 
 % CHAPTER STRUCTURE
 % Strategy
