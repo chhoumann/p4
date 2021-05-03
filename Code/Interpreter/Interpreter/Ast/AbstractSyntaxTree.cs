@@ -26,10 +26,9 @@ namespace Interpreter.Ast
         public bool TryRetrieveNode(List<string> identifierList, out ValueNode node)
         {
             // TODO: Temporary handling for player member access.
-            if (identifierList[0] == "Player")
+            if (identifierList[0] == "Player" && identifierList[1] == "Health")
             {
-                PlayerModel player = new PlayerModel();
-                node = player.Get<IntValue>(identifierList[1]);
+                node = new IntValue() {Value = 100};
                 return true;
             }
 

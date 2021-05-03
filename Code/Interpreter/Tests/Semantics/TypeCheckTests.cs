@@ -49,19 +49,8 @@ namespace Tests.Semantics
             "   Map" +
             "   {" +
             "       arr = [1, 2, 3] + 3;" +
-            "       Size(30, 24);" +
-            "       SomeVar1 = 2.0;" +
-            "       { " +
-            "           SomeVar2 = 1 + 2 / 3;" +
-            "           x = SomeVar2 + 2;" +
-            "       }" +
-            "       let = SampleScreen1.Exits.exit1;" + 
             "   }" +
             "" +
-            "   Entities" +
-            "   {" +
-            "       SpawnEntity(Skeleton1, [4, 5]);" +
-            "   }" +
             "}";
         
         [Test]
