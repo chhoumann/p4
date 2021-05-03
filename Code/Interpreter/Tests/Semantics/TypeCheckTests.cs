@@ -82,6 +82,44 @@ namespace Tests.Semantics
             Assert.Throws<InvalidOperationException>(TestDelegate);
         }
         
+        private const string TestCode4 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       memAccExit = Player.Health + 50;" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_MemberAccessValidExpressionSucceeds()
+        {
+            AbstractSyntaxTree ast = BuildAst(TestCode4);
+            TypeChecker tc = new(ast);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            Assert.DoesNotThrow(TestDelegate);
+        }
+        
+        private const string TestCode5 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       memAccExit = Player.Health + \"50\";" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_MemberAccessInvalidExpressionFails()
+        {
+            AbstractSyntaxTree ast = BuildAst(TestCode5);
+            TypeChecker tc = new(ast);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            Assert.Throws<InvalidOperationException>(TestDelegate);
+        }
+
         private AbstractSyntaxTree BuildAst(string code)
         {
             ICharStream stream = CharStreams.fromString(code);
