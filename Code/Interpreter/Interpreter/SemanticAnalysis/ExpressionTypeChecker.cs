@@ -65,6 +65,10 @@ namespace Interpreter.SemanticAnalysis
             {
                 CurrentType = value.Type;
             }
+            else
+            {
+                throw new InvalidOperationException($"{String.Join('.', memberAccess.Identifiers)} was not found.");
+            }
         }
 
         public void Visit(FloatValue floatValue)
