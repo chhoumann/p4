@@ -10,12 +10,31 @@ namespace Tests
     internal class AbstractSyntaxTreeTest
     {
         private IParseTree parseTree;
-        private const string TestCodePath = "./dazel_test_code.txt";
+        private const string TestCode =
+            "Screen SampleScreen1" + // Test GameObject
+            "{" +
+            "   Map" + // Test GameObjectContent & GameObjectContentType
+            "   {" +
+            "       Size(30, 24);" + // Test function invocation
+            "       SomeVar1 = 2.0;" + // Test assignment & floats
+            "       { " + // Test statement block
+            "           SomeVar2 = 3 + 3 / 3;" + // Test expressions & integers
+            "           x = SomeVar2;" + // Test identifier values
+            "       }" +
+            "       let = SampleScreen1.Exits.exit1;" + // Test member access 
+            "       arr = [1, 2, 3];" + // Test arrays
+            "   }" +
+            "" +
+            "   Entities" +
+            "   {" +
+            "       SpawnEntity(Skeleton1, [4, 5]);" +
+            "   }" +
+            "}";
 
         [SetUp]
         public void Setup()
         {
-            ICharStream stream = CharStreams.fromPath(TestCodePath);
+            ICharStream stream = CharStreams.fromString(TestCode);
             ITokenSource lexer = new DazelLexer(stream);
             ITokenStream tokens = new CommonTokenStream(lexer);
             parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
