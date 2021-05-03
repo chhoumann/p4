@@ -54,4 +54,4 @@ FLOAT                   : [0-9]+'.'[0-9]+;
 
 It is important to note that Antlr will look up the lexer rules in the order that they are defined. 
 This means that, if it encounters a sentence structure that is present within multiple different rules, it will attempt to parse it using the first lexer rule, then the second one and so forth until it finds a rule that matches. 
-Because of this, our built-in types are the first rules defined within the lexer as it would otherwise incorrectly parse the keyword Screen using the \texttt{IDENTIFIER} rule instead of the \texttt{SCREEN} rule\cite{parrDefinitiveANTLRReference2012}.
+Because of this, our built-in types are the first rules defined within the lexer as it would otherwise incorrectly parse keywords such as Screen using the \texttt{IDENTIFIER} rule instead of the \texttt{SCREEN} rule\cite{parrDefinitiveANTLRReference2012}.
