@@ -36,7 +36,7 @@ namespace Tests.Semantics
 
         private AbstractSyntaxTree BuildAst(string code)
         {
-            ICharStream stream = CharStreams.fromString(TestCode);
+            ICharStream stream = CharStreams.fromString(code);
             ITokenSource lexer = new DazelLexer(stream);
             ITokenStream tokens = new CommonTokenStream(lexer);
             IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
