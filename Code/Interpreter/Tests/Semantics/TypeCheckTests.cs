@@ -2,8 +2,9 @@
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Interpreter.Ast;
-using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.SemanticAnalysis;
+using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace Tests.Semantics
@@ -24,7 +25,7 @@ namespace Tests.Semantics
             "           SomeVar2 = 1 + 2 / 3;" + // Test expressions & integers
             "           x = SomeVar2;" + // Test identifier values
             "       }" +
-            "       let = SampleScreen1.Exits.exit1;" + // Test member access 
+            "       let = Player.Health;" + // Test member access 
             "       arr = [1, 2, 3];" + // Test arrays
             "   }" +
             "" +
@@ -48,7 +49,7 @@ namespace Tests.Semantics
         {
             AbstractSyntaxTree ast = BuildAst(TestCode);
             TypeChecker tc = new TypeChecker(ast);
-            
+
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
             // We know that, if the stack height is 0, then the scopes have all been popped off the stack.
@@ -82,7 +83,25 @@ namespace Tests.Semantics
             AbstractSyntaxTree ast = BuildAst(TestCode2);
             TypeChecker tc = new(ast);
 
-            // We know that, if the stack height is 0, then the scopes have all been popped off the stack.
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            Assert.Throws<InvalidOperationException>(TestDelegate);
+        }
+        
+        private const string TestCode3 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       memAccExit = SampleScreen1.Map.Exit1;" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_MemberAccessNotFoundIfNotDeclared()
+        {
+            AbstractSyntaxTree ast = BuildAst(TestCode3);
+            TypeChecker tc = new(ast);
+
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<InvalidOperationException>(TestDelegate);
         }
