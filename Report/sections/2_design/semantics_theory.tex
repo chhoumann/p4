@@ -1,0 +1,12 @@
+In the following, we will describe how one can use a structural operational semantics to define a transitions system for a language - that is, we are only concerned with the behavior of a program.
+We will then use this to give a formal definition of the semantics for \dazel{}.
+
+\subsection{Big- and small-step semantics}
+Big- and small-step semantics are two different kinds of operational semantics used describe computations.
+Given a single transition $\gamma \rightarrow \gamma' $, big-step semantics describes the entire computation where $\gamma$ is the start configuration and $\gamma'$ must be a terminal configuration. 
+In contrast, a small semantics describes only a single step in a larger computation in which $\gamma'$ does not need to be a terminal configuration. 
+\Figref{SSS_and_BSS} illustrates the different between the two types of operational semantics.
+
+\fig{0.75}{SSS_and_BSS}{The difference between big- and small-step semantics illustrated.}
+
+We have opted to give a big-step semantics for \dazel{} as the simplicity of the language does not facilitate the need to describe every individual computation in detail.  
