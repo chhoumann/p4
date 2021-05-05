@@ -6,7 +6,9 @@ The abstract syntax of a given language contains a collection of syntactic categ
 For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
 \Figref{AbstractSyntax} shows the abstract syntax \dazel{}.
 
-$\mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}$
+
+
+
 
 \begin{figure}[htbp]
 	\centering
@@ -84,7 +86,7 @@ $\mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}$
 		\\
 		[NUM_\text{BSS}] 
 		\qquad s \vdash n \rightarrow_a v
-		\qquad \text{ if } \mathbb{R}[\![n]\!] = v
+		\qquad \text{ if } \mathbb{R}[\![n]\!] = v \quad \text{Where } \mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}
 		\\
 		% 
 		\\
@@ -142,3 +144,25 @@ $\mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}$
 	\caption{Big-step transition rules for \textbf{ContDecl}.}
 	\label{fig:BssStm}
 \end{figure}
+
+
+\subsubsection*{Transition System}
+
+For our operational semantics we have a transition system defined for each expression and declaration. 
+The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
+
+\begin{gather*} 
+	\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
+	\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
+	\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
+\end{gather*} 
+
+\begin{gather*} 
+	\{ \Gamma_\text{BExp}, \rightarrow_a, T_\text{Bexp} \} \\ 
+	\textit{Configurations: } \Gamma_\text{Bexp} = \text{Bexp} \cup \{tt, f\!f\} \\ 
+	\textit{Terminal configurations: } T_\text{Bexp} = \{tt, f\!f\}
+\end{gather*} 
+
+\subsubsection*{Syntactic Categories}
+\subsubsection*{Formation Rules}
+\subsubsection*{Big Step Semantic Rules For \dazel{}}
