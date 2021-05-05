@@ -6,6 +6,8 @@ The abstract syntax of a given language contains a collection of syntactic categ
 For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
 \Figref{AbstractSyntax} shows the abstract syntax \dazel{}.
 
+$\mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}$
+
 \begin{figure}[htbp]
 	\centering
 	\textit{Syntatic categories}
@@ -27,7 +29,9 @@ For each of these, we give a finite set of formation rules that define how each 
 	\begin{align*}
 		S&::=x=a\mid \texttt{skip}\mid S_1;S_2\mid \texttt{repeat }\{S\}; \\
 		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
-		VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon]
+		%VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon] \\
+		GOName&::= \textit{Screen} \mid \textit{Entity} \mid \textit{MovePattern} \\
+		GOCont&::= \textit{Map} \mid \textit{Exits} \mid \textit{Entities} \mid \textit{OnScreenEntered} \mid \textit{Data}
 	\end{align*}
 
 	\caption{Abstract syntax for \dazel{}.}
@@ -114,5 +118,27 @@ For each of these, we give a finite set of formation rules that define how each 
 		{\langle \texttt{repeat} \{S\}, s\rangle\rightarrow s'}
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Stm}.}
+	\label{fig:BssStm}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[GAMEOBJECT_\text{BSS}] 
+		\qquad \dfrac
+		{\langle S, s\rangle \rightarrow s'' \quad\langle GOName \{GOCont\}, s''\rangle \rightarrow s'}
+		{\langle GOName \{GOCont\}, s\rangle\rightarrow s'}
+		\\
+		% 
+		\\
+		[CONTENT_\text{BSS}] 
+		\qquad \dfrac
+		{\langle S, s\rangle \rightarrow s'' \quad\langle GOCont \{S\}, s''\rangle \rightarrow s'}
+		{\langle GOCont \{S\}, s\rangle\rightarrow s'}
+		\\
+		% 
+		\\
+	\end{gather*}
+	\caption{Big-step transition rules for \textbf{ContDecl}.}
 	\label{fig:BssStm}
 \end{figure}
