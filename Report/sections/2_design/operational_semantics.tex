@@ -1,0 +1,118 @@
+\section{Structural Operational Semantics}
+
+\subsubsection*{Abstract Syntax}
+An abstract syntax is a description of a programs' structure that is used to represent its behavior. 
+The abstract syntax of a given language contains a collection of syntactic categories. 
+For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
+\Figref{AbstractSyntax} shows the abstract syntax \dazel{}.
+
+\begin{figure}[htbp]
+	\centering
+	\textit{Syntatic categories}
+	\vspace{4mm}
+
+
+	\begin{tabular}{l l}
+		$a \in \textbf{ArithmExp}$ & $\text{Arithmetic expressions}$ \\ 
+		$n \in \textbf{Num}$ & $\text{Numerals}$ \\
+		$x \in \textbf{Var}$ & $\text{Variables}$ \\
+		$A_v \in \textbf{AssignV}$ & $\text{Variable assignments}$ \\
+		$D_v \in \textbf{DeclV}$ & $\text{Variable declarations}$ \\
+		$C_m \in \textbf{ContDecl}$ & $\text{Content declarations}$ \\
+		$S \in \textbf{Stm}$ & $\text{Statements}$
+	\end{tabular}
+
+	\vspace{4mm}
+	\textit{Formation rules}
+	\begin{align*}
+		S&::=x=a\mid \texttt{skip}\mid S_1;S_2\mid \texttt{repeat }\{S\}; \\
+		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
+		VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon]
+	\end{align*}
+
+	\caption{Abstract syntax for \dazel{}.}
+	\label{fig:AbstractSyntax}
+\end{figure}
+
+\subsubsection*{Transition System}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[PLUS_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 + a_2 \rightarrow_a v}
+		\qquad \text{ where }v = v_1 + v_2
+		\\
+		% 
+		\\
+		[MINUS_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 - a_2 \rightarrow_a v}
+		\qquad \text{ where }v = v_1 - v_2
+		\\
+		% 
+		\\
+		[MULTIPLY_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 * a_2 \rightarrow_a v}
+		\qquad \text{ where }v = v_1 \cdot v_2
+		\\
+		% 
+		\\
+		[DIVIDE_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
+		{s \vdash a_1 / a_2 \rightarrow_a v}
+		\qquad \text{ where }v = \dfrac{v_1}{v_2}
+		\\
+		% 
+		\\
+		[PARENTHESES_\text{BSS}] 
+		\qquad \dfrac
+		{s \vdash a_1 \rightarrow_a v_1}
+		{s \vdash (a_1) \rightarrow_a v_1}
+		\\
+		% 
+		\\
+		[NUM_\text{BSS}] 
+		\qquad s \vdash n \rightarrow_a v
+		\qquad \text{ if } \mathbb{R}[\![n]\!] = v
+		\\
+		% 
+		\\
+		[VAR_\text{BSS}] 
+		\qquad s \vdash x \rightarrow_a v
+		\qquad \text{ if } sx = v
+	\end{gather*}
+	\caption{Big-step transition rules for \textbf{ArithmExp}.}
+	\label{fig:BssArithm}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[ASSIGNMENT_\text{BSS}] 
+		\qquad \langle x=a,s\rangle \rightarrow s[x\mapsto v]
+		\qquad \text{ where }s\vdash a \rightarrow_a v
+		\\
+		% 
+		\\
+		[COMPOUND_\text{BSS}] 
+		\qquad \dfrac
+		{\langle S_1, s\rangle \rightarrow s'' \;\langle S_2, s''\rangle \rightarrow s'}
+		{\langle S_1;S_2,s\rangle\rightarrow s'}
+		\\
+		% 
+		\\
+		[REPEAT_\text{BSS}] 
+		\qquad \dfrac
+		{\langle S_1, s\rangle \rightarrow s'' \;\langle \texttt{repeat} \{S\}, s\rangle \rightarrow s'}
+		{\langle \texttt{repeat} \{S\}, s\rangle\rightarrow s'}
+	\end{gather*}
+	\caption{Big-step transition rules for \textbf{Stm}.}
+	\label{fig:BssStm}
+\end{figure}
