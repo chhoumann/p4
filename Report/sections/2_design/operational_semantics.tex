@@ -151,6 +151,7 @@ For each of these, we give a finite set of formation rules that define how each 
 For our operational semantics we have a transition system defined for each expression and declaration. 
 The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
 
+
 \begin{gather*} 
 	\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
 	\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
@@ -161,6 +162,12 @@ The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)
 	\{ \Gamma_\text{BExp}, \rightarrow_a, T_\text{Bexp} \} \\ 
 	\textit{Configurations: } \Gamma_\text{Bexp} = \text{Bexp} \cup \{tt, f\!f\} \\ 
 	\textit{Terminal configurations: } T_\text{Bexp} = \{tt, f\!f\}
+\end{gather*}
+
+\begin{gather*} 
+	\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
+	\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
+	\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
 \end{gather*} 
 
 \subsubsection*{Syntactic Categories}
