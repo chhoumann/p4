@@ -18,9 +18,6 @@ For each of these, we give a finite set of formation rules that define how each 
 \Figref{AbstractSyntax} shows the abstract syntax \dazel{}.
 
 
-
-
-
 \begin{figure}[htbp]
 	\centering
 	\textit{Syntatic categories}
@@ -43,66 +40,64 @@ For each of these, we give a finite set of formation rules that define how each 
 		S&::=x=a\mid \texttt{skip}\mid S_1;S_2\mid \texttt{repeat }\{S\}; \\
 		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
 		%VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon] \\
-		GOName&::= \textit{Screen} \mid \textit{Entity} \mid \textit{MovePattern} \\
-		GOCont&::= \textit{Map} \mid \textit{Exits} \mid \textit{Entities} \mid \textit{OnScreenEntered} \mid \textit{Data}
+		GOName&::= \texttt{Screen} \{S\} \mid \texttt{Entity} \{S\} \mid \texttt{MovePattern} \{S\} \\
+		GOCont&::= \texttt{Map} \{S\} \mid \texttt{Exits} \{S\} \mid \texttt{Entities} \{S\} \mid \texttt{OnScreenEntered} \{S\} \mid \texttt{Data} \{S\}
 	\end{align*}
 
 	\caption{Abstract syntax for \dazel{}.}
 	\label{fig:AbstractSyntax}
 \end{figure}
 
-\subsubsection*{Transition System}
-
 \begin{figure}[htbp]
 	\centering
 	\begin{gather*}
 		[PLUS_\text{BSS}] 
 		\qquad \dfrac
-		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
-		{s \vdash a_1 + a_2 \rightarrow_a v}
+		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
+		{\envs \vdash a_1 + a_2 \rightarrow_a v}
 		\qquad \text{ where }v = v_1 + v_2
 		\\
 		% 
 		\\
 		[MINUS_\text{BSS}] 
 		\qquad \dfrac
-		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
-		{s \vdash a_1 - a_2 \rightarrow_a v}
+		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
+		{\envs \vdash a_1 - a_2 \rightarrow_a v}
 		\qquad \text{ where }v = v_1 - v_2
 		\\
 		% 
 		\\
 		[MULTIPLY_\text{BSS}] 
 		\qquad \dfrac
-		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
-		{s \vdash a_1 * a_2 \rightarrow_a v}
+		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
+		{\envs \vdash a_1 * a_2 \rightarrow_a v}
 		\qquad \text{ where }v = v_1 \cdot v_2
 		\\
 		% 
 		\\
 		[DIVIDE_\text{BSS}] 
 		\qquad \dfrac
-		{s \vdash a_1 \rightarrow_a v_1 \; s \vdash a_2 \rightarrow_a v_2}
-		{s \vdash a_1 / a_2 \rightarrow_a v}
+		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
+		{\envs \vdash a_1 / a_2 \rightarrow_a v}
 		\qquad \text{ where }v = \dfrac{v_1}{v_2}
 		\\
 		% 
 		\\
 		[PARENTHESES_\text{BSS}] 
 		\qquad \dfrac
-		{s \vdash a_1 \rightarrow_a v_1}
-		{s \vdash (a_1) \rightarrow_a v_1}
+		{\envs \vdash a_1 \rightarrow_a v_1}
+		{\envs \vdash (a_1) \rightarrow_a v_1}
 		\\
 		% 
 		\\
 		[NUM_\text{BSS}] 
-		\qquad s \vdash n \rightarrow_a v
+		\qquad envs \vdash n \rightarrow_a v
 		\qquad \text{ if } \mathbb{R}[\![n]\!] = v \quad \text{Where } \mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}
 		\\
 		% 
 		\\
 		[VAR_\text{BSS}] 
-		\qquad s \vdash x \rightarrow_a v
+		\qquad \envs \vdash x \rightarrow_a v
 		\qquad \text{ if } sx = v
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{ArithmExp}.}
@@ -120,15 +115,15 @@ For each of these, we give a finite set of formation rules that define how each 
 		\\
 		[COMPOUND_\text{BSS}] 
 		\qquad \dfrac
-		{\langle S_1, s\rangle \rightarrow s'' \;\langle S_2, s''\rangle \rightarrow s'}
-		{\langle S_1;S_2,s\rangle\rightarrow s'}
+		{\langle S_1, sto \rangle \rightarrow sto'' \;\langle S_2, sto'' \rangle \rightarrow sto'}
+		{\langle S_1;S_2,sto \rangle\rightarrow sto'}
 		\\
 		% 
 		\\
 		[REPEAT_\text{BSS}] 
 		\qquad \dfrac
-		{\langle S_1, s\rangle \rightarrow s'' \;\langle \texttt{repeat} \{S\}, s\rangle \rightarrow s'}
-		{\langle \texttt{repeat} \{S\}, s\rangle\rightarrow s'}
+		{\langle S_1, sto \rangle \rightarrow sto'' \;\langle \texttt{repeat} \{S\}, sto \rangle \rightarrow sto'}
+		{\langle \texttt{repeat} \{S\}, sto \rangle\rightarrow sto'}
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Stm}.}
 	\label{fig:BssStm}
@@ -163,23 +158,34 @@ For our operational semantics we have a transition system defined for each expre
 The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
 
 
-\begin{gather*} 
-	\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
-	\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
-	\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
-\end{gather*} 
+\begin{figure}
+	\begin{gather*} 
+		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
+		\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
+		\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
+	\end{gather*}
+	\label{fig:TS_Aexp}
+	\caption{Transition system for arithmetic expressions}
+\end{figure}
 
-\begin{gather*} 
-	\{ \Gamma_\text{BExp}, \rightarrow_a, T_\text{Bexp} \} \\ 
-	\textit{Configurations: } \Gamma_\text{Bexp} = \text{Bexp} \cup \{tt, f\!f\} \\ 
-	\textit{Terminal configurations: } T_\text{Bexp} = \{tt, f\!f\}
-\end{gather*}
+\begin{figure}
+	\begin{gather*} 
+		\{ \Gamma_\text{BExp}, \rightarrow_a, T_\text{Bexp} \} \\ 
+		\textit{Configurations: } \Gamma_\text{Bexp} = \text{Bexp} \cup \{tt, f\!f\} \\ 
+		\textit{Terminal configurations: } T_\text{Bexp} = \{tt, f\!f\}
+	\end{gather*}
+	\label{fig:TS_Bexp}
+	\caption{Transition system for boolean expressions}
+\end{figure}
 
-\begin{gather*} 
-	\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
-	\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
-	\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
-\end{gather*} 
+\begin{figure}
+	\begin{gather*} 
+		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
+		\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
+		\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
+	\end{gather*} 
+	\label{fig:TS_}
+\end{figure}
 
 \subsubsection*{Syntactic Categories}
 \subsubsection*{Formation Rules}
