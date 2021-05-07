@@ -17,17 +17,22 @@ namespace Interpreter.Ast
         {
             if (Instance != null)
             {
-                throw new ArgumentException("AST Instance already exists.");
+                Instance = this;
             }
 
-            Instance = this;
             Root = root;
         }
 
         public bool TryRetrieveNode(List<string> identifierList, out ValueNode node)
         {
-            GameObject start = Root.GameObjects[identifierList[0]];
+            // TODO: Temporary handling for player member access.
+            if (identifierList[0] == "Player" && identifierList[1] == "Health")
+            {
+                node = new IntValue() {Value = 100};
+                return true;
+            }
 
+            GameObject start = Root.GameObjects[identifierList[0]];
             foreach (GameObjectContent gameObjectContent in start.Contents)
             {
                 if (nameof(gameObjectContent.Type) == identifierList[1])

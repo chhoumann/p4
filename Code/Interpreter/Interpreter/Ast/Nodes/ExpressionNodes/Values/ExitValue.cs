@@ -8,6 +8,11 @@ namespace Interpreter.SemanticAnalysis.API.Values
     {
         public Vector2 Coordinates { get; }
 
+        public ExitValue()
+        {
+            this.Type = SymbolType.Exit;
+        }
+
         public ExitValue(Vector2 coordinates)
         {
             Coordinates = coordinates;

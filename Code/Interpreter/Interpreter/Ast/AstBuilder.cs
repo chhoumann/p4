@@ -258,15 +258,36 @@ namespace Interpreter.Ast
         
         public MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context)
         {
-            MemberAccess memberAccess = new MemberAccess()
+            MemberAccess memberAccess;
+
+            // X.Y
+            if (context.children.Count == 3)
             {
-                Identifiers =
+                memberAccess = new MemberAccess
                 {
-                    context.GetChild(0).GetText(),
-                    context.GetChild(2).GetText(),
-                    context.GetChild(4).GetText(),
-                }
-            };
+                    Identifiers =
+                    {
+                        context.GetChild(0).GetText(),
+                        context.GetChild(2).GetText(),
+                    }
+                };
+            }
+            else if (context.children.Count == 5) // X.Y.Z
+            {
+                memberAccess = new MemberAccess
+                {
+                    Identifiers =
+                    {
+                        context.GetChild(0).GetText(),
+                        context.GetChild(2).GetText(),
+                        context.GetChild(4).GetText(),
+                    }
+                };
+            }
+            else
+            {
+                throw new ArgumentException($"Member Access {context.GetChild(0).GetText()}");
+            }
             
             return memberAccess;
         }

@@ -65,11 +65,15 @@ namespace Interpreter.SemanticAnalysis
             {
                 CurrentType = value.Type;
             }
+            else
+            {
+                throw new InvalidOperationException($"{String.Join('.', memberAccess.Identifiers)} was not found.");
+            }
         }
 
         public void Visit(FloatValue floatValue)
         {
-            CurrentType = floatValue.Type = SymbolType.Float;
+            CurrentType = floatValue.Type;
         }
 
         public void Visit(IdentifierValue identifierValue)
@@ -79,20 +83,24 @@ namespace Interpreter.SemanticAnalysis
 
         public void Visit(IntValue intValue)
         {
-            CurrentType = intValue.Type = SymbolType.Integer;
+            CurrentType = intValue.Type;
         }
 
         public void Visit(ArrayNode arrayNode)
         {
-            foreach (ValueNode value in arrayNode.Values)
-            {
-                value.Accept(this);
-            }
+            CurrentType = arrayNode.Type;
 
+            SymbolType valueType = arrayNode.Values[0].Type;
             foreach (ValueNode value in arrayNode.Values)
             {
-                // Throws if one of the types are different - see CurrentType setter
-                CurrentType = value.Type;
+                if (value.Type == valueType)
+                {
+                    valueType = value.Type;
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Type mismatch. {value} is not {currentType}");
+                }
             }
         }
 
