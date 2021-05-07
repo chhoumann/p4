@@ -22,12 +22,12 @@ jobs:
 
       # restore dependencies  
     - name: Install dependencies
-      working-directory: ./Code/Interpreter
+      working-directory: ./Code/Adventure Map Generator
       run: dotnet restore
 
       # build project
     - name: Build
-      working-directory: ./Code/Interpreter
+      working-directory: ./Code/Adventure Map Generator
       run: dotnet build --configuration $config --no-restore
 
     - name: set pr build number (if pr)
