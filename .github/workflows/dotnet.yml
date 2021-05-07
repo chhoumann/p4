@@ -67,7 +67,6 @@ jobs:
           path: ${{ steps.tests.outputs.artifactsPath }}
           retention-days: 14
 
-
  testRunnerInAllModes:
     name: Test all modes ✨
     runs-on: ubuntu-latest
