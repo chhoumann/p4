@@ -24,7 +24,7 @@ namespace P4.MapGenerator
 
         public void Play()
         {
-            
+            new 
         }
 
         private static void SetupEnvironment()
