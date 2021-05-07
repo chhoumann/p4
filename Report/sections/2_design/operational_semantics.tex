@@ -140,9 +140,13 @@ For each of these, we give a finite set of formation rules that define how each 
 		% 
 		\\
 		[CONTENT_\text{BSS}] 
-		\qquad \dfrac
-		{\langle D_V, env_v, sto\rangle \rightarrow_{DV} (\text{env'}_V, sto'')}
-		{env'_V \vdash \langle S, sto''\rangle \rightarrow sto'}
+		\qquad \frac
+		{
+			\begin{gathered}
+				\langle D_V, env_v, sto\rangle \rightarrow_{DV} (\text{env'}_V, sto'') \\ 
+				env'_V \vdash \langle S, sto''\rangle \rightarrow sto'
+			\end{gathered}
+		}
 		{\langle GOCont \{S\}, s\rangle\rightarrow s'}
 		\\
 		% 
