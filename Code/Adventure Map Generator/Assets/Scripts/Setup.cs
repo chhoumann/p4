@@ -22,6 +22,11 @@ namespace P4.MapGenerator
             Process.Start(Application.persistentDataPath);
         }
 
+        public void Play()
+        {
+            
+        }
+
         private static void SetupEnvironment()
         {
             foreach (string directory in WorkingDirectories)
