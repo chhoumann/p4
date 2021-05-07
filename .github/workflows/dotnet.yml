@@ -16,7 +16,7 @@ jobs:
       # Cache
       - uses: actions/cache@v2
         with:
-          path: ./Code/Adventure Map Generator/Library
+          path: Library
           key: Library
 
       # Test
