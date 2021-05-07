@@ -6,7 +6,6 @@ using Interpreter.Ast.Nodes.GameObjectNodes;
 using Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Interpreter.Ast.Nodes.StatementNodes;
 using Interpreter.Ast.Visitors;
-using Microsoft.VisualBasic;
 
 namespace Interpreter.Ast
 {
@@ -71,7 +70,7 @@ namespace Interpreter.Ast
 
         public void Visit(MemberAccess memberAccess)
         {
-            sb.Append(Strings.Join(memberAccess.Identifiers.ToArray(), "."));
+            sb.Append(string.Join(".", memberAccess.Identifiers.ToArray()));
         }
 
         public void Visit(SumExpression sumExpression)
