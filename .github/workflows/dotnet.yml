@@ -30,7 +30,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - "Code/Adventure Map Generator"
+          - Code/Adventure-Map-Generator
         unityVersion:
           - 2021.1.5f1
         testMode:
