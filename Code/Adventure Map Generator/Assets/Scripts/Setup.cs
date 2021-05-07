@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using Interpreter;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -16,6 +17,7 @@ namespace P4.MapGenerator
 
         private void Start()
         {
+            bool a;
             SetupEnvironment();
         }
 
@@ -27,6 +29,7 @@ namespace P4.MapGenerator
         public void Play()
         {
             string path = GetDirectoryPath(SourceFileDirectory);
+            new DazelInterpreter(path).Run();
         }
 
         private static void SetupEnvironment()
