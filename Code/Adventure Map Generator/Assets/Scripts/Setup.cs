@@ -17,7 +17,6 @@ namespace P4.MapGenerator
 
         private void Start()
         {
-            bool a;
             SetupEnvironment();
         }
 
