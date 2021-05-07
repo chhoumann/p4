@@ -30,9 +30,9 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - unity-project-with-correct-tests
+          - Code/Adventure Map Generator
         unityVersion:
-          - 2019.2.11f1
+          - 2021.1.5f1
         testMode:
           - playmode
           - editmode
@@ -61,7 +61,6 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
-          customParameters: -profile SomeProfile -someBoolean -someValue exampleValue
       - uses: actions/upload-artifact@v2
         with:
           name: Test results for ${{ matrix.testMode }}
