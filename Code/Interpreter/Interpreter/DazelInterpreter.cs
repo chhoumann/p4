@@ -7,11 +7,11 @@ using Interpreter.SemanticAnalysis;
 
 namespace Interpreter
 {
-    public sealed class Interpreter
+    public sealed class DazelInterpreter
     {
         private readonly string sourceFileDirectory;
 
-        public Interpreter(string sourceFileDirectory)
+        public DazelInterpreter(string sourceFileDirectory)
         {
             this.sourceFileDirectory = sourceFileDirectory;
         }

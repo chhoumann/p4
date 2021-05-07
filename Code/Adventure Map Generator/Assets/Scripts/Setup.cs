@@ -7,11 +7,13 @@ namespace P4.MapGenerator
 {
     public sealed class Setup : MonoBehaviour
     {
+        private const string SourceFileDirectory = "src";
+        
         private static readonly string[] WorkingDirectories = 
         {
-            "src", "gfx"
+            SourceFileDirectory, "gfx"
         };
-        
+
         private void Start()
         {
             SetupEnvironment();
@@ -24,7 +26,7 @@ namespace P4.MapGenerator
 
         public void Play()
         {
-            new 
+            string path = GetDirectoryPath(SourceFileDirectory);
         }
 
         private static void SetupEnvironment()
@@ -37,12 +39,17 @@ namespace P4.MapGenerator
 
         private static void CreateWorkingDirectory(string directoryName)
         {
-            string path = Path.Combine(Application.persistentDataPath, directoryName);
+            string path = GetDirectoryPath(directoryName);
             
             if (Directory.Exists(path)) return;
 
             Directory.CreateDirectory(path);
             Debug.Log($"Created directory: {path}");
+        }
+
+        private static string GetDirectoryPath(string directoryName)
+        {
+            return Path.Combine(Application.persistentDataPath, directoryName);
         }
     }
 }

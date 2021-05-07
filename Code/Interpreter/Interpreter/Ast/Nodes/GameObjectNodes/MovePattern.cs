@@ -1,6 +1,6 @@
 ﻿using Interpreter.Ast.Visitors;
 
-namespace Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
+namespace Interpreter.Ast.Nodes.GameObjectNodes
 {
     internal sealed class MovePattern : GameObjectType
     {

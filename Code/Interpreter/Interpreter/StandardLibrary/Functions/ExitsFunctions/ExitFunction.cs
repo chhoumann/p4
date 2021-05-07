@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.SemanticAnalysis;
-using Interpreter.SemanticAnalysis.API.Values;
 
 namespace Interpreter.StandardLibrary.Functions.ExitsFunctions
 {

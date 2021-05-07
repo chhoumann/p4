@@ -6,7 +6,7 @@ namespace Interpreter
         
         private static void Main(string[] args)
         {
-            new Interpreter(SourceFileDirectory).Run();
+            new DazelInterpreter(SourceFileDirectory).Run();
             //Console.WriteLine(SymbolTable.Instance.Scopes[0].RetrieveSymbol("SomeVar"));
 
             // Front-end

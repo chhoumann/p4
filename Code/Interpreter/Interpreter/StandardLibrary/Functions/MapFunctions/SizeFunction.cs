@@ -2,7 +2,7 @@
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.SemanticAnalysis;
 
-namespace Interpreter.StandardLibrary.Functions
+namespace Interpreter.StandardLibrary.Functions.MapFunctions
 {
     internal sealed class SizeFunction : Function
     {

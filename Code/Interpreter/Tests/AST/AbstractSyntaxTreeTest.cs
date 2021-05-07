@@ -4,7 +4,7 @@ using Interpreter.Ast;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.AST
 {
     [TestFixture]
     internal class AbstractSyntaxTreeTest

@@ -4,7 +4,6 @@ using Interpreter.Ast.Nodes.ExpressionNodes;
 using Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
 using Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Interpreter.Ast.Visitors;
-using Interpreter.SemanticAnalysis.API.Values;
 
 namespace Interpreter.SemanticAnalysis
 {
