@@ -4,7 +4,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.StandardLibrary
 {
-    internal abstract class Function
+    public abstract class Function
     {
         public abstract int NumArguments { get; }
         private SymbolType ReturnType { get; }

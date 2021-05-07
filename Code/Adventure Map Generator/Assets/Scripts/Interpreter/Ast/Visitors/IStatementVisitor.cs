@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Visitors
 {
-    internal interface IStatementVisitor
+    public interface IStatementVisitor
     {
         void Visit(StatementBlock statementBlock);
         void Visit(IfStatement ifStatement);

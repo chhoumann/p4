@@ -11,7 +11,7 @@ using Screen = P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.Screen;
 
 namespace P4.MapGenerator.Interpreter.Ast
 {
-    internal sealed class AstPrinter : ICompleteVisitor
+    public sealed class AstPrinter : ICompleteVisitor
     {
         private readonly StringBuilder sb = new StringBuilder();
 

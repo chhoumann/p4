@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    internal sealed class PatternType : GameObjectContentType
+    public sealed class PatternType : GameObjectContentType
     {
         public override void Accept(IGameObjectContentTypeVisitor visitor)
         {

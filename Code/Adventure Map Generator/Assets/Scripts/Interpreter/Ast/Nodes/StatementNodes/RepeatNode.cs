@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes
 {
-    internal sealed class RepeatNode : StatementNode
+    public sealed class RepeatNode : StatementNode
     {
         public override void Accept(IStatementVisitor visitor)
         {

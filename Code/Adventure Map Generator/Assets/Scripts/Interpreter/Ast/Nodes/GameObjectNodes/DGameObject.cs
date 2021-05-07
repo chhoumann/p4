@@ -3,7 +3,7 @@ using P4.MapGenerator.Interpreter.Ast.Visitors;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes
 {
-    internal sealed class DGameObject : GameObjectNode
+    public sealed class DGameObject : GameObjectNode
     {
         public string Identifier { get; set; }
         public GameObjectType Type { get; set; }

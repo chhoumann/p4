@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace P4.MapGenerator.Interpreter.SemanticAnalysis
 {
-    internal sealed class SymbolTable<T>
+    public sealed class SymbolTable<T>
     {
         private readonly Dictionary<string, T> symbols = new Dictionary<string, T>();
         private readonly SymbolTable<T> parent;

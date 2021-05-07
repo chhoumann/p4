@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Visitors
 {
-    internal interface IGameObjectVisitor
+    public interface IGameObjectVisitor
     {
         void Visit(DGameObject gameObject);
         void Visit(GameObjectContent gameObjectContent);

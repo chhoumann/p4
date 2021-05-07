@@ -6,7 +6,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    internal sealed class ArrayNode : ValueNode
+    public sealed class ArrayNode : ValueNode
     {
         public List<ValueNode> Values { get; set; }
 

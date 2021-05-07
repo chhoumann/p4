@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes
 {
-    internal sealed class Screen : GameObjectType
+    public sealed class Screen : GameObjectType
     {
         public override void Accept(IGameObjectVisitor visitor)
         {

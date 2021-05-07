@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    internal sealed class SumOperation : OperationNode
+    public sealed class SumOperation : OperationNode
     {
         public override void Accept(IExpressionVisitor visitor)
         {

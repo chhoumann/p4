@@ -4,7 +4,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
-    internal class ScreenExitFunction : Function
+    public class ScreenExitFunction : Function
     {
         public override int NumArguments => 2;
         public ScreenExitFunction() : base(SymbolType.Void) { }

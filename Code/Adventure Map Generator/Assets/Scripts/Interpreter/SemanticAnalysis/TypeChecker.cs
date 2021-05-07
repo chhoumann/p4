@@ -5,7 +5,7 @@ using P4.MapGenerator.Interpreter.Ast.Visitors;
 
 namespace P4.MapGenerator.Interpreter.SemanticAnalysis
 {
-    internal sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
+    public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
     {
         private readonly AbstractSyntaxTree ast;
 

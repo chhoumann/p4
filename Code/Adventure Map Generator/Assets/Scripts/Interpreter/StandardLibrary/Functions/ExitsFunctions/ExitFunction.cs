@@ -5,7 +5,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
-    internal sealed class ExitFunction : Function
+    public sealed class ExitFunction : Function
     {
         public override int NumArguments => 2;
 

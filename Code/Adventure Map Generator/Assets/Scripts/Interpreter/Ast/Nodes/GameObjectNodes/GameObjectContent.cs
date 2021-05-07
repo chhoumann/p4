@@ -5,7 +5,7 @@ using P4.MapGenerator.Interpreter.Ast.Visitors;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes
 {
-    internal sealed class GameObjectContent : GameObjectNode
+    public sealed class GameObjectContent : GameObjectNode
     {
         public GameObjectContentType Type { get; set; }
         public List<StatementNode> Statements { get; set; }

@@ -3,7 +3,7 @@ using P4.MapGenerator.Interpreter.Ast.Visitors;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    internal sealed class MemberAccess : ValueNode
+    public sealed class MemberAccess : ValueNode
     {
         public readonly List<string> Identifiers = new List<string>();
 

@@ -4,7 +4,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.MapFunctions
 {
-    internal sealed class SizeFunction : Function
+    public sealed class SizeFunction : Function
     {
         public override int NumArguments => 2;
 

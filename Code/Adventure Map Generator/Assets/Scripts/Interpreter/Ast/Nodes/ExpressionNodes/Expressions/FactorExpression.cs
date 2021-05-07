@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    internal sealed class FactorExpression : InfixExpressionNode
+    public sealed class FactorExpression : InfixExpressionNode
     {
         public FactorOperation Operation { get; set; }
 

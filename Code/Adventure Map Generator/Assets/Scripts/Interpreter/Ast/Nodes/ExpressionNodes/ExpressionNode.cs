@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes
 {
-    internal abstract class ExpressionNode : Node<IExpressionVisitor>
+    public abstract class ExpressionNode : Node<IExpressionVisitor>
     {
     }
 }

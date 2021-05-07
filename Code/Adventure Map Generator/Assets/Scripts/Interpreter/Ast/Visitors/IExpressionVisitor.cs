@@ -3,7 +3,7 @@ using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 
 namespace P4.MapGenerator.Interpreter.Ast.Visitors
 {
-    internal interface IExpressionVisitor
+    public interface IExpressionVisitor
     {
         #region Expression
         void Visit(FactorExpression factorExpression);

@@ -8,7 +8,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.EntitiesFunctions
 {
-    internal sealed class SpawnEntityFunction : Function
+    public sealed class SpawnEntityFunction : Function
     {
         public override int NumArguments => 2;
         public Vector2 SpawnPoint { get; private set; }

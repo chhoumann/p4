@@ -1,6 +1,6 @@
 ﻿namespace P4.MapGenerator.Interpreter.SemanticAnalysis
 {
-    internal abstract class SymbolTableEntry
+    public abstract class SymbolTableEntry
     {
         public SymbolType Type { get; }
 

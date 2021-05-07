@@ -6,7 +6,7 @@ using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
 
 namespace P4.MapGenerator.Interpreter.Ast
 {
-    internal sealed class AbstractSyntaxTree
+    public sealed class AbstractSyntaxTree
     {
         public RootNode Root { get; }
 

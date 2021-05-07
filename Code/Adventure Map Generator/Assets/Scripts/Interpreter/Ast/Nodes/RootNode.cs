@@ -3,7 +3,7 @@ using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes
 {
-    internal sealed class RootNode
+    public sealed class RootNode
     {
         public Dictionary<string, DGameObject> GameObjects { get; set; }
     }

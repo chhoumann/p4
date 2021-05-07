@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    internal sealed class TerminalExpression : ExpressionNode
+    public sealed class TerminalExpression : ExpressionNode
     {
         public ExpressionNode Child { get; set; }
         

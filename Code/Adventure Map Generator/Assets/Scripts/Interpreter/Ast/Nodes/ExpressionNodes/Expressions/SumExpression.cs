@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    internal sealed class SumExpression : InfixExpressionNode
+    public sealed class SumExpression : InfixExpressionNode
     {
         public SumOperation Operation { get; set; }
 

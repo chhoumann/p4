@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.SemanticAnalysis
 {
-    internal abstract class SemanticAnalysis
+    public abstract class SemanticAnalysis
     {
         public readonly Stack<SymbolTable<SymbolTableEntry>> EnvironmentStack = new Stack<SymbolTable<SymbolTableEntry>>();
 

@@ -3,7 +3,7 @@ using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 
 namespace P4.MapGenerator.Interpreter.SemanticAnalysis
 {
-    internal class FunctionSymbolTableEntry : SymbolTableEntry
+    public class FunctionSymbolTableEntry : SymbolTableEntry
     {
         private readonly List<ValueNode> parameters;
 

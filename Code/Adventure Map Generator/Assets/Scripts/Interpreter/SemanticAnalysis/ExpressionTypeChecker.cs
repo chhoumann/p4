@@ -7,7 +7,7 @@ using P4.MapGenerator.Interpreter.Ast.Visitors;
 
 namespace P4.MapGenerator.Interpreter.SemanticAnalysis
 {
-    internal sealed class ExpressionTypeChecker : IExpressionVisitor
+    public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
         private readonly AbstractSyntaxTree ast;
         private readonly SymbolTable<SymbolTableEntry> symbolTable;

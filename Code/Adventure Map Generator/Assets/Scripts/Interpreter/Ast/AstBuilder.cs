@@ -11,7 +11,7 @@ using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
 
 namespace P4.MapGenerator.Interpreter.Ast
 {
-    internal sealed class AstBuilder : IAstBuilder
+    public sealed class AstBuilder : IAstBuilder
     {
         public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
         {

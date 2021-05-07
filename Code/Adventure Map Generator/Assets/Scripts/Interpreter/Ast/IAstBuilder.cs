@@ -8,7 +8,7 @@ using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
 
 namespace P4.MapGenerator.Interpreter.Ast
 {
-    internal interface IAstBuilder
+    public interface IAstBuilder
     {
         AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees);
         AbstractSyntaxTree BuildAst(IParseTree parseTrees);

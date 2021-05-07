@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes
 {
-    internal sealed class IfStatement : StatementNode
+    public sealed class IfStatement : StatementNode
     {
         public override void Accept(IStatementVisitor visitor)
         {

@@ -3,7 +3,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    internal sealed class FloatValue : ValueNode
+    public sealed class FloatValue : ValueNode
     {
         public float Value { get; set; }
 

@@ -4,7 +4,7 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    internal sealed class ExitValue : ValueNode
+    public sealed class ExitValue : ValueNode
     {
         public Vector2 Coordinates { get; }
 

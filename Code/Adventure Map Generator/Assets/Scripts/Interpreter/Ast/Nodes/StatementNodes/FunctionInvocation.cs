@@ -7,7 +7,7 @@ using P4.MapGenerator.Interpreter.StandardLibrary;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes
 {
-    internal sealed class FunctionInvocation : StatementExpression
+    public sealed class FunctionInvocation : StatementExpression
     {
         public string Identifier { get; set; }
         public List<ValueNode> Parameters { get; set; }

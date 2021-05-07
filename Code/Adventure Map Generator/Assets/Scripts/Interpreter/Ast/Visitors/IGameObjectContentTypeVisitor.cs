@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Visitors
 {
-    internal interface IGameObjectContentTypeVisitor
+    public interface IGameObjectContentTypeVisitor
     {
         void Visit(MapType mapType);
         void Visit(OnScreenEnteredType onScreenEnteredType);

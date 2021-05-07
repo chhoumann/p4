@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes
 {
-    internal abstract class StatementNode : Node<IStatementVisitor>
+    public abstract class StatementNode : Node<IStatementVisitor>
     {
     }
 }
