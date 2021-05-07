@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.IO;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace P4.MapGenerator
 {
@@ -15,7 +17,12 @@ namespace P4.MapGenerator
             SetupEnvironment();
         }
 
-        private void SetupEnvironment()
+        public void ShowWorkingEnvironment()
+        {
+            Process.Start(Application.persistentDataPath);
+        }
+
+        private static void SetupEnvironment()
         {
             foreach (string directory in WorkingDirectories)
             {
