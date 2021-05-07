@@ -54,7 +54,7 @@ jobs:
           key: Library-${{ matrix.projectPath }}
           restore-keys: |
             Library-
-      - uses: ./
+      - uses: game-ci/unity-test-runner@v2
         id: tests
         with:
           projectPath: ${{ matrix.projectPath }}
@@ -97,7 +97,7 @@ jobs:
         # Configure test runner
         - name: Run tests
           id: allTests
-          uses: ./
+          uses: game-ci/unity-test-runner@v2
           with:
             projectPath: ${{ matrix.projectPath }}
             unityVersion: ${{ matrix.unityVersion }}
