@@ -6,7 +6,7 @@ We will then use this to give a formal definition of the semantics for \dazel{}.
 Big- and small-step semantics are two different kinds of operational semantics used describe computations.
 Given a single transition $\gamma \rightarrow \gamma' $, big-step semantics describes the entire computation where $\gamma$ is the start configuration and $\gamma'$ must be a terminal configuration. 
 In contrast, a small semantics describes only a single step in a larger computation in which $\gamma'$ does not need to be a terminal configuration. 
-\Figref{SSS_and_BSS} illustrates the different between the two types of operational semantics\cite{huttelTransitionsTreesIntroduction2010}.
+\Figref{SSS_and_BSS} illustrates the difference between the two types of operational semantics\cite{huttelTransitionsTreesIntroduction2010}.
 
 \fig{0.75}{SSS_and_BSS}{The difference between big- and small-step semantics illustrated\cite{huttelTransitionsTreesIntroduction2010}.}
 
@@ -123,7 +123,7 @@ For each of these, we give a finite set of formation rules that define how each 
 		[REPEAT_\text{BSS}] 
 		\qquad \dfrac
 		{\langle S_1, sto \rangle \rightarrow sto'' \;\langle \texttt{repeat} \{S\}, sto \rangle \rightarrow sto'}
-		{\langle \texttt{repeat} \{S\}, sto \rangle\rightarrow sto'}
+		{\langle S_1 \texttt{;repeat} \{S\}, sto \rangle\rightarrow sto'}
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Stm}.}
 	\label{fig:BssStm}
@@ -162,8 +162,8 @@ For each of these, we give a finite set of formation rules that define how each 
 For our operational semantics we have a transition system defined for each expression and declaration. 
 The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
 
-
-\begin{figure}
+The definition of the transition system for each expression type in \dazel{} is shown in \figref{fig:TS_Aexp}, \figref{fig:TS_Bexp}, \figref{fig:TS_Decv} and \figref{fig:TS_Decp} 
+\begin{figure}[htbp]
 	\begin{gather*} 
 		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
@@ -173,7 +173,7 @@ The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)
 	\caption{Transition system for arithmetic expressions}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htbp]
 	\begin{gather*} 
 		\{ \Gamma_\text{BExp}, \rightarrow_a, T_\text{Bexp} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Bexp} = \text{Bexp} \cup \{tt, f\!f\} \\ 
@@ -183,13 +183,24 @@ The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)
 	\caption{Transition system for boolean expressions}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htbp]
 	\begin{gather*} 
-		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
-		\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
-		\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
+		\{ \Gamma_\text{Dv}, \rightarrow_a, T_\text{Dv} \} \\ 
+		\textit{Configurations: } \Gamma_\text{Dv} = \mathbb{(Dec_v * Env_v * sto)} \cup \mathbb{Env_v * sto} \\ 
+		\textit{Terminal configurations: } T_\text{Dec}_v = \mathbb{Env_v * sto}
 	\end{gather*} 
-	\label{fig:TS_}
+	\label{fig:TS_Decv}
+	\caption{Transition system for arithmetic expressions}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{gather*} 
+		\{ \Gamma_\text{Dp}, \rightarrow_a, T_\text{Dp} \} \\ 
+		\textit{Configurations: } \Gamma_\text{Dp} = \mathbb{(Dec_p * Env_p)} \cup \mathbb{Env_p} \\ 
+		\textit{Terminal configurations: } T_\text{Dp} = \mathbb{Env_p}
+	\end{gather*} 
+	\label{fig:TS_Decp}
+	\caption{Transition system for arithmetic expressions}
 \end{figure}
 
 \subsubsection*{Syntactic Categories}
