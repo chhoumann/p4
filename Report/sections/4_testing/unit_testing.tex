@@ -1,8 +1,7 @@
 \section{Unit Testing}
 In implementing unit testing, we have followed a few approaches.
-
-In general, we've attempted to follow the Act-Arrange-Assert (AAA)
-methodology, as well as a naming convention like this:
+In general, we have attempted to follow the Act-Arrange-Assert (AAA)
+methodology, as well as the naming convention 
 \texttt{MethodName\_Scenario\_ExpectedResult}.
 
 We did not use Test-Driven Development, instead resorting to testing
@@ -13,7 +12,7 @@ otherwise have caught.
 To illustrate our approach to testing, we will draw examples from our
 AST Builder tests.
 
-Our approach is based upon traversing the AST through a visitor. First,
+Our approach is to traverse the AST through a visitor. First,
 we had the test fixture class inherit from an AST visitor interface.
 Then we implemented traversal between nodes, where each node knows how
 to visit the node(s) below.
@@ -22,9 +21,9 @@ To test the visitor, we wrote some test code in \dazel{}, which can be seen in \
 the test fixture class could load this test code and generate a parse
 tree from it.
 
-In each \texttt{Visit} method, we call \texttt{Assert} which confirms
+In each \texttt{Visit} method, we call \texttt{Assert} which tests
 that the node contains the correct information in relation to the
-aforementioned test code.
+aforementioned \dazel{} test code.
 
 For example, the visit to a \texttt{GameObject} checks that it has the
 right type (line \ref{code:stcheck}), identifier (line \ref{code:sicheck}), and contents (line \ref{code:sccheck}). Then it goes on to check that
@@ -67,13 +66,41 @@ public void Visit(GameObject gameObject)
     Assert.That(gameObject.Contents[1].Type is EntitiesType, "gameObject.Contents[1].Type is EntitiesType");
 
     // Map has 12 top-level statements (some statement blocks have nested statements)|\label{code:smtcheck}|
-    Assert.That(gameObject.Contents[0].Statements.Count == 5, $"gameObject.Contents[0].Statements.Count == 5." +
-                                                                $"Found {gameObject.Contents[0].Statements.Count}");
+    Assert.That(gameObject.Contents[0].Statements.Count == 5, $"gameObject.Contents[0].Statements.Count == 5." + $"Found {gameObject.Contents[0].Statements.Count}");
     
     // Entities has 1 top-level statement|\label{code:semtcheck}|
-    Assert.That(gameObject.Contents[1].Statements.Count == 1, $"gameObject.Contents[1].Statements.Count == 1" +
-                                                                $"Found {gameObject.Contents[1].Statements.Count}");
+    Assert.That(gameObject.Contents[1].Statements.Count == 1, $"gameObject.Contents[1].Statements.Count == 1" + $"Found {gameObject.Contents[1].Statements.Count}");
     
     gameObject.Contents.ForEach(Visit);|\label{code:sprocc}|
 }
 \end{lstlisting}
+
+Besides verifying that we build a correct AST, it is crucial to test the semantical analysis that the \dazel{} interpreter performs. Therefore, we have written tests with different \dazel{} test code for each test. These tests are largely focused on type checking and scope checking.
+
+Again, to illustrate, we will draw from example. In code \snipref{lst:ArrayPlusIntegerFails}, the test builds an AST for the code in \texttt{TestCode2} and begins typechecking.
+
+Because of the test code, an \texttt{InvalidOperationException} is thrown, which would be expected due to the illegal operation on line \ref{code:illegalcode1}.
+
+\begin{lstlisting}[caption={Testing that arrays and integers cannot be added together}, label={lst:ArrayPlusIntegerFails}, language=CSharp, escapechar=|]
+private const string TestCode2 =
+    "Screen SampleScreen1" +
+    "{" +
+    "   Map" +
+    "   {" +
+    "       arr = [1, 2, 3] + 3;" +|\label{code:illegalcode1}|
+    "   }" +
+    "" +
+    "}";
+
+[Test]
+public void TypeCheck_Visit_ArrayPlusIntegerFails()
+{
+    AbstractSyntaxTree ast = BuildAst(TestCode2);
+    TypeChecker tc = new(ast);
+
+    void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+    Assert.Throws<InvalidOperationException>(TestDelegate);
+}
+\end{lstlisting}
+
+The remaining type checker tests are similar to the one seen in \snipref{lst:ArrayPlusIntegerFails}.
