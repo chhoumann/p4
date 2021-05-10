@@ -25,13 +25,15 @@ namespace Dazel.Game
         {
             if (Instance)
             {
-                Debug.LogError("GameManager has already been instantiated!", gameObject);
+                Destroy(gameObject);
                 return;
             }
 
             Instance = this;
             WorkingEnvironment = Application.persistentDataPath;
             GfxLoader = new GfxLoader(Path.Combine(WorkingEnvironment, GraphicsFileDirectory));
+            
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
