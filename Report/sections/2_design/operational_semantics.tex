@@ -48,7 +48,12 @@ For each of these, we give a finite set of formation rules that define how each 
 	\label{fig:AbstractSyntax}
 \end{figure}
 
-\subsubsection*{Formation rules}
+\subsubsection*{Transition rules}
+
+For the language \dazel{} we have, as previously mentioned, decided to describe the language in terms of Big-step semantics since we are only interested in describing the relationship between the initial and the final state of an execution\cite{SemanWithApplications}.
+
+\textbf{Arithmetic expressions}
+The transition rules in \figref{fig:BssArithm} describe the semantics for arithmetic expressions in \dazel{}. It was decided that the semantics for arithmetic expression should follow a simple c
 
 \begin{figure}[htbp]
 	\centering
@@ -98,26 +103,50 @@ For each of these, we give a finite set of formation rules that define how each 
 		\\
 		% 
 		\\
-		[VAR_\text{BSS}] 
-		\qquad \envs \vdash x \rightarrow_a v
-		\qquad \text{ if } sx = v
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{ArithmExp}.}
 	\label{fig:BssArithm}
+\end{figure}
+
+\textbf{Variable and procedure declaration }
+To ensure that we have static scope rules for both variable and procedure declarations we define $Env_V$ and $Env_P$ respectively in \figref{EnvDef}:
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tabular}{l l}
+		$Env_P = Pname \hookrightarrow Stm \; x \; Env_V \; x \; Env_P$
+	\end{tabular}
+	\caption{Procedure environment}
+	\label{fig:EnvDef}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[VAR_\text{BSS}]
+		\qquad 
+		\frac
+		{\langle D_v,\; env_V[x \mapsto l], \; sto[l \mapsto v][next \mapsto \text{ new } l]\rangle \rightarrow_D (env'_V, sto')}
+		{\langle x:=a; D_V, env_V, sto \rangle \rightarrow_D (env'_V, sto')} \\
+		\text{where } v = \mathcal{A}[\![a]\!](sto\circ env_V ) \text{ and } l = \textit{sto } \texttt{next}
+		\\
+	\end{gather*}
+	\caption{Big-step transition rules for \textbf{Variable declarations}.}
+	\label{fig:BssStm}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
 	\begin{gather*}
 		[ASSIGNMENT_\text{BSS}] 
-		\qquad env_v \vdash \langle x:=a,sto\rangle \rightarrow sto[l\mapsto v]
-		\qquad \text{ where }env_v, sto\vdash a \rightarrow_a v \text{ and } env_v \text{ x = l}
+		\qquad env_V, env_P \vdash \langle x:=a,sto\rangle \rightarrow sto[l\mapsto v] \\
+		\qquad \text{ where } l = env_V \; x \; and \; v = \mathcal{A}[\![a]\!](sto\circ env_V )
 		\\
 		% 
 		\\
 		[COMPOUND_\text{BSS}] 
 		\qquad \dfrac
-		{\langle S_1, sto \rangle \rightarrow sto'' \;\langle S_2, sto'' \rangle \rightarrow sto'}
+		{env_V, env_P \vdash \langle S_1, sto \rangle \rightarrow sto'' \;\langle S_2, sto'' \rangle \rightarrow sto'}
 		{\langle S_1;S_2,sto \rangle\rightarrow sto'}
 		\\
 		% 
@@ -126,6 +155,21 @@ For each of these, we give a finite set of formation rules that define how each 
 		\qquad \dfrac
 		{\langle S_1, sto \rangle \rightarrow sto'' \;\langle \texttt{repeat} \{S\}, sto \rangle \rightarrow sto'}
 		{\langle S_1 \texttt{;repeat} \{S\}, sto \rangle\rightarrow sto'}
+		\\
+		% 
+		\\
+		[Block_\text{BSS}] 
+		\qquad \frac
+		{
+			\begin{gathered}
+				\langle D_V, env_V, sto\rangle \rightarrow_{D} (\text{env'}_V, sto') \\ 
+				env'_V, env'_P \vdash \langle S, sto'\rangle \rightarrow sto''
+			\end{gathered}
+		}
+		{env'_V, env'_P \vdash \langle L_\text{Brace} \; D_V \; D_P \; S \; R_\text{Brace}, \; sto\rangle\rightarrow sto''}
+		\\
+		% 
+		\\
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Stm}.}
 	\label{fig:BssStm}
@@ -164,7 +208,7 @@ For each of these, we give a finite set of formation rules that define how each 
 For our operational semantics we have a transition system defined for each expression and declaration. 
 The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
 
-The definition of the transition system for each expression type in \dazel{} is shown in \figref{TSAexp}, \figref{TSBexp}, \figref{TSDecv} and \figref{TSDecp} 
+The definition of the transition system for each expression type in \dazel{} is shown in \figref{TSAexp}, \figref{TSBexp}, \figref{TSDecv} and \figref{TSDecp}. 
 \begin{figure}[htbp]
 	\begin{gather*} 
 		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
@@ -191,7 +235,7 @@ The definition of the transition system for each expression type in \dazel{} is 
 		\textit{Configurations: } \Gamma_\text{Dv} = (Dec_v \times Env_v \times sto) \cup Env_v \times sto \\ 
 		\textit{Terminal configurations: } T_{\text{Dec}_v} = Env_v \times sto
 	\end{gather*} 
-	\caption{Transition system for }
+	\caption{Transition system for variable declaration}
 	\label{fig:TSDecv}
 \end{figure}
 
@@ -201,7 +245,7 @@ The definition of the transition system for each expression type in \dazel{} is 
 		\textit{Configurations: } \Gamma_\text{Dp} = (Dec_p \times Env_p) \cup Env_p \\ 
 		\textit{Terminal configurations: } T_\text{Dp} = Env_p
 	\end{gather*} 
-	\caption{Transition system for}
+	\caption{Transition system for procedure}
 	\label{fig:TSDecp}
 \end{figure}
 
