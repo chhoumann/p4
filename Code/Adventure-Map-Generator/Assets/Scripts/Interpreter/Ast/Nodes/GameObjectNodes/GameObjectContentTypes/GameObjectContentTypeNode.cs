@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public abstract class GameObjectContentType : Node<IGameObjectContentTypeVisitor>
+    public abstract class GameObjectContentTypeNode : Node<IGameObjectContentTypeVisitor>
     {
         
     }

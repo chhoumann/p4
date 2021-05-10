@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes
 {
-    public sealed class DataType : GameObjectContentType
+    public sealed class MapTypeNode : GameObjectContentTypeNode
     {
         public override void Accept(IGameObjectContentTypeVisitor visitor)
         {

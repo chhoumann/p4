@@ -7,7 +7,6 @@ using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTyp
 using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
 using P4.MapGenerator.Interpreter.Ast.Visitors;
 using UnityEngine;
-using Screen = P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.Screen;
 
 namespace P4.MapGenerator.Interpreter.Ast
 {
@@ -43,66 +42,66 @@ namespace P4.MapGenerator.Interpreter.Ast
             sb.Append($"\"{stringNode.Value}\"");
         }
 
-        public void Visit(FactorExpression factorExpression)
+        public void Visit(FactorExpressionNode factorExpressionNode)
         {
-            factorExpression.Left.Accept(this);
-            factorExpression.Operation.Accept(this);
-            factorExpression.Right.Accept(this);
+            factorExpressionNode.Left.Accept(this);
+            factorExpressionNode.OperationNode.Accept(this);
+            factorExpressionNode.Right.Accept(this);
         }
 
-        public void Visit(FactorOperation factorOperation)
+        public void Visit(FactorOperationNode factorOperationNode)
         {
-            sb.Append(factorOperation.Operation);
+            sb.Append(factorOperationNode.Operation);
         }
 
-        public void Visit(FloatValue floatValue)
+        public void Visit(FloatValueNode floatValueNode)
         {
-            sb.Append(floatValue.Value);
+            sb.Append(floatValueNode.Value);
         }
 
-        public void Visit(IdentifierValue identifierValue)
+        public void Visit(IdentifierValueNode identifierValueNode)
         {
-            sb.Append(identifierValue.Value);
+            sb.Append(identifierValueNode.Value);
         }
 
-        public void Visit(IntValue intValue)
+        public void Visit(IntValueNode intValueNode)
         {
-            sb.Append(intValue.Value);
+            sb.Append(intValueNode.Value);
         }
 
-        public void Visit(MemberAccess memberAccess)
+        public void Visit(MemberAccessNode memberAccessNode)
         {
-            sb.Append(string.Join(".", memberAccess.Identifiers.ToArray()));
+            sb.Append(string.Join(".", memberAccessNode.Identifiers.ToArray()));
         }
 
-        public void Visit(SumExpression sumExpression)
+        public void Visit(SumExpressionNode sumExpressionNode)
         {
-            sumExpression.Left.Accept(this);
-            sumExpression.Operation.Accept(this);
-            sumExpression.Right.Accept(this);
+            sumExpressionNode.Left.Accept(this);
+            sumExpressionNode.OperationNode.Accept(this);
+            sumExpressionNode.Right.Accept(this);
         }
 
-        public void Visit(SumOperation sumOperation)
+        public void Visit(SumOperationNode sumOperationNode)
         {
-            sb.Append(sumOperation.Operation);
+            sb.Append(sumOperationNode.Operation);
         }
 
-        public void Visit(TerminalExpression terminalExpression)
+        public void Visit(TerminalExpressionNode terminalExpressionNode)
         {
-            terminalExpression.Child.Accept(this);
+            terminalExpressionNode.Child.Accept(this);
         }
 
-        public void Visit(Entity entity)
+        public void Visit(EntityNode entityNode)
         {
             sb.Append("Entity");
         }
 
-        public void Visit(DGameObject gameObject)
+        public void Visit(GameObjectNode gameObjectNode)
         {
-            gameObject.Type.Accept(this);
+            gameObjectNode.TypeNode.Accept(this);
             sb.Append(" ");
-            sb.AppendLine(gameObject.Identifier);
-            foreach (GameObjectContent gameObjectContent in gameObject.Contents)
+            sb.AppendLine(gameObjectNode.Identifier);
+            foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents)
             {
                 indentCount += 2;
                 Indent();
@@ -113,27 +112,27 @@ namespace P4.MapGenerator.Interpreter.Ast
             Debug.Log(sb);
         }
 
-        public void Visit(GameObjectContent gameObjectContent)
+        public void Visit(GameObjectContentNode gameObjectContentNode)
         {
-            gameObjectContent.Type.Accept(this);
+            gameObjectContentNode.TypeNode.Accept(this);
             
-            foreach (StatementNode statementNode in gameObjectContent.Statements)
+            foreach (StatementNode statementNode in gameObjectContentNode.Statements)
             {
                 statementNode.Accept(this);
             }
         }
 
-        public void Visit(MovePattern movePattern)
+        public void Visit(MovePatternNode movePatternNode)
         {
             sb.Append("MovePattern");
         }
 
-        public void Visit(Screen screen)
+        public void Visit(ScreenNode screenNode)
         {
             sb.Append("Screen");
         }
 
-        public void Visit(IfStatement ifStatement)
+        public void Visit(IfStatementNode ifStatementNode)
         {
             sb.AppendLine("if - not implemented");
         }
@@ -143,20 +142,20 @@ namespace P4.MapGenerator.Interpreter.Ast
             sb.AppendLine("repeat - not implemented");
         }
 
-        public void Visit(FunctionInvocation functionInvocation)
+        public void Visit(FunctionInvocationNode functionInvocationNode)
         {
             indentCount += 2;
             Indent();
                 
-            sb.Append(functionInvocation.Identifier);
+            sb.Append(functionInvocationNode.Identifier);
             sb.Append('(');
                 
-            for (int i = 0; i < functionInvocation.Parameters.Count; i++)
+            for (int i = 0; i < functionInvocationNode.Parameters.Count; i++)
             {
-                ValueNode functionInvocationParameter = functionInvocation.Parameters[i];
+                ValueNode functionInvocationParameter = functionInvocationNode.Parameters[i];
                 functionInvocationParameter.Accept(this);
                     
-                if (i < functionInvocation.Parameters.Count - 1)
+                if (i < functionInvocationNode.Parameters.Count - 1)
                 {
                     sb.Append(", ");
                 }
@@ -179,43 +178,43 @@ namespace P4.MapGenerator.Interpreter.Ast
             sb.AppendLine("");
         }
 
-        public void Visit(DataType dataType)
+        public void Visit(DataTypeNodeNode dataTypeNodeNode)
         {
             sb.AppendLine("Data");
         }
 
-        public void Visit(EntitiesType entitiesType)
+        public void Visit(EntitiesTypeNodeNode entitiesTypeNodeNode)
         {
             sb.AppendLine("Entities");
         }
 
-        public void Visit(ExitsType exitsType)
+        public void Visit(ExitsTypeNodeNode exitsTypeNodeNode)
         {
             sb.AppendLine("Exit");
         }
 
-        public void Visit(MapType mapType)
+        public void Visit(MapTypeNode mapTypeNode)
         {
             sb.AppendLine("Map");
         }
 
-        public void Visit(OnScreenEnteredType onScreenEnteredType)
+        public void Visit(OnScreenEnteredTypeNode onScreenEnteredTypeNode)
         {
             sb.AppendLine("OnScreenEntered");
         }
 
-        public void Visit(PatternType patternType)
+        public void Visit(PatternTypeNode patternTypeNode)
         {
             sb.AppendLine("Pattern");
         }
 
-        public void Visit(StatementBlock statementBlock)
+        public void Visit(StatementBlockNode statementBlockNode)
         {
             indentCount += 2;
             Indent();
             sb.AppendLine("{");
             
-            foreach (StatementNode statementBlockStatement in statementBlock.Statements)
+            foreach (StatementNode statementBlockStatement in statementBlockNode.Statements)
             {
                 statementBlockStatement.Accept(this);
             }
@@ -225,9 +224,9 @@ namespace P4.MapGenerator.Interpreter.Ast
             indentCount -= 2;
         }
 
-        public void Visit(ExitValue exitValue)
+        public void Visit(ExitValueNode exitValueNode)
         {
-            sb.Append(exitValue);
+            sb.Append(exitValueNode);
         }
     }
 }

@@ -4,16 +4,16 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public sealed class ExitValue : ValueNode
+    public sealed class ExitValueNode : ValueNode
     {
         public Vector2 Coordinates { get; }
 
-        public ExitValue()
+        public ExitValueNode()
         {
-            this.Type = SymbolType.Exit;
+            Type = SymbolType.Exit;
         }
 
-        public ExitValue(Vector2 coordinates)
+        public ExitValueNode(Vector2 coordinates)
         {
             Coordinates = coordinates;
         }

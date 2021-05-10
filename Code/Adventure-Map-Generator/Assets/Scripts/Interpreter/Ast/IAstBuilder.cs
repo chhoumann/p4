@@ -12,9 +12,9 @@ namespace P4.MapGenerator.Interpreter.Ast
     {
         AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees);
         AbstractSyntaxTree BuildAst(IParseTree parseTrees);
-        DGameObject VisitGameObject(DazelParser.GameObjectContext context);
-        List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
-        GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context);
+        GameObjectNode VisitGameObject(DazelParser.GameObjectContext context);
+        List<GameObjectContentNode> VisitGameObjectContents(DazelParser.GameObjectContentsContext context);
+        GameObjectContentNode VisitGameObjectContent(DazelParser.GameObjectContentContext context);
         ExpressionNode VisitExpression(DazelParser.ExpressionContext context);
         ExpressionNode VisitSumExpression(DazelParser.SumExpressionContext context);
         ExpressionNode VisitFactorExpression(DazelParser.FactorExpressionContext context);
@@ -22,16 +22,16 @@ namespace P4.MapGenerator.Interpreter.Ast
         ValueNode VisitValue(DazelParser.ValueContext context);
         ArrayNode VisitArray(DazelParser.ArrayContext context);
         List<ValueNode> VisitValueList(DazelParser.ValueListContext context);
-        FactorOperation VisitFactorOperation(DazelParser.FactorOperationContext context);
-        SumOperation VisitSumOperation(DazelParser.SumOperationContext context);
-        MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context);
+        FactorOperationNode VisitFactorOperation(DazelParser.FactorOperationContext context);
+        SumOperationNode VisitSumOperation(DazelParser.SumOperationContext context);
+        MemberAccessNode VisitMemberAccess(DazelParser.MemberAccessContext context);
         List<StatementNode> VisitStatementList(DazelParser.StatementListContext context);
         StatementNode VisitStatement(DazelParser.StatementContext context);
         RepeatNode VisitRepeatLoop(DazelParser.RepeatLoopContext context);
-        IfStatement VisitIfStatement(DazelParser.IfStatementContext context);
-        StatementExpression VisitStatementExpression(DazelParser.StatementExpressionContext context);
-        FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context);
-        StatementExpression VisitAssignment(DazelParser.AssignmentContext context);
+        IfStatementNode VisitIfStatement(DazelParser.IfStatementContext context);
+        StatementExpressionNode VisitStatementExpression(DazelParser.StatementExpressionContext context);
+        FunctionInvocationNode VisitFunctionInvocation(DazelParser.FunctionInvocationContext context);
+        StatementExpressionNode VisitAssignment(DazelParser.AssignmentContext context);
         List<StatementNode> VisitStatementBlock(DazelParser.StatementBlockContext context);
     }
 }

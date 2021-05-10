@@ -4,11 +4,11 @@ namespace P4.MapGenerator.Interpreter.Ast.Visitors
 {
     public interface IGameObjectContentTypeVisitor
     {
-        void Visit(MapType mapType);
-        void Visit(OnScreenEnteredType onScreenEnteredType);
-        void Visit(DataType dataType);
-        void Visit(EntitiesType entitiesType);
-        void Visit(ExitsType exitsType);
-        void Visit(PatternType patternType);
+        void Visit(MapTypeNode mapTypeNode);
+        void Visit(OnScreenEnteredTypeNode onScreenEnteredTypeNode);
+        void Visit(DataTypeNodeNode dataTypeNodeNode);
+        void Visit(EntitiesTypeNodeNode entitiesTypeNodeNode);
+        void Visit(ExitsTypeNodeNode exitsTypeNodeNode);
+        void Visit(PatternTypeNode patternTypeNode);
     }
 }

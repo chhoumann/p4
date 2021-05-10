@@ -15,14 +15,14 @@ namespace P4.MapGenerator.Interpreter.Ast
     {
         public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
         {
-            Dictionary<string, DGameObject> gameObjects = new Dictionary<string, DGameObject>();
+            Dictionary<string, GameObjectNode> gameObjects = new Dictionary<string, GameObjectNode>();
             
             foreach (IParseTree parseTree in parseTrees)
             {
                 DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext;
-                DGameObject gameObject = VisitGameObject(gameObjectContext);
+                GameObjectNode gameObjectNode = VisitGameObject(gameObjectContext);
                 
-                gameObjects.Add(gameObject.Identifier, gameObject);
+                gameObjects.Add(gameObjectNode.Identifier, gameObjectNode);
             }
 
             RootNode root = new RootNode()
@@ -39,38 +39,38 @@ namespace P4.MapGenerator.Interpreter.Ast
         }
 
         #region GameObject
-        public DGameObject VisitGameObject(DazelParser.GameObjectContext context)
+        public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
         {
-            GameObjectType type;
+            GameObjectTypeNode typeNode;
             
             switch (context.gameObjectType.Type)
             {
                 case DazelLexer.SCREEN:
-                    type = new Screen();
+                    typeNode = new ScreenNode();
                     break;
                 case DazelLexer.ENTITY:
-                    type = new Entity();
+                    typeNode = new EntityNode();
                     break;
                 case DazelLexer.MOVE_PATTERN:
-                    type = new MovePattern();
+                    typeNode = new MovePatternNode();
                     break;
                 default:
                     throw new ArgumentException("Type is not a GameObjectType!");
             }
 
-            DGameObject gameObject = new DGameObject()
+            GameObjectNode gameObjectNode = new GameObjectNode()
             {
                 Identifier = context.GetChild(1).GetText(),
-                Type = type,
+                TypeNode = typeNode,
                 Contents = VisitGameObjectContents(context.gameObjectBlock().gameObjectContents())
             };
             
-            return gameObject;
+            return gameObjectNode;
         }
 
-        public List<GameObjectContent> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
+        public List<GameObjectContentNode> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
         {
-            List<GameObjectContent> contents = new List<GameObjectContent>();
+            List<GameObjectContentNode> contents = new List<GameObjectContentNode>();
 
             if (context.gameObjectContent() == null) return contents;
 
@@ -84,41 +84,41 @@ namespace P4.MapGenerator.Interpreter.Ast
             return contents;
         }
 
-        public GameObjectContent VisitGameObjectContent(DazelParser.GameObjectContentContext context)
+        public GameObjectContentNode VisitGameObjectContent(DazelParser.GameObjectContentContext context)
         {
-            GameObjectContentType gameObjectContentType;
+            GameObjectContentTypeNode gameObjectContentTypeNode;
             
             switch (context.gameObjectContentType.Type)
             {
                 case DazelLexer.MAP:
-                    gameObjectContentType = new MapType();
+                    gameObjectContentTypeNode = new MapTypeNode();
                     break;
                 case DazelLexer.ONSCREENENTERED:
-                    gameObjectContentType = new OnScreenEnteredType();
+                    gameObjectContentTypeNode = new OnScreenEnteredTypeNode();
                     break;
                 case DazelLexer.ENTITIES:
-                    gameObjectContentType = new EntitiesType();
+                    gameObjectContentTypeNode = new EntitiesTypeNodeNode();
                     break;
                 case DazelLexer.EXITS:
-                    gameObjectContentType = new ExitsType();
+                    gameObjectContentTypeNode = new ExitsTypeNodeNode();
                     break;
                 case DazelLexer.DATA:
-                    gameObjectContentType = new DataType();
+                    gameObjectContentTypeNode = new DataTypeNodeNode();
                     break;
                 case DazelLexer.PATTERN:
-                    gameObjectContentType = new PatternType();
+                    gameObjectContentTypeNode = new PatternTypeNode();
                     break;
                 default:
                     throw new ArgumentException("Invalid content type.");
             }
             
-            GameObjectContent content = new GameObjectContent()
+            GameObjectContentNode contentNode = new GameObjectContentNode()
             {
                 Statements = VisitStatementBlock(context.statementBlock()),
-                Type = gameObjectContentType,
+                TypeNode = gameObjectContentTypeNode,
             };
 
-            return content;
+            return contentNode;
         }
         #endregion
 
@@ -132,10 +132,10 @@ namespace P4.MapGenerator.Interpreter.Ast
         {
             if (context.ChildCount > 1)
             {
-                return new SumExpression
+                return new SumExpressionNode
                 {
                     Left = VisitSumExpression(context.sumExpression()),
-                    Operation = VisitSumOperation(context.sumOperation()),
+                    OperationNode = VisitSumOperation(context.sumOperation()),
                     Right = VisitFactorExpression(context.factorExpression())
                 };
             }
@@ -147,10 +147,10 @@ namespace P4.MapGenerator.Interpreter.Ast
         {
             if (context.ChildCount > 1)
             {
-                return new FactorExpression
+                return new FactorExpressionNode
                 {
                     Left = VisitFactorExpression(context.factorExpression()),
-                    Operation = VisitFactorOperation(context.factorOperation()),
+                    OperationNode = VisitFactorOperation(context.factorOperation()),
                     Right = VisitTerminalExpression(context.terminalExpression())
                 };
             }
@@ -188,17 +188,17 @@ namespace P4.MapGenerator.Interpreter.Ast
             switch (context.terminalValue.Type)
             {
                 case DazelLexer.IDENTIFIER:
-                    return new IdentifierValue
+                    return new IdentifierValueNode
                     {
                         Value = context.GetText()
                     };
                 case DazelLexer.INT:
-                    return new IntValue
+                    return new IntValueNode
                     {
                         Value = int.Parse(context.GetText())
                     };
                 case DazelLexer.FLOAT:
-                    return new FloatValue
+                    return new FloatValueNode
                     {
                         Value = float.Parse(context.GetText())
                     };
@@ -236,34 +236,34 @@ namespace P4.MapGenerator.Interpreter.Ast
             return values;
         }
 
-        public FactorOperation VisitFactorOperation(DazelParser.FactorOperationContext context)
+        public FactorOperationNode VisitFactorOperation(DazelParser.FactorOperationContext context)
         {
             char op = context.DIVISION_OP() != null ? Operators.DivOp : Operators.MultOp;
             
-            return new FactorOperation()
+            return new FactorOperationNode()
             {
                 Operation = op
             };
         }
         
-        public SumOperation VisitSumOperation(DazelParser.SumOperationContext context)
+        public SumOperationNode VisitSumOperation(DazelParser.SumOperationContext context)
         {
             char op = context.PLUS_OP() != null ? Operators.AddOp : Operators.MinOp;
 
-            return new SumOperation()
+            return new SumOperationNode()
             {
                 Operation = op
             };
         }
         
-        public MemberAccess VisitMemberAccess(DazelParser.MemberAccessContext context)
+        public MemberAccessNode VisitMemberAccess(DazelParser.MemberAccessContext context)
         {
-            MemberAccess memberAccess;
+            MemberAccessNode memberAccessNode;
 
             // X.Y
             if (context.children.Count == 3)
             {
-                memberAccess = new MemberAccess
+                memberAccessNode = new MemberAccessNode
                 {
                     Identifiers =
                     {
@@ -274,7 +274,7 @@ namespace P4.MapGenerator.Interpreter.Ast
             }
             else if (context.children.Count == 5) // X.Y.Z
             {
-                memberAccess = new MemberAccess
+                memberAccessNode = new MemberAccessNode
                 {
                     Identifiers =
                     {
@@ -289,7 +289,7 @@ namespace P4.MapGenerator.Interpreter.Ast
                 throw new ArgumentException($"Member Access {context.GetChild(0).GetText()}");
             }
             
-            return memberAccess;
+            return memberAccessNode;
         }
         #endregion
 
@@ -300,7 +300,7 @@ namespace P4.MapGenerator.Interpreter.Ast
             
             if (context.statementBlock() != null)
             {
-                statements.Add(new StatementBlock()
+                statements.Add(new StatementBlockNode()
                 {
                     Statements = new List<StatementNode>(VisitStatementBlock(context.statementBlock()))
                 });
@@ -350,16 +350,16 @@ namespace P4.MapGenerator.Interpreter.Ast
         }
 
         // TOOD: Undecided
-        public IfStatement VisitIfStatement(DazelParser.IfStatementContext context)
+        public IfStatementNode VisitIfStatement(DazelParser.IfStatementContext context)
         {
             // // TODO: update expression visitor
             // var expression = new ExpressionVisitor().VisitExpression(context.expression());
             // var statements = VisitStatementList(context.statementList());
 
-            return new IfStatement();
+            return new IfStatementNode();
         }
 
-        public StatementExpression VisitStatementExpression(DazelParser.StatementExpressionContext context)
+        public StatementExpressionNode VisitStatementExpression(DazelParser.StatementExpressionContext context)
         {
             if (context.assignment() != null)
             {
@@ -369,16 +369,16 @@ namespace P4.MapGenerator.Interpreter.Ast
             return VisitFunctionInvocation(context.functionInvocation());
         }
 
-        public FunctionInvocation VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
+        public FunctionInvocationNode VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
         {
-            return new FunctionInvocation()
+            return new FunctionInvocationNode()
             {
                 Identifier = context.IDENTIFIER().GetText(),
                 Parameters = VisitValueList(context.valueList()),
             };
         }
 
-        public StatementExpression VisitAssignment(DazelParser.AssignmentContext context)
+        public StatementExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
         {
             return new AssignmentNode()
             {

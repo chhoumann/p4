@@ -27,14 +27,14 @@ namespace P4.MapGenerator.Interpreter.Ast
             // TODO: Temporary handling for player member access.
             if (identifierList[0] == "Player" && identifierList[1] == "Health")
             {
-                node = new IntValue() {Value = 100};
+                node = new IntValueNode() {Value = 100};
                 return true;
             }
 
-            DGameObject start = Root.GameObjects[identifierList[0]];
-            foreach (GameObjectContent gameObjectContent in start.Contents)
+            GameObjectNode start = Root.GameObjects[identifierList[0]];
+            foreach (GameObjectContentNode gameObjectContent in start.Contents)
             {
-                if (nameof(gameObjectContent.Type) == identifierList[1])
+                if (nameof(gameObjectContent.TypeNode) == identifierList[1])
                 {
                     foreach (StatementNode statementNode in gameObjectContent.Statements)
                     {
@@ -52,9 +52,9 @@ namespace P4.MapGenerator.Interpreter.Ast
             return false;
         }
 
-        public bool TryRetrieveGameObject(string identifier, out DGameObject gameObject)
+        public bool TryRetrieveGameObject(string identifier, out GameObjectNode gameObjectNode)
         {
-            return Root.GameObjects.TryGetValue(identifier, out gameObject);
+            return Root.GameObjects.TryGetValue(identifier, out gameObjectNode);
         }
     }
 }

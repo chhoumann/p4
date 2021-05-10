@@ -51,102 +51,102 @@ namespace P4.MapGenerator.Editor.Tests.AST
         {
             AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTree);
             
-            foreach (DGameObject gameObject in ast.Root.GameObjects.Values)
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 Visit(gameObject);
             }
         }
 
         
-        public void Visit(DGameObject gameObject)
+        public void Visit(GameObjectNode gameObjectNode)
         {
             // Line 1
-            Assert.That(gameObject.Type is Screen, "gameObject.Type is ScreenType");
-            Assert.That(gameObject.Identifier == "SampleScreen1", "gameObject.Identifier == 'SampleScreen1'");
+            Assert.That(gameObjectNode.TypeNode is ScreenNode, "gameObject.Type is ScreenType");
+            Assert.That(gameObjectNode.Identifier == "SampleScreen1", "gameObject.Identifier == 'SampleScreen1'");
             
             // Contents: Map, Entities
-            Assert.That(gameObject.Contents[0].Type is MapType, "gameObject.Contents[0].Type is MapType");
-            Assert.That(gameObject.Contents[1].Type is EntitiesType, "gameObject.Contents[1].Type is EntitiesType");
+            Assert.That(gameObjectNode.Contents[0].TypeNode is MapTypeNode, "gameObject.Contents[0].Type is MapType");
+            Assert.That(gameObjectNode.Contents[1].TypeNode is EntitiesTypeNodeNode, "gameObject.Contents[1].Type is EntitiesType");
 
             // Map has 12 top-level statements (some statement blocks have nested statements)
-            Assert.That(gameObject.Contents[0].Statements.Count == 5, $"gameObject.Contents[0].Statements.Count == 5." +
-                                                                       $"Found {gameObject.Contents[0].Statements.Count}");
+            Assert.That(gameObjectNode.Contents[0].Statements.Count == 5, $"gameObject.Contents[0].Statements.Count == 5." +
+                                                                       $"Found {gameObjectNode.Contents[0].Statements.Count}");
             
             // Entities has 1 top-level statement
-            Assert.That(gameObject.Contents[1].Statements.Count == 1, $"gameObject.Contents[1].Statements.Count == 1" +
-                                                                      $"Found {gameObject.Contents[1].Statements.Count}");
+            Assert.That(gameObjectNode.Contents[1].Statements.Count == 1, $"gameObject.Contents[1].Statements.Count == 1" +
+                                                                      $"Found {gameObjectNode.Contents[1].Statements.Count}");
             
-            gameObject.Contents.ForEach(Visit);
+            gameObjectNode.Contents.ForEach(Visit);
         }
 
         #region Types
 
-        public void Visit(MapType mapType) { }
+        public void Visit(MapTypeNode mapTypeNode) { }
 
-        public void Visit(PatternType patternType) { }
+        public void Visit(PatternTypeNode patternTypeNode) { }
 
-        public void Visit(OnScreenEnteredType onScreenEnteredType) { }
+        public void Visit(OnScreenEnteredTypeNode onScreenEnteredTypeNode) { }
 
-        public void Visit(Entity entity) { }
+        public void Visit(EntityNode entityNode) { }
 
-        public void Visit(DataType dataType) { }
+        public void Visit(DataTypeNodeNode dataTypeNodeNode) { }
 
-        public void Visit(EntitiesType entitiesType) { }
+        public void Visit(EntitiesTypeNodeNode entitiesTypeNodeNode) { }
 
-        public void Visit(ExitsType exitsType) { }
+        public void Visit(ExitsTypeNodeNode exitsTypeNodeNode) { }
         #endregion
 
-        public void Visit(GameObjectContent gameObjectContent)
+        public void Visit(GameObjectContentNode gameObjectContentNode)
         {
-            gameObjectContent.Statements.ForEach(statement =>
+            gameObjectContentNode.Statements.ForEach(statement =>
             {
                 statement.Accept(this);
             });
         }
 
-        public void Visit(StatementBlock statementBlock)
+        public void Visit(StatementBlockNode statementBlockNode)
         {
             // There is one statement block with 2 statements inside.
-            Assert.That(statementBlock.Statements.Count == 2);
+            Assert.That(statementBlockNode.Statements.Count == 2);
             
-            statementBlock.Statements.ForEach(statement => statement.Accept(this));
+            statementBlockNode.Statements.ForEach(statement => statement.Accept(this));
         }
 
-        public void Visit(FactorExpression factorExpression) { }
-        public void Visit(FactorOperation factorOperation) { }
+        public void Visit(FactorExpressionNode factorExpressionNode) { }
+        public void Visit(FactorOperationNode factorOperationNode) { }
 
-        public void Visit(SumExpression sumExpression) { }
+        public void Visit(SumExpressionNode sumExpressionNode) { }
 
-        public void Visit(SumOperation sumOperation) { }
+        public void Visit(SumOperationNode sumOperationNode) { }
 
-        public void Visit(TerminalExpression terminalExpression) { }
+        public void Visit(TerminalExpressionNode terminalExpressionNode) { }
 
-        public void Visit(MovePattern movePattern) { }
+        public void Visit(MovePatternNode movePatternNode) { }
 
-        public void Visit(Screen screen) { }
+        public void Visit(ScreenNode screenNode) { }
 
-        public void Visit(IfStatement ifStatement) { }
+        public void Visit(IfStatementNode ifStatementNode) { }
 
         public void Visit(RepeatNode repeatNode) { }
 
-        public void Visit(FunctionInvocation functionInvocation)
+        public void Visit(FunctionInvocationNode functionInvocationNode)
         {
             Assert.That(
-                functionInvocation.Identifier == "Size" ||
-                functionInvocation.Identifier == "SpawnEntity"
+                functionInvocationNode.Identifier == "Size" ||
+                functionInvocationNode.Identifier == "SpawnEntity"
                 );
             
-            switch (functionInvocation.Identifier)
+            switch (functionInvocationNode.Identifier)
             {
                 case "Size":
-                    Assert.That(functionInvocation.Parameters[0] is IntValue {Value: 30});
-                    Assert.That(functionInvocation.Parameters[1] is IntValue {Value: 24});
+                    Assert.That(functionInvocationNode.Parameters[0] is IntValueNode {Value: 30});
+                    Assert.That(functionInvocationNode.Parameters[1] is IntValueNode {Value: 24});
                     break;
                 case "SpawnEntity":
-                    Assert.That(functionInvocation.Parameters[0] is IdentifierValue {Value: "Skeleton1"});
-                    Assert.That(functionInvocation.Parameters[1] is ArrayNode array && 
-                                array.Values[0] is IntValue {Value: 4} &&
-                                array.Values[1] is IntValue {Value: 5});
+                    Assert.That(functionInvocationNode.Parameters[0] is IdentifierValueNode {Value: "Skeleton1"});
+                    Assert.That(functionInvocationNode.Parameters[1] is ArrayNode array && 
+                                array.Values[0] is IntValueNode {Value: 4} &&
+                                array.Values[1] is IntValueNode {Value: 5});
                     break;
             }
         }
@@ -165,29 +165,29 @@ namespace P4.MapGenerator.Editor.Tests.AST
             {
                 // SomeVar1 = 2.0
                 case "SomeVar1":
-                    Assert.That(assignmentNode.Expression is FloatValue {Value: 2.0f});
+                    Assert.That(assignmentNode.Expression is FloatValueNode {Value: 2.0f});
                     break;
                 // SomeVar2 = 3 + 3 / 3
                 case "SomeVar2":
-                    Assert.That(assignmentNode.Expression is SumExpression
+                    Assert.That(assignmentNode.Expression is SumExpressionNode
                         {
-                            Left: IntValue {Value: 3},
-                            Operation: {Operation: '+'},
-                            Right: FactorExpression {
-                                Left: IntValue {Value: 3},
-                                Operation: {Operation: '/'},
-                                Right: IntValue {Value: 3},
+                            Left: IntValueNode {Value: 3},
+                            OperationNode: {Operation: '+'},
+                            Right: FactorExpressionNode {
+                                Left: IntValueNode {Value: 3},
+                                OperationNode: {Operation: '/'},
+                                Right: IntValueNode {Value: 3},
                             }
                         }
                     );
                     break;
                 // x = SomeVar3
                 case "x":
-                    Assert.That(assignmentNode.Expression is IdentifierValue {Value: "SomeVar2"});
+                    Assert.That(assignmentNode.Expression is IdentifierValueNode {Value: "SomeVar2"});
                     break;
                 // let = SampleScreen1.Exits.exit1
                 case "let":
-                    Assert.That(assignmentNode.Expression is MemberAccess me &&
+                    Assert.That(assignmentNode.Expression is MemberAccessNode me &&
                                 me.Identifiers[0] == "SampleScreen1" && 
                                 me.Identifiers[1] == "Exits" && 
                                 me.Identifiers[2] == "exit1"
@@ -196,26 +196,26 @@ namespace P4.MapGenerator.Editor.Tests.AST
                 // arr = [1, 2, 3]
                 case "arr":
                     Assert.That(assignmentNode.Expression is ArrayNode arr &&
-                                arr.Values[0] is IntValue {Value: 1} &&
-                                arr.Values[1] is IntValue {Value: 2} &&
-                                arr.Values[2] is IntValue {Value: 3}
+                                arr.Values[0] is IntValueNode {Value: 1} &&
+                                arr.Values[1] is IntValueNode {Value: 2} &&
+                                arr.Values[2] is IntValueNode {Value: 3}
                     );
                     break;
             }
         }
 
-        public void Visit(MemberAccess memberAccess) { }
+        public void Visit(MemberAccessNode memberAccessNode) { }
 
-        public void Visit(FloatValue floatValue) { }
+        public void Visit(FloatValueNode floatValueNode) { }
 
-        public void Visit(IdentifierValue identifierValue) { }
+        public void Visit(IdentifierValueNode identifierValueNode) { }
 
-        public void Visit(IntValue intValue) { }
+        public void Visit(IntValueNode intValueNode) { }
 
         public void Visit(ArrayNode arrayNode) { }
         public void Visit(StringNode stringNode) { }
 
-        public void Visit(ExitValue exitValue) {
+        public void Visit(ExitValueNode exitValueNode) {
         }
     }
 }

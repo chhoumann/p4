@@ -14,46 +14,46 @@ namespace P4.MapGenerator.Interpreter.SemanticAnalysis
             this.ast = ast;
         }
 
-        public void Visit(DGameObject gameObject)
+        public void Visit(GameObjectNode gameObjectNode)
         {
             OpenScope();
 
-            foreach (GameObjectContent gameObjectContent in gameObject.Contents) Visit(gameObjectContent);
+            foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents) Visit(gameObjectContent);
 
             CloseScope();
         }
 
-        public void Visit(Entity entity)
+        public void Visit(EntityNode entityNode)
         {
         }
 
-        public void Visit(GameObjectContent gameObjectContent)
+        public void Visit(GameObjectContentNode gameObjectContentNode)
         {
             OpenScope();
 
-            foreach (StatementNode statementNode in gameObjectContent.Statements) statementNode.Accept(this);
+            foreach (StatementNode statementNode in gameObjectContentNode.Statements) statementNode.Accept(this);
 
             CloseScope();
         }
 
-        public void Visit(MovePattern movePattern)
+        public void Visit(MovePatternNode movePatternNode)
         {
         }
 
-        public void Visit(Screen screen)
+        public void Visit(ScreenNode screenNode)
         {
         }
 
-        public void Visit(StatementBlock statementBlock)
+        public void Visit(StatementBlockNode statementBlockNode)
         {
             OpenScope();
 
-            foreach (StatementNode statement in statementBlock.Statements) statement.Accept(this);
+            foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this);
 
             CloseScope();
         }
 
-        public void Visit(IfStatement ifStatement)
+        public void Visit(IfStatementNode ifStatementNode)
         {
         }
 
@@ -61,11 +61,11 @@ namespace P4.MapGenerator.Interpreter.SemanticAnalysis
         {
         }
 
-        public void Visit(FunctionInvocation functionInvocation)
+        public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocation.ReturnType, functionInvocation.Parameters);
+            FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
 
-            EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocation.Identifier, entry);
+            EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);
         }
 
         public void Visit(AssignmentNode assignmentNode)

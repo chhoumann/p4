@@ -24,8 +24,8 @@ namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
         {
             if (Values.Count == 2)
             {
-                IntValue x = Values[0] as IntValue;
-                IntValue y = Values[1] as IntValue;
+                IntValueNode x = Values[0] as IntValueNode;
+                IntValueNode y = Values[1] as IntValueNode;
 
                 return new Vector2(x.Value, y.Value);
             }

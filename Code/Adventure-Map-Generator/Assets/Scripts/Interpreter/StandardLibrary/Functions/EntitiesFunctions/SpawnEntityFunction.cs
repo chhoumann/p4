@@ -12,17 +12,17 @@ namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.EntitiesFunction
     {
         public override int NumArguments => 2;
         public Vector2 SpawnPoint { get; private set; }
-        public DGameObject Entity { get; set; }
+        public GameObjectNode Entity { get; set; }
 
         public SpawnEntityFunction() : base(SymbolType.Void) { }
 
         public override ValueNode Build(List<ValueNode> parameters)
         {
-            if (parameters[0] is ArrayNode coordsArray && parameters[1] is IdentifierValue id)
+            if (parameters[0] is ArrayNode coordsArray && parameters[1] is IdentifierValueNode id)
             {
                 SpawnPoint = coordsArray.ToVector2();
 
-                if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(id.Value, out DGameObject gameObject))
+                if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(id.Value, out GameObjectNode gameObject))
                 {
                     Entity = gameObject;
                 }

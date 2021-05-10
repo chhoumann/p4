@@ -33,13 +33,13 @@ namespace Interpreter
 
             AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
         
-            foreach (DGameObject gameObject in ast.Root.GameObjects.Values)
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 AstPrinter astPrinter = new AstPrinter();
                 astPrinter.Visit(gameObject);     
             }
             
-            foreach (DGameObject gameObject in ast.Root.GameObjects.Values)
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 new TypeChecker(ast).Visit(gameObject);
             }

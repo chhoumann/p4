@@ -2,10 +2,10 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
-    public sealed class SumExpression : InfixExpressionNode
+    public sealed class TerminalExpressionNode : ExpressionNode
     {
-        public SumOperation Operation { get; set; }
-
+        public ExpressionNode Child { get; set; }
+        
         public override void Accept(IExpressionVisitor visitor)
         {
             visitor.Visit(this);

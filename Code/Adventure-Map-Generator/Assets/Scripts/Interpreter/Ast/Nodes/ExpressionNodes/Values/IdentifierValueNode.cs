@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public sealed class IdentifierValue : ValueNode
+    public sealed class IdentifierValueNode : ValueNode
     {
         public string Value { get; set; }
 

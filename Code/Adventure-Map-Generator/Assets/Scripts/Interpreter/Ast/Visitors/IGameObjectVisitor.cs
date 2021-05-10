@@ -4,11 +4,11 @@ namespace P4.MapGenerator.Interpreter.Ast.Visitors
 {
     public interface IGameObjectVisitor
     {
-        void Visit(DGameObject gameObject);
-        void Visit(GameObjectContent gameObjectContent);
-        void Visit(MovePattern movePattern);
+        void Visit(GameObjectNode gameObjectNode);
+        void Visit(GameObjectContentNode gameObjectContentNode);
+        void Visit(MovePatternNode movePatternNode);
         
-        void Visit(Entity entity);
-        void Visit(Screen screen);
+        void Visit(EntityNode entityNode);
+        void Visit(ScreenNode screenNode);
     }
 }

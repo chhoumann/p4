@@ -5,9 +5,9 @@ using P4.MapGenerator.Interpreter.Ast.Visitors;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public sealed class GameObjectContent : GameObjectNode
+    public sealed class GameObjectContentNode : GameObjectNodeBase
     {
-        public GameObjectContentType Type { get; set; }
+        public GameObjectContentTypeNode TypeNode { get; set; }
         public List<StatementNode> Statements { get; set; }
 
         public override void Accept(IGameObjectVisitor visitor)

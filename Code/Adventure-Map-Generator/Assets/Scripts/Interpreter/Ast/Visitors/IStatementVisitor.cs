@@ -4,10 +4,10 @@ namespace P4.MapGenerator.Interpreter.Ast.Visitors
 {
     public interface IStatementVisitor
     {
-        void Visit(StatementBlock statementBlock);
-        void Visit(IfStatement ifStatement);
+        void Visit(StatementBlockNode statementBlockNode);
+        void Visit(IfStatementNode ifStatementNode);
         void Visit(RepeatNode repeatNode);
         void Visit(AssignmentNode assignmentNode);
-        void Visit(FunctionInvocation functionInvocation);
+        void Visit(FunctionInvocationNode functionInvocationNode);
     }
 }

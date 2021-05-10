@@ -2,7 +2,7 @@
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes
 {
-    public sealed class MovePattern : GameObjectType
+    public sealed class EntityNode : GameObjectTypeNode
     {
         public override void Accept(IGameObjectVisitor visitor)
         {

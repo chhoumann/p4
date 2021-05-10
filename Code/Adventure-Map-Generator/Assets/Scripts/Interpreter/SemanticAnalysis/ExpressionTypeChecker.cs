@@ -41,48 +41,48 @@ namespace P4.MapGenerator.Interpreter.SemanticAnalysis
             return CurrentType;
         }
         
-        public void Visit(SumExpression sumExpression)
+        public void Visit(SumExpressionNode sumExpressionNode)
         {
-            sumExpression.Left.Accept(this);
-            sumExpression.Right.Accept(this);
+            sumExpressionNode.Left.Accept(this);
+            sumExpressionNode.Right.Accept(this);
         }
         
-        public void Visit(FactorExpression factorExpression)
+        public void Visit(FactorExpressionNode factorExpressionNode)
         {
-            factorExpression.Left.Accept(this);
-            factorExpression.Right.Accept(this);
+            factorExpressionNode.Left.Accept(this);
+            factorExpressionNode.Right.Accept(this);
         }
 
-        public void Visit(TerminalExpression terminalExpression)
+        public void Visit(TerminalExpressionNode terminalExpressionNode)
         {
-            terminalExpression.Child.Accept(this);
+            terminalExpressionNode.Child.Accept(this);
         }
         
-        public void Visit(MemberAccess memberAccess)
+        public void Visit(MemberAccessNode memberAccessNode)
         {
-            if (ast.TryRetrieveNode(memberAccess.Identifiers, out ValueNode value))
+            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out ValueNode value))
             {
                 CurrentType = value.Type;
             }
             else
             {
-                throw new InvalidOperationException($"{string.Join(".", memberAccess.Identifiers)} was not found.");
+                throw new InvalidOperationException($"{string.Join(".", memberAccessNode.Identifiers)} was not found.");
             }
         }
 
-        public void Visit(FloatValue floatValue)
+        public void Visit(FloatValueNode floatValueNode)
         {
-            CurrentType = floatValue.Type;
+            CurrentType = floatValueNode.Type;
         }
 
-        public void Visit(IdentifierValue identifierValue)
+        public void Visit(IdentifierValueNode identifierValueNode)
         {
-            CurrentType = symbolTable.RetrieveSymbol(identifierValue.Value).Type;
+            CurrentType = symbolTable.RetrieveSymbol(identifierValueNode.Value).Type;
         }
 
-        public void Visit(IntValue intValue)
+        public void Visit(IntValueNode intValueNode)
         {
-            CurrentType = intValue.Type;
+            CurrentType = intValueNode.Type;
         }
 
         public void Visit(ArrayNode arrayNode)
@@ -108,17 +108,17 @@ namespace P4.MapGenerator.Interpreter.SemanticAnalysis
             CurrentType = stringNode.Type;
         }
 
-        public void Visit(ExitValue exitValue)
+        public void Visit(ExitValueNode exitValueNode)
         {
             
         }
 
         #region IVisitor unimplemented
-        public void Visit(SumOperation sumOperation)
+        public void Visit(SumOperationNode sumOperationNode)
         {
         }
         
-        public void Visit(FactorOperation factorOperation)
+        public void Visit(FactorOperationNode factorOperationNode)
         {
         }
         #endregion

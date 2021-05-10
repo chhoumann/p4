@@ -13,9 +13,9 @@ namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.ExitsFunctions
 
         public override ValueNode Build(List<ValueNode> parameters)
         {
-            if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccess memberAccess)
+            if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccessNode memberAccess)
             {
-                return new ExitValue(coords.ToVector2());
+                return new ExitValueNode(coords.ToVector2());
             }
             
             // TODO: Should return some exit type so we can assign to exits

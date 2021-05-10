@@ -3,15 +3,15 @@ using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
 namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
-    public sealed class IntValue : ValueNode
+    public sealed class FloatValueNode : ValueNode
     {
-        public int Value { get; set; }
+        public float Value { get; set; }
 
-        public IntValue()
+        public FloatValueNode()
         {
-            this.Type = SymbolType.Integer;
+            Type = SymbolType.Float;
         }
-        
+
         public override void Accept(IExpressionVisitor visitor)
         {
             visitor.Visit(this);
