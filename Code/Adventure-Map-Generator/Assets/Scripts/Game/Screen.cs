@@ -22,7 +22,7 @@ namespace Dazel.Game
 
             foreach (ITilemapGenerator tilemapGenerator in GetComponentsInChildren<ITilemapGenerator>())
             {
-                tilemapGenerator.Generate(size);
+                tilemapGenerator.Generate(size, screenModel.TileStack.Pop());
             }
             
             return this;

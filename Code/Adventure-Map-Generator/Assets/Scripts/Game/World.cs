@@ -21,7 +21,7 @@ namespace Dazel.Game
             {
                 Width = 47,
                 Height = 30
-            };
+            }.SetFloor("Grass.png");
             
             maps = new Screen[mapContainer.childCount];
 
