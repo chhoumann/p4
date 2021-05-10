@@ -164,14 +164,14 @@ For each of these, we give a finite set of formation rules that define how each 
 For our operational semantics we have a transition system defined for each expression and declaration. 
 The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
 
-The definition of the transition system for each expression type in \dazel{} is shown in \figref{fig:TS_Aexp}, \figref{fig:TS_Bexp}, \figref{fig:TS_Decv} and \figref{fig:TS_Decp} 
+The definition of the transition system for each expression type in \dazel{} is shown in \figref{TSAexp}, \figref{TSBexp}, \figref{TSDecv} and \figref{TSDecp} 
 \begin{figure}[htbp]
 	\begin{gather*} 
 		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
 		\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
 	\end{gather*}
-	\label{fig:TS_Aexp}
+	\label{fig:TSAexp}
 	\caption{Transition system for arithmetic expressions}
 \end{figure}
 
@@ -181,28 +181,28 @@ The definition of the transition system for each expression type in \dazel{} is 
 		\textit{Configurations: } \Gamma_\text{Bexp} = \text{Bexp} \cup \{tt, f\!f\} \\ 
 		\textit{Terminal configurations: } T_\text{Bexp} = \{tt, f\!f\}
 	\end{gather*}
-	\label{fig:TS_Bexp}
+	\label{fig:TSBexp}
 	\caption{Transition system for boolean expressions}
 \end{figure}
 
 \begin{figure}[htbp]
 	\begin{gather*} 
 		\{ \Gamma_\text{Dv}, \rightarrow_a, T_\text{Dv} \} \\ 
-		\textit{Configurations: } \Gamma_\text{Dv} = \mathbb{(Dec_v * Env_v * sto)} \cup \mathbb{Env_v * sto} \\ 
-		\textit{Terminal configurations: } T_\text{Dec}_v = \mathbb{Env_v * sto}
+		\textit{Configurations: } \Gamma_\text{Dv} = (Dec_v \times Env_v \times sto) \cup Env_v \times sto \\ 
+		\textit{Terminal configurations: } T_{\text{Dec}_v} = Env_v \times sto
 	\end{gather*} 
-	\label{fig:TS_Decv}
-	\caption{Transition system for arithmetic expressions}
+	\label{fig:TSDecv}
+	\caption{Transition system for }
 \end{figure}
 
 \begin{figure}[htbp]
 	\begin{gather*} 
 		\{ \Gamma_\text{Dp}, \rightarrow_a, T_\text{Dp} \} \\ 
-		\textit{Configurations: } \Gamma_\text{Dp} = \mathbb{(Dec_p * Env_p)} \cup \mathbb{Env_p} \\ 
-		\textit{Terminal configurations: } T_\text{Dp} = \mathbb{Env_p}
+		\textit{Configurations: } \Gamma_\text{Dp} = (Dec_p \times Env_p) \cup Env_p \\ 
+		\textit{Terminal configurations: } T_\text{Dp} = Env_p
 	\end{gather*} 
-	\label{fig:TS_Decp}
-	\caption{Transition system for arithmetic expressions}
+	\label{fig:TSDecp}
+	\caption{Transition system for}
 \end{figure}
 
 \subsubsection*{Syntactic Categories}
