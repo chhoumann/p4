@@ -33,7 +33,6 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 /// </summary>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.1")]
 [System.Diagnostics.DebuggerNonUserCode]
-[System.CLSCompliant(false)]
 public partial class DazelBaseListener : IDazelListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DazelParser.start"/>.
