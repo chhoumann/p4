@@ -1,5 +1,5 @@
 \section{Unit Testing}
-In implementing unit testing, we have followed a few approaches.
+While implementing unit testing, we followed a few approaches.
 In general, we have attempted to follow the Act-Arrange-Assert (AAA)
 methodology, as well as the naming convention 
 \texttt{MethodName\_Scenario\_ExpectedResult}.
@@ -10,16 +10,15 @@ contributed to us catching bugs and fixing errors that we wouldn't
 otherwise have caught.
 
 To illustrate our approach to testing, we will draw examples from our
-AST Builder tests.
+AST builder tests.
 
 Our approach is to traverse the AST through a visitor. First,
 we had the test fixture class inherit from an AST visitor interface.
 Then we implemented traversal between nodes, where each node knows how
-to visit the node(s) below.
+to visit its child nodes.
 
-To test the visitor, we wrote some test code in \dazel{}, which can be seen in \snipref{lst:asttestcode}. We made sure that
-the test fixture class could load this test code and generate a parse
-tree from it.
+To test the AST builder, we wrote some test code in \dazel{}, which can be seen in \snipref{lst:asttestcode}. We made sure that
+the test fixture class could load this test code and generate an abstract syntax tree from it.
 
 In each \texttt{Visit} method, we call \texttt{Assert} which tests
 that the node contains the correct information in relation to the
