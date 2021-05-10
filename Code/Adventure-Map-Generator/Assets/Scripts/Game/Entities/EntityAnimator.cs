@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace P4.MapGenerator.Entities
+namespace Dazel.Game.Entities
 {
     [RequireComponent(typeof(Entity))]
     public sealed class EntityAnimator : MonoBehaviour

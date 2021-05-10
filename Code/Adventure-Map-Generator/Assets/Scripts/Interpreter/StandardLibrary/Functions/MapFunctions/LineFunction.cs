@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.SemanticAnalysis;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.SemanticAnalysis;
 
-namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.MapFunctions
+namespace Dazel.Interpreter.StandardLibrary.Functions.MapFunctions
 {
     public sealed class LineFunction : Function
     {

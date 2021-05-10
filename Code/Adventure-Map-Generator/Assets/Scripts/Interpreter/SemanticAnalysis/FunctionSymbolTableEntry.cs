@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 
-namespace P4.MapGenerator.Interpreter.SemanticAnalysis
+namespace Dazel.Interpreter.SemanticAnalysis
 {
     public class FunctionSymbolTableEntry : SymbolTableEntry
     {

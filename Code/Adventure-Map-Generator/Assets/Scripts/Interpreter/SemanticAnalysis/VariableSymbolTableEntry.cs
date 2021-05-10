@@ -1,4 +1,4 @@
-﻿namespace P4.MapGenerator.Interpreter.SemanticAnalysis
+﻿namespace Dazel.Interpreter.SemanticAnalysis
 {
     public class VariableSymbolTableEntry : SymbolTableEntry
     {

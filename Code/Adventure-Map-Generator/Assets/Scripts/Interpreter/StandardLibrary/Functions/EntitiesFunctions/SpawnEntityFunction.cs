@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
-using P4.MapGenerator.Interpreter.Ast;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
-using P4.MapGenerator.Interpreter.SemanticAnalysis;
+using Dazel.Interpreter.Ast;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.SemanticAnalysis;
 
-namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.EntitiesFunctions
+namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
 {
     public sealed class SpawnEntityFunction : Function
     {

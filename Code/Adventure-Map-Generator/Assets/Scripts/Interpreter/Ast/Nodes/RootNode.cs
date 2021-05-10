@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes
+namespace Dazel.Interpreter.Ast.Nodes
 {
     public sealed class RootNode
     {

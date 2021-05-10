@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using System.IO;
-using Interpreter;
+using Dazel.Interpreter;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace P4.MapGenerator
+namespace Dazel.Game
 {
     public sealed class Setup : MonoBehaviour
     {

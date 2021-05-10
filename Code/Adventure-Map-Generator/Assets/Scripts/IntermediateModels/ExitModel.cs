@@ -1,4 +1,4 @@
-namespace IntermediateModels
+namespace Dazel.IntermediateModels
 {
     public sealed class ExitModel
     {

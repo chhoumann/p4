@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace P4.MapGenerator.Interpreter.SemanticAnalysis
+namespace Dazel.Interpreter.SemanticAnalysis
 {
     public sealed class SymbolTable<T>
     {

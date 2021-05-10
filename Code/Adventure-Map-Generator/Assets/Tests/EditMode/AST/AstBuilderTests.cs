@@ -1,15 +1,15 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using Dazel.Interpreter.Ast;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
+using Dazel.Interpreter.Ast.Nodes.StatementNodes;
+using Dazel.Interpreter.Ast.Visitors;
 using NUnit.Framework;
-using P4.MapGenerator.Interpreter.Ast;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
 
-namespace P4.MapGenerator.Editor.Tests.AST
+namespace Dazel.Tests.EditMode.AST
 {
     [TestFixture]
     public sealed class AstBuilderTests : ICompleteVisitor

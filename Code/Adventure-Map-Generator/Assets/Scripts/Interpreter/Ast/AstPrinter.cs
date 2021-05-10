@@ -1,14 +1,13 @@
-﻿using System;
-using System.Text;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
+﻿using System.Text;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
+using Dazel.Interpreter.Ast.Nodes.StatementNodes;
+using Dazel.Interpreter.Ast.Visitors;
 using UnityEngine;
 
-namespace P4.MapGenerator.Interpreter.Ast
+namespace Dazel.Interpreter.Ast
 {
     public sealed class AstPrinter : ICompleteVisitor
     {

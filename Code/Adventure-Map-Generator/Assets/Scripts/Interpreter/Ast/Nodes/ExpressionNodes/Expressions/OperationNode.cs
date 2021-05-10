@@ -1,4 +1,4 @@
-﻿namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
+﻿namespace Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
     public abstract class OperationNode : ExpressionNode
     {

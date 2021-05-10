@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace P4.MapGenerator.Entities
+namespace Dazel.Game.Entities
 {
     public abstract class Entity : MonoBehaviour
     {

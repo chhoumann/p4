@@ -1,4 +1,4 @@
-﻿namespace P4.MapGenerator.Interpreter.Ast.Nodes
+﻿namespace Dazel.Interpreter.Ast.Nodes
 {
     public abstract class Node<TVisitor>
     {

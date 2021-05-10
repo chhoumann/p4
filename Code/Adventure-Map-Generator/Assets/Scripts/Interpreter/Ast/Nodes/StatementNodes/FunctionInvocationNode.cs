@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
-using P4.MapGenerator.Interpreter.SemanticAnalysis;
-using P4.MapGenerator.Interpreter.StandardLibrary;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.Ast.Visitors;
+using Dazel.Interpreter.SemanticAnalysis;
+using Dazel.Interpreter.StandardLibrary;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes
+namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
 {
     public sealed class FunctionInvocationNode : StatementExpressionNode
     {

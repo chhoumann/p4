@@ -1,4 +1,4 @@
-﻿namespace P4.MapGenerator.Interpreter.Ast
+﻿namespace Dazel.Interpreter.Ast
 {
     internal static class Operators
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using P4.MapGenerator.Entities;
+using Dazel.Game.Entities;
 using UnityEngine;
 
-namespace P4.MapGenerator
+namespace Dazel.Game
 {
     public sealed class MapBounds : MonoBehaviour
     {

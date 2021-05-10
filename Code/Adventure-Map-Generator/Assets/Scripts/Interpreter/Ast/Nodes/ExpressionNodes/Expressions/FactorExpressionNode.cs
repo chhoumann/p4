@@ -1,6 +1,6 @@
-﻿using P4.MapGenerator.Interpreter.Ast.Visitors;
+﻿using Dazel.Interpreter.Ast.Visitors;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
+namespace Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions
 {
     public sealed class FactorExpressionNode : InfixExpressionNode
     {

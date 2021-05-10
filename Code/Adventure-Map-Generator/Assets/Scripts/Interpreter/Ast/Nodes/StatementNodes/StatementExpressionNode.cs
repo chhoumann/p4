@@ -1,4 +1,4 @@
-﻿namespace P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes
+﻿namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
 {
     public abstract class StatementExpressionNode : StatementNode
     {

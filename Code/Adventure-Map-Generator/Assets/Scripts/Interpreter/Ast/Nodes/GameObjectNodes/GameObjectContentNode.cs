@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
+using Dazel.Interpreter.Ast.Nodes.StatementNodes;
+using Dazel.Interpreter.Ast.Visitors;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes
+namespace Dazel.Interpreter.Ast.Nodes.GameObjectNodes
 {
     public sealed class GameObjectContentNode : GameObjectNodeBase
     {

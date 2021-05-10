@@ -1,9 +1,9 @@
-﻿using P4.MapGenerator.Interpreter.Ast;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
+﻿using Dazel.Interpreter.Ast;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.Ast.Nodes.StatementNodes;
+using Dazel.Interpreter.Ast.Visitors;
 
-namespace P4.MapGenerator.Interpreter.SemanticAnalysis
+namespace Dazel.Interpreter.SemanticAnalysis
 {
     public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
     {

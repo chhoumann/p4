@@ -1,11 +1,11 @@
 ﻿using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using Dazel.Interpreter.Ast;
+using Dazel.Interpreter.SemanticAnalysis;
 using NUnit.Framework;
-using P4.MapGenerator.Interpreter.Ast;
-using P4.MapGenerator.Interpreter.SemanticAnalysis;
 
-namespace P4.MapGenerator.Editor.Tests.Semantics
+namespace Dazel.Tests.EditMode.Semantics
 {
     [TestFixture]
     public class TypeCheckTests

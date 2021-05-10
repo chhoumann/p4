@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace P4.MapGenerator
+namespace Dazel.Game
 {
     [RequireComponent(typeof(Camera))]
     public sealed class CameraController : MonoBehaviour

@@ -1,6 +1,6 @@
-﻿using P4.MapGenerator.Interpreter.SemanticAnalysis;
+﻿using Dazel.Interpreter.SemanticAnalysis;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
+namespace Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
     public abstract class ValueNode : ExpressionNode
     {

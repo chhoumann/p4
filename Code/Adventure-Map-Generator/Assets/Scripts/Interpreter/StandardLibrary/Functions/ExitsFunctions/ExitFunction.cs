@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.SemanticAnalysis;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.SemanticAnalysis;
 
-namespace P4.MapGenerator.Interpreter.StandardLibrary.Functions.ExitsFunctions
+namespace Dazel.Interpreter.StandardLibrary.Functions.ExitsFunctions
 {
     public sealed class ExitFunction : Function
     {

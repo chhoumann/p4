@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace Interpreter
+namespace Dazel.Interpreter
 {
     internal static class SourceFileGetter
     {

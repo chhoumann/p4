@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-using P4.MapGenerator.Interpreter.Ast;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
-using P4.MapGenerator.Interpreter.SemanticAnalysis;
+using Dazel.Interpreter.Ast;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.SemanticAnalysis;
 
-namespace Interpreter
+namespace Dazel.Interpreter
 {
     public sealed class DazelInterpreter
     {

@@ -1,11 +1,11 @@
 ﻿using System;
-using P4.MapGenerator.Interpreter.Ast;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
+using Dazel.Interpreter.Ast;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.Ast.Visitors;
 
-namespace P4.MapGenerator.Interpreter.SemanticAnalysis
+namespace Dazel.Interpreter.SemanticAnalysis
 {
     public sealed class ExpressionTypeChecker : IExpressionVisitor
     {

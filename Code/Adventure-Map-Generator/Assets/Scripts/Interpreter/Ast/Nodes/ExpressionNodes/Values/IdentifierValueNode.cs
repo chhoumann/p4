@@ -1,6 +1,6 @@
-﻿using P4.MapGenerator.Interpreter.Ast.Visitors;
+﻿using Dazel.Interpreter.Ast.Visitors;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
+namespace Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
     public sealed class IdentifierValueNode : ValueNode
     {

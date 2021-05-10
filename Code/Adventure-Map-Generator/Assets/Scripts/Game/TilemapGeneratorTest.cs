@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace P4.MapGenerator
+namespace Dazel.Game
 {
     public sealed class TilemapGeneratorTest : MonoBehaviour, ITilemapGenerator
     {

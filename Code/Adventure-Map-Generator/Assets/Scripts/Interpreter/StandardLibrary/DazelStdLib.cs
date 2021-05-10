@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.StandardLibrary.Functions.EntitiesFunctions;
-using P4.MapGenerator.Interpreter.StandardLibrary.Functions.ExitsFunctions;
-using P4.MapGenerator.Interpreter.StandardLibrary.Functions.MapFunctions;
+using Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions;
+using Dazel.Interpreter.StandardLibrary.Functions.ExitsFunctions;
+using Dazel.Interpreter.StandardLibrary.Functions.MapFunctions;
 
-namespace P4.MapGenerator.Interpreter.StandardLibrary
+namespace Dazel.Interpreter.StandardLibrary
 {
     internal static class DazelStdLib
     {

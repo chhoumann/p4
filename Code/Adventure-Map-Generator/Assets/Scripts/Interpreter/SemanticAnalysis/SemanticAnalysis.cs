@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace P4.MapGenerator.Interpreter.SemanticAnalysis
+namespace Dazel.Interpreter.SemanticAnalysis
 {
     public abstract class SemanticAnalysis
     {

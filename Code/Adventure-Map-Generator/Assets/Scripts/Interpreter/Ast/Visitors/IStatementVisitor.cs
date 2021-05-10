@@ -1,6 +1,6 @@
-﻿using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
+﻿using Dazel.Interpreter.Ast.Nodes.StatementNodes;
 
-namespace P4.MapGenerator.Interpreter.Ast.Visitors
+namespace Dazel.Interpreter.Ast.Visitors
 {
     public interface IStatementVisitor
     {

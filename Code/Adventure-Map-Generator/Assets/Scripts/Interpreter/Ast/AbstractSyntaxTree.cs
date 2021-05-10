@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.Ast.Nodes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
-using P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes;
+using Dazel.Interpreter.Ast.Nodes;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.Ast.Nodes.StatementNodes;
 
-namespace P4.MapGenerator.Interpreter.Ast
+namespace Dazel.Interpreter.Ast
 {
     public sealed class AbstractSyntaxTree
     {

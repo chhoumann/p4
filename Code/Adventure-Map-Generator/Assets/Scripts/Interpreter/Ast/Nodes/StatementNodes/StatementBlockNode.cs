@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
+using Dazel.Interpreter.Ast.Visitors;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes.StatementNodes
+namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
 {
     public sealed class StatementBlockNode : StatementNode
     {

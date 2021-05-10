@@ -1,4 +1,4 @@
-namespace IntermediateModels
+namespace Dazel.IntermediateModels
 {
     public readonly struct MoveData
     {

@@ -1,7 +1,7 @@
-﻿using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
-using P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values;
+﻿using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
+using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 
-namespace P4.MapGenerator.Interpreter.Ast.Visitors
+namespace Dazel.Interpreter.Ast.Visitors
 {
     public interface IExpressionVisitor
     {

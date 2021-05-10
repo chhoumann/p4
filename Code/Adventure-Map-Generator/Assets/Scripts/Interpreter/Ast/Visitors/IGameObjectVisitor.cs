@@ -1,6 +1,6 @@
-﻿using P4.MapGenerator.Interpreter.Ast.Nodes.GameObjectNodes;
+﻿using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 
-namespace P4.MapGenerator.Interpreter.Ast.Visitors
+namespace Dazel.Interpreter.Ast.Visitors
 {
     public interface IGameObjectVisitor
     {

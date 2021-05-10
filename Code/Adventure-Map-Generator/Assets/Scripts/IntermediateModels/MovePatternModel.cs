@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace IntermediateModels
+namespace Dazel.IntermediateModels
 {
     public sealed class MovePatternModel
     {

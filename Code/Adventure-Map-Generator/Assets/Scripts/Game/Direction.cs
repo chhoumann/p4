@@ -1,4 +1,4 @@
-﻿namespace P4.MapGenerator
+﻿namespace Dazel.Game
 {
     public enum Direction
     {

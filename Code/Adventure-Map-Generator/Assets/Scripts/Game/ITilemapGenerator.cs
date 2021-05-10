@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace P4.MapGenerator
+namespace Dazel.Game
 {
     public interface ITilemapGenerator
     {

@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
-using P4.MapGenerator.Interpreter.Ast.Visitors;
-using P4.MapGenerator.Interpreter.SemanticAnalysis;
+using Dazel.Interpreter.Ast.Visitors;
+using Dazel.Interpreter.SemanticAnalysis;
 
-namespace P4.MapGenerator.Interpreter.Ast.Nodes.ExpressionNodes.Values
+namespace Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
     public sealed class ExitValueNode : ValueNode
     {
