@@ -11,22 +11,22 @@ namespace Dazel.Game
         
         private void FixedUpdate()
         {
-            if (player.Position.y + player.Extents.y > World.Map.Bounds.max.y)
+            if (player.Position.y + player.Extents.y > World.Screen.Bounds.max.y)
             {
                 OnExitBounds(Direction.Up);
             }
             
-            if (player.Position.y - player.Extents.y < World.Map.Bounds.min.y)
+            if (player.Position.y - player.Extents.y < World.Screen.Bounds.min.y)
             {
                 OnExitBounds(Direction.Down);   
             }
             
-            if (player.Position.x + player.Extents.x > World.Map.Bounds.max.x)
+            if (player.Position.x + player.Extents.x > World.Screen.Bounds.max.x)
             {
                 OnExitBounds(Direction.Right);
             }
             
-            if (player.Position.x - player.Extents.x < World.Map.Bounds.min.x)
+            if (player.Position.x - player.Extents.x < World.Screen.Bounds.min.x)
             {
                 OnExitBounds(Direction.Left);
             }

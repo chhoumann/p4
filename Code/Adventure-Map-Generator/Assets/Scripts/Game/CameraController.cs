@@ -18,7 +18,7 @@ namespace Dazel.Game
         private void Start()
         { 
             cam = GetComponent<Camera>();
-            CalculateCameraBounds(World.Map);
+            CalculateCameraBounds(World.Screen);
         }
 
         private void OnEnable()
@@ -36,7 +36,7 @@ namespace Dazel.Game
             UpdateCameraPosition();
         }
 
-        private void CalculateCameraBounds(Map map)
+        private void CalculateCameraBounds(Screen screen)
         {
             float height = cam.orthographicSize * 2;
             float width = cam.aspect * height;
@@ -49,8 +49,8 @@ namespace Dazel.Game
             minPosition.x = cameraExtents.x;
             minPosition.y = cameraExtents.y;
 
-            maxPosition.x = map.Size.x - cameraExtents.x;
-            maxPosition.y = map.Size.y - cameraExtents.y;
+            maxPosition.x = screen.Size.x - cameraExtents.x;
+            maxPosition.y = screen.Size.y - cameraExtents.y;
         }
         
         private void UpdateCameraPosition()

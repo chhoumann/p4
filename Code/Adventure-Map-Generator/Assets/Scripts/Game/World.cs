@@ -1,5 +1,6 @@
 using System;
 using Dazel.Game.Entities;
+using Dazel.IntermediateModels;
 using UnityEngine;
 
 namespace Dazel.Game
@@ -8,22 +9,28 @@ namespace Dazel.Game
     {
         [SerializeField] private Transform mapContainer;
 
-        public static event Action<Map> MapLoaded;
+        public static event Action<Screen> MapLoaded;
         
-        public static Map Map { get; private set; }
+        public static Screen Screen { get; private set; }
 
-        private Map[] maps;
+        private Screen[] maps;
         
         private void Awake()
         {
-            maps = new Map[mapContainer.childCount];
+            ScreenModel mockModel = new ScreenModel
+            {
+                Width = 47,
+                Height = 30
+            };
+            
+            maps = new Screen[mapContainer.childCount];
 
             for (int i = 0; i < maps.Length; i++)
             {
-                maps[i] = mapContainer.GetChild(i).GetComponent<Map>().Setup();
+                maps[i] = mapContainer.GetChild(i).GetComponent<Screen>().Setup(mockModel);
             }
             
-            Map = maps[0];
+            Screen = maps[0];
         }
 
         private void OnEnable()
@@ -38,27 +45,27 @@ namespace Dazel.Game
 
         private void OnExitMapBounds(Player player, Direction exitDirection)
         {
-            Map currentMap = Map;
-            Map mapToLoad = currentMap.GetMap(exitDirection);
+            Screen currentScreen = Screen;
+            Screen screenToLoad = currentScreen.GetMap(exitDirection);
 
-            if (!mapToLoad) return;
+            if (!screenToLoad) return;
             
-            currentMap.gameObject.SetActive(false);
-            mapToLoad.gameObject.SetActive(true);
+            currentScreen.gameObject.SetActive(false);
+            screenToLoad.gameObject.SetActive(true);
 
-            SetPlayerPosition(player, currentMap, mapToLoad, exitDirection);
+            SetPlayerPosition(player, currentScreen, screenToLoad, exitDirection);
 
-            MapLoaded?.Invoke(mapToLoad);
-            Map = mapToLoad;
+            MapLoaded?.Invoke(screenToLoad);
+            Screen = screenToLoad;
         }
 
-        private void SetPlayerPosition(Player player, Map currentMap, Map mapToLoad, Direction exitDirection)
+        private void SetPlayerPosition(Player player, Screen currentScreen, Screen screenToLoad, Direction exitDirection)
         {
             float offset = Physics2D.defaultContactOffset;
-            Vector2 playerPos = (player.Position / currentMap.Size) * mapToLoad.Size;
+            Vector2 playerPos = (player.Position / currentScreen.Size) * screenToLoad.Size;
             
             Vector2 minPos = new Vector2(player.Extents.x, player.Extents.y);
-            Vector2 maxPos = new Vector2(mapToLoad.Size.x - player.Extents.x, mapToLoad.Size.y - player.Extents.y);
+            Vector2 maxPos = new Vector2(screenToLoad.Size.x - player.Extents.x, screenToLoad.Size.y - player.Extents.y);
 
             playerPos.x = Mathf.Clamp(playerPos.x, minPos.x, maxPos.x);
             playerPos.y = Mathf.Clamp(playerPos.y, minPos.y, maxPos.y);
