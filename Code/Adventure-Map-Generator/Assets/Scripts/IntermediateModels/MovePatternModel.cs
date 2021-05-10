@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace P4.MapGenerator.IntermediateModels
+namespace IntermediateModels
 {
-    public sealed class MovePattern
+    public sealed class MovePatternModel
     {
         public List<MoveData> MoveData { get; set; }
 

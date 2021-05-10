@@ -1,4 +1,4 @@
-namespace P4.MapGenerator.IntermediateModels
+namespace IntermediateModels
 {
     public readonly struct MoveData
     {

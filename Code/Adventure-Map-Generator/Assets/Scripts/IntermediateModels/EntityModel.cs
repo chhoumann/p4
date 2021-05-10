@@ -1,8 +1,8 @@
-﻿namespace P4.MapGenerator.IntermediateModels
+﻿namespace IntermediateModels
 {
-    public sealed class Entity
+    public sealed class EntityModel
     {
-        public MovePattern MovePattern { get; set; }
+        public MovePatternModel MovePatternModel { get; set; }
 
         public string Name { get; set; }
 
