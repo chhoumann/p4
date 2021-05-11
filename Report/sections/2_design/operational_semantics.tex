@@ -50,7 +50,33 @@ For each of these, we give a finite set of formation rules that define how each 
 
 \subsubsection*{Transition rules}
 
-For the language \dazel{} we have, as previously mentioned, decided to describe the language in terms of Big-step semantics since we are only interested in describing the relationship between the initial and the final state of an execution\cite{SemanWithApplications}.
+For the language \dazel{} we have, as previously mentioned, decided to describe the language in terms of Big-step semantics since we are only interested in describing the relationship between the initial and the final state of an execution\cite{SemanWithApplications}. Furthermore, because of the way that \dazel{} is a language that has a structure of nested objects and is statically scoped we shall include a record environment along with the variable environment and procedure environment, so that objects and its variables and procedures have access to known declarations.
+
+The definition for a set of record environments \textbf{Env_R} is given by:
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tabular}{l l}
+		$Env_R = Rnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
+	\end{tabular}
+	\caption{Procedure environment}
+	\label{fig:EnvRDef}
+\end{figure}
+
+The definition of \figref{EnvRDef} ensures that a record environment has the information of variables, procedures and other records bound within a given record.
+
+Similarly, to ensure that every procedure is able to obtain the records, procedures and variables when a procedure is declared we give the definition as:
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tabular}{l l}
+		$Env_P = Pnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
+	\end{tabular}
+	\caption{Procedure environment}
+	\label{fig:EnvPDef}
+\end{figure}
+
+With these definitions we ensure that we have static scope rules as we introduce the transition rules for \dazel{}.
 
 \textbf{Arithmetic expressions}
 The transition rules in \figref{fig:BssArithm} describe the semantics for arithmetic expressions in \dazel{}. It was decided that the semantics for arithmetic expression should follow a simple c
@@ -111,14 +137,7 @@ The transition rules in \figref{fig:BssArithm} describe the semantics for arithm
 \textbf{Variable and procedure declaration }
 To ensure that we have static scope rules for both variable and procedure declarations we define $Env_V$ and $Env_P$ respectively in \figref{EnvDef}:
 
-\begin{figure}[htbp]
-	\centering
-	\begin{tabular}{l l}
-		$Env_P = Pname \hookrightarrow Stm \; x \; Env_V \; x \; Env_P$
-	\end{tabular}
-	\caption{Procedure environment}
-	\label{fig:EnvDef}
-\end{figure}
+
 
 \begin{figure}[htbp]
 	\centering
