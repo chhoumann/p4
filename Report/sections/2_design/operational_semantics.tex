@@ -27,11 +27,15 @@ For each of these, we give a finite set of formation rules that define how each 
 	\begin{tabular}{l l}
 		$a \in \textbf{ArithmExp}$ & $\text{Arithmetic expressions}$ \\ 
 		$n \in \textbf{Num}$ & $\text{Numerals}$ \\
-		$x \in \textbf{Var}$ & $\text{Variables}$ \\
+		$k \in \textbf{Var}$ & $\text{Variables}$ \\
 		$A_v \in \textbf{AssignV}$ & $\text{Variable assignments}$ \\
-		$D_v \in \textbf{DeclV}$ & $\text{Variable declarations}$ \\
+		$DV \in \textbf{DeclV}$ & $\text{Variable declarations}$ \\
 		$C_m \in \textbf{ContDecl}$ & $\text{Content declarations}$ \\
-		$S \in \textbf{Stm}$ & $\text{Statements}$
+		$S \in \textbf{Stm}$ & $\text{Statements}$\\
+		$DR \in \textbf{DecR}$ & $\text{Record declarations}$\\
+		$r_n \in \textbf{Rnames}$ & $\text{Record names}$
+		$K \in \textbf{Gvar}$ & $\text{Generalized variables}$
+		$P \in \textbf{Gpnames}$ & $\text{Generalized procedure names}$
 	\end{tabular}
 
 	\vspace{4mm}
@@ -212,6 +216,9 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\\
 		% 
 		\\
+		[CALL_\text{BSS}]
+		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle call P, sto \rightarrow sto'}
+		\qquad \text{where } env_R, env_P \vdash \rightarrow (S, env'_R, env'_V, env'_P)
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Statement}.}
 	\label{fig:BssStm}
