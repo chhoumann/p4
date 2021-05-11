@@ -91,7 +91,7 @@ As well, because of the object structure of \dazel{} mentioned previously, we ha
 Generalized variables \textbf{Gvar} are sequences of record names r1..rn.k concluded by a variable name k. The range over \textbf{Gvar} is caputered by \textit{K}.  
 Similarly, generalized procedure names are a sequence of procedures r1..rn.p that range over \textbf{Gpnames} captured by \textit{P}.
 
-Following this we will now give the transition rules for arithmetic expressions, variable declarations, record declarations and statements for \dazel{} as can be seen in..
+Following this we will now give the transition rules for arithmetic expressions, variable declarations, generalized variables, record declarations and statements for \dazel{} as can be seen in..
 
 \begin{figure}[htbp]
 	\centering
@@ -160,7 +160,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 		[VAR-DECL_\text{BSS}]
 		\qquad 
 		\dfrac
-		{env_R \vdash \langle D_v,\; env'_V, \; sto[l \mapsto v] \rangle \rightarrow_\text{DV} (env'_V, sto')}
+		{env_R \vdash \langle D_V,\; env'_V, \; sto[l \mapsto v] \rangle \rightarrow_\text{DV} (env'_V, sto')}
 		{env_R \vdash \langle x:=a; D_V, env_V, sto \rangle \rightarrow_\text{DV} (env'_V, sto')} \\
 		\text{where } \textit{env_R}, \textit{env_V}, \textit{sto} \vdash \text{a} \rightarrow_a \text{v} \\
 		\text{and} \textit{l} = \textit{env_V} \; \text{next} \\
@@ -174,7 +174,41 @@ Following this we will now give the transition rules for arithmetic expressions,
 		%
 		\\
 	\end{gather*}
-	\caption{Big-step transition rules for \textbf{Variable declarations}.}
+	\caption{Big-step transition rules for \textbf{variable declarations}.}
+	\label{fig:BssStm}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[GVAR_\text{BSS}]
+		\qquad 
+		\dfrac
+		{env'_R, env'_V \vdash K \rightarrow \textit{l}}
+		{env'_R, env'_V \vdash r.K \rightarrow \textit{l}} \\
+		\text{where } \textit{env_R} \; r = (\textit{env'_V}, \textit{env'_P}, \text{env'_R})
+		\\
+		%
+		\\
+		[GVAR_\text{BSS}]
+		\qquad env'_R, env'_V \vdash k \rightarrow l \\
+		\text{where } \textit{env_V} \; k = l
+		\\
+		%
+		\\
+	\end{gather*}
+	\caption{Big-step transition rules for \textbf{generalized variable declarations}.}
+	\label{fig:BssStm}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{gather*}
+		[MEMBERACCESS_\text{BSS}]
+		\qquad
+		\dfrac{Env_R, Env_V \vdash \langle  }{}	
+	\end{gather*}
+	\caption{}
 	\label{fig:BssStm}
 \end{figure}
 
@@ -270,11 +304,11 @@ The definition of the transition system for each expression type in \dazel{} is 
 
 \begin{figure}[htbp]
 	\begin{gather*} 
-		\{ \Gamma_\text{BExp}, \rightarrow_a, T_\text{Bexp} \} \\ 
-		\textit{Configurations: } \Gamma_\text{Bexp} = \text{Bexp} \cup \{tt, f\!f\} \\ 
-		\textit{Terminal configurations: } T_\text{Bexp} = \{tt, f\!f\}
+		\{ \Gamma_\text{DR}, \rightarrow_DR, T_\text{DR} \} \\ 
+		\textit{Configurations: } \Gamma_\text{DR} = (\text{DecR} \times Env_R \times Env_V) \cup (Env_R \times Env_V) \\ 
+		\textit{Terminal configurations: } T_\text{DR} = (Env_R \times Env_V)
 	\end{gather*}
-	\caption{Transition system for boolean expressions}
+	\caption{Transition system for record declaration}
 	\label{fig:TSBexp}
 \end{figure}
 
@@ -294,7 +328,7 @@ The definition of the transition system for each expression type in \dazel{} is 
 		\textit{Configurations: } \Gamma_\text{Dp} = (Dec_p \times Env_p) \cup Env_p \\ 
 		\textit{Terminal configurations: } T_\text{Dp} = Env_p
 	\end{gather*} 
-	\caption{Transition system for procedure}
+	\caption{Transition system for procedure declaration}
 	\label{fig:TSDecp}
 \end{figure}
 
