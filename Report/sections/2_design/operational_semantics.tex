@@ -87,7 +87,7 @@ As well, because of the object structure of \dazel{} mentioned previously, we ha
 Generalized variables \textbf{Gvar} are sequences of record names r1..rn.k concluded by a variable name k. The range over \textbf{Gvar} is caputered by \textit{K}.  
 Similarly, generalized procedure names are a sequence of procedures r1..rn.p that range over \textbf{Gpnames} captured by \textit{P}.
 
-Following this we will now give the transition rules for arithmetic expressions, variable declarations and statements for \dazel{} as can be seen in..
+Following this we will now give the transition rules for arithmetic expressions, variable declarations, record declarations and statements for \dazel{} as can be seen in..
 
 \begin{figure}[htbp]
 	\centering
@@ -153,12 +153,21 @@ Following this we will now give the transition rules for arithmetic expressions,
 \begin{figure}[htbp]
 	\centering
 	\begin{gather*}
-		[VAR_\text{BSS}]
+		[VAR-DECL_\text{BSS}]
 		\qquad 
-		\frac
-		{\langle D_v,\; env_V[x \mapsto l], \; sto[l \mapsto v][next \mapsto \text{ new } l]\rangle \rightarrow_D (env'_V, sto')}
-		{\langle x:=a; D_V, env_V, sto \rangle \rightarrow_D (env'_V, sto')} \\
-		\text{where } v = \mathcal{A}[\![a]\!](sto\circ env_V ) \text{ and } l = \textit{sto } \texttt{next}
+		\dfrac
+		{env_R \vdash \langle D_v,\; env'_V, \; sto[l \mapsto v] \rangle \rightarrow_\text{DV} (env'_V, sto')}
+		{env_R \vdash \langle x:=a; D_V, env_V, sto \rangle \rightarrow_\text{DV} (env'_V, sto')} \\
+		\text{where } \textit{env_R}, \textit{env_V}, \textit{sto} \vdash \text{a} \rightarrow_a \text{v} \\
+		\text{and} \textit{l} = \textit{env_V} \; \text{next} \\
+		\text{and} \textit{env'_V} = \textit{env_V}[k \mapsto l][next \mapsto new l]
+		\\
+		%
+		\\
+		[EMPTY-VAR-DECL_\text{BSS}]
+		\qquad env_R \vdash \langle \epsilon, env_V, sto \rangle \rightarrow_DV (env'_V, sto')
+		\\
+		%
 		\\
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Variable declarations}.}
@@ -169,15 +178,16 @@ Following this we will now give the transition rules for arithmetic expressions,
 	\centering
 	\begin{gather*}
 		[ASSIGNMENT_\text{BSS}] 
-		\qquad env_V, env_P \vdash \langle x:=a,sto\rangle \rightarrow sto[l\mapsto v] \\
-		\qquad \text{ where } l = env_V \; x \; and \; v = \mathcal{A}[\![a]\!](sto\circ env_V )
+		\qquad env_R, env_V, env_P \vdash \langle K:=a,sto\rangle \rightarrow sto[l\mapsto v] \\
+		\qquad \text{ where } env_R, env_V, sto \vdash a \rightarrow_a v\\
+		\qquad \text{ and } env_R, env_V \vdash K \rightarrow \textit{l}
 		\\
 		% 
 		\\
 		[COMPOUND_\text{BSS}] 
 		\qquad \dfrac
-		{env_V, env_P \vdash \langle S_1, sto \rangle \rightarrow sto'' \;\langle S_2, sto'' \rangle \rightarrow sto'}
-		{\langle S_1;S_2,sto \rangle\rightarrow sto'}
+		{env_R, env_V, env_P \vdash \langle S_1, sto \rangle \rightarrow sto'' \; env_R, env_V, env_P \vdash \langle S_2, sto'' \rangle \rightarrow sto'}
+		{env_R, env_V, env_P \vdash \langle S_1;S_2,sto \rangle\rightarrow sto'}
 		\\
 		% 
 		\\
@@ -192,16 +202,18 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\qquad \frac
 		{
 			\begin{gathered}
-				\langle D_V, env_V, sto\rangle \rightarrow_{D} (\text{env'}_V, sto') \\ 
-				env'_V, env'_P \vdash \langle S, sto'\rangle \rightarrow sto''
+				env_R \vdash \langle D_V, env_V, sto \rangle \rightarrow_DV (env'_V, sto'')
+				env'_V \vdash \langle D_R, env_R \rangle \rightarrow_DR (env'_R, env''_V)
+				env''_V \vdash \langle D_P, env_P \rangle \rightarrow_DP env'_P
+				env'_R, env''_V, env'_p \vdash \langle S, sto'' \rangle \rightarrow sto'
 			\end{gathered}
 		}
-		{env'_V, env'_P \vdash \langle L_\text{Brace} \; D_V \; D_P \; S \; R_\text{Brace}, \; sto\rangle\rightarrow sto''}
+		{env_R, env_V, env_P \vdash \langle L_\text{Brace} \; D_V \; D_P \; S \; R_\text{Brace}, \; sto\rangle\rightarrow sto'}
 		\\
 		% 
 		\\
 	\end{gather*}
-	\caption{Big-step transition rules for \textbf{Stm}.}
+	\caption{Big-step transition rules for \textbf{Statement}.}
 	\label{fig:BssStm}
 \end{figure}
 
