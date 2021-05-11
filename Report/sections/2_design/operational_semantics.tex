@@ -92,6 +92,14 @@ Following this we will now give the transition rules for arithmetic expressions,
 \begin{figure}[htbp]
 	\centering
 	\begin{gather*}
+		[Gvar_\text{BSS}]
+		\qquad \dfrac
+		{env_R, env_V \vdash K \rightarrow l}
+		{env_R, env_V, sto \vdash K \rightarrow_a v}
+		\qquad \text{ where }sto \; l = v
+		\\
+		% 
+		\\
 		[PLUS_\text{BSS}] 
 		\qquad \dfrac
 		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
@@ -102,37 +110,37 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\\
 		[MINUS_\text{BSS}] 
 		\qquad \dfrac
-		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
-		{\envs \vdash a_1 - a_2 \rightarrow_a v}
+		{env_R, \envs \vdash a_1 \rightarrow_a v_1 \; env_R, \envs \vdash a_2 \rightarrow_a v_2}
+		{env_R, \envs \vdash a_1 - a_2 \rightarrow_a v}
 		\qquad \text{ where }v = v_1 - v_2
 		\\
 		% 
 		\\
 		[MULTIPLY_\text{BSS}] 
 		\qquad \dfrac
-		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
-		{\envs \vdash a_1 * a_2 \rightarrow_a v}
+		{env_R, \envs \vdash a_1 \rightarrow_a v_1 \; env_R, \envs \vdash a_2 \rightarrow_a v_2}
+		{env_R, \envs \vdash a_1 * a_2 \rightarrow_a v}
 		\qquad \text{ where }v = v_1 \cdot v_2
 		\\
 		% 
 		\\
 		[DIVIDE_\text{BSS}] 
 		\qquad \dfrac
-		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
-		{\envs \vdash a_1 / a_2 \rightarrow_a v}
+		{env_R, \envs \vdash a_1 \rightarrow_a v_1 \; env_R, \envs \vdash a_2 \rightarrow_a v_2}
+		{env_R, \envs \vdash a_1 / a_2 \rightarrow_a v}
 		\qquad \text{ where }v = \dfrac{v_1}{v_2}
 		\\
 		% 
 		\\
 		[PARENTHESES_\text{BSS}] 
 		\qquad \dfrac
-		{\envs \vdash a_1 \rightarrow_a v_1}
-		{\envs \vdash (a_1) \rightarrow_a v_1}
+		{env_R, \envs \vdash a_1 \rightarrow_a v_1}
+		{env_R, \envs \vdash (a_1) \rightarrow_a v_1}
 		\\
 		% 
 		\\
 		[NUM_\text{BSS}] 
-		\qquad envs \vdash n \rightarrow_a v
+		\qquad env_R, envs \vdash n \rightarrow_a v
 		\qquad \text{ if } \mathbb{R}[\![n]\!] = v \quad \text{Where } \mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}
 		\\
 		% 
