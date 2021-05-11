@@ -106,8 +106,8 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\\
 		[PLUS_\text{BSS}] 
 		\qquad \dfrac
-		{\envs \vdash a_1 \rightarrow_a v_1 \; \envs \vdash a_2 \rightarrow_a v_2}
-		{\envs \vdash a_1 + a_2 \rightarrow_a v}
+		{env_R,\envs \vdash a_1 \rightarrow_a v_1 \; env_R, \envs \vdash a_2 \rightarrow_a v_2}
+		{env_R,\envs \vdash a_1 + a_2 \rightarrow_a v}
 		\qquad \text{ where }v = v_1 + v_2
 		\\
 		% 
@@ -150,7 +150,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 		% 
 		\\
 	\end{gather*}
-	\caption{Big-step transition rules for \textbf{ArithmExp}.}
+	\caption{Big-step transition rules for \textbf{Arithmetic expressions}.}
 	\label{fig:BssArithm}
 \end{figure}
 
@@ -224,32 +224,32 @@ Following this we will now give the transition rules for arithmetic expressions,
 	\label{fig:BssStm}
 \end{figure}
 
-\begin{figure}[htbp]
-	\centering
-	\begin{gather*}
-		[GAMEOBJECT_\text{BSS}] 
-		\qquad \dfrac
-		{\langle D_{co}, env_v, sto\rangle \rightarrow_{DCO} (\text{env'}_{CO}, sto'')}
-		{env_{CO} \vdash \langle GOName \; Id \; \{D_{CO}\}, sto\rangle\rightarrow sto'}
-		\\
-		% 
-		\\
-		[CONTENT_\text{BSS}] 
-		\qquad \frac
-		{
-			\begin{gathered}
-				\langle D_V, env_v, sto\rangle \rightarrow_{DV} (\text{env'}_V, sto'') \\ 
-				env'_V \vdash \langle S, sto''\rangle \rightarrow sto'
-			\end{gathered}
-		}
-		{\langle GOCont \{S\}, s\rangle\rightarrow s'}
-		\\
-		% 
-		\\
-	\end{gather*}
-	\caption{Big-step transition rules for \textbf{ContDecl}.}
-	\label{fig:BssStm}
-\end{figure}
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{gather*}
+%		[GAMEOBJECT_\text{BSS}] 
+%		\qquad \dfrac
+%		{\langle D_{co}, env_v, sto\rangle \rightarrow_{DCO} (\text{env'}_{CO}, sto'')}
+%		{env_{CO} \vdash \langle GOName \; Id \; \{D_{CO}\}, sto\rangle\rightarrow sto'}
+%		\\
+%		% 
+%		\\
+%		[CONTENT_\text{BSS}] 
+%		\qquad \frac
+%		{
+%			\begin{gathered}
+%				\langle D_V, env_v, sto\rangle \rightarrow_{DV} (\text{env'}_V, sto'') \\ 
+%				env'_V \vdash \langle S, sto''\rangle \rightarrow sto'
+%			\end{gathered}
+%		}
+%		{\langle GOCont \{S\}, s\rangle\rightarrow s'}
+%		\\
+%		% 
+%		\\
+%	\end{gather*}
+%	\caption{Big-step transition rules for \textbf{ContDecl}.}
+%	\label{fig:BssStm}
+%\end{figure}
 
 
 \subsubsection*{Transition System}
@@ -280,8 +280,8 @@ The definition of the transition system for each expression type in \dazel{} is 
 
 \begin{figure}[htbp]
 	\begin{gather*} 
-		\{ \Gamma_\text{Dv}, \rightarrow_a, T_\text{Dv} \} \\ 
-		\textit{Configurations: } \Gamma_\text{Dv} = (Dec_v \times Env_v \times sto) \cup Env_v \times sto \\ 
+		\{ \Gamma_\text{Dv}, \rightarrow_DV, T_\text{Dv} \} \\ 
+		\textit{Configurations: } \Gamma_\text{Dv} = (D_v \times Env_V \times sto) \cup Env_v \times sto \\ 
 		\textit{Terminal configurations: } T_{\text{Dec}_v} = Env_v \times sto
 	\end{gather*} 
 	\caption{Transition system for variable declaration}
