@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Dazel.Game.Entities;
 using Dazel.IntermediateModels;
-using Dazel.Interpreter;
 using UnityEngine;
 
 namespace Dazel.Game
@@ -15,12 +14,14 @@ namespace Dazel.Game
         public static event Action<Screen> MapLoaded;
         
         public static Screen CurrentScreen { get; private set; }
-
+        
+        public static IEnumerable<ScreenModel> ScreenModels { get; set; }
+        
         private void Awake()
         {
             List<Screen> screens = new List<Screen>();
             
-            foreach (ScreenModel screenModel in DazelInterpreter.ScreenModels)
+            foreach (ScreenModel screenModel in ScreenModels)
             {
                 GameObject newScreen = Instantiate(screenTemplate, screenContainer);
                 newScreen.SetActive(false);

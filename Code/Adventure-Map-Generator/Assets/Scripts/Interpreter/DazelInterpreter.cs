@@ -13,14 +13,12 @@ namespace Dazel.Interpreter
     {
         private readonly string sourceFileDirectory;
 
-        public static List<ScreenModel> ScreenModels = new List<ScreenModel>();
-
         public DazelInterpreter(string sourceFileDirectory)
         {
             this.sourceFileDirectory = sourceFileDirectory;
         }
         
-        public void Run()
+        public List<ScreenModel> Run()
         {
             List<IParseTree> parseTrees = new List<IParseTree>();
             IEnumerable<string> files = SourceFileGetter.GetFilesInDirectory(sourceFileDirectory);
@@ -48,15 +46,19 @@ namespace Dazel.Interpreter
                 new TypeChecker(ast).Visit(gameObject);
             }
             
+            List<ScreenModel> screenModels = new List<ScreenModel>();
+            
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 switch (gameObject.TypeNode)
                 {
                     case ScreenNode screenNode:
-                        ScreenModels.Add(new ScreenGenerator(gameObject.Contents).Generate());
+                        screenModels.Add(new ScreenGenerator(gameObject.Contents).Generate());
                         break;
                 }
             }
+
+            return screenModels;
         }
     }
 }

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using Dazel.IntermediateModels;
 using Dazel.Interpreter;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,7 +26,7 @@ namespace Dazel.Game
             }
 
             string path = GetDirectoryPath(GameManager.SourceFileDirectory);
-            new DazelInterpreter(path).Run();
+            World.ScreenModels = new DazelInterpreter(path).Run();
             
             if (Application.isPlaying)
             {
