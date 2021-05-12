@@ -12,6 +12,11 @@ namespace Dazel.IntermediateModels
         public int Width { get; set; }
         public int Height { get; set; }
         
-        public string Name { get; set; }
+        public string Identifier { get; }
+
+        public ScreenModel(string identifier)
+        {
+            Identifier = identifier;
+        }
     }
 }

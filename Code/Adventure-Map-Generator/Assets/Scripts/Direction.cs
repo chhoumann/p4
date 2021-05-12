@@ -1,4 +1,4 @@
-namespace Dazel.IntermediateModels
+namespace Dazel
 {
     public enum Direction
     {

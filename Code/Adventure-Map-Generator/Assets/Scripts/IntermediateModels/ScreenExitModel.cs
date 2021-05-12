@@ -2,7 +2,13 @@
 {
     public sealed class ScreenExitModel
     {
-        public ScreenModel ToScreenModel { get; set; }
-        public Direction ExitDirection { get; set; }   
+        public string ConnectedScreenIdentifier { get; }
+        public Direction ExitDirection { get; }
+
+        public ScreenExitModel(string connectedScreenIdentifier, Direction exitDirection)
+        {
+            ConnectedScreenIdentifier = connectedScreenIdentifier;
+            ExitDirection = exitDirection;
+        }
     }
 }

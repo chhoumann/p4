@@ -1,14 +1,12 @@
-﻿using Dazel.IntermediateModels;
+﻿using System.Collections.Generic;
+using Dazel.IntermediateModels;
 using UnityEngine;
 
 namespace Dazel.Game
 {
     public sealed class Screen : MonoBehaviour
     {
-        public Screen ScreenAbove { get; set; }
-        public Screen ScreenBelow { get; set; }
-        public Screen ScreenLeft { get; set; }
-        public Screen ScreenRight { get; set; }
+        public Dictionary<Direction, Screen> ConnectedScreens { get; } = new Dictionary<Direction, Screen>();
 
         public Vector2Int Size => size;
         public Bounds Bounds { get; private set; }
@@ -30,14 +28,7 @@ namespace Dazel.Game
 
         public Screen GetMap(Direction direction)
         {
-            return direction switch
-            {
-                Direction.Up => ScreenAbove,
-                Direction.Down => ScreenBelow,
-                Direction.Left => ScreenLeft,
-                Direction.Right => ScreenRight,
-                _ => null
-            };
+            return ConnectedScreens.TryGetValue(direction, out Screen screen) ? screen : null;
         }
 
         private void OnDrawGizmos()

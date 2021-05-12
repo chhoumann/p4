@@ -27,6 +27,7 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.ExitsFunctions
                 // TODO: Should return some exit type so we can assign to exits 
                 ExitDirection = exitDirection;
                 connectedScreenName = screenId.Value;
+                return null;
             }
 
             throw InvalidArgumentsException(parameters);

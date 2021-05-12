@@ -8,7 +8,6 @@ using Dazel.Interpreter.Ast.Nodes.StatementNodes;
 using Dazel.Interpreter.Ast.Visitors;
 using Dazel.Interpreter.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Interpreter.StandardLibrary.Functions.MapFunctions;
-using UnityEngine;
 
 namespace Dazel.Interpreter.CodeGeneration
 {
@@ -17,10 +16,10 @@ namespace Dazel.Interpreter.CodeGeneration
         private readonly ScreenModel screenModel;
         private readonly List<GameObjectContentNode> contents;
 
-        public ScreenGenerator(List<GameObjectContentNode> contents)
+        public ScreenGenerator(GameObjectNode gameObjectNode)
         {
-            this.contents = contents;
-            screenModel = new ScreenModel();
+            contents = gameObjectNode.Contents;
+            screenModel = new ScreenModel(gameObjectNode.Identifier);
         }
         
         public ScreenModel Generate()
@@ -110,7 +109,7 @@ namespace Dazel.Interpreter.CodeGeneration
                     screenModel.TileStack.Push(new Floor(screenModel, floorFunction.TileName));
                     break;
                 case ScreenExitFunction screenExitFunction:
-                    Debug.Log(screenExitFunction);
+                    screenModel.ScreenExits.Add(new ScreenExitModel(screenExitFunction.ConnectedScreen.Identifier, screenExitFunction.ExitDirection));
                     break;
             }
         }

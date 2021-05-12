@@ -19,20 +19,37 @@ namespace Dazel.Game
         
         private void Awake()
         {
-            List<Screen> screens = new List<Screen>();
+            Dictionary<string, Screen> screens = new Dictionary<string, Screen>();
             
             foreach (ScreenModel screenModel in ScreenModels)
             {
                 GameObject newScreen = Instantiate(screenTemplate, screenContainer);
-                newScreen.transform.name = screenModel.Name;
-                newScreen.SetActive(false);
+                newScreen.transform.name = screenModel.Identifier;
                 
                 Screen screen = newScreen.GetComponent<Screen>().Setup(screenModel);
-                screens.Add(screen);
+ 
+                screens.Add(screenModel.Identifier, screen);
+
+                if (CurrentScreen == null)
+                {
+                    CurrentScreen = screen;
+                }
+                else
+                {
+                    newScreen.SetActive(false);
+                }
             }
             
-            CurrentScreen = screens[0];
-            CurrentScreen.gameObject.SetActive(true);
+            foreach (ScreenModel screenModel in ScreenModels)
+            {
+                var screen1 = screens[screenModel.Identifier];
+
+                foreach (ScreenExitModel screenExitModel in screenModel.ScreenExits)
+                {
+                    var screen2 = screens[screenExitModel.ConnectedScreenIdentifier];
+                    screen1.ConnectedScreens.Add(screenExitModel.ExitDirection, screen2);
+                }
+            }
         }
 
         private void OnEnable()
