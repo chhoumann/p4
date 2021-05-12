@@ -1,6 +1,6 @@
 namespace Dazel.IntermediateModels
 {
-    public sealed class ExitModel
+    public sealed class TileExitModel
     {
         public ScreenModel ToScreenModel { get; set; }
         

@@ -6,7 +6,8 @@ namespace Dazel.IntermediateModels
     {
         public Stack<IGenerator> TileStack { get; set; } = new Stack<IGenerator>();
         public List<EntityModel> Entities { get; set; } = new List<EntityModel>();
-        public List<ExitModel> Exits { get; set; } = new List<ExitModel>();
+        public List<ScreenExitModel> ScreenExits { get; set; } = new List<ScreenExitModel>();
+        public List<TileExitModel> TileExits { get; set; } = new List<TileExitModel>();
 
         public int Width { get; set; }
         public int Height { get; set; }
