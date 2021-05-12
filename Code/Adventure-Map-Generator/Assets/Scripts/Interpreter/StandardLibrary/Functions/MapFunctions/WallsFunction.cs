@@ -10,7 +10,7 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.MapFunctions
 
         public WallsFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Build(List<ValueNode> parameters)
+        public override ValueNode GetValueType(List<ValueNode> parameters)
         {
             return null;
         }

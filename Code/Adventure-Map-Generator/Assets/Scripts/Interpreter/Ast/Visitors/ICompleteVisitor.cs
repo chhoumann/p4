@@ -1,6 +1,6 @@
 ﻿namespace Dazel.Interpreter.Ast.Visitors
 {
-    public interface ICompleteVisitor : IExpressionVisitor, IGameObjectVisitor, IGameObjectContentTypeVisitor, IStatementVisitor
+    public interface ICompleteVisitor : IGameObjectVisitor, IGameObjectContentTypeVisitor, IStatementVisitor, IExpressionVisitor
     {
         
     }

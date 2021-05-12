@@ -3,6 +3,7 @@ using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Dazel.Interpreter.Ast;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
+using Dazel.Interpreter.CodeGeneration;
 using Dazel.Interpreter.SemanticAnalysis;
 
 namespace Dazel.Interpreter
@@ -42,6 +43,16 @@ namespace Dazel.Interpreter
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 new TypeChecker(ast).Visit(gameObject);
+            }
+            
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+            {
+                switch (gameObject.TypeNode)
+                {
+                    case ScreenNode screenNode:
+                        new ScreenGenerator(gameObject.Contents).Generate();
+                        break;
+                }
             }
         }
     }

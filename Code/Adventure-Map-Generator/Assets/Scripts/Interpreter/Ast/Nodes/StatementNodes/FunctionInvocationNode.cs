@@ -4,6 +4,7 @@ using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.Ast.Visitors;
 using Dazel.Interpreter.SemanticAnalysis;
 using Dazel.Interpreter.StandardLibrary;
+using UnityEngine;
 
 namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
 {
@@ -15,9 +16,10 @@ namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
 
         public ValueNode Create()
         {
+            Debug.Log(Identifier);
             if (DazelStdLib.Functions.TryGetValue(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
-                return function.Build(Parameters);
+                return function.GetValueType(Parameters);
             }
             
             // TODO: This is not the right exception. This should be called from within execute. Create a new exception type.

@@ -365,8 +365,11 @@ namespace Dazel.Interpreter.Ast
             {
                 return VisitAssignment(context.assignment());
             }
+            
+            FunctionInvocationNode functionInvocation = VisitFunctionInvocation(context.functionInvocation());
+            functionInvocation.Create();
 
-            return VisitFunctionInvocation(context.functionInvocation());
+            return functionInvocation;
         }
 
         public FunctionInvocationNode VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)

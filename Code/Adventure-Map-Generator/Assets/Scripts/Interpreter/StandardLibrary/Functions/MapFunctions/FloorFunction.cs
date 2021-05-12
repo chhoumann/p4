@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.SemanticAnalysis;
 
@@ -11,9 +10,9 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.MapFunctions
         
         public FloorFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Build(List<ValueNode> parameters)
+        public override ValueNode GetValueType(List<ValueNode> parameters)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

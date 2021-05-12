@@ -14,6 +14,6 @@ namespace Dazel.Interpreter.StandardLibrary
             ReturnType = returnType;
         }
         
-        public abstract ValueNode Build(List<ValueNode> parameters);
+        public abstract ValueNode GetValueType(List<ValueNode> parameters);
     }
 }

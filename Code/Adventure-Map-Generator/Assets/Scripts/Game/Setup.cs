@@ -8,6 +8,16 @@ namespace Dazel.Game
 {
     public sealed class Setup : MonoBehaviour
     {
+        [SerializeField] private bool runCompilerOnStart;
+
+        private void Start()
+        {
+            if (runCompilerOnStart)
+            {
+                Play();
+            }
+        }
+
         public void ShowWorkingEnvironment()
         {
             Process.Start(GameManager.WorkingEnvironment);

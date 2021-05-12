@@ -16,7 +16,7 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
 
         public SpawnEntityFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Build(List<ValueNode> parameters)
+        public override ValueNode GetValueType(List<ValueNode> parameters)
         {
             if (parameters[0] is ArrayNode coordsArray && parameters[1] is IdentifierValueNode id)
             {
