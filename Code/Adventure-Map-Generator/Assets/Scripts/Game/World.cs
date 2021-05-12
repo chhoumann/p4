@@ -24,6 +24,7 @@ namespace Dazel.Game
             foreach (ScreenModel screenModel in ScreenModels)
             {
                 GameObject newScreen = Instantiate(screenTemplate, screenContainer);
+                newScreen.transform.name = screenModel.Name;
                 newScreen.SetActive(false);
                 
                 Screen screen = newScreen.GetComponent<Screen>().Setup(screenModel);
