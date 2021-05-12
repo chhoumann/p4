@@ -21,7 +21,9 @@ namespace Dazel.Game
             {
                 Width = 47,
                 Height = 30
-            }.SetFloor("Grass.png");
+            };
+            
+            mockModel.TileStack.Push(new Floor(mockModel.Width, mockModel.Height, "Grass.png"));
             
             maps = new Screen[mapContainer.childCount];
 
