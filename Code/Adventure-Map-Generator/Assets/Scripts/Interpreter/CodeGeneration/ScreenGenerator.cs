@@ -6,7 +6,9 @@ using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Interpreter.Ast.Nodes.StatementNodes;
 using Dazel.Interpreter.Ast.Visitors;
+using Dazel.Interpreter.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Interpreter.StandardLibrary.Functions.MapFunctions;
+using UnityEngine;
 
 namespace Dazel.Interpreter.CodeGeneration
 {
@@ -106,6 +108,9 @@ namespace Dazel.Interpreter.CodeGeneration
                     break;
                 case FloorFunction floorFunction:
                     screenModel.TileStack.Push(new Floor(screenModel, floorFunction.TileName));
+                    break;
+                case ScreenExitFunction screenExitFunction:
+                    Debug.Log(screenExitFunction);
                     break;
             }
         }
