@@ -185,6 +185,9 @@ namespace Dazel.Interpreter.Ast
             {
                 return VisitFunctionInvocation(context.functionInvocation()).Create();
             }
+            
+            Debug.Log(context.GetText());
+            Debug.Log(context.terminalValue.Type.ToString());
 
             switch (context.terminalValue.Type)
             {
@@ -204,7 +207,6 @@ namespace Dazel.Interpreter.Ast
                         Value = float.Parse(context.GetText())
                     };
                 case DazelLexer.STRING:
-                    Debug.Log(context.GetText());
                     return new StringNode
                     {
                         Value = context.GetText().Replace("\"", string.Empty)
