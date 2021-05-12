@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using Dazel.IntermediateModels;
 using Dazel.Interpreter.Ast;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 using Dazel.Interpreter.CodeGeneration;
@@ -11,6 +12,8 @@ namespace Dazel.Interpreter
     public sealed class DazelInterpreter
     {
         private readonly string sourceFileDirectory;
+
+        public static List<ScreenModel> ScreenModels = new List<ScreenModel>();
 
         public DazelInterpreter(string sourceFileDirectory)
         {
@@ -50,7 +53,7 @@ namespace Dazel.Interpreter
                 switch (gameObject.TypeNode)
                 {
                     case ScreenNode screenNode:
-                        new ScreenGenerator(gameObject.Contents).Generate();
+                        ScreenModels.Add(new ScreenGenerator(gameObject.Contents).Generate());
                         break;
                 }
             }

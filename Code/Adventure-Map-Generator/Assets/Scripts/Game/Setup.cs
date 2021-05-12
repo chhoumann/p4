@@ -2,22 +2,15 @@ using System.Diagnostics;
 using System.IO;
 using Dazel.Interpreter;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 namespace Dazel.Game
 {
     public sealed class Setup : MonoBehaviour
     {
-        [SerializeField] private bool runCompilerOnStart;
-
-        private void Start()
-        {
-            if (runCompilerOnStart)
-            {
-                Play();
-            }
-        }
-
+        private const string GameSceneName = "GameScene";
+        
         public void ShowWorkingEnvironment()
         {
             Process.Start(GameManager.WorkingEnvironment);
@@ -32,6 +25,8 @@ namespace Dazel.Game
             
             string path = GetDirectoryPath(GameManager.SourceFileDirectory);
             new DazelInterpreter(path).Run();
+
+            SceneManager.LoadScene(GameSceneName);
         }
 
         private static void SetupEnvironment()
