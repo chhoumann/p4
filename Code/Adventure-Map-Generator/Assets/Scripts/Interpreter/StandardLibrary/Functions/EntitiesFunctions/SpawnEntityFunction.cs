@@ -36,14 +36,12 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("Invalid arguments to SpawnEntity function:");
+            sb.AppendLine("Invalid arguments to SpawnEntity function:");
             
             foreach (ValueNode valueNode in parameters)
             {
-                sb.Append($" {valueNode}");
+                sb.AppendLine($"{valueNode}");
             }
-
-            return null;
             
             throw new ArgumentException(sb.ToString());
         }
