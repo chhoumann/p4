@@ -63,7 +63,7 @@ namespace Dazel.Interpreter.SemanticAnalysis
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            functionInvocationNode.Function.Setup(functionInvocationNode.Parameters);
+            functionInvocationNode.Function.Setup(functionInvocationNode.Parameters, ast);
             FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
 
             EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);

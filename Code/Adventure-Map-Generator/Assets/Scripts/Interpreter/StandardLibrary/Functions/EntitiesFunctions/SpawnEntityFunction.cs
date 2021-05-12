@@ -40,9 +40,9 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
             throw new ArgumentException(sb.ToString());
         }
 
-        public override ValueNode Setup(List<ValueNode> parameters)
+        public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)
         {
-            if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(entityName, out GameObjectNode gameObject))
+            if (ast.TryRetrieveGameObject(entityName, out GameObjectNode gameObject))
             {
                 Entity = gameObject;
             }

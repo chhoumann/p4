@@ -10,15 +10,8 @@ namespace Dazel.Interpreter.Ast
     {
         public RootNode Root { get; }
 
-        public static AbstractSyntaxTree Instance { get; private set; }
-        
         public AbstractSyntaxTree(RootNode root)
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-
             Root = root;
         }
 
