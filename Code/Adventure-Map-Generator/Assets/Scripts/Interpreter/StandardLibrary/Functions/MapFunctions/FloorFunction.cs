@@ -10,8 +10,15 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.MapFunctions
         
         public FloorFunction() : base(SymbolType.Void) { }
 
+        public string TileName { get; private set; }
+
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
+            if (parameters[0] is StringNode stringNode)
+            {
+                TileName = stringNode.Value;
+            }
+
             return null;
         }
     }

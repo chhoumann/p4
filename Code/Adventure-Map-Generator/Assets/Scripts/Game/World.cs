@@ -25,8 +25,6 @@ namespace Dazel.Game
                 GameObject newScreen = Instantiate(screenTemplate, screenContainer);
                 newScreen.SetActive(false);
                 
-                screenModel.TileStack.Push(new Floor(screenModel.Width, screenModel.Height, "Grass.png"));
-                
                 Screen screen = newScreen.GetComponent<Screen>().Setup(screenModel);
                 screens.Add(screen);
             }

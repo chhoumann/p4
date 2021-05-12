@@ -112,6 +112,9 @@ namespace Dazel.Interpreter.CodeGeneration
                     screenModel.Width = sizeFunction.Width;
                     screenModel.Height = sizeFunction.Height;
                     break;
+                case FloorFunction floorFunction:
+                    screenModel.TileStack.Push(new Floor(screenModel.Width, screenModel.Height, floorFunction.TileName));
+                    break;
             }
         }
 
