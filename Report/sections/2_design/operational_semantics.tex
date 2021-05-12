@@ -33,8 +33,8 @@ For each of these, we give a finite set of formation rules that define how each 
 		$C_m \in \textbf{ContDecl}$ & $\text{Content declarations}$ \\
 		$S \in \textbf{Stm}$ & $\text{Statements}$\\
 		$DR \in \textbf{DecR}$ & $\text{Record declarations}$\\
-		$r_n \in \textbf{Rnames}$ & $\text{Record names}$
-		$K \in \textbf{Gvar}$ & $\text{Generalized variables}$
+		$r_n \in \textbf{Rnames}$ & $\text{Record names}$ \\
+		$K \in \textbf{Gvar}$ & $\text{Generalized variables}$\\
 		$P \in \textbf{Gpnames}$ & $\text{Generalized procedure names}$
 	\end{tabular}
 
@@ -207,9 +207,9 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\dfrac
 		{env_R \vdash \langle D_V,\; env'_V, \; sto[l \mapsto v] \rangle \rightarrow_\text{DV} (env'_V, sto')}
 		{env_R \vdash \langle x:=a; D_V, env_V, sto \rangle \rightarrow_\text{DV} (env'_V, sto')} \\
-		\text{where } \textit{env_R}, \textit{env_V}, \textit{sto} \vdash \text{a} \rightarrow_a \text{v} \\
-		\text{and} \textit{l} = \textit{env_V} \; \text{next} \\
-		\text{and} \textit{env'_V} = \textit{env_V}[k \mapsto l][next \mapsto new l]
+		\text{where } \textit{env}_R, \textit{env}_V, \textit{sto} \vdash \text{a} \rightarrow_a \text{v} \\
+		\text{and} \textit{l} = \textit{env}_V \; \text{next} \\
+		\text{and} \textit{env'}_V = \textit{env}_V[k \mapsto l][next \mapsto new l]
 		\\
 		%
 		\\
@@ -231,13 +231,13 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\dfrac
 		{env'_R, env'_V \vdash K \rightarrow \textit{l}}
 		{env'_R, env'_V \vdash r.K \rightarrow \textit{l}} \\
-		\text{where } \textit{env_R} \; r = (\textit{env'_V}, \textit{env'_P}, \text{env'_R})
+		\text{where } \textit{env}_R \; r = (\textit{env'}_V, \textit{env'}_P, \text{env'}_R)
 		\\
 		%
 		\\
 		[GVAR_\text{BSS}]
 		\qquad env'_R, env'_V \vdash k \rightarrow l \\
-		\text{where } \textit{env_V} \; k = l
+		\text{where } \textit{env}_V \; k = l
 		\\
 		%
 		\\
