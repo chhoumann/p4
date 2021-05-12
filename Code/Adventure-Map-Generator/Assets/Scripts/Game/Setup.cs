@@ -22,11 +22,14 @@ namespace Dazel.Game
             {
                 FindObjectOfType<GameManager>().Setup();
             }
-            
+
             string path = GetDirectoryPath(GameManager.SourceFileDirectory);
             new DazelInterpreter(path).Run();
-
-            SceneManager.LoadScene(GameSceneName);
+            
+            if (Application.isPlaying)
+            {
+                SceneManager.LoadScene(GameSceneName);
+            }
         }
 
         private static void SetupEnvironment()
