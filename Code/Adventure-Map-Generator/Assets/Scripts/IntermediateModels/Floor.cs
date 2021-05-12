@@ -6,13 +6,13 @@ namespace Dazel.IntermediateModels
     {
         public IEnumerable<TileModel> Tiles { get; }
         
-        public Floor(int width, int height, string tileName)
+        public Floor(ScreenModel screenModel, string tileName)
         {
             List<TileModel> floorTiles = new List<TileModel>();
             
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < screenModel.Width; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < screenModel.Height; y++)
                 {
                     TileModel tile = new TileModel(x, y, tileName);
                     floorTiles.Add(tile);
