@@ -5,10 +5,10 @@ namespace Dazel.Game
 {
     public sealed class Screen : MonoBehaviour
     {
-        [SerializeField] private Screen screenAbove;
-        [SerializeField] private Screen screenBelow;
-        [SerializeField] private Screen screenLeft;
-        [SerializeField] private Screen screenRight;
+        public Screen ScreenAbove { get; set; }
+        public Screen ScreenBelow { get; set; }
+        public Screen ScreenLeft { get; set; }
+        public Screen ScreenRight { get; set; }
 
         public Vector2Int Size => size;
         public Bounds Bounds { get; private set; }
@@ -32,10 +32,10 @@ namespace Dazel.Game
         {
             return direction switch
             {
-                Direction.Up => screenAbove,
-                Direction.Down => screenBelow,
-                Direction.Left => screenLeft,
-                Direction.Right => screenRight,
+                Direction.Up => ScreenAbove,
+                Direction.Down => ScreenBelow,
+                Direction.Left => ScreenLeft,
+                Direction.Right => ScreenRight,
                 _ => null
             };
         }
