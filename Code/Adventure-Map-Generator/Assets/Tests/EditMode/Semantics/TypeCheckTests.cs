@@ -27,7 +27,7 @@ namespace Dazel.Tests.EditMode.Semantics
             "" +
             "   Entities" +
             "   {" +
-            "       SpawnEntity(Skeleton1, [4, 5]);" +
+            "       SpawnEntity(\"Skeleton1\", [4, 5]);" +
             "   }" +
             "}";
 

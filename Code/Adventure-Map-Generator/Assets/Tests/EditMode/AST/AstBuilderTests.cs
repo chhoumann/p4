@@ -27,13 +27,13 @@ namespace Dazel.Tests.EditMode.AST
             "           SomeVar2 = 3 + 3 / 3;" + // Test expressions & integers
             "           x = SomeVar2;" + // Test identifier values
             "       }" +
-            "       let = SampleScreen1.Exits.exit1;" + // Test member access 
+            "       let = Player.Health;" + // Test member access 
             "       arr = [1, 2, 3];" + // Test arrays
             "   }" +
             "" +
             "   Entities" +
             "   {" +
-            "       SpawnEntity(Skeleton1, [4, 5]);" +
+            "       SpawnEntity(\"Skeleton1\", [4, 5]);" +
             "   }" +
             "}";
 
@@ -143,7 +143,7 @@ namespace Dazel.Tests.EditMode.AST
                     Assert.That(functionInvocationNode.Parameters[1] is IntValueNode {Value: 24});
                     break;
                 case "SpawnEntity":
-                    Assert.That(functionInvocationNode.Parameters[0] is IdentifierValueNode {Value: "Skeleton1"});
+                    Assert.That(functionInvocationNode.Parameters[0] is StringNode {Value: "Skeleton1"});
                     Assert.That(functionInvocationNode.Parameters[1] is ArrayNode array && 
                                 array.Values[0] is IntValueNode {Value: 4} &&
                                 array.Values[1] is IntValueNode {Value: 5});
@@ -188,9 +188,8 @@ namespace Dazel.Tests.EditMode.AST
                 // let = SampleScreen1.Exits.exit1
                 case "let":
                     Assert.That(assignmentNode.Expression is MemberAccessNode me &&
-                                me.Identifiers[0] == "SampleScreen1" && 
-                                me.Identifiers[1] == "Exits" && 
-                                me.Identifiers[2] == "exit1"
+                                me.Identifiers[0] == "Player" && 
+                                me.Identifiers[1] == "Health" 
                     );
                     break;
                 // arr = [1, 2, 3]
