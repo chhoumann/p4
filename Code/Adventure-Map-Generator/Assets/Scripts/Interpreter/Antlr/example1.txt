@@ -21,22 +21,20 @@ Screen SampleScreen1
 	    
 	    let = SampleScreen1.Exits.exit1;
 	    	    
-		Walls(Stone); 
-		Floor(Grass);
+		Walls("Stone.png"); 
+		Floor("Grass.png");
 		
         {
-		    Line(TopLeft, TopRight, Cliff); 
-		    Line([2, 2], [2, 4], Cliff);
+		    Line([2, 2], [2, 4], "Cliff.png");
         }
-        
 
-		Square(position, size, Cliff);
-		Square([8, 8], 4, Cliff);
+		Square(position, size, "Cliff.png");
+		Square([8, 8], 4, "Cliff.png");
 	}
 
 	Entities 
 	{
-		SpawnEntity(Skeleton1, [4, 4]);
+		SpawnEntity("Skeleton1", [4, 4]);
 	}
 	
 	Exits 

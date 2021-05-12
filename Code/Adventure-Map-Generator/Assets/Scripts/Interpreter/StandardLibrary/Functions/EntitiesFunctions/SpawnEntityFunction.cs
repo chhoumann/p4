@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
+using System.Text;
 using Dazel.Interpreter.Ast;
 using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 using Dazel.Interpreter.SemanticAnalysis;
+using UnityEngine;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
 {
@@ -18,17 +20,32 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
 
         public override ValueNode GetValueType(List<ValueNode> parameters)
         {
-            if (parameters[0] is ArrayNode coordsArray && parameters[1] is IdentifierValueNode id)
+            if (parameters[0] is StringNode entityName && parameters[1] is ArrayNode coordsArray)
             {
                 SpawnPoint = coordsArray.ToVector2();
 
-                if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(id.Value, out GameObjectNode gameObject))
+                Debug.Log(parameters[0]);
+                Debug.Log(parameters[1]);
+
+                if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(entityName.Value, out GameObjectNode gameObject))
                 {
                     Entity = gameObject;
                 }
+
+                return null;
             }
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Invalid arguments to SpawnEntity function:");
             
-            throw new ArgumentException("Invalid arguments to SpawnEntity function");
+            foreach (ValueNode valueNode in parameters)
+            {
+                sb.Append($" {valueNode}");
+            }
+
+            return null;
+            
+            throw new ArgumentException(sb.ToString());
         }
     }
 }

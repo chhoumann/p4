@@ -109,11 +109,11 @@ namespace Dazel.Interpreter.CodeGeneration
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            if (!DazelStdLib.Functions.TryGetValue(functionInvocationNode.Identifier, out Function function))
+            if (!DazelStdLib.TryGetFunction(functionInvocationNode.Identifier, out Function function))
             {
                 throw new NullReferenceException($"Function {functionInvocationNode.Identifier} does not exist!");
             }
-
+            
             Debug.Log("visited " + function);
             
             switch (function)

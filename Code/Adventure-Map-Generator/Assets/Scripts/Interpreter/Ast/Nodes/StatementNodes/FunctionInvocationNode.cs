@@ -4,7 +4,6 @@ using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.Ast.Visitors;
 using Dazel.Interpreter.SemanticAnalysis;
 using Dazel.Interpreter.StandardLibrary;
-using UnityEngine;
 
 namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
 {
@@ -16,8 +15,7 @@ namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
 
         public ValueNode Create()
         {
-            Debug.Log(Identifier);
-            if (DazelStdLib.Functions.TryGetValue(Identifier, out Function function) && function.NumArguments == Parameters.Count)
+            if (DazelStdLib.TryGetFunction(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
                 return function.GetValueType(Parameters);
             }

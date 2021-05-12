@@ -4,8 +4,8 @@ Screen SampleScreen2
 	{
 		Size(20, 20);
         
-		Walls(Grass); 
-		Floor(Stone);
+		Walls("Grass.png"); 
+		Floor("Stone.png");
 	}
 	
 	Exits 

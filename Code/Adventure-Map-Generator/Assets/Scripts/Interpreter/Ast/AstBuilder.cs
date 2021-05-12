@@ -8,6 +8,7 @@ using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Interpreter.Ast.Nodes.StatementNodes;
+using UnityEngine;
 
 namespace Dazel.Interpreter.Ast
 {
@@ -203,6 +204,7 @@ namespace Dazel.Interpreter.Ast
                         Value = float.Parse(context.GetText())
                     };
                 case DazelLexer.STRING:
+                    Debug.Log(context.GetText());
                     return new StringNode
                     {
                         Value = context.GetText().Replace("\"", string.Empty)
