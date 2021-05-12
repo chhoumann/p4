@@ -12,11 +12,13 @@ namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
         public string Identifier { get; set; }
         public List<ValueNode> Parameters { get; set; }
         public SymbolType ReturnType { get; set; }
+        public Function Function { get; private set; }
 
         public ValueNode Create()
         {
             if (DazelStdLib.TryGetFunction(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
+                Function = function;
                 return function.GetValueType(Parameters);
             }
             
