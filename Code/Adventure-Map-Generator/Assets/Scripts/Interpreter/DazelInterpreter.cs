@@ -18,7 +18,19 @@ namespace Dazel.Interpreter
             this.sourceFileDirectory = sourceFileDirectory;
         }
         
-        public List<ScreenModel> Run()
+        public IEnumerable<ScreenModel> Run()
+        {
+            IEnumerable<IParseTree> parseTrees = BuildParseTrees();
+
+            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
+        
+            PrintAst(ast);
+            PerformSemanticAnalysis(ast);
+            
+            return GenerateIntermediateModels(ast);
+        }
+
+        private IEnumerable<IParseTree> BuildParseTrees()
         {
             List<IParseTree> parseTrees = new List<IParseTree>();
             IEnumerable<string> files = SourceFileGetter.GetFilesInDirectory(sourceFileDirectory);
@@ -29,25 +41,34 @@ namespace Dazel.Interpreter
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
-                
+
                 parseTrees.Add(parser.start());
             }
 
-            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
-        
+            return parseTrees;
+        }
+
+        private static void PrintAst(AbstractSyntaxTree ast)
+        {
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 AstPrinter astPrinter = new AstPrinter();
-                astPrinter.Visit(gameObject);     
+                astPrinter.Visit(gameObject);
             }
-            
+        }
+
+        private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
+        {
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 new TypeChecker(ast).Visit(gameObject);
             }
-            
+        }
+
+        private static IEnumerable<ScreenModel> GenerateIntermediateModels(AbstractSyntaxTree ast)
+        {
             List<ScreenModel> screenModels = new List<ScreenModel>();
-            
+
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 switch (gameObject.TypeNode)
