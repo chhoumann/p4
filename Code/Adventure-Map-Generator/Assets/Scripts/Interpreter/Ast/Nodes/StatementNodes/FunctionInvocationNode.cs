@@ -19,7 +19,7 @@ namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
             if (DazelStdLib.TryGetFunction(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
                 Function = function;
-                return function.GetValueType(Parameters);
+                return function.GetReturnType(Parameters);
             }
             
             // TODO: This is not the right exception. This should be called from within execute. Create a new exception type.

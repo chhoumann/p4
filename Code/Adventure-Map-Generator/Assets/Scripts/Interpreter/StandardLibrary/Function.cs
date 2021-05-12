@@ -9,11 +9,14 @@ namespace Dazel.Interpreter.StandardLibrary
         public abstract int NumArguments { get; }
         private SymbolType ReturnType { get; }
 
+        protected ValueNode ValueNode;
+
         protected Function(SymbolType returnType)
         {
             ReturnType = returnType;
         }
         
-        public abstract ValueNode GetValueType(List<ValueNode> parameters);
+        public abstract ValueNode GetReturnType(List<ValueNode> parameters);
+        public virtual ValueNode Setup(List<ValueNode> parameters) => null;
     }
 }

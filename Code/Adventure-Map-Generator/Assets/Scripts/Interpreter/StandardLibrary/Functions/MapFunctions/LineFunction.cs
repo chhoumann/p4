@@ -14,7 +14,7 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.MapFunctions
 
         public LineFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode GetValueType(List<ValueNode> parameters)
+        public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
             if (parameters[0] is ArrayNode coords1 && parameters[1] is ArrayNode coords2)
             {

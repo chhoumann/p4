@@ -1,6 +1,5 @@
 ﻿using Dazel.Interpreter.Ast.Visitors;
 using Dazel.Interpreter.SemanticAnalysis;
-using UnityEngine;
 
 namespace Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values
 {
@@ -15,7 +14,6 @@ namespace Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values
         
         public override void Accept(IExpressionVisitor visitor)
         {
-            Debug.Log(Value);
             visitor.Visit(this);
         }
     }

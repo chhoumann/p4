@@ -14,7 +14,7 @@ namespace Dazel.Interpreter.Ast
         
         public AbstractSyntaxTree(RootNode root)
         {
-            if (Instance != null)
+            if (Instance == null)
             {
                 Instance = this;
             }

@@ -16,22 +16,16 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
         public Vector2 SpawnPoint { get; private set; }
         public GameObjectNode Entity { get; set; }
 
+        private string entityName;
+        
         public SpawnEntityFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode GetValueType(List<ValueNode> parameters)
+        public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
-            if (parameters[0] is StringNode entityName && parameters[1] is ArrayNode coordsArray)
+            if (parameters[0] is StringNode stringNode && parameters[1] is ArrayNode arrayNode)
             {
-                SpawnPoint = coordsArray.ToVector2();
-
-                Debug.Log(parameters[0]);
-                Debug.Log(parameters[1]);
-
-                if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(entityName.Value, out GameObjectNode gameObject))
-                {
-                    Entity = gameObject;
-                }
-
+                entityName = stringNode.Value;
+                SpawnPoint = arrayNode.ToVector2();
                 return null;
             }
 
@@ -44,6 +38,16 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
             }
             
             throw new ArgumentException(sb.ToString());
+        }
+
+        public override ValueNode Setup(List<ValueNode> parameters)
+        {
+            if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(entityName, out GameObjectNode gameObject))
+            {
+                Entity = gameObject;
+            }
+            
+            return null;
         }
     }
 }

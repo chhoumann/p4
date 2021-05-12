@@ -25,6 +25,11 @@ namespace Dazel.Game
 
         public void Play()
         {
+            if (Application.isEditor)
+            {
+                FindObjectOfType<GameManager>().Setup();
+            }
+            
             string path = GetDirectoryPath(GameManager.SourceFileDirectory);
             new DazelInterpreter(path).Run();
         }

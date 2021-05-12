@@ -10,7 +10,7 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.MapFunctions
 
         public SquareFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode GetValueType(List<ValueNode> parameters)
+        public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
             return null;
         }

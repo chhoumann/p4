@@ -90,8 +90,6 @@ namespace Dazel.Interpreter.CodeGeneration
 
         public void Visit(StatementBlockNode statementBlockNode)
         {
-            
-            Debug.Log("ur mom1");
         }
 
         public void Visit(IfStatementNode ifStatementNode)
@@ -104,7 +102,6 @@ namespace Dazel.Interpreter.CodeGeneration
 
         public void Visit(AssignmentNode assignmentNode)
         {
-            Debug.Log("ur mom2");
         }
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
@@ -112,8 +109,6 @@ namespace Dazel.Interpreter.CodeGeneration
             switch (functionInvocationNode.Function)
             {
                 case SizeFunction sizeFunction:
-                    Debug.Log(sizeFunction.Height);
-                    Debug.Log(sizeFunction.Width);
                     screenModel.Width = sizeFunction.Width;
                     screenModel.Height = sizeFunction.Height;
                     break;

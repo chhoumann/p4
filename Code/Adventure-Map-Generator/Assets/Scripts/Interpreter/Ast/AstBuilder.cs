@@ -186,9 +186,6 @@ namespace Dazel.Interpreter.Ast
                 return VisitFunctionInvocation(context.functionInvocation()).Create();
             }
             
-            Debug.Log(context.GetText());
-            Debug.Log(context.terminalValue.Type.ToString());
-
             switch (context.terminalValue.Type)
             {
                 case DazelLexer.IDENTIFIER:

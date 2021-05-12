@@ -10,7 +10,7 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.ExitsFunctions
         
         public FloorExitsFunction() : base(SymbolType.Void) { }
         
-        public override ValueNode GetValueType(List<ValueNode> parameters)
+        public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
             // TODO: Should return some exit type so we can assign to exits
             return null;
