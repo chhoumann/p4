@@ -11,7 +11,7 @@ namespace Dazel.Interpreter.ErrorHandler
         {
             foreach (string error in errors)
             {
-                Debug.Log(error);
+                Debug.LogError(error);
             }
         }
 
