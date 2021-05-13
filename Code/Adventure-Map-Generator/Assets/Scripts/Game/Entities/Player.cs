@@ -4,6 +4,8 @@ namespace Dazel.Game.Entities
 {
     public sealed class Player : Entity
     {
+        [SerializeField] private BoxCollider2D spriteBounds;
+        
         private const float MoveSpeed = 6f;
 
         public Vector2 Position
@@ -12,12 +14,11 @@ namespace Dazel.Game.Entities
             set => rb.position = value;
         }
 
-        public Vector2 Size => bounds.size;
-        public Vector2 Extents => bounds.extents;
+        public Vector2 Size => spriteBounds.size;
+        public Vector2 Extents => spriteBounds.bounds.extents;
 
         private Rigidbody2D rb;
 
-        private Bounds bounds;
         private Vector2 moveInput;
 
         private void Start()
@@ -27,7 +28,6 @@ namespace Dazel.Game.Entities
 
         private void Update()
         {
-            bounds = new Bounds(rb.position, new Vector3(1, 1.5f));
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             MoveDirection = moveInput;
         }

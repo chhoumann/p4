@@ -29,15 +29,7 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
                 return null;
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Invalid arguments to SpawnEntity function:");
-            
-            foreach (ValueNode valueNode in parameters)
-            {
-                sb.AppendLine($"{valueNode}");
-            }
-            
-            throw new ArgumentException(sb.ToString());
+            throw InvalidArgumentsException(parameters);
         }
 
         public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)

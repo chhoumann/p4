@@ -1,4 +1,5 @@
-﻿using Antlr4.Runtime;
+﻿using System;
+using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Dazel.Interpreter.Ast;
 using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
@@ -9,7 +10,7 @@ using Dazel.Interpreter.Ast.Nodes.StatementNodes;
 using Dazel.Interpreter.Ast.Visitors;
 using NUnit.Framework;
 
-namespace Dazel.Tests.EditMode.AST
+namespace Tests.EditMode.AST
 {
     [TestFixture]
     public sealed class AstBuilderTests : ICompleteVisitor
@@ -57,7 +58,34 @@ namespace Dazel.Tests.EditMode.AST
             }
         }
 
+        private const string TestCode1 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       lorem(3,1);" +
+            "   }" +
+            "}";
         
+        [Test]
+        public void ASTBuilder_Visit_NonExistingFunctionCallThrows()
+        {
+            void TestDelegate() => BuildAst(TestCode1);
+            Assert.Throws<ArgumentException>(TestDelegate);
+        }
+        
+        private AbstractSyntaxTree BuildAst(string code)
+        {
+            ICharStream stream = CharStreams.fromString(code);
+            ITokenSource lexer = new DazelLexer(stream);
+            ITokenStream tokens = new CommonTokenStream(lexer);
+            IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
+            return new AstBuilder().BuildAst(parseTree);
+        }
+        
+
+        #region Visitor
+
         public void Visit(GameObjectNode gameObjectNode)
         {
             // Line 1
@@ -216,5 +244,7 @@ namespace Dazel.Tests.EditMode.AST
 
         public void Visit(ExitValueNode exitValueNode) {
         }
+
+        #endregion
     }
 }
