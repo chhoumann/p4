@@ -19,6 +19,8 @@ namespace Dazel.Game
         
         private void Awake()
         {
+            if (ScreenModels == null) return;
+            
             Dictionary<string, Screen> screens = new Dictionary<string, Screen>();
             
             foreach (ScreenModel screenModel in ScreenModels)
