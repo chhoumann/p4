@@ -21,15 +21,22 @@ namespace Dazel.Game
         {
             if (ScreenModels == null) return;
             
+            Dictionary<string, Screen> screens = CreateScreens();
+
+            ConnectScreens(screens);
+        }
+
+        private Dictionary<string, Screen> CreateScreens()
+        {
             Dictionary<string, Screen> screens = new Dictionary<string, Screen>();
-            
+
             foreach (ScreenModel screenModel in ScreenModels)
             {
                 GameObject newScreen = Instantiate(screenTemplate, screenContainer);
                 newScreen.transform.name = screenModel.Identifier;
-                
+
                 Screen screen = newScreen.GetComponent<Screen>().Setup(screenModel);
- 
+
                 screens.Add(screenModel.Identifier, screen);
 
                 if (CurrentScreen == null)
@@ -41,17 +48,22 @@ namespace Dazel.Game
                     newScreen.SetActive(false);
                 }
             }
-            
+
+            return screens;
+        }
+
+        private static void ConnectScreens(IReadOnlyDictionary<string, Screen> screens)
+        {
             foreach (ScreenModel screenModel in ScreenModels)
             {
-                Screen screen1 = screens[screenModel.Identifier];
+                Screen screen = screens[screenModel.Identifier];
 
                 foreach (ScreenExitModel screenExitModel in screenModel.ScreenExits)
                 {
-                    Screen screen2 = screens[screenExitModel.ConnectedScreenIdentifier];
-                    
-                    screen1.ConnectedScreens.Add(screenExitModel.ExitDirection, screen2);
-                    screen2.ConnectedScreens.Add(screenExitModel.ExitDirection.GetOpposite(), screen1);
+                    Screen connectedScreen = screens[screenExitModel.ConnectedScreenIdentifier];
+
+                    screen.ConnectedScreens.Add(screenExitModel.ExitDirection, connectedScreen);
+                    connectedScreen.ConnectedScreens.Add(screenExitModel.ExitDirection.GetOpposite(), screen);
                 }
             }
         }
