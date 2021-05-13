@@ -16,8 +16,6 @@ Screen SampleScreen1
 	    
 	    x = "SomeVar1";
 	    
-	    letx = [1] + 1;
-	    
 		Walls("Stone.png"); 
 		Floor("Grass.png");
 		

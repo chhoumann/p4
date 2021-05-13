@@ -30,7 +30,7 @@ namespace Dazel.Interpreter
 
                 AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
 
-                if (errorLogger.HasErrors())
+                if (errorLogger.HasErrors)
                 {
                     throw new Exception("Invalid Dazel code.");
                 }

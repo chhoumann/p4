@@ -5,6 +5,7 @@ namespace Dazel.Interpreter.ErrorHandler
 {
     public sealed class DazelErrorLogger : IErrorLogger
     {
+        public bool HasErrors => errors.Count > 0;
         private readonly List<string> errors = new List<string>();
 
         public void Log()
@@ -18,11 +19,6 @@ namespace Dazel.Interpreter.ErrorHandler
         public void AddToErrorList(string error)
         {
             errors.Add(error);
-        }
-
-        public bool HasErrors()
-        {
-            return errors.Count > 0;
         }
     }
 }

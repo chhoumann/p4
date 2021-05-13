@@ -4,6 +4,6 @@
     {
         void Log();
         void AddToErrorList(string error);
-        bool HasErrors();
+        bool HasErrors { get; }
     }
 }
