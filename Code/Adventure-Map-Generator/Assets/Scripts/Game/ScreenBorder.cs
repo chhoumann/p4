@@ -9,8 +9,8 @@ namespace Dazel.Game
         [SerializeField] protected EdgeCollider2D edgeCollider;
         
         public static event Action<Player, Direction> PlayerExitedBounds;
-        
-        public abstract Direction Direction { get; }
+
+        protected abstract Direction Direction { get; }
         
         private void OnCollisionEnter2D(Collision2D other)
         {

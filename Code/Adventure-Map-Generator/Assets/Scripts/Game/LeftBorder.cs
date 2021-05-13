@@ -4,7 +4,7 @@ namespace Dazel.Game
 {
     public sealed class LeftBorder : ScreenBorder
     {
-        public override Direction Direction => Direction.Left;
+        protected override Direction Direction => Direction.Left;
 
         public override void SetupBorderSize(Screen screen)
         {

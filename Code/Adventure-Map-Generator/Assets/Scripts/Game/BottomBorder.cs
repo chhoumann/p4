@@ -4,7 +4,7 @@ namespace Dazel.Game
 {
     public sealed class BottomBorder : ScreenBorder
     {
-        public override Direction Direction => Direction.Down;
+        protected override Direction Direction => Direction.Down;
         
         public override void SetupBorderSize(Screen screen)
         {

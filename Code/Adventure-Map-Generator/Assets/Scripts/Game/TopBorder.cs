@@ -4,7 +4,7 @@ namespace Dazel.Game
 {
     public sealed class TopBorder : ScreenBorder
     {
-        public override Direction Direction => Direction.Up;
+        protected override Direction Direction => Direction.Up;
         
         public override void SetupBorderSize(Screen screen)
         {
