@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Dazel.Interpreter
 {
-    internal static class SourceFileGetter
+    public static class SourceFileGetter
     {
         public static IEnumerable<string> GetFilesInDirectory(string directory)
         {

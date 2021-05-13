@@ -18,7 +18,7 @@ namespace Dazel.Game
         private void Start()
         { 
             cam = GetComponent<Camera>();
-            CalculateCameraBounds(World.Screen);
+            CalculateCameraBounds(World.CurrentScreen);
         }
 
         private void OnEnable()

@@ -12,12 +12,14 @@ namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
         public string Identifier { get; set; }
         public List<ValueNode> Parameters { get; set; }
         public SymbolType ReturnType { get; set; }
+        public Function Function { get; private set; }
 
         public ValueNode Create()
         {
-            if (DazelStdLib.Functions.TryGetValue(Identifier, out Function function) && function.NumArguments == Parameters.Count)
+            if (DazelStdLib.TryGetFunction(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
-                return function.Build(Parameters);
+                Function = function;
+                return function.GetReturnType(Parameters);
             }
             
             // TODO: This is not the right exception. This should be called from within execute. Create a new exception type.

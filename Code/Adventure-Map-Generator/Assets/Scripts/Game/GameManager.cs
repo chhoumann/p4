@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using Dazel.IntermediateModels;
 using UnityEngine;
 
 namespace Dazel.Game
@@ -29,11 +31,15 @@ namespace Dazel.Game
                 return;
             }
 
+            Setup();
+            DontDestroyOnLoad(gameObject);
+        }
+
+        public void Setup()
+        {
             Instance = this;
             WorkingEnvironment = Application.persistentDataPath;
             GfxLoader = new GfxLoader(Path.Combine(WorkingEnvironment, GraphicsFileDirectory));
-            
-            DontDestroyOnLoad(gameObject);
         }
     }
 }

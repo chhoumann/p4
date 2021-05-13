@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Dazel.IntermediateModels;
+﻿using Dazel.IntermediateModels;
 
 namespace Dazel.Game
 {
     public interface ITilemapGenerator
     {
-        public void Generate(List<TileModel> tiles);
+        public void Generate(IGenerator generator);
     }
 }

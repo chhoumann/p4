@@ -8,12 +8,12 @@ namespace Dazel.Game
     {
         [SerializeField] private GameObject tileTemplate;
         
-        public void Generate(List<TileModel> tiles)
+        public void Generate(IGenerator generator)
         {
             const int ppu = GameManager.PixelsPerUnit;
             Vector3Int position = new Vector3Int();
             
-            foreach (TileModel tileModel in tiles)
+            foreach (TileModel tileModel in generator.Tiles)
             {
                 position.x = tileModel.X;
                 position.y = tileModel.Y;
