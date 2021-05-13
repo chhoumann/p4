@@ -54,8 +54,40 @@ Once all the individual AST's have been produced, they are combined by giving th
 \subsubsection*{Visiting the Game Object}
 In the following, we will further describe how the \textbf{VisitGameObject} method from \snipref{lst:BuildAstMethod} on line \ref{line:VisitGO} works and how the over all visitor pattern comes into play.
 
+As \textbf{VisitGameObject} gets called, with the parse tree in its parameter, the initial step is to perform pattern matching on the type of the \textbf{gameObject} which can be seen in the definition for \texttt{VisitGameObject} on line \ref{line:PatternMatch} in \snipref{lst:VisitParseTree}. This is done to ensure that the parsed source code contains a game object of the correct type and if that is the case, create a node of either of the legal types which is then assigned to the local variable \textbf{typeNode}.
 
+Once the pattern matching is done we use object initialization to create a new \textbf{gameObjectNode} node on line \ref{line:NewGONode}. In the initialization of this object we call \texttt{VisitGameObjectContents} method on line \ref{line:VisitGameObjectContents} which where the cascading effect of the visitor pattern begins.
 
+\begin{lstlisting}[caption={The initial stage of visiting}, label={lst:VisitParseTree},escapechar=|]
+    public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
+    {
+        GameObjectTypeNode typeNode;
+        
+        switch (context.gameObjectType.Type) |\label{line:PatternMatch}|
+        {
+            case DazelLexer.SCREEN:
+                typeNode = new ScreenNode();
+                break;
+            case DazelLexer.ENTITY:
+                typeNode = new EntityNode();
+                break;
+            case DazelLexer.MOVE_PATTERN:
+                typeNode = new MovePatternNode();
+                break;
+            default:
+                throw new ArgumentException("Type is not a GameObjectType!");
+        }
+
+        GameObjectNode gameObjectNode = new GameObjectNode() |\label{line:NewGONode}|
+        {
+            Identifier = context.GetChild(1).GetText(),
+            TypeNode = typeNode,
+            Contents = VisitGameObjectContents(context.gameObjectBlock().gameObjectContents()) |\label{line:VisitGameObjectContents}|
+        };
+        
+        return gameObjectNode;
+    }
+\end{lstlisting}
 
 
 
