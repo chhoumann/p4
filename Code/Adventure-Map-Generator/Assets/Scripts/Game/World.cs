@@ -56,12 +56,12 @@ namespace Dazel.Game
 
         private void OnEnable()
         {
-            MapBounds.PlayerExitedBounds += OnExitMapBounds;
+            ScreenBorder.PlayerExitedBounds += OnExitMapBounds;
         }
 
         private void OnDisable()
         {
-            MapBounds.PlayerExitedBounds -= OnExitMapBounds;
+            ScreenBorder.PlayerExitedBounds -= OnExitMapBounds;
         }
 
         private void OnExitMapBounds(Player player, Direction exitDirection)

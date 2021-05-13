@@ -6,12 +6,12 @@ namespace Dazel.Game
     {
         public override Direction Direction => Direction.Up;
         
-        public override void SetupBorderSize(Vector2Int screenSize)
+        public override void SetupBorderSize(Screen screen)
         {
             edgeCollider.points = new[]
             {
-                new Vector2(0, screenSize.y),
-                new Vector2(screenSize.x, screenSize.y)
+                new Vector2(0, screen.Size.y),
+                new Vector2(screen.Size.x, screen.Size.y)
             };
         }
     }

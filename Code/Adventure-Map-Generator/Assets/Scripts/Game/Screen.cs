@@ -25,7 +25,7 @@ namespace Dazel.Game
             
             foreach (ScreenBorder border in GetComponentsInChildren<ScreenBorder>())
             {
-                border.SetupBorderSize(size);
+                border.SetupBorderSize(this);
             }
             
             return this;

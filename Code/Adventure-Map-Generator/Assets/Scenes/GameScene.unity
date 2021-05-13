@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 156390085}
-  - component: {fileID: 156390086}
   m_Layer: 0
   m_Name: Screens
   m_TagString: Untagged
@@ -154,30 +153,6 @@ Transform:
   m_Father: {fileID: 1878012296}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &156390086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156390084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74a89f899a44e008c0eea537bb39d58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1483142265}
---- !u!114 &1483142265 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7165884495254503478, guid: 7a33be6501fc8e54fb26b2e8c74d54fb, type: 3}
-  m_PrefabInstance: {fileID: 7165884494589277263}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b32966595f07547b8a9fa08d22865d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1483142267 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7165884495254503476, guid: 7a33be6501fc8e54fb26b2e8c74d54fb, type: 3}
