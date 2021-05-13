@@ -1,8 +1,8 @@
 ﻿using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-using Dazel.Interpreter.Ast;
-using Dazel.Interpreter.SemanticAnalysis;
+using Dazel.Compiler.Ast;
+using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
 
 namespace Dazel.Tests.EditMode.Semantics
