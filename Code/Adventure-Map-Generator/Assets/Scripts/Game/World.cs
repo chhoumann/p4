@@ -94,13 +94,15 @@ namespace Dazel.Game
             CurrentScreen = screenToLoad;
         }
 
-        private void SetPlayerPosition(Player player, Screen currentScreen, Screen screenToLoad, Direction exitDirection)
+        private static void SetPlayerPosition(Player player, Screen currentScreen, Screen screenToLoad, Direction exitDirection)
         {
             float offset = Physics2D.defaultContactOffset;
             Vector2 playerPos = (player.Position / currentScreen.Size) * screenToLoad.Size;
             
-            Vector2 minPos = new Vector2(player.Extents.x, player.Extents.y);
-            Vector2 maxPos = new Vector2(screenToLoad.Size.x - player.Extents.x, screenToLoad.Size.y - player.Extents.y);
+            print(player.Extents.y);
+            
+            Vector2 minPos = new Vector2(player.Extents.x + offset, offset);
+            Vector2 maxPos = new Vector2(screenToLoad.Size.x - player.Extents.x, screenToLoad.Size.y - 2 * player.Extents.y);
 
             playerPos.x = Mathf.Clamp(playerPos.x, minPos.x, maxPos.x);
             playerPos.y = Mathf.Clamp(playerPos.y, minPos.y, maxPos.y);
@@ -108,18 +110,21 @@ namespace Dazel.Game
             switch (exitDirection)
             {
                 case Direction.Up:
-                    playerPos.y = minPos.y + offset;
+                    playerPos.y = minPos.y + offset * 2;
                     break;
                 case Direction.Down:
-                    playerPos.y = maxPos.y - offset;
+                    playerPos.y = maxPos.y - offset * 2;
                     break;
                 case Direction.Left:
-                    playerPos.x = maxPos.x - offset;
+                    playerPos.x = maxPos.x - offset * 2;
                     break;
                 case Direction.Right:
-                    playerPos.x = minPos.x + offset;
+                    playerPos.x = minPos.x + offset * 2;
                     break;
             }
+            
+            print(exitDirection);
+            print(playerPos.y);
             
             player.Position = playerPos;
         }
