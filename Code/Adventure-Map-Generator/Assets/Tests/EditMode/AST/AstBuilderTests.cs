@@ -9,7 +9,7 @@ using Dazel.Interpreter.Ast.Nodes.StatementNodes;
 using Dazel.Interpreter.Ast.Visitors;
 using NUnit.Framework;
 
-namespace Dazel.Tests.EditMode.AST
+namespace Tests.EditMode.AST
 {
     [TestFixture]
     public sealed class AstBuilderTests : ICompleteVisitor

@@ -2,7 +2,7 @@
 using Antlr4.Runtime.Tree;
 using NUnit.Framework;
 
-namespace Dazel.Tests.EditMode.AST
+namespace Tests.EditMode.AST
 {
     [TestFixture]
     public class AbstractSyntaxTreeTest

@@ -5,7 +5,7 @@ using Dazel.Interpreter.Ast;
 using Dazel.Interpreter.SemanticAnalysis;
 using NUnit.Framework;
 
-namespace Dazel.Tests.EditMode.Semantics
+namespace Tests.EditMode.Semantics
 {
     [TestFixture]
     public class TypeCheckTests
