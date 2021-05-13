@@ -1,13 +1,13 @@
 ﻿using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-using Dazel.Interpreter.Ast;
-using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Expressions;
-using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
-using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
-using Dazel.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
-using Dazel.Interpreter.Ast.Nodes.StatementNodes;
-using Dazel.Interpreter.Ast.Visitors;
+using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
+using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
+using Dazel.Compiler.Ast.Nodes.StatementNodes;
+using Dazel.Compiler.Ast.Visitors;
 using NUnit.Framework;
 
 namespace Tests.EditMode.AST
