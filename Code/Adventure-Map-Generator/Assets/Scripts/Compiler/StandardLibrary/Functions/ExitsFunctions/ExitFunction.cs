@@ -15,7 +15,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
         {
             if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccessNode memberAccess)
             {
-                ValueNode = new ExitValueNode(coords.ToVector2());
+                ValueNode = new TileExitValueNode(coords.ToVector2());
                 return ValueNode;
             }
             

@@ -8,12 +8,8 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
 {
     public sealed class ArrayNode : ValueNode
     {
+        public override SymbolType Type => SymbolType.Array;
         public List<ValueNode> Values { get; set; }
-
-        public ArrayNode()
-        {
-            this.Type = SymbolType.Array;
-        }
 
         public override void Accept(IExpressionVisitor visitor)
         {

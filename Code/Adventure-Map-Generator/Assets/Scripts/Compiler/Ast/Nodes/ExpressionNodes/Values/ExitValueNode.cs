@@ -4,28 +4,38 @@ using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
 {
-    public sealed class ExitValueNode : ValueNode
+    public abstract class ExitValueNode : ValueNode
     {
-        public Vector2 Coordinates { get; }
+        public override SymbolType Type => SymbolType.Exit;
 
-        public ExitValueNode()
-        {
-            Type = SymbolType.Exit;
-        }
-
-        public ExitValueNode(Vector2 coordinates)
-        {
-            Coordinates = coordinates;
-        }
-        
         public override void Accept(IExpressionVisitor visitor)
         {
             visitor.Visit(this);
         }
+    }
 
+    public sealed class TileExitValueNode : ExitValueNode
+    {
+        public Vector2 Coordinates { get; }
+        
+        public TileExitValueNode(Vector2 coordinates)
+        {
+            Coordinates = coordinates;
+        }
+        
         public override string ToString()
         {
             return $"[{Coordinates.X}, {Coordinates.Y}]";
+        }
+    }
+
+    public sealed class ScreenExitValueNode : ExitValueNode
+    {
+        public string ConnectedScreenIdentifier { get; }
+        
+        public ScreenExitValueNode(string connectedScreenIdentifier)
+        {
+            ConnectedScreenIdentifier = connectedScreenIdentifier;
         }
     }
 }

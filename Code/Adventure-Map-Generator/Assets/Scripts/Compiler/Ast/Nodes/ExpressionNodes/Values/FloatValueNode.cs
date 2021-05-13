@@ -5,12 +5,9 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
 {
     public sealed class FloatValueNode : ValueNode
     {
+        public override SymbolType Type => SymbolType.Float;
+        
         public float Value { get; set; }
-
-        public FloatValueNode()
-        {
-            Type = SymbolType.Float;
-        }
 
         public override void Accept(IExpressionVisitor visitor)
         {

@@ -4,6 +4,6 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
 {
     public abstract class ValueNode : ExpressionNode
     {
-        public SymbolType Type { get; set; }
+        public abstract SymbolType Type { get; }
     }
 }

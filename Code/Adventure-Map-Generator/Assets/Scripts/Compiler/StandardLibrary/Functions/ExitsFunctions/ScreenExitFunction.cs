@@ -23,10 +23,10 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
             if (parameters[0] is IdentifierValueNode dirId && parameters[1] is IdentifierValueNode screenId
                 && Enum.TryParse(dirId.Value, false, out Direction exitDirection))
             {
-                // TODO: Should return some exit type so we can assign to exits 
                 ExitDirection = exitDirection;
                 connectedScreenName = screenId.Value;
-                return null;
+
+                return new ScreenExitValueNode(connectedScreenName);
             }
 
             throw InvalidArgumentsException(parameters);

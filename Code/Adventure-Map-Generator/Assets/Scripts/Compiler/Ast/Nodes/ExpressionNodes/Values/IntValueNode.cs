@@ -5,12 +5,9 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
 {
     public sealed class IntValueNode : ValueNode
     {
+        public override SymbolType Type => SymbolType.Integer;
+        
         public int Value { get; set; }
-
-        public IntValueNode()
-        {
-            Type = SymbolType.Integer;
-        }
         
         public override void Accept(IExpressionVisitor visitor)
         {
