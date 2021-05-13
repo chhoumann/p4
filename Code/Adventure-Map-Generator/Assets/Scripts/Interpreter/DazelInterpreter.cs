@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Dazel.IntermediateModels;
 using Dazel.Interpreter.Ast;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 using Dazel.Interpreter.CodeGeneration;
+using Dazel.Interpreter.ErrorHandler;
 using Dazel.Interpreter.SemanticAnalysis;
 
 namespace Dazel.Interpreter
@@ -12,22 +14,42 @@ namespace Dazel.Interpreter
     public sealed class DazelInterpreter
     {
         private readonly string sourceFileDirectory;
+        private IErrorLogger errorLogger;
 
         public DazelInterpreter(string sourceFileDirectory)
         {
             this.sourceFileDirectory = sourceFileDirectory;
+            errorLogger = new DazelErrorLogger();
         }
         
         public IEnumerable<ScreenModel> Run()
         {
-            IEnumerable<IParseTree> parseTrees = BuildParseTrees();
+            try
+            {
+                IEnumerable<IParseTree> parseTrees = BuildParseTrees();
 
-            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
-        
-            PrintAst(ast);
-            PerformSemanticAnalysis(ast);
-            
-            return GenerateIntermediateModels(ast);
+                AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
+
+                if (errorLogger.HasErrors)
+                {
+                    throw new Exception("Invalid Dazel code.");
+                }
+                
+                PrintAst(ast);
+                PerformSemanticAnalysis(ast);
+
+                return GenerateIntermediateModels(ast);
+            }
+            catch (Exception e)
+            {
+                errorLogger.AddToErrorList(e.Message);
+            }
+            finally
+            {
+                errorLogger.Log();
+            }
+
+            return null;
         }
 
         private IEnumerable<IParseTree> BuildParseTrees()
@@ -41,6 +63,7 @@ namespace Dazel.Interpreter
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
+                parser.AddErrorListener(new DazelErrorListener(errorLogger));
 
                 parseTrees.Add(parser.start());
             }
