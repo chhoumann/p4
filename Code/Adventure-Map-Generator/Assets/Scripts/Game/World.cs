@@ -99,8 +99,6 @@ namespace Dazel.Game
             float offset = Physics2D.defaultContactOffset;
             Vector2 playerPos = (player.Position / currentScreen.Size) * screenToLoad.Size;
             
-            print(player.Extents.y);
-            
             Vector2 minPos = new Vector2(player.Extents.x + offset, offset);
             Vector2 maxPos = new Vector2(screenToLoad.Size.x - player.Extents.x, screenToLoad.Size.y - 2 * player.Extents.y);
 
@@ -122,9 +120,6 @@ namespace Dazel.Game
                     playerPos.x = minPos.x + offset * 2;
                     break;
             }
-            
-            print(exitDirection);
-            print(playerPos.y);
             
             player.Position = playerPos;
         }
