@@ -74,7 +74,7 @@ namespace Dazel.Interpreter
                 switch (gameObject.TypeNode)
                 {
                     case ScreenNode screenNode:
-                        screenModels.Add(new ScreenGenerator(gameObject.Contents).Generate());
+                        screenModels.Add(new ScreenGenerator(gameObject).Generate());
                         break;
                 }
             }

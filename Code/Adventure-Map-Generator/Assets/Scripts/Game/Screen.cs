@@ -1,28 +1,29 @@
-﻿using Dazel.IntermediateModels;
+﻿using System.Collections.Generic;
+using Dazel.IntermediateModels;
 using UnityEngine;
 
 namespace Dazel.Game
 {
     public sealed class Screen : MonoBehaviour
     {
-        [SerializeField] private Screen screenAbove;
-        [SerializeField] private Screen screenBelow;
-        [SerializeField] private Screen screenLeft;
-        [SerializeField] private Screen screenRight;
+        public Dictionary<Direction, Screen> ConnectedScreens { get; } = new Dictionary<Direction, Screen>();
 
         public Vector2Int Size => size;
-        public Bounds Bounds { get; private set; }
 
         private Vector2Int size;
         
         public Screen Setup(ScreenModel screenModel)
         {
             size = new Vector2Int(screenModel.Width, screenModel.Height);
-            Bounds = new Bounds(new Vector3(size.x * 0.5f, size.y * 0.5f), new Vector3(size.x, size.y));
 
             foreach (ITilemapGenerator tilemapGenerator in GetComponentsInChildren<ITilemapGenerator>())
             {
                 tilemapGenerator.Generate(screenModel.TileStack.Pop());
+            }
+            
+            foreach (ScreenBorder border in GetComponentsInChildren<ScreenBorder>())
+            {
+                border.SetupBorderSize(this);
             }
             
             return this;
@@ -30,14 +31,7 @@ namespace Dazel.Game
 
         public Screen GetMap(Direction direction)
         {
-            return direction switch
-            {
-                Direction.Up => screenAbove,
-                Direction.Down => screenBelow,
-                Direction.Left => screenLeft,
-                Direction.Right => screenRight,
-                _ => null
-            };
+            return ConnectedScreens.TryGetValue(direction, out Screen screen) ? screen : null;
         }
 
         private void OnDrawGizmos()

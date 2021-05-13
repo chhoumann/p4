@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.IO;
-using Dazel.IntermediateModels;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Dazel.Game
 {
@@ -9,6 +8,8 @@ namespace Dazel.Game
     {
         public const int PixelsPerUnit = 16;
 
+        private const string MenuSceneName = "MainMenu";
+        
         public const string SourceFileDirectory = "src";
         public const string GraphicsFileDirectory = "gfx";
         
@@ -28,6 +29,12 @@ namespace Dazel.Game
             if (Instance)
             {
                 Destroy(gameObject);
+                return;
+            }
+
+            if (SceneManager.GetActiveScene().name != MenuSceneName)
+            {
+                SceneManager.LoadScene(MenuSceneName);
                 return;
             }
 
