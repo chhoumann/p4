@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Dazel.Game.Entities;
 using Dazel.IntermediateModels;
 using UnityEngine;
@@ -7,30 +8,30 @@ namespace Dazel.Game
 {
     public sealed class World : MonoBehaviour
     {
-        [SerializeField] private Transform mapContainer;
+        [SerializeField] private GameObject screenTemplate;
+        [SerializeField] private Transform screenContainer;
 
         public static event Action<Screen> MapLoaded;
         
-        public static Screen Screen { get; private set; }
-
-        private Screen[] maps;
+        public static Screen CurrentScreen { get; private set; }
+        
+        public static IEnumerable<ScreenModel> ScreenModels { get; set; }
         
         private void Awake()
         {
-            ScreenModel mockModel = new ScreenModel
-            {
-                Width = 47,
-                Height = 30
-            }.SetFloor("Grass.png");
+            List<Screen> screens = new List<Screen>();
             
-            maps = new Screen[mapContainer.childCount];
-
-            for (int i = 0; i < maps.Length; i++)
+            foreach (ScreenModel screenModel in ScreenModels)
             {
-                maps[i] = mapContainer.GetChild(i).GetComponent<Screen>().Setup(mockModel);
+                GameObject newScreen = Instantiate(screenTemplate, screenContainer);
+                newScreen.SetActive(false);
+                
+                Screen screen = newScreen.GetComponent<Screen>().Setup(screenModel);
+                screens.Add(screen);
             }
             
-            Screen = maps[0];
+            CurrentScreen = screens[0];
+            CurrentScreen.gameObject.SetActive(true);
         }
 
         private void OnEnable()
@@ -45,7 +46,7 @@ namespace Dazel.Game
 
         private void OnExitMapBounds(Player player, Direction exitDirection)
         {
-            Screen currentScreen = Screen;
+            Screen currentScreen = CurrentScreen;
             Screen screenToLoad = currentScreen.GetMap(exitDirection);
 
             if (!screenToLoad) return;
@@ -56,7 +57,7 @@ namespace Dazel.Game
             SetPlayerPosition(player, currentScreen, screenToLoad, exitDirection);
 
             MapLoaded?.Invoke(screenToLoad);
-            Screen = screenToLoad;
+            CurrentScreen = screenToLoad;
         }
 
         private void SetPlayerPosition(Player player, Screen currentScreen, Screen screenToLoad, Direction exitDirection)

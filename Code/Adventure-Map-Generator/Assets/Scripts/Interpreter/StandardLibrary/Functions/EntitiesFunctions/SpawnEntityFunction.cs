@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
+using System.Text;
 using Dazel.Interpreter.Ast;
 using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 using Dazel.Interpreter.SemanticAnalysis;
+using UnityEngine;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
 {
@@ -14,21 +16,38 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.EntitiesFunctions
         public Vector2 SpawnPoint { get; private set; }
         public GameObjectNode Entity { get; set; }
 
+        private string entityName;
+        
         public SpawnEntityFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Build(List<ValueNode> parameters)
+        public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
-            if (parameters[0] is ArrayNode coordsArray && parameters[1] is IdentifierValueNode id)
+            if (parameters[0] is StringNode stringNode && parameters[1] is ArrayNode arrayNode)
             {
-                SpawnPoint = coordsArray.ToVector2();
+                entityName = stringNode.Value;
+                SpawnPoint = arrayNode.ToVector2();
+                return null;
+            }
 
-                if (AbstractSyntaxTree.Instance.TryRetrieveGameObject(id.Value, out GameObjectNode gameObject))
-                {
-                    Entity = gameObject;
-                }
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Invalid arguments to SpawnEntity function:");
+            
+            foreach (ValueNode valueNode in parameters)
+            {
+                sb.AppendLine($"{valueNode}");
             }
             
-            throw new ArgumentException("Invalid arguments to SpawnEntity function");
+            throw new ArgumentException(sb.ToString());
+        }
+
+        public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)
+        {
+            if (ast.TryRetrieveGameObject(entityName, out GameObjectNode gameObject))
+            {
+                Entity = gameObject;
+            }
+            
+            return null;
         }
     }
 }

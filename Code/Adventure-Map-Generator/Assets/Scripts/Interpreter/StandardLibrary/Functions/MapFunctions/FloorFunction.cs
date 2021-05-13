@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.SemanticAnalysis;
 
@@ -11,9 +10,16 @@ namespace Dazel.Interpreter.StandardLibrary.Functions.MapFunctions
         
         public FloorFunction() : base(SymbolType.Void) { }
 
-        public override ValueNode Build(List<ValueNode> parameters)
+        public string TileName { get; private set; }
+
+        public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
-            throw new NotImplementedException();
+            if (parameters[0] is StringNode stringNode)
+            {
+                TileName = stringNode.Value;
+            }
+
+            return null;
         }
     }
 }

@@ -8,6 +8,7 @@ using Dazel.Interpreter.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes;
 using Dazel.Interpreter.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Interpreter.Ast.Nodes.StatementNodes;
+using UnityEngine;
 
 namespace Dazel.Interpreter.Ast
 {
@@ -184,7 +185,7 @@ namespace Dazel.Interpreter.Ast
             {
                 return VisitFunctionInvocation(context.functionInvocation()).Create();
             }
-
+            
             switch (context.terminalValue.Type)
             {
                 case DazelLexer.IDENTIFIER:
@@ -365,8 +366,11 @@ namespace Dazel.Interpreter.Ast
             {
                 return VisitAssignment(context.assignment());
             }
+            
+            FunctionInvocationNode functionInvocation = VisitFunctionInvocation(context.functionInvocation());
+            functionInvocation.Create();
 
-            return VisitFunctionInvocation(context.functionInvocation());
+            return functionInvocation;
         }
 
         public FunctionInvocationNode VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
