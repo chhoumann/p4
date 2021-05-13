@@ -14,7 +14,7 @@ namespace Dazel.Game
         
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.transform.CompareTag("Player") && other.transform.TryGetComponent(out Player player))
+            if (other.transform.CompareTag(Tags.Player) && other.transform.TryGetComponent(out Player player))
             {
                 PlayerExitedBounds?.Invoke(player, Direction);
             }

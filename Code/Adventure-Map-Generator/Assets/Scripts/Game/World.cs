@@ -44,12 +44,14 @@ namespace Dazel.Game
             
             foreach (ScreenModel screenModel in ScreenModels)
             {
-                var screen1 = screens[screenModel.Identifier];
+                Screen screen1 = screens[screenModel.Identifier];
 
                 foreach (ScreenExitModel screenExitModel in screenModel.ScreenExits)
                 {
-                    var screen2 = screens[screenExitModel.ConnectedScreenIdentifier];
+                    Screen screen2 = screens[screenExitModel.ConnectedScreenIdentifier];
+                    
                     screen1.ConnectedScreens.Add(screenExitModel.ExitDirection, screen2);
+                    screen2.ConnectedScreens.Add(screenExitModel.ExitDirection.GetOpposite(), screen1);
                 }
             }
         }

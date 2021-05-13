@@ -9,14 +9,12 @@ namespace Dazel.Game
         public Dictionary<Direction, Screen> ConnectedScreens { get; } = new Dictionary<Direction, Screen>();
 
         public Vector2Int Size => size;
-        public Bounds Bounds { get; private set; }
 
         private Vector2Int size;
         
         public Screen Setup(ScreenModel screenModel)
         {
             size = new Vector2Int(screenModel.Width, screenModel.Height);
-            Bounds = new Bounds(new Vector3(size.x * 0.5f, size.y * 0.5f), new Vector3(size.x, size.y));
 
             foreach (ITilemapGenerator tilemapGenerator in GetComponentsInChildren<ITilemapGenerator>())
             {
