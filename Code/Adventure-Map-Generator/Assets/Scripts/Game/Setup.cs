@@ -10,7 +10,12 @@ namespace Dazel.Game
     public sealed class Setup : MonoBehaviour
     {
         private const string GameSceneName = "GameScene";
-        
+
+        private void Start()
+        {
+            SetupEnvironment();
+        }
+
         public void ShowWorkingEnvironment()
         {
             Process.Start(GameManager.WorkingEnvironment);
