@@ -22,7 +22,6 @@ namespace Dazel.Interpreter.Ast.Nodes.StatementNodes
                 return function.GetReturnType(Parameters);
             }
             
-            // TODO: This is not the right exception. This should be called from within execute. Create a new exception type.
             throw new ArgumentException($"{Identifier} function not found in Dazel Standard Library.");
         }
 
