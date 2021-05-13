@@ -22,16 +22,11 @@ namespace Dazel.Game
             {
                 tilemapGenerator.Generate(screenModel.TileStack.Pop());
             }
-
-            EdgeCollider2D edgeCollider = GetComponent<EdgeCollider2D>();
-            edgeCollider.points = new[]
+            
+            foreach (ScreenBorder border in GetComponentsInChildren<ScreenBorder>())
             {
-                new Vector2(0, 0),
-                new Vector2(size.x, 0),
-                new Vector2(size.x, size.y),
-                new Vector2(0, size.y),
-                new Vector2(0, 0),
-            };
+                border.SetupBorderSize(size);
+            }
             
             return this;
         }
