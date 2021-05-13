@@ -25,6 +25,16 @@ namespace Dazel.Game
 
             ConnectScreens(screens);
         }
+        
+        private void OnEnable()
+        {
+            ScreenBorder.PlayerExitedBounds += OnExitMapBounds;
+        }
+
+        private void OnDisable()
+        {
+            ScreenBorder.PlayerExitedBounds -= OnExitMapBounds;
+        }
 
         private Dictionary<string, Screen> CreateScreens()
         {
@@ -66,16 +76,6 @@ namespace Dazel.Game
                     connectedScreen.ConnectedScreens.Add(screenExitModel.ExitDirection.GetOpposite(), screen);
                 }
             }
-        }
-
-        private void OnEnable()
-        {
-            ScreenBorder.PlayerExitedBounds += OnExitMapBounds;
-        }
-
-        private void OnDisable()
-        {
-            ScreenBorder.PlayerExitedBounds -= OnExitMapBounds;
         }
 
         private void OnExitMapBounds(Player player, Direction exitDirection)
