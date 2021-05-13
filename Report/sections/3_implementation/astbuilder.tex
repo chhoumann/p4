@@ -23,12 +23,12 @@ The method is then what is responsible for starting the visiting process based o
 \begin{lstlisting}[caption={The BuildAst method}, label={lst:BuildAstMethod},escapechar=|]
     public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
         {
-            Dictionary<string, GameObjectNode> gameObjects = new Dictionary<string, GameObjectNode>();
+            Dictionary<string, GameObjectNode> gameObjects = new Dictionary<string, GameObjectNode>(); |\label{line:GODictionary}|
             
-            foreach (IParseTree parseTree in parseTrees)
+            foreach (IParseTree parseTree in parseTrees) |\label{line:ParseForeach}|
             {
-                DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext;
-                GameObjectNode gameObjectNode = VisitGameObject(gameObjectContext);
+                DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext; |\label{line:GetParseChild}|
+                GameObjectNode gameObjectNode = VisitGameObject(gameObjectContext); |\label{line:VisitGO}|
                 
                 gameObjects.Add(gameObjectNode.Identifier, gameObjectNode);
             }
@@ -42,7 +42,11 @@ The method is then what is responsible for starting the visiting process based o
         }
 \end{lstlisting}
 
-At the root of every parse tree is a \textbf{GameObject}. A \textbf{GameObject} in \dazel{} specifies an object, which content should be displayed inside the game in the final output. Each \textbf{GameObject} represents a text file that contains source code to be compiled. This means that there could be multiple text files, each specifying some content for the final output. The consequence of this structure is that the compiler has to build AST's for each 
+At the root of every parse tree is a \textbf{GameObject}. A \textbf{GameObject} in \dazel{} specifies an object, which content should be displayed inside the game in the final output. Each \textbf{GameObject} represents a text file that contains source code to be compiled. This means that there could be multiple text files, each specifying some content for the final output and therefore multiple parse trees. 
+The consequence of this structure is that the compiler has to build an AST for each of the parse trees and finally produce a single AST by combining them with a single root. On line \ref{line:ParseForeach} in the foreach loop, is where the process of visiting each parse tree starts. 
+The intial step of each iteration is to find and store each parse in a variable called \textbf{gameObjectContext}. The root of every parse tree is a \textbf{GameObject} which is the first child of every tree. This can be seen on line \ref{line:ParseForeach} through the \texttt{parseTree.GetChild(0)} method call.
+Once the \textbf{GameObject} has been assigned to \textbf{gameObjectContext} the visitor is called on that given \textbf{gameObject} on line \ref{line:VisitGO}.
+ 
 
 
 
