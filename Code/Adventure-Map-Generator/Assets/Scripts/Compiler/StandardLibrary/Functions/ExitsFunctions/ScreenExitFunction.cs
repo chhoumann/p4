@@ -11,7 +11,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
     {
         public override int NumArguments => 2;
         
-        public ScreenExitFunction() : base(SymbolType.Void) { }
+        public ScreenExitFunction() : base(SymbolType.Exit) { }
 
         public Direction ExitDirection { get; private set; }
         public GameObjectNode ConnectedScreen { get; private set; }

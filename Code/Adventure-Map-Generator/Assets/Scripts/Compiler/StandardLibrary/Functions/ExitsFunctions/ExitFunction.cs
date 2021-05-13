@@ -1,26 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
+using UnityEngine;
 
 namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
 {
     public sealed class ExitFunction : Function
     {
         public override int NumArguments => 2;
+        public ExitValueNode ConnectedExit { get; private set; }
 
-        public ExitFunction() : base(SymbolType.Void) { }
+        public ExitFunction() : base(SymbolType.Exit) { }
 
+        private MemberAccessNode memberAccessNode;
+        
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
             if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccessNode memberAccess)
             {
                 ValueNode = new TileExitValueNode(coords.ToVector2());
+                memberAccessNode = memberAccess;
                 return ValueNode;
             }
             
-            // TODO: Should return some exit type so we can assign to exits
-            throw new ArgumentException("Invalid arguments passed to Exit function.");
+            throw InvalidArgumentsException(parameters);
+        }
+        
+        public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)
+        {
+            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out TileExitValueNode exitValueNode))
+            {
+                ConnectedExit = exitValueNode;
+            }
+
+            Debug.Log("VAR");
+            return null;
         }
     }
 }

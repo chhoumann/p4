@@ -4,6 +4,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -43,6 +44,16 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(SumExpressionNode sumExpressionNode)
         {
+            if (sumExpressionNode.Left == null)
+            {
+                throw new InvalidOperationException("Expression left operand is null");
+            }
+            
+            if (sumExpressionNode.Right == null)
+            {
+                throw new InvalidOperationException("Expression right operand is null");
+            }
+            
             sumExpressionNode.Left.Accept(this);
             sumExpressionNode.Right.Accept(this);
         }

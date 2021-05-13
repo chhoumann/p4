@@ -2,6 +2,7 @@
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -47,7 +48,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         public void Visit(StatementBlockNode statementBlockNode)
         {
             OpenScope();
-
+            
             foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this);
 
             CloseScope();

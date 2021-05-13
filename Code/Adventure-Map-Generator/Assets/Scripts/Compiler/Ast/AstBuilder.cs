@@ -8,6 +8,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
+using UnityEngine;
 
 namespace Dazel.Compiler.Ast
 {

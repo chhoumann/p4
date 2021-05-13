@@ -3,6 +3,7 @@ using Dazel.Compiler.Ast.Nodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
+using UnityEngine;
 
 namespace Dazel.Compiler.Ast
 {
@@ -15,26 +16,30 @@ namespace Dazel.Compiler.Ast
             Root = root;
         }
 
-        public bool TryRetrieveNode(List<string> identifierList, out ValueNode node)
+        public bool TryRetrieveNode<TNodeType>(List<string> identifierList, out TNodeType node)
+            where TNodeType : class
         {
             // TODO: Temporary handling for player member access.
-            if (identifierList[0] == "Player" && identifierList[1] == "Health")
+            /*if (identifierList[0] == "Player" && identifierList[1] == "Health")
             {
                 node = new IntValueNode() {Value = 100};
                 return true;
-            }
+            }*/
 
             GameObjectNode start = Root.GameObjects[identifierList[0]];
             foreach (GameObjectContentNode gameObjectContent in start.Contents)
             {
-                if (nameof(gameObjectContent.TypeNode) == identifierList[1])
+                if (gameObjectContent.TypeNode.ContentType.ToString() == identifierList[1])
                 {
                     foreach (StatementNode statementNode in gameObjectContent.Statements)
                     {
                         if (statementNode is AssignmentNode assignmentNode &&
                             assignmentNode.Identifier == identifierList[2])
                         {
-                            node = assignmentNode.Expression as ValueNode;
+                            node = assignmentNode as TNodeType;
+                            Debug.Log(assignmentNode);
+                            Debug.Log(assignmentNode.Identifier);
+                            Debug.Log(node);
                             return true;
                         }
                     }
