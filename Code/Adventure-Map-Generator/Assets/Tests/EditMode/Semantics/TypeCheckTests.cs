@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.SemanticAnalysis;
@@ -176,6 +177,31 @@ namespace Dazel.Tests.EditMode.Semantics
             Assert.Throws<InvalidOperationException>(TestDelegate);
             Assert.That(value == null);
             Assert.That(identifier == "x");
+        }
+        
+        private const string TestCode9 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       x = 1 + 1.5;" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_IntegerPlusFloatSucceeds()
+        {
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode9);
+            TypeChecker tc = new TypeChecker(ast);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
+            ast.TryRetrieveNode(variablePath, out string identifier, out ExpressionNode value);
+            
+            Assert.DoesNotThrow(TestDelegate);
+            Assert.That(value != null, "value != null");
+            Assert.That(identifier == "x", "identifier == 'x'");
+            Debug.Log(value);
         }
     }
 }
