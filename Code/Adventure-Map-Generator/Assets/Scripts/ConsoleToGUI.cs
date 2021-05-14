@@ -5,7 +5,7 @@ namespace Dazel
 {
     public sealed class ConsoleToGUI : MonoBehaviour
     {
-        [SerializeField] private GUIStyle style;
+        [SerializeField] private GUISkin skin;
         
         private Vector2 scrollPosition;
 
@@ -42,9 +42,11 @@ namespace Dazel
         {
             if (!open) return;
             
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition, 
-                GUILayout.Width(Screen.width - 20), GUILayout.Height(Screen.height * 0.5f));
+            GUI.skin = skin;
             
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, true, false,
+                GUILayout.Width(Screen.width), GUILayout.Height(Screen.height * 0.5f));
+
             foreach (LogMessage logMessage in logMessages)
             {
                 GUI.contentColor = logMessage.MessageColor;
