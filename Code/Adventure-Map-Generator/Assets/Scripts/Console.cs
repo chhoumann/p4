@@ -10,14 +10,13 @@ namespace Dazel
         private const float ButtonWidth = 100;
         private const float ButtonHeight = 20;
         
+        private static float Width => Screen.width;
+        private static float Height => Screen.height * 0.35f;
+        
+        private readonly List<LogMessage> logMessages = new List<LogMessage>();
         private Vector2 scrollPosition;
 
         private bool open;
-
-        private readonly List<LogMessage> logMessages = new List<LogMessage>();
-
-        private static float Width => Screen.width;
-        private static float Height => Screen.height * 0.35f;
 
         private void OnEnable()
         {
