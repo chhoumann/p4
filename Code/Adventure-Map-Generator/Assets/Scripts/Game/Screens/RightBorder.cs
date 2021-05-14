@@ -6,7 +6,7 @@ namespace Dazel.Game.Screens
     {
         protected override Direction Direction => Direction.Right;
         
-        public override void SetupBorderSize(Screen screen)
+        public override void SetupBorderSize(GameScreen screen)
         {
             edgeCollider.points = new[]
             {

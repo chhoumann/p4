@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace Dazel.Game.Screens
 {
-    public sealed class Screen : MonoBehaviour
+    public sealed class GameScreen : MonoBehaviour
     {
-        public Dictionary<Direction, Screen> ConnectedScreens { get; } = new Dictionary<Direction, Screen>();
+        public Dictionary<Direction, GameScreen> ConnectedScreens { get; } = new Dictionary<Direction, GameScreen>();
 
         public Vector2Int Size => size;
 
         private Vector2Int size;
         
-        public Screen Setup(ScreenModel screenModel)
+        public GameScreen Setup(ScreenModel screenModel)
         {
             size = new Vector2Int(screenModel.Width, screenModel.Height);
 
@@ -29,9 +29,9 @@ namespace Dazel.Game.Screens
             return this;
         }
 
-        public Screen GetMap(Direction direction)
+        public GameScreen GetMap(Direction direction)
         {
-            return ConnectedScreens.TryGetValue(direction, out Screen screen) ? screen : null;
+            return ConnectedScreens.TryGetValue(direction, out GameScreen screen) ? screen : null;
         }
 
         private void OnDrawGizmos()

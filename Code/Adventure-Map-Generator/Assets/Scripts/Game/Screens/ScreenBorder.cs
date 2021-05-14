@@ -21,6 +21,6 @@ namespace Dazel.Game.Screens
             }
         }
 
-        public abstract void SetupBorderSize(Screen screen);
+        public abstract void SetupBorderSize(GameScreen screen);
     }
 }
