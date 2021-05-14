@@ -132,7 +132,7 @@ namespace Dazel.Game.Core
 
         private static void SetPlayerPosition(Player player, GameScreen currentScreen, GameScreen screenToLoad, Direction exitDirection)
         {
-            float offset = Physics2D.defaultContactOffset * 2;
+            float offset = Physics2D.defaultContactOffset * 3;
             Vector2 playerPos = (player.Position / currentScreen.Size) * screenToLoad.Size;
 	
             Vector2 minPos = new Vector2(player.Extents.x + offset, offset);
