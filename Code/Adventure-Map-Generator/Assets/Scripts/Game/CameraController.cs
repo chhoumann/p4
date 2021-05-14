@@ -17,9 +17,6 @@ namespace Dazel.Game
         private Vector2 minPosition;
         private Vector2 maxPosition;
 
-        private bool centerCameraX;
-        private bool centerCameraY;
-
         private void Start()
         { 
             cam = GetComponent<Camera>();
@@ -57,18 +54,14 @@ namespace Dazel.Game
             maxPosition.x = screen.Size.x - cameraExtents.x;
             maxPosition.y = screen.Size.y - cameraExtents.y;
 
-            centerCameraX = centerCameraY = false;
-
             if (screen.Size.x < cameraSize.x)
             {
                 minPosition.x = maxPosition.x = screen.Size.x * 0.5f;
-                centerCameraX = true;
             }
 
             if (screen.Size.y < cameraSize.y)
             {
                 minPosition.x = maxPosition.y = screen.Size.y * 0.5f;
-                centerCameraY = true;
             }
         }
         
@@ -77,8 +70,8 @@ namespace Dazel.Game
             Vector3 targetPos = target.position;
             Vector3 camPos = transform.position;
 
-            targetPos.x = centerCameraX ? maxPosition.x : Mathf.Clamp(targetPos.x, minPosition.x, maxPosition.x);
-            targetPos.y = centerCameraY ? maxPosition.y : Mathf.Clamp(targetPos.y, minPosition.y, maxPosition.y);
+            targetPos.x = Mathf.Clamp(targetPos.x, minPosition.x, maxPosition.x);
+            targetPos.y = Mathf.Clamp(targetPos.y, minPosition.y, maxPosition.y);
             
             transform.position = new Vector3(targetPos.x, targetPos.y, camPos.z);
         }
