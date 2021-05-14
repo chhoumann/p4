@@ -19,12 +19,7 @@ namespace Dazel.Game.Core
 
         public Texture2D LoadTile(string gfxName)
         {
-            if (gfxName.Contains("."))
-            {
-                return LoadTileFromFile(gfxName);
-            }
-
-            return LoadTileFromDirectory(gfxName);
+            return gfxName.Contains(".") ? LoadTileFromFile(gfxName) : LoadTileFromDirectory(gfxName);
         }
         
         private Texture2D LoadTileFromFile(string fileName)
@@ -50,7 +45,7 @@ namespace Dazel.Game.Core
             return texture;
         }
 
-        public Texture2D LoadTileFromDirectory(string directoryName)
+        private Texture2D LoadTileFromDirectory(string directoryName)
         {
             string directoryPath = Path.Combine(gfxPath, directoryName);
 
