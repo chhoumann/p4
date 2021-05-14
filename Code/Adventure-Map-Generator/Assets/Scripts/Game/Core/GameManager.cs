@@ -1,4 +1,5 @@
 using System.IO;
+using Dazel.Game.Entities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,6 +48,11 @@ namespace Dazel.Game.Core
             Instance = this;
             WorkingEnvironment = Application.persistentDataPath;
             GfxLoader = new GfxLoader(Path.Combine(WorkingEnvironment, GraphicsFileDirectory));
+        }
+
+        public static void ReturnToMainMenu()
+        {
+            SceneManager.LoadScene(MenuSceneName);
         }
     }
 }
