@@ -6,6 +6,7 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.MapFunctions;
 using Dazel.IntermediateModels;
@@ -114,6 +115,9 @@ namespace Dazel.Compiler.CodeGeneration
                     break;
                 case FloorFunction floorFunction:
                     screenModel.TileStack.Push(new Floor(screenModel, floorFunction.TileName));
+                    break;
+                case SpawnEntityFunction spawnEntityFunction:
+                    screenModel.Entities.Add(new EntityModel(spawnEntityFunction.EntityIdentifier, spawnEntityFunction.SpawnPosition));
                     break;
                 case ScreenExitFunction screenExitFunction:
                     screenModel.ScreenExits.Add(new ScreenExitModel(screenExitFunction.ConnectedScreenIdentifier, screenExitFunction.ExitDirection));

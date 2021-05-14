@@ -403,6 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenTemplate: {fileID: 6981591560417943576, guid: 2dc186d71e9304b43bcfcad28ae38763, type: 3}
+  entityTemplate: {fileID: 7856964758603266805, guid: 7e7e00a884a5b1749933d5dd57a76648, type: 3}
   screenContainer: {fileID: 156390085}
 --- !u!4 &1878012296
 Transform:

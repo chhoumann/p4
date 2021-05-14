@@ -10,6 +10,7 @@ namespace Dazel.Game.Core
     public sealed class World : MonoBehaviour
     {
         [SerializeField] private GameObject screenTemplate;
+        [SerializeField] private GameObject entityTemplate;
         [SerializeField] private Transform screenContainer;
 
         public static event Action<GameScreen> MapLoaded;
@@ -25,6 +26,7 @@ namespace Dazel.Game.Core
             Dictionary<string, GameScreen> screens = CreateScreens();
 
             ConnectScreens(screens);
+            SpawnEntities();
         }
         
         private void OnEnable()
@@ -75,6 +77,38 @@ namespace Dazel.Game.Core
 
                     screen.ConnectedScreens.Add(screenExitModel.ExitDirection, connectedScreen);
                     connectedScreen.ConnectedScreens.Add(screenExitModel.ExitDirection.GetOpposite(), screen);
+                }
+            }
+        }
+
+        private void SpawnEntities()
+        {
+            const int ppu = GameManager.PixelsPerUnit;
+            
+            foreach (ScreenModel screenModel in ScreenModels)
+            {
+                foreach (EntityModel entityModel in screenModel.Entities)
+                {
+                    Texture2D entityTexture = GameManager.Instance.GfxLoader.LoadTile(entityModel.Identifier + ".png");
+
+                    GameObject entity = Instantiate(entityTemplate, transform);
+                    entity.transform.localPosition = new Vector3(entityModel.SpawnPosition.X, entityModel.SpawnPosition.Y);
+
+                    Rect rect = new Rect(0, 0, entityTexture.width, entityTexture.height);
+                    Vector2 pivot = new Vector2(0.5f, 0);
+                
+                    SpriteRenderer spriteRenderer = entity.GetComponent<SpriteRenderer>();
+                    spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
+                    spriteRenderer.sprite = Sprite.Create(entityTexture, rect, pivot, ppu);
+
+                    BoxCollider2D collision = entity.AddComponent<BoxCollider2D>();
+                    collision.size = new Vector2(collision.size.x, collision.size.y * 0.5f);
+                    collision.offset = new Vector2(0, collision.size.y * 0.5f);
+
+                    entity.transform.localScale = new Vector3(
+                        ppu / spriteRenderer.sprite.rect.width, 
+                        ppu / spriteRenderer.sprite.rect.height
+                    );
                 }
             }
         }
