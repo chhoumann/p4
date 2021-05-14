@@ -93,7 +93,7 @@ namespace Dazel.Game.Core
 
                     GameObject entity = Instantiate(entityTemplate, screens[screenModel.Identifier].transform);
                     entity.name = entityModel.Identifier;
-                    entity.transform.localPosition = new Vector3(entityModel.SpawnPosition.X, entityModel.SpawnPosition.Y);
+                    entity.transform.localPosition = new Vector3(entityModel.SpawnPosition.X + 0.5f, entityModel.SpawnPosition.Y + 0.5f);
 
                     Rect rect = new Rect(0, 0, entityTexture.width, entityTexture.height);
                     Vector2 pivot = new Vector2(0.5f, 0);
