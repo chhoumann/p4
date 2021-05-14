@@ -3,7 +3,7 @@
     public sealed class ScreenExitValueNode : ExitValueNode
     {
         public string ConnectedScreenIdentifier { get; }
-        
+
         public ScreenExitValueNode(string connectedScreenIdentifier)
         {
             ConnectedScreenIdentifier = connectedScreenIdentifier;

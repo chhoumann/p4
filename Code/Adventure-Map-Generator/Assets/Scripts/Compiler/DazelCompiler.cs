@@ -85,6 +85,7 @@ namespace Dazel.Compiler
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 new TypeChecker(ast).Visit(gameObject);
+                new ExitChecker(ast).Visit(gameObject);
             }
         }
 

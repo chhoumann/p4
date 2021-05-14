@@ -16,7 +16,7 @@ namespace Dazel.Compiler.Ast
             Root = root;
         }
 
-        public bool TryRetrieveNode<TNodeType>(List<string> identifierList, out TNodeType node)
+        public bool TryRetrieveNode<TNodeType>(List<string> identifierList, out string identifier, out TNodeType node)
             where TNodeType : class
         {
             // TODO: Temporary handling for player member access.
@@ -36,16 +36,15 @@ namespace Dazel.Compiler.Ast
                         if (statementNode is AssignmentNode assignmentNode &&
                             assignmentNode.Identifier == identifierList[2])
                         {
-                            node = assignmentNode as TNodeType;
-                            Debug.Log(assignmentNode);
-                            Debug.Log(assignmentNode.Identifier);
-                            Debug.Log(node);
+                            identifier = assignmentNode.Identifier;
+                            node = assignmentNode.Expression as TNodeType;
                             return true;
                         }
                     }
                 }
             }
 
+            identifier = default;
             node = default;
             return false;
         }

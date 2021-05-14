@@ -5,15 +5,18 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
     public sealed class TileExitValueNode : ExitValueNode
     {
         public Vector2 Coordinates { get; }
-        
-        public TileExitValueNode(Vector2 coordinates)
+
+        public MemberAccessNode ToExit { get; }
+
+        public TileExitValueNode(Vector2 coordinates, MemberAccessNode toExit)
         {
             Coordinates = coordinates;
+            ToExit = toExit;
         }
         
         public override string ToString()
         {
-            return $"[{Coordinates.X}, {Coordinates.Y}]";
+            return $"From [{Coordinates.X}, {Coordinates.Y}] to {string.Join(".", ToExit.Identifiers)}";
         }
     }
 }

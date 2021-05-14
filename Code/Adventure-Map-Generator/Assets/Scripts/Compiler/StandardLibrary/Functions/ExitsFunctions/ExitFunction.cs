@@ -11,7 +11,6 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
     public sealed class ExitFunction : Function
     {
         public override int NumArguments => 2;
-        public ExitValueNode ConnectedExit { get; private set; }
 
         public ExitFunction() : base(SymbolType.Exit) { }
 
@@ -21,7 +20,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
         {
             if (parameters[0] is ArrayNode coords && parameters[1] is MemberAccessNode memberAccess)
             {
-                ValueNode = new TileExitValueNode(coords.ToVector2());
+                ValueNode = new TileExitValueNode(coords.ToVector2(), memberAccess);
                 memberAccessNode = memberAccess;
                 return ValueNode;
             }
@@ -31,9 +30,10 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
         
         public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)
         {
-            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out TileExitValueNode exitValueNode))
+            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out string identifier, out TileExitValueNode exitValueNode))
             {
-                ConnectedExit = exitValueNode;
+                // TODO: Not necessary
+                //ConnectedExit = exitValueNode;
             }
 
             Debug.Log("VAR");

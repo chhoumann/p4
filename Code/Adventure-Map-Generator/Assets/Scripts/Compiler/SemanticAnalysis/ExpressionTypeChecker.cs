@@ -37,6 +37,9 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public SymbolType GetType(ExpressionNode expression)
         {
+            if (expression == null)
+                return SymbolType.Null;
+            
             expression.Accept(this);
             
             return CurrentType;
@@ -71,7 +74,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out ValueNode value))
+            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out string identifier, out ValueNode value))
             {
                 CurrentType = value.Type;
             }
