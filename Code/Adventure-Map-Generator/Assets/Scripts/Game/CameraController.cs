@@ -17,6 +17,9 @@ namespace Dazel.Game
         private Vector2 minPosition;
         private Vector2 maxPosition;
 
+        private int screenWidth;
+        private int screenHeight;
+        
         private void Start()
         { 
             cam = GetComponent<Camera>();
@@ -36,6 +39,11 @@ namespace Dazel.Game
         private void Update()
         {
             UpdateCameraPosition();
+
+            if (Screen.width != screenWidth || Screen.height != screenHeight)
+            {
+                CalculateCameraBounds(World.CurrentScreen);
+            }
         }
 
         private void CalculateCameraBounds(GameScreen screen)
@@ -63,6 +71,9 @@ namespace Dazel.Game
             {
                 minPosition.x = maxPosition.y = screen.Size.y * 0.5f;
             }
+
+            screenWidth = Screen.width;
+            screenHeight = Screen.height;
         }
         
         private void UpdateCameraPosition()
