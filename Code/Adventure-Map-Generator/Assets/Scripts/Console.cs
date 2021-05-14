@@ -3,15 +3,21 @@ using UnityEngine;
 
 namespace Dazel
 {
-    public sealed class ConsoleToGUI : MonoBehaviour
+    public sealed class Console : MonoBehaviour
     {
         [SerializeField] private GUISkin skin;
+
+        private const float ButtonWidth = 100;
+        private const float ButtonHeight = 20;
         
         private Vector2 scrollPosition;
 
         private bool open;
 
         private readonly List<LogMessage> logMessages = new List<LogMessage>();
+
+        private static float Width => Screen.width;
+        private static float Height => Screen.height * 0.35f;
 
         private void OnEnable()
         {
@@ -44,8 +50,8 @@ namespace Dazel
             
             GUI.skin = skin;
             
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition, true, false,
-                GUILayout.Width(Screen.width), GUILayout.Height(Screen.height * 0.5f));
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true,
+                GUILayout.Width(Width), GUILayout.Height(Height));
 
             foreach (LogMessage logMessage in logMessages)
             {
@@ -57,9 +63,14 @@ namespace Dazel
             
             GUI.contentColor = Color.white;
             
-            if (GUI.Button(new Rect(Screen.width * 0.5f - 50, Screen.height * 0.5f, 100, 20), "Close"))
+            if (GUI.Button(new Rect(0, Height, ButtonWidth, ButtonHeight), "Close"))
             {
                 open = false;
+            }
+            
+            if (GUI.Button(new Rect(ButtonWidth, Height, ButtonWidth, ButtonHeight), "Clear"))
+            {
+                logMessages.Clear();
             }
         }
 

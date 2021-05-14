@@ -2,7 +2,6 @@
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
