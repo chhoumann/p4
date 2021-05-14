@@ -10,10 +10,11 @@ namespace Dazel
         private const float ButtonWidth = 100;
         private const float ButtonHeight = 20;
         
-        private static float Width => Screen.width;
-        private static float Height => Screen.height * 0.35f;
+        private static float WindowWidth => Screen.width;
+        private static float WindowHeight => Screen.height * 0.35f;
         
         private readonly List<LogMessage> logMessages = new List<LogMessage>();
+       
         private Vector2 scrollPosition;
 
         private bool open;
@@ -50,7 +51,7 @@ namespace Dazel
             GUI.skin = skin;
             
             scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true,
-                GUILayout.Width(Width), GUILayout.Height(Height));
+                GUILayout.Width(WindowWidth), GUILayout.Height(WindowHeight));
 
             foreach (LogMessage logMessage in logMessages)
             {
@@ -62,12 +63,12 @@ namespace Dazel
             
             GUI.contentColor = Color.white;
             
-            if (GUI.Button(new Rect(0, Height, ButtonWidth, ButtonHeight), "Close"))
+            if (GUI.Button(new Rect(0, WindowHeight, ButtonWidth, ButtonHeight), "Close"))
             {
                 open = false;
             }
             
-            if (GUI.Button(new Rect(ButtonWidth, Height, ButtonWidth, ButtonHeight), "Clear"))
+            if (GUI.Button(new Rect(ButtonWidth, WindowHeight, ButtonWidth, ButtonHeight), "Clear"))
             {
                 logMessages.Clear();
             }
