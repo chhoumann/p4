@@ -17,7 +17,7 @@ namespace Dazel.Game.Core
             this.gfxPath = gfxPath;
         }
 
-        public Texture2D LoadTile(string gfxName)
+        public Texture2D LoadGraphic(string gfxName)
         {
             return gfxName.Contains(".") ? LoadTileFromFile(gfxName) : LoadTileFromDirectory(gfxName);
         }

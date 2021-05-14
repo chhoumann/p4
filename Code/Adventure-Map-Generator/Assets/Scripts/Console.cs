@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Dazel.Game.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Dazel
 {
@@ -28,9 +30,11 @@ namespace Dazel
         {
             Application.logMessageReceived -= Log;
         }
-
+        
         private void Log(string logString, string stackTrace, LogType type)
         {
+            if (!GameManager.Instance.LoggingEnabled) return;
+            
             open = type == LogType.Error || type == LogType.Warning;
             
             switch (type)
@@ -49,7 +53,7 @@ namespace Dazel
 
         private void OnGUI()
         {
-            if (!open) return;
+            if (!open || !GameManager.Instance.LoggingEnabled) return;
             
             GUI.skin = skin;
             

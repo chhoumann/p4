@@ -25,6 +25,8 @@ namespace Dazel.Game.Core
 
         public GfxLoader GfxLoader { get; private set; }
 
+        public bool LoggingEnabled { get; set; } = true;
+        
         private void Awake()
         {
             if (Instance)

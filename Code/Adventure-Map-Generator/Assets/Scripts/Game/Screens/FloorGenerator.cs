@@ -18,7 +18,7 @@ namespace Dazel.Game.Screens
                 position.x = tileModel.X;
                 position.y = tileModel.Y;
 
-                Texture2D texture = GameManager.Instance.GfxLoader.LoadTile(tileModel.GraphicName);
+                Texture2D texture = GameManager.Instance.GfxLoader.LoadGraphic(tileModel.GraphicName);
 
                 GameObject tile = Instantiate(tileTemplate, transform);
                 tile.transform.localPosition = position;

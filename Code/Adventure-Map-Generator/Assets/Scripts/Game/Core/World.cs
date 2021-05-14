@@ -89,7 +89,7 @@ namespace Dazel.Game.Core
             {
                 foreach (EntityModel entityModel in screenModel.Entities)
                 {
-                    Texture2D entityTexture = GameManager.Instance.GfxLoader.LoadTile(entityModel.Identifier + ".png");
+                    Texture2D entityTexture = GameManager.Instance.GfxLoader.LoadGraphic(entityModel.Identifier + ".png");
 
                     GameObject entity = Instantiate(entityTemplate, transform);
                     entity.transform.localPosition = new Vector3(entityModel.SpawnPosition.X, entityModel.SpawnPosition.Y);
