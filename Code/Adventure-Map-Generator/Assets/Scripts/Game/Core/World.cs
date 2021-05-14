@@ -26,7 +26,7 @@ namespace Dazel.Game.Core
             Dictionary<string, GameScreen> screens = CreateScreens();
 
             ConnectScreens(screens);
-            SpawnEntities();
+            SpawnEntities(screens);
         }
         
         private void OnEnable()
@@ -81,7 +81,7 @@ namespace Dazel.Game.Core
             }
         }
 
-        private void SpawnEntities()
+        private void SpawnEntities(IReadOnlyDictionary<string, GameScreen> screens)
         {
             const int ppu = GameManager.PixelsPerUnit;
             
@@ -91,7 +91,8 @@ namespace Dazel.Game.Core
                 {
                     Texture2D entityTexture = GameManager.Instance.GfxLoader.LoadGraphic(entityModel.Identifier + ".png");
 
-                    GameObject entity = Instantiate(entityTemplate, transform);
+                    GameObject entity = Instantiate(entityTemplate, screens[screenModel.Identifier].transform);
+                    entity.name = entityModel.Identifier;
                     entity.transform.localPosition = new Vector3(entityModel.SpawnPosition.X, entityModel.SpawnPosition.Y);
 
                     Rect rect = new Rect(0, 0, entityTexture.width, entityTexture.height);
