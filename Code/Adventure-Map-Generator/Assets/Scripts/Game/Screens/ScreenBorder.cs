@@ -3,7 +3,7 @@ using Dazel.Game.Core;
 using Dazel.Game.Entities;
 using UnityEngine;
 
-namespace Dazel.Game.Screen
+namespace Dazel.Game.Screens
 {
     public abstract class ScreenBorder : MonoBehaviour
     {

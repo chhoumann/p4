@@ -20,7 +20,6 @@ namespace Dazel.Compiler.StandardLibrary
         }
         
         public abstract ValueNode GetReturnType(List<ValueNode> parameters);
-        public virtual ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast) => null;
 
         protected ArgumentException InvalidArgumentsException(IEnumerable<ValueNode> parameters)
         {

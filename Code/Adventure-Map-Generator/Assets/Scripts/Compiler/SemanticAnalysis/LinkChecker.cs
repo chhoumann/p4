@@ -6,14 +6,15 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public class ExitChecker : ICompleteVisitor
+    public sealed class LinkChecker : ICompleteVisitor
     {
         private AbstractSyntaxTree abstractSyntaxTree;
 
-        public ExitChecker(AbstractSyntaxTree abstractSyntaxTree)
+        public LinkChecker(AbstractSyntaxTree abstractSyntaxTree)
         {
             this.abstractSyntaxTree = abstractSyntaxTree;
         }
@@ -36,47 +37,47 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(MovePatternNode movePatternNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(EntityNode entityNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(ScreenNode screenNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(MapTypeNode mapTypeNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(OnScreenEnteredTypeNode onScreenEnteredTypeNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(DataTypeNodeNode dataTypeNodeNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(EntitiesTypeNodeNode entitiesTypeNodeNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(ExitsTypeNodeNode exitsTypeNodeNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(PatternTypeNode patternTypeNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(StatementBlockNode statementBlockNode)
@@ -89,12 +90,12 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(IfStatementNode ifStatementNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(RepeatNode repeatNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(AssignmentNode assignmentNode)
@@ -104,7 +105,27 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            throw new System.NotImplementedException();
+            if (functionInvocationNode.Function is ScreenExitFunction screenExitFunction)
+            {
+                if (!abstractSyntaxTree.TryRetrieveGameObject(screenExitFunction.ConnectedScreenIdentifier))
+                {
+                    throw new InvalidOperationException(
+                        $"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist.");
+                }            
+            }
+
+            if (functionInvocationNode.Function is ExitFunction exitFunction)
+            {
+                exitFunction.memberAccessNode.Accept(this);
+            }
+            
+            foreach (ValueNode valueNode in functionInvocationNode.Parameters)
+            {
+                if (valueNode is MemberAccessNode memberAccessNode)
+                {
+                    memberAccessNode.Accept(this);
+                }
+            }
         }
 
         public void Visit(FactorExpressionNode factorExpressionNode)
@@ -115,7 +136,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FactorOperationNode factorOperationNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(SumExpressionNode sumExpressionNode)
@@ -126,7 +147,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(SumOperationNode sumOperationNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(TerminalExpressionNode terminalExpressionNode)
@@ -136,39 +157,42 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            throw new System.NotImplementedException();
+            if (!abstractSyntaxTree.TryRetrieveNode(memberAccessNode.Identifiers))
+            {
+                throw new InvalidOperationException(
+                    $"Member {string.Join(".", memberAccessNode.Identifiers)} does not exist.");
+            }
         }
 
         public void Visit(FloatValueNode floatValueNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            throw new System.NotImplementedException();
         }
 
         public void Visit(IntValueNode intValueNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(ArrayNode arrayNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(StringNode stringNode)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Visit(ExitValueNode exitValueNode)
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
-                if (!abstractSyntaxTree.TryRetrieveNode(tileExit.ToExit.Identifiers, out string identifier, out TileExitValueNode exitValue))
+                if (!abstractSyntaxTree.TryRetrieveNode(tileExit.ToExit.Identifiers))
                 {
                     throw new InvalidOperationException(
                         $"Exit {tileExit} is invalid: {string.Join(".", tileExit.ToExit.Identifiers)} does not exist.");
@@ -177,7 +201,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
             if (exitValueNode is ScreenExitValueNode screenExit)
             {
-                if (!abstractSyntaxTree.TryRetrieveGameObject(screenExit.ConnectedScreenIdentifier, out GameObjectNode go))
+                if (!abstractSyntaxTree.TryRetrieveGameObject(screenExit.ConnectedScreenIdentifier))
                 {
                     throw new InvalidOperationException(
                         $"Exit {screenExit} is invalid: {screenExit.ConnectedScreenIdentifier} does not exist.");

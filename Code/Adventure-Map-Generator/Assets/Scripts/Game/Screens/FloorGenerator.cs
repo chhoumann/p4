@@ -2,7 +2,7 @@ using Dazel.Game.Core;
 using Dazel.IntermediateModels;
 using UnityEngine;
 
-namespace Dazel.Game.Screen
+namespace Dazel.Game.Screens
 {
     public sealed class FloorGenerator : MonoBehaviour, ITilemapGenerator
     {

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Dazel.Game.Entities;
-using Dazel.Game.Screen;
+using Dazel.Game.Screens;
 using Dazel.IntermediateModels;
 using UnityEngine;
+using Screen = Dazel.Game.Screens.Screen;
 
 namespace Dazel.Game.Core
 {
@@ -12,9 +13,9 @@ namespace Dazel.Game.Core
         [SerializeField] private GameObject screenTemplate;
         [SerializeField] private Transform screenContainer;
 
-        public static event Action<Screen.Screen> MapLoaded;
+        public static event Action<Screen> MapLoaded;
         
-        public static Screen.Screen CurrentScreen { get; private set; }
+        public static Screen CurrentScreen { get; private set; }
         
         public static IEnumerable<ScreenModel> ScreenModels { get; set; }
         
@@ -22,7 +23,7 @@ namespace Dazel.Game.Core
         {
             if (ScreenModels == null) return;
             
-            Dictionary<string, Screen.Screen> screens = CreateScreens();
+            Dictionary<string, Screen> screens = CreateScreens();
 
             ConnectScreens(screens);
         }
@@ -37,16 +38,16 @@ namespace Dazel.Game.Core
             ScreenBorder.PlayerExitedBounds -= OnExitMapBounds;
         }
 
-        private Dictionary<string, Screen.Screen> CreateScreens()
+        private Dictionary<string, Screen> CreateScreens()
         {
-            Dictionary<string, Screen.Screen> screens = new Dictionary<string, Screen.Screen>();
+            Dictionary<string, Screen> screens = new Dictionary<string, Screen>();
 
             foreach (ScreenModel screenModel in ScreenModels)
             {
                 GameObject newScreen = Instantiate(screenTemplate, screenContainer);
                 newScreen.transform.name = screenModel.Identifier;
 
-                Screen.Screen screen = newScreen.GetComponent<Screen.Screen>().Setup(screenModel);
+                Screen screen = newScreen.GetComponent<Screen>().Setup(screenModel);
 
                 screens.Add(screenModel.Identifier, screen);
 
@@ -63,15 +64,15 @@ namespace Dazel.Game.Core
             return screens;
         }
 
-        private static void ConnectScreens(IReadOnlyDictionary<string, Screen.Screen> screens)
+        private static void ConnectScreens(IReadOnlyDictionary<string, Screen> screens)
         {
             foreach (ScreenModel screenModel in ScreenModels)
             {
-                Screen.Screen screen = screens[screenModel.Identifier];
+                Screen screen = screens[screenModel.Identifier];
 
                 foreach (ScreenExitModel screenExitModel in screenModel.ScreenExits)
                 {
-                    Screen.Screen connectedScreen = screens[screenExitModel.ConnectedScreenIdentifier];
+                    Screen connectedScreen = screens[screenExitModel.ConnectedScreenIdentifier];
 
                     screen.ConnectedScreens.Add(screenExitModel.ExitDirection, connectedScreen);
                     connectedScreen.ConnectedScreens.Add(screenExitModel.ExitDirection.GetOpposite(), screen);
@@ -81,8 +82,8 @@ namespace Dazel.Game.Core
 
         private static void OnExitMapBounds(Player player, Direction exitDirection)
         {
-            Screen.Screen currentScreen = CurrentScreen;
-            Screen.Screen screenToLoad = currentScreen.GetMap(exitDirection);
+            Screen currentScreen = CurrentScreen;
+            Screen screenToLoad = currentScreen.GetMap(exitDirection);
 
             if (!screenToLoad) return;
             
@@ -95,7 +96,7 @@ namespace Dazel.Game.Core
             CurrentScreen = screenToLoad;
         }
 
-        private static void SetPlayerPosition(Player player, Screen.Screen currentScreen, Screen.Screen screenToLoad, Direction exitDirection)
+        private static void SetPlayerPosition(Player player, Screen currentScreen, Screen screenToLoad, Direction exitDirection)
         {
             float offset = Physics2D.defaultContactOffset * 2;
             Vector2 playerPos = (player.Position / currentScreen.Size) * screenToLoad.Size;

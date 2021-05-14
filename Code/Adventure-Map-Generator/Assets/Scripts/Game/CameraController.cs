@@ -1,5 +1,6 @@
 using Dazel.Game.Core;
 using UnityEngine;
+using Screen = Dazel.Game.Screens.Screen;
 
 namespace Dazel.Game
 {
@@ -37,7 +38,7 @@ namespace Dazel.Game
             UpdateCameraPosition();
         }
 
-        private void CalculateCameraBounds(Screen.Screen screen)
+        private void CalculateCameraBounds(Screen screen)
         {
             float height = cam.orthographicSize * 2;
             float width = cam.aspect * height;

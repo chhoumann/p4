@@ -14,7 +14,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
 
         public ExitFunction() : base(SymbolType.Exit) { }
 
-        private MemberAccessNode memberAccessNode;
+        public  MemberAccessNode memberAccessNode { get; private set; }
         
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
@@ -26,18 +26,6 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
             }
             
             throw InvalidArgumentsException(parameters);
-        }
-        
-        public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)
-        {
-            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out string identifier, out TileExitValueNode exitValueNode))
-            {
-                // TODO: Not necessary
-                //ConnectedExit = exitValueNode;
-            }
-
-            Debug.Log("VAR");
-            return null;
         }
     }
 }

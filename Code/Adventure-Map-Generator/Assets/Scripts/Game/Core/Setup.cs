@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Dazel.Compiler;
+using Dazel.IntermediateModels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -29,11 +32,15 @@ namespace Dazel.Game.Core
             }
 
             string path = GetDirectoryPath(GameManager.SourceFileDirectory);
-            World.ScreenModels = new DazelCompiler(path).Run();
-            
-            if (Application.isPlaying)
+
+            if (new DazelCompiler(path).TryRun(out IEnumerable<ScreenModel> screenModels))
             {
-                SceneManager.LoadScene(GameSceneName);
+                World.ScreenModels = screenModels;
+                
+                if (Application.isPlaying)
+                {
+                    SceneManager.LoadScene(GameSceneName);
+                }
             }
         }
 

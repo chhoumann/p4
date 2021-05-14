@@ -1,6 +1,6 @@
 ﻿using Dazel.IntermediateModels;
 
-namespace Dazel.Game.Screen
+namespace Dazel.Game.Screens
 {
     public interface ITilemapGenerator
     {

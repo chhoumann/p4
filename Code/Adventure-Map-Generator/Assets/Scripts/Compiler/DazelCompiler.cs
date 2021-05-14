@@ -22,7 +22,7 @@ namespace Dazel.Compiler
             errorLogger = new DazelErrorLogger();
         }
         
-        public IEnumerable<ScreenModel> Run()
+        public bool TryRun(out IEnumerable<ScreenModel> screenModels)
         {
             try
             {
@@ -38,18 +38,21 @@ namespace Dazel.Compiler
                 PrintAst(ast);
                 PerformSemanticAnalysis(ast);
 
-                return GenerateIntermediateModels(ast);
+                screenModels = GenerateIntermediateModels(ast);
+                return true;
             }
             catch (Exception e)
             {
                 errorLogger.AddToErrorList(e.Message);
+                errorLogger.AddToErrorList(e.StackTrace);
             }
             finally
             {
                 errorLogger.Log();
             }
 
-            return null;
+            screenModels = default;
+            return false;
         }
 
         private IEnumerable<IParseTree> BuildParseTrees()
@@ -85,7 +88,7 @@ namespace Dazel.Compiler
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 new TypeChecker(ast).Visit(gameObject);
-                new ExitChecker(ast).Visit(gameObject);
+                new LinkChecker(ast).Visit(gameObject);
             }
         }
 

@@ -31,7 +31,7 @@ namespace Tests.EditMode.Semantics
         public void ExitCheck_Visit_ThrowOnInvalidExitLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode1_2);
-            ExitChecker tc = new ExitChecker(ast);
+            LinkChecker tc = new LinkChecker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<InvalidOperationException>(TestDelegate);
@@ -50,7 +50,7 @@ namespace Tests.EditMode.Semantics
         public void ExitCheck_Visit_SuccessOnValidLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode2_2);
-            ExitChecker tc = new ExitChecker(ast);
+            LinkChecker tc = new LinkChecker(ast);
 
             List<string> samplescreen2exit = new List<string>() {"SampleScreen2", "Exits", "s2exit1"};
             bool wasFound = ast.TryRetrieveNode(samplescreen2exit, out string identifier, out TileExitValueNode exitValueNode);
@@ -58,7 +58,6 @@ namespace Tests.EditMode.Semantics
             
             Assert.DoesNotThrow(TestDelegate);
             Assert.True(wasFound);
-            Debug.Log(exitValueNode);
         }
     }
 }

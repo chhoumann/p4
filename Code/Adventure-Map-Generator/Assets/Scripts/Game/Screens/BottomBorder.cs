@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Dazel.Game.Screen
+namespace Dazel.Game.Screens
 {
     public sealed class BottomBorder : ScreenBorder
     {

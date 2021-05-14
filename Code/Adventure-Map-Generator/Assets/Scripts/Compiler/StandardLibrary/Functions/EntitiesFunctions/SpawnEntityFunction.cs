@@ -11,9 +11,8 @@ namespace Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions
     {
         public override int NumArguments => 2;
         public Vector2 SpawnPoint { get; private set; }
-        public GameObjectNode Entity { get; set; }
 
-        private string entityName;
+        public string EntityIdentifier { get; private set; }
         
         public SpawnEntityFunction() : base(SymbolType.Void) { }
 
@@ -21,22 +20,12 @@ namespace Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions
         {
             if (parameters[0] is StringNode stringNode && parameters[1] is ArrayNode arrayNode)
             {
-                entityName = stringNode.Value;
+                EntityIdentifier = stringNode.Value;
                 SpawnPoint = arrayNode.ToVector2();
                 return null;
             }
 
             throw InvalidArgumentsException(parameters);
-        }
-
-        public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)
-        {
-            if (ast.TryRetrieveGameObject(entityName, out GameObjectNode gameObject))
-            {
-                Entity = gameObject;
-            }
-            
-            return null;
         }
     }
 }
