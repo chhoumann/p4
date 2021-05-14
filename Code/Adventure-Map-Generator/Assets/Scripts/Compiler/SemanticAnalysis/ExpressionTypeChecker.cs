@@ -25,6 +25,11 @@ namespace Dazel.Compiler.SemanticAnalysis
             get => currentType;
             set
             {
+                if (currentType == SymbolType.Exit)
+                {
+                    throw new InvalidOperationException("Exits cannot be used in expressions.");
+                }
+                
                 if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
                 {
                     currentType = value;
@@ -124,7 +129,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(ExitValueNode exitValueNode)
         {
-            
+            currentType = exitValueNode.Type;
         }
 
         #region IVisitor unimplemented

@@ -1,10 +1,5 @@
-﻿using System;
-using Dazel.Compiler;
-using Dazel.Compiler.Ast;
-using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
-using Dazel.Compiler.SemanticAnalysis;
+﻿using Dazel.Compiler;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests.EditMode
 {

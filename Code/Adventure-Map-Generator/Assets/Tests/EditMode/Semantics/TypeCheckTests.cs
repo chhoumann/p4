@@ -106,9 +106,42 @@ namespace Tests.EditMode.Semantics
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_1, TestCode4_2);
             TypeChecker tc = new TypeChecker(ast);
+            new AstPrinter().Visit(ast.Root.GameObjects["SampleScreen1"]);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            
             Assert.DoesNotThrow(TestDelegate);
+        }
+        
+        private const string TestCode4_3 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Exits" +
+            "   {" +
+            "       exit1 = Exit([0, 0], SampleScreen2.Exits.exit1);" + 
+            "       exit1 = exit1 + exit1;" + 
+            "   }" +
+            "}";
+
+        private const string TestCode4_4 =
+            "Screen SampleScreen2" +
+            "{" +
+            "   Exits" +
+            "   {" +
+            "       exit1 = Exit([0, 0], SampleScreen1.Exits.exit1)" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_ExitCannotBeUsedInExpressions()
+        {
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_3, TestCode4_4);
+            TypeChecker tc = new TypeChecker(ast);
+            new AstPrinter().Visit(ast.Root.GameObjects["SampleScreen1"]);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            
+            Assert.Throws<InvalidOperationException>(TestDelegate);
         }
 
         private const string TestCode6 =
