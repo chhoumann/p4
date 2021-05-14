@@ -43,7 +43,7 @@ The method is then what is responsible for starting the visiting process based o
 \end{lstlisting}
 
 At the root of every parse tree is a \textbf{GameObject}. A \textbf{GameObject} in \dazel{} specifies an object, which content should be displayed inside the game in the final output. Each \textbf{GameObject} represents a text file that contains source code to be compiled. This means that there could be multiple text files, each specifying some content for the final output and therefore multiple parse trees. 
-The consequence of this structure is that the compiler has to build an AST for each of the parse trees and finally produce a single AST by combining them with a single root. On line \ref{line:ParseForeach} in the foreach loop, is where the process of visiting each parse tree starts. 
+The consequence of this structure is that the compiler has to build an AST for each of the parse trees and finally produce a single AST by combining them with a single root. On line \ref{line:ParseForeach}, in the foreach loop, is where the process of visiting each parse tree starts. 
 The intial step of each iteration is to find and store each parse in a variable called \textbf{gameObjectContext}. The root of every parse tree is a \textbf{GameObject} which is the first child of every tree. This process can be seen on line \ref{line:ParseForeach} through the \texttt{parseTree.GetChild(0)} method call.
 Once the \textbf{GameObject} has been assigned to \textbf{gameObjectContext} the visitor is called on that given \textbf{gameObject} on line \ref{line:VisitGO} and an AST is produced. 
 In order to maintain the AST's for each iteration, we add them to a dictionary which can be seen on line \ref{line:ASTToDict}. 
@@ -107,7 +107,6 @@ Here the visitor will return an assignment node with the terminal node \textbf{I
 The strategy for all the rest of the visitor methods follow the same mode of logic, where if a terminal node has been found, it is saved and if a non terminal node has been found, it continues to visit the parse tree until it finds all the terminal nodes in the tree.
 
 Following the construction if the AST the semantic analysis of the compiler can begin, which consists of type checking, scope checking as well as the evaluation of expressions.
-
 
 
 
