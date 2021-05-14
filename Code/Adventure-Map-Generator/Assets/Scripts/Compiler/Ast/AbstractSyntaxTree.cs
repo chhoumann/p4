@@ -17,17 +17,14 @@ namespace Dazel.Compiler.Ast
         public bool TryRetrieveNode<TNodeType>(List<string> identifierList, out string identifier, out TNodeType node)
             where TNodeType : class
         {
-            // TODO: Temporary handling for player member access.
-            /*if (identifierList[0] == "Player" && identifierList[1] == "Health")
-            {
-                node = new IntValueNode() {Value = 100};
-                return true;
-            }*/
-
             GameObjectNode start = Root.GameObjects[identifierList[0]];
+            
             foreach (GameObjectContentNode gameObjectContent in start.Contents)
+            {
                 if (gameObjectContent.TypeNode.ContentType.ToString() == identifierList[1])
+                {
                     foreach (StatementNode statementNode in gameObjectContent.Statements)
+                    {
                         if (statementNode is AssignmentNode assignmentNode &&
                             assignmentNode.Identifier == identifierList[2])
                         {
@@ -35,6 +32,9 @@ namespace Dazel.Compiler.Ast
                             node = assignmentNode.Expression as TNodeType;
                             return true;
                         }
+                    }
+                }
+            }
 
             identifier = default;
             node = default;

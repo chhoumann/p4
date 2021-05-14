@@ -174,7 +174,7 @@ namespace Dazel.Compiler.CodeGeneration
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
-                // TODO: Not implemented
+                Debug.LogWarning("TileExits have not been implemented yet.");
             }
 
             if (exitValueNode is ScreenExitValueNode screenExit)
@@ -182,8 +182,6 @@ namespace Dazel.Compiler.CodeGeneration
                 Debug.Log($"Go {screenExit.ExitDirection.ToString()} to go to {screenExit.ConnectedScreenIdentifier}");
                 screenModel.ScreenExits.Add(new ScreenExitModel(screenExit.ConnectedScreenIdentifier, screenExit.ExitDirection));
             }
-
-            Debug.Log(exitValueNode);
         }
     }
 }

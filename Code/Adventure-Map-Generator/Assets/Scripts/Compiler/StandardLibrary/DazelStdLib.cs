@@ -42,7 +42,6 @@ namespace Dazel.Compiler.StandardLibrary
         private static void AddExitsFunctions()
         {
             Functions.Add("Exit", () => new ExitFunction());
-            Functions.Add("FloorExits", () => new FloorExitsFunction());
             Functions.Add("ScreenExit", () => new ScreenExitFunction());
         }
 

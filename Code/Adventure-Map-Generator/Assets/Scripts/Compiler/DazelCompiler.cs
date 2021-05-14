@@ -13,13 +13,25 @@ namespace Dazel.Compiler
 {
     public sealed class DazelCompiler
     {
-        private readonly string sourceFileDirectory;
         private readonly IErrorLogger errorLogger;
+        private readonly IEnumerable<string> files;
+        private readonly bool fromFile;
 
-        public DazelCompiler(string sourceFileDirectory)
+        private DazelCompiler()
         {
-            this.sourceFileDirectory = sourceFileDirectory;
             errorLogger = new DazelErrorLogger();
+        }
+
+        public DazelCompiler(string sourceFileDirectory) : this()
+        {
+            files = SourceFileGetter.GetFilesInDirectory(sourceFileDirectory);
+            fromFile = true;
+        }
+
+        public DazelCompiler(params string[] files) : this()
+        {
+            this.files = files;
+            fromFile = false;
         }
         
         public bool TryRun(out IEnumerable<ScreenModel> screenModels)
@@ -58,11 +70,10 @@ namespace Dazel.Compiler
         private IEnumerable<IParseTree> BuildParseTrees()
         {
             List<IParseTree> parseTrees = new List<IParseTree>();
-            IEnumerable<string> files = SourceFileGetter.GetFilesInDirectory(sourceFileDirectory);
 
             foreach (string file in files)
             {
-                ICharStream stream = CharStreams.fromPath(file);
+                ICharStream stream = fromFile ? CharStreams.fromPath(file) : CharStreams.fromString(file);
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
