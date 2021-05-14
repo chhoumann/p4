@@ -8,7 +8,6 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
-using Dazel.Tests.EditMode.Semantics;
 using NUnit.Framework;
 
 namespace Tests.EditMode.AST

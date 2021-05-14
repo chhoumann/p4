@@ -4,7 +4,7 @@ using Antlr4.Runtime.Tree;
 using Dazel.Compiler.Ast;
 using Dazel.Compiler.ErrorHandler;
 
-namespace Dazel.Tests.EditMode.Semantics
+namespace Tests.EditMode
 {
     public sealed class TestAstBuilder
     {

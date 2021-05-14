@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Dazel.Tests.EditMode.Semantics
+namespace Tests.EditMode.Semantics
 {
     public class ExitCheckerTests
     {

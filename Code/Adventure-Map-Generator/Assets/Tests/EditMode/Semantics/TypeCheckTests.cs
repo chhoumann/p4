@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
-using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Dazel.Tests.EditMode.Semantics
+namespace Tests.EditMode.Semantics
 {
     [TestFixture]
     public class TypeCheckTests
