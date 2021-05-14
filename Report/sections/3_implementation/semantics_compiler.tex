@@ -43,3 +43,7 @@ The definition of this abstract class can be seen in \snipref{lst:ACSemanticAnal
 
 The two methods \texttt{OpenScope()} and \texttt{CloseScope()} are each responsible for handling the push and pop actions for the stack respectively.
 \texttt{OpenScope()} has two responsibilities. First of which is to check if the stack is empty. In case it is not empty, whatever value is currently at the top of the stack should become the parent of the next value on the stack. This way we ensure that there always is access to the previous scopes when the scope checking is performed at a later stage. This can be seen on line \ref{line:IsStackEmpty} to \ref{line:PushNewScopeToStack}.
+Finally, the class \textbf{TypeChecker} will implement the abstract class \textbf{SemanticAnalysis}. \textbf{TypeChecker} will then have access to the \texttt{OpenScope()} and \texttt{CloseScope()} methods. As well as have access to these methods it will also contain the definitions for the visitor methods that will be responsible for visiting each node in the AST to perform both scope and type checking.
+
+\subsubsection*{Scope and type checking}
+As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker object for every 
