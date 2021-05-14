@@ -41,6 +41,9 @@ namespace Dazel
                 case LogType.Warning:
                     logMessages.Add(new LogMessage(logString, Color.yellow));
                     break;
+                case LogType.Log:
+                    logMessages.Add(new LogMessage(logString, Color.white));
+                    break;
             }
         }
 
