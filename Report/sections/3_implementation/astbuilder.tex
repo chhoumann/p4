@@ -90,7 +90,7 @@ Once the pattern matching is done we use object initialization to create a new \
 \end{lstlisting}
 
 
-Durings visitation of the parse tree the visitor will reduce the parse tree to an AST. It does this by skipping all none terminal nodes and only constructing the AST of terminal nodes. An example of this can be seen in \snipref{lst:VisitAssignment}. 
+Durings visitation of the parse tree the visitor will reduce the parse tree to an AST. It does this by skipping all nonterminal nodes and only constructing the AST of terminal nodes. An example of this can be seen in \snipref{lst:VisitAssignment}. 
 Here the visitor will return an assignment node with the terminal node \textbf{Identifier} assigned to its property. This corresponds to the left hand side of the assignment and can be seen on line \ref{line:GetId}. At the same time the \texttt{VisitExpression} method gets called on line \ref{line:VisitExpr} to continue visiting all elements of the right hand side of the assignment. Once the terminal nodes for the expression has eventually been found they will return and be assigned to the \textbf{Expression} property of the assignment.
 
 \begin{lstlisting}[caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
@@ -107,6 +107,5 @@ Here the visitor will return an assignment node with the terminal node \textbf{I
 The strategy for all the rest of the visitor methods follow the same mode of logic, where if a terminal node has been found, it is saved and if a non terminal node has been found, it continues to visit the parse tree until it finds all the terminal nodes in the tree.
 
 Following the construction if the AST the semantic analysis of the compiler can begin, which consists of type checking, scope checking as well as the evaluation of expressions.
-
 
 
