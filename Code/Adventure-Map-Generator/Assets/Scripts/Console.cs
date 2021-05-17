@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Game.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,12 +24,12 @@ namespace Dazel
 
         private void OnEnable()
         {
-            Application.logMessageReceived += Log;
+            DazelLogger.LogMessageReceived += Log;
         }
 
         private void OnDisable()
         {
-            Application.logMessageReceived -= Log;
+            DazelLogger.LogMessageReceived -= Log;
         }
         
         private void Log(string logString, string stackTrace, LogType type)
