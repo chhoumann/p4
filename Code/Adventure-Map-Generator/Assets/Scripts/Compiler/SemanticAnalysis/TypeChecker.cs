@@ -89,24 +89,34 @@ namespace Dazel.Compiler.SemanticAnalysis
                     expressionValue = new FloatValueNode() {Value = floatEval.Result};
                     break;
                 case SymbolType.String:
+                    var stringEval = new ExpressionEvaluator<string, StringOperations>(ast);
+                    assignmentNode.Expression.Accept(stringEval);
+                    expressionValue = new StringNode() {Value = stringEval.Result};
                     break;
                 case SymbolType.Integer:
                     var intEval = new ExpressionEvaluator<int, IntCalculator>(ast);
                     assignmentNode.Expression.Accept(intEval);
                     expressionValue = new FloatValueNode() {Value = intEval.Result};
                     break;
-                case SymbolType.Boolean:
-                    break;
                 case SymbolType.Array:
+                    var arrayEval = new ExpressionEvaluator<ArrayNode, ArrayCalculator>(ast);
+                    assignmentNode.Expression.Accept(arrayEval);
+                    expressionValue = arrayEval.Result;
                     break;
                 case SymbolType.Exit:
+                    var exitEval = new ExpressionEvaluator<ExitValueNode, ExitValueCalculator>(ast);
+                    assignmentNode.Expression.Accept(exitEval);
+                    expressionValue = exitEval.Result;
                     break;
                 case SymbolType.Identifier:
-                    var idEval = new ExpressionEvaluator<ValueNode, IdentifierCalculator>(ast);
+                    var idEval = new ExpressionEvaluator<ValueNode, NoOpCalculator<ValueNode>>(ast);
                     assignmentNode.Expression.Accept(idEval);
                     expressionValue = idEval.Result;
                     break;
                 case SymbolType.MemberAccess:
+                    var maEval = new ExpressionEvaluator<ValueNode, NoOpCalculator<ValueNode>>(ast);
+                    assignmentNode.Expression.Accept(maEval);
+                    expressionValue = maEval.Result;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
