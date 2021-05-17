@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 
 namespace Tests.EditMode.AST
@@ -27,7 +29,7 @@ namespace Tests.EditMode.AST
             
             if (ast.TryRetrieveNode(identifierList, out string identifier, out ExpressionNode expressionNode))
             {
-                ExpressionEvaluator evaluator = new ExpressionEvaluator(ast);
+                ExpressionEvaluator<int, IntCalculator> evaluator = new ExpressionEvaluator<int, IntCalculator>(ast);
                 expressionNode.Accept(evaluator);
                 
                 Assert.That(evaluator.Result == 3, "evaluator.Result == 3");
@@ -44,7 +46,7 @@ namespace Tests.EditMode.AST
             "{" +
             "   Map" +
             "   {" +
-            "       x = 10 * 5;" +
+            "       x = 10.5 * 5;" +
             "   }" +
             "}";
         
@@ -57,10 +59,10 @@ namespace Tests.EditMode.AST
             
             if (ast.TryRetrieveNode(identifierList, out string identifier, out ExpressionNode expressionNode))
             {
-                ExpressionEvaluator evaluator = new ExpressionEvaluator(ast);
+                ExpressionEvaluator<float, FloatCalculator> evaluator = new ExpressionEvaluator<float, FloatCalculator>(ast);
                 expressionNode.Accept(evaluator);
                 
-                Assert.That(evaluator.Result == 50, "evaluator.Result == 50");
+                Assert.That(evaluator.Result == 52.5f, "evaluator.Result == 52.5");
                 Debug.Log(evaluator.Result);
             }
             else

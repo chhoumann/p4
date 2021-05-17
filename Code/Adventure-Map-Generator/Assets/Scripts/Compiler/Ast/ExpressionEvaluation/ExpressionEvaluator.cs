@@ -4,12 +4,14 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 
-namespace Dazel.Compiler.Ast
+namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
-    public class ExpressionEvaluator : IExpressionVisitor
+    public sealed class ExpressionEvaluator<T, S> : IExpressionVisitor
+        where S : Calculator<T>, new()
     {
-        public float Result { get; private set; }
+        public T Result { get; private set; }
         private readonly AbstractSyntaxTree ast;
+        private Calculator<T> calculator = new S();
 
         public ExpressionEvaluator(AbstractSyntaxTree ast)
         {
@@ -19,18 +21,18 @@ namespace Dazel.Compiler.Ast
         public void Visit(SumExpressionNode sumExpressionNode)
         {
             sumExpressionNode.Left.Accept(this);
-            float a = Result;
+            T a = Result;
                     
             sumExpressionNode.Right.Accept(this);
-            float b = Result;
+            T b = Result;
             
             switch (sumExpressionNode.OperationNode.Operator)
             {
                 case Operators.AddOp:
-                    Result = a + b;
+                    Result = calculator.Add(a, b);
                     break;
                 case Operators.MinOp:
-                    Result = a - b;
+                    Result = calculator.Subtract(a, b);
                     break;
                 default:
                     throw new InvalidOperationException($"Operation {sumExpressionNode.OperationNode.Operator} is not valid.");
@@ -45,18 +47,18 @@ namespace Dazel.Compiler.Ast
         public void Visit(FactorExpressionNode factorExpressionNode)
         {
             factorExpressionNode.Left.Accept(this);
-            float a = Result;
+            T a = Result;
                     
             factorExpressionNode.Right.Accept(this);
-            float b = Result;
+            T b = Result;
             
             switch (factorExpressionNode.OperationNode.Operator)
             {
-                case Operators.DivOp:
-                    Result = a / b;
-                    break;
                 case Operators.MultOp:
-                    Result = a * b;
+                    Result = calculator.Multiply(a, b);
+                    break;
+                case Operators.DivOp:
+                    Result = calculator.Divide(a, b);
                     break;
                 default:
                     throw new InvalidOperationException($"Operation {factorExpressionNode.OperationNode.Operator} is not valid.");
@@ -80,7 +82,7 @@ namespace Dazel.Compiler.Ast
 
         public void Visit(FloatValueNode floatValueNode)
         {
-            Result = floatValueNode.Value;
+            Result = calculator.GetValue(floatValueNode.Value);
         }
 
         public void Visit(IdentifierValueNode identifierValueNode)
@@ -97,10 +99,10 @@ namespace Dazel.Compiler.Ast
                 switch (valueNode)
                 {
                     case IntValueNode intValueNode:
-                        Result = intValueNode.Value;
+                        Result = calculator.GetValue(intValueNode.Value);
                         break;
                     case FloatValueNode floatValueNode:
-                        Result = floatValueNode.Value;
+                        Result = calculator.GetValue(floatValueNode.Value);
                         break;
                     default:
                         throw new InvalidOperationException(
@@ -115,7 +117,7 @@ namespace Dazel.Compiler.Ast
 
         public void Visit(IntValueNode intValueNode)
         {
-            Result = intValueNode.Value;
+            Result = calculator.GetValue(intValueNode.Value);
         }
 
         public void Visit(ArrayNode arrayNode)
