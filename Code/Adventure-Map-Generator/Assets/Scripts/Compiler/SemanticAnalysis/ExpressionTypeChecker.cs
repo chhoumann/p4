@@ -102,7 +102,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
             if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
             {
-                ExpressionNode expression = variableSymbolTableEntry.ExpressionNode;
+                ExpressionNode expression = variableSymbolTableEntry.ValueNode;
                 SetNumericalExpression(identifierValueNode, expression, entry.Type);
             }
 

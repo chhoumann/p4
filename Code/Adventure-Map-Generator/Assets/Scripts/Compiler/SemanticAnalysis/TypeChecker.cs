@@ -5,6 +5,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -75,8 +76,45 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             SymbolTable<SymbolTableEntry> currentSymbolTable = EnvironmentStack.Peek();
             SymbolType expressionType = new ExpressionTypeChecker(ast, currentSymbolTable).GetType(assignmentNode.Expression);
+            ValueNode expressionValue = null;
+            
+            switch (expressionType)
+            {
+                case SymbolType.Null:
+                    expressionValue = null;
+                    break;
+                case SymbolType.Float:
+                    var floatEval = new ExpressionEvaluator<float, FloatCalculator>(ast);
+                    assignmentNode.Expression.Accept(floatEval);
+                    expressionValue = new FloatValueNode() {Value = floatEval.Result};
+                    break;
+                case SymbolType.String:
+                    break;
+                case SymbolType.Integer:
+                    var intEval = new ExpressionEvaluator<int, IntCalculator>(ast);
+                    assignmentNode.Expression.Accept(intEval);
+                    expressionValue = new FloatValueNode() {Value = intEval.Result};
+                    break;
+                case SymbolType.Boolean:
+                    break;
+                case SymbolType.Array:
+                    break;
+                case SymbolType.Exit:
+                    break;
+                case SymbolType.Identifier:
+                    var idEval = new ExpressionEvaluator<ValueNode, IdentifierCalculator>(ast);
+                    assignmentNode.Expression.Accept(idEval);
+                    expressionValue = idEval.Result;
+                    break;
+                case SymbolType.MemberAccess:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
-            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(assignmentNode.Expression, expressionType);
+            assignmentNode.Expression = expressionValue;
+
+            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionValue, expressionType);
 
             currentSymbolTable.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }

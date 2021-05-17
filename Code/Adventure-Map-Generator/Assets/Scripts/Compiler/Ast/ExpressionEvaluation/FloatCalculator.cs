@@ -1,4 +1,6 @@
-﻿namespace Dazel.Compiler.Ast.ExpressionEvaluation
+﻿using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+
+namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
     public sealed class FloatCalculator : Calculator<float>
     {
@@ -11,6 +13,18 @@
         public override float Divide(float a, float b) => a / b;
 
         public override float GetValue(float a) => a;
+        
+        public override float GetValue(string a) => float.Parse(a);
+
+        public override float GetValue(ArrayNode a)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override float GetValue(ExitValueNode a)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public override float GetValue(int a) => a;
     }

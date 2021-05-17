@@ -1,14 +1,14 @@
-﻿using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
+﻿using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
     public sealed class VariableSymbolTableEntry : SymbolTableEntry
     {
-        public ExpressionNode ExpressionNode { get; set; }
+        public ValueNode ValueNode { get; private set; }
         
-        public VariableSymbolTableEntry(ExpressionNode expressionNode, SymbolType type) : base(type)
+        public VariableSymbolTableEntry(ValueNode valueNode, SymbolType type) : base(type)
         {
-            ExpressionNode = expressionNode;
+            ValueNode = valueNode;
         }
     }
 }

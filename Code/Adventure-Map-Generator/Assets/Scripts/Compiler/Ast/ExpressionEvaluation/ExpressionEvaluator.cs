@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
-using UnityEngine;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
@@ -84,15 +83,25 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
             {
                 switch (valueNode)
                 {
+                    case ArrayNode arrayNode:
+                        Result = calculator.GetValue(arrayNode);
+                        break;
+                    case ScreenExitValueNode screenExitValueNode:
+                        screenExitValueNode.Accept(this);
+                        break;
+                    case TileExitValueNode tileExitValueNode:
+                        tileExitValueNode.Accept(this);
+                        break;
                     case IntValueNode intValueNode:
                         Result = calculator.GetValue(intValueNode.Value);
+                        break;
+                    case StringNode stringNode:
+                        Result = calculator.GetValue(stringNode.Value);
                         break;
                     case FloatValueNode floatValueNode:
                         Result = calculator.GetValue(floatValueNode.Value);
                         break;
-                    default:
-                        throw new InvalidOperationException(
-                            $"Identifier {string.Join(", ", identifierList)} with type {valueNode.Type} is not supported.");
+                    
                 }
             }
             else
@@ -108,18 +117,7 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            switch (identifierValueNode.ValueNode)
-            {
-                case IntValueNode intValueNode:
-                    Result = calculator.GetValue(intValueNode.Value);
-                    break;
-                case FloatValueNode floatValueNode:
-                    Result = calculator.GetValue(floatValueNode.Value);
-                    break;
-                default:
-                    throw new InvalidOperationException(
-                        $"Identifier {string.Join(", ", identifierValueNode.Identifier)} with type {identifierValueNode.Type} is not supported.");
-            }
+            identifierValueNode.ValueNode.Accept(this);
         }
 
        public void Visit(IntValueNode intValueNode)
@@ -129,17 +127,17 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
         public void Visit(ArrayNode arrayNode)
         {
-            throw new InvalidOperationException($"Array ({arrayNode}) cannot be used in expressions.");
+            Result = calculator.GetValue(arrayNode);
         }
 
         public void Visit(StringNode stringNode)
         {
-            throw new InvalidOperationException($"String ({stringNode.Value}) cannot be used in expressions.");
+            Result = calculator.GetValue(stringNode.Value);
         }
 
         public void Visit(ExitValueNode exitValueNode)
         {
-            throw new InvalidOperationException($"ExitValueNode cannot be used in expressions.");
+            Result = calculator.GetValue(exitValueNode);
         }
     }
 }
