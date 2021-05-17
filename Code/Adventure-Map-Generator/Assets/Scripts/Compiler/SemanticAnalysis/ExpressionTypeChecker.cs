@@ -6,6 +6,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -101,10 +102,10 @@ namespace Dazel.Compiler.SemanticAnalysis
 
             if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
             {
-                var expression = variableSymbolTableEntry.ExpressionNode;
-                identifierValueNode.ValueNode = EvaluateNumericalExpression(expression, entry.Type);
+                ExpressionNode expression = variableSymbolTableEntry.ExpressionNode;
+                SetNumericalExpression(identifierValueNode, expression, entry.Type);
             }
-            
+
             CurrentType = symbolTable.RetrieveSymbol(identifierValueNode.Identifier).Type;
         }
 
@@ -141,31 +142,34 @@ namespace Dazel.Compiler.SemanticAnalysis
             currentType = exitValueNode.Type;
         }
         
-        private ValueNode EvaluateNumericalExpression(ExpressionNode expressionNode, SymbolType expressionType)
+        private void SetNumericalExpression(IdentifierValueNode identifierValueNode,
+            ExpressionNode expressionNode, SymbolType expressionType)
         {
-            if (expressionType == SymbolType.Float)
+            switch (expressionType)
             {
-                var floatValueNode = new FloatValueNode();
-                var expressionEvaluator = new ExpressionEvaluator<float, FloatCalculator>(ast);
+                case SymbolType.Float:
+                {
+                    var floatValueNode = new FloatValueNode();
+                    var expressionEvaluator = new ExpressionEvaluator<float, FloatCalculator>(ast);
 
-                expressionNode.Accept(expressionEvaluator);
+                    expressionNode.Accept(expressionEvaluator);
 
-                floatValueNode.Value = expressionEvaluator.Result;
-                return floatValueNode;
+                    floatValueNode.Value = expressionEvaluator.Result;
+                    identifierValueNode.ValueNode = floatValueNode;
+                    break;
+                }
+                case SymbolType.Integer:
+                {
+                    var intValueNode = new IntValueNode();
+                    var expressionEvaluator = new ExpressionEvaluator<int, IntCalculator>(ast);
+
+                    expressionNode.Accept(expressionEvaluator);
+
+                    intValueNode.Value = expressionEvaluator.Result;
+                    identifierValueNode.ValueNode = intValueNode;
+                    break;
+                }
             }
-
-            if (expressionType == SymbolType.Integer)
-            {
-                var intValueNode = new IntValueNode();
-                var expressionEvaluator = new ExpressionEvaluator<int, IntCalculator>(ast);
-
-                expressionNode.Accept(expressionEvaluator);
-
-                intValueNode.Value = expressionEvaluator.Result;
-                return intValueNode;
-            }
-
-            return null;
         }
 
         #region IVisitor unimplemented

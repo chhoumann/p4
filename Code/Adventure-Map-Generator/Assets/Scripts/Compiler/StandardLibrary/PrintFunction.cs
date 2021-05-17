@@ -11,13 +11,17 @@ namespace Dazel.Compiler.StandardLibrary
 
         public override int NumArguments => 1;
 
-        public string Output { get; set; }
+        private ValueNode valueNode;
         
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
-            Output = parameters[0].ToString();
-            Debug.Log(Output);
+            valueNode = parameters[0];
             return null;
+        }
+
+        public override void PostAstExecute()
+        {
+            Debug.Log(valueNode.ToString());
         }
     }
 }

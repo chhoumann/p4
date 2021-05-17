@@ -17,7 +17,7 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
 
         public override string ToString()
         {
-            return $"{Identifier} ({Type})";
+            return $"{Identifier} = {ValueNode}";
         }
     }
 }

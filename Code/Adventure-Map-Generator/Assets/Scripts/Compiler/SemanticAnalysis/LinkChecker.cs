@@ -6,6 +6,7 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.StandardLibrary;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 
 namespace Dazel.Compiler.SemanticAnalysis
@@ -117,6 +118,11 @@ namespace Dazel.Compiler.SemanticAnalysis
             if (functionInvocationNode.Function is ExitFunction exitFunction)
             {
                 exitFunction.memberAccessNode.Accept(this);
+            }
+
+            if (functionInvocationNode.Function is PrintFunction printFunction)
+            {
+                printFunction.PostAstExecute();
             }
             
             foreach (ValueNode valueNode in functionInvocationNode.Parameters)
