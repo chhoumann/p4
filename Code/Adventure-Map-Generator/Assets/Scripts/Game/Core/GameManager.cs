@@ -1,4 +1,5 @@
 using System.IO;
+using Dazel.Game.Entities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +25,8 @@ namespace Dazel.Game.Core
 
         public GfxLoader GfxLoader { get; private set; }
 
+        public bool LoggingEnabled { get; set; } = true;
+        
         private void Awake()
         {
             if (Instance)
@@ -47,6 +50,11 @@ namespace Dazel.Game.Core
             Instance = this;
             WorkingEnvironment = Application.persistentDataPath;
             GfxLoader = new GfxLoader(Path.Combine(WorkingEnvironment, GraphicsFileDirectory));
+        }
+
+        public static void ReturnToMainMenu()
+        {
+            SceneManager.LoadScene(MenuSceneName);
         }
     }
 }

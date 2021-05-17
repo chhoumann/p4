@@ -47,7 +47,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         public void Visit(StatementBlockNode statementBlockNode)
         {
             OpenScope();
-
+            
             foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this);
 
             CloseScope();
@@ -63,7 +63,6 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            functionInvocationNode.Function.Setup(functionInvocationNode.Parameters, ast);
             FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
 
             EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);

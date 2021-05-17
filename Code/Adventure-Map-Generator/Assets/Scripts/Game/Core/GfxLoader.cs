@@ -6,16 +6,23 @@ namespace Dazel.Game.Core
 {
     public sealed class GfxLoader
     {
+        private static readonly string[] AllowedImageFiles = {"png", "jpg"};
+        
         private readonly string gfxPath;
 
         private readonly Dictionary<string, Texture2D> cachedFiles = new Dictionary<string, Texture2D>();
-        
+
         public GfxLoader(string gfxPath)
         {
             this.gfxPath = gfxPath;
         }
 
-        public Texture2D LoadTile(string fileName)
+        public Texture2D LoadGraphic(string gfxName)
+        {
+            return gfxName.Contains(".") ? LoadTileFromFile(gfxName) : LoadTileFromDirectory(gfxName);
+        }
+        
+        private Texture2D LoadTileFromFile(string fileName)
         {
             string filePath = Path.Combine(gfxPath, fileName);
 
@@ -36,6 +43,38 @@ namespace Dazel.Game.Core
             cachedFiles.Add(filePath, texture);
 
             return texture;
+        }
+
+        private Texture2D LoadTileFromDirectory(string directoryName)
+        {
+            string directoryPath = Path.Combine(gfxPath, directoryName);
+
+            if (!Directory.Exists(directoryPath))
+            {
+                throw new FileNotFoundException($"Directory {directoryPath} does not exist!");
+            }
+
+            IEnumerable<string> files = GetFilesFrom(directoryPath);
+            List<Texture2D> textures = new List<Texture2D>();
+            
+            foreach (string file in files)
+            {
+                textures.Add(LoadTileFromFile(file));
+            }
+
+            return textures[Random.Range(0, textures.Count)];
+        }
+        
+        private static IEnumerable<string> GetFilesFrom(string searchFolder)
+        {
+            List<string> filesFound = new List<string>();
+            
+            foreach (string filter in AllowedImageFiles)
+            {
+                filesFound.AddRange(Directory.GetFiles(searchFolder, $"*.{filter}"));
+            }
+            
+            return filesFound.ToArray();
         }
     }
 }

@@ -4,6 +4,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -24,6 +25,11 @@ namespace Dazel.Compiler.SemanticAnalysis
             get => currentType;
             set
             {
+                if (currentType == SymbolType.Exit)
+                {
+                    throw new InvalidOperationException("Exits cannot be used in expressions.");
+                }
+                
                 if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
                 {
                     currentType = value;
@@ -36,6 +42,9 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public SymbolType GetType(ExpressionNode expression)
         {
+            if (expression == null)
+                return SymbolType.Null;
+            
             expression.Accept(this);
             
             return CurrentType;
@@ -43,6 +52,16 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(SumExpressionNode sumExpressionNode)
         {
+            if (sumExpressionNode.Left == null)
+            {
+                throw new InvalidOperationException("Expression left operand is null");
+            }
+            
+            if (sumExpressionNode.Right == null)
+            {
+                throw new InvalidOperationException("Expression right operand is null");
+            }
+            
             sumExpressionNode.Left.Accept(this);
             sumExpressionNode.Right.Accept(this);
         }
@@ -60,7 +79,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out ValueNode value))
+            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out string identifier, out ValueNode value))
             {
                 CurrentType = value.Type;
             }
@@ -110,7 +129,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(ExitValueNode exitValueNode)
         {
-            
+            currentType = exitValueNode.Type;
         }
 
         #region IVisitor unimplemented

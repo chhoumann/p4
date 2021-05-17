@@ -8,6 +8,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
+using UnityEngine;
 
 namespace Dazel.Compiler.Ast
 {
@@ -341,21 +342,13 @@ namespace Dazel.Compiler.Ast
             throw new ArgumentException("Invalid statement");
         }
         
-        // TOOD: Undecided
         public RepeatNode VisitRepeatLoop(DazelParser.RepeatLoopContext context)
         {
-            // RepeatNode statements = VisitStatementList(context.statementList());
-
             return new RepeatNode();
         }
 
-        // TOOD: Undecided
         public IfStatementNode VisitIfStatement(DazelParser.IfStatementContext context)
         {
-            // // TODO: update expression visitor
-            // var expression = new ExpressionVisitor().VisitExpression(context.expression());
-            // var statements = VisitStatementList(context.statementList());
-
             return new IfStatementNode();
         }
 

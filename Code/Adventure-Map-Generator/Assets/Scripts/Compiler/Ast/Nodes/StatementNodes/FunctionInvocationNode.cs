@@ -4,6 +4,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.Compiler.StandardLibrary;
+using UnityEngine;
 
 namespace Dazel.Compiler.Ast.Nodes.StatementNodes
 {
@@ -21,8 +22,7 @@ namespace Dazel.Compiler.Ast.Nodes.StatementNodes
                 Function = function;
                 return function.GetReturnType(Parameters);
             }
-            
-            // TODO: This is not the right exception. This should be called from within execute. Create a new exception type.
+
             throw new ArgumentException($"{Identifier} function not found in Dazel Standard Library.");
         }
 

@@ -70,19 +70,9 @@ namespace Tests.EditMode.AST
         [Test]
         public void ASTBuilder_Visit_NonExistingFunctionCallThrows()
         {
-            void TestDelegate() => BuildAst(TestCode1);
+            void TestDelegate() => TestAstBuilder.BuildAst(TestCode1);
             Assert.Throws<ArgumentException>(TestDelegate);
         }
-        
-        private AbstractSyntaxTree BuildAst(string code)
-        {
-            ICharStream stream = CharStreams.fromString(code);
-            ITokenSource lexer = new DazelLexer(stream);
-            ITokenStream tokens = new CommonTokenStream(lexer);
-            IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
-            return new AstBuilder().BuildAst(parseTree);
-        }
-        
 
         #region Visitor
 

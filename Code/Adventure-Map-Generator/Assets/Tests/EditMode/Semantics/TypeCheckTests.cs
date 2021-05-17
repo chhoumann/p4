@@ -1,11 +1,13 @@
 ﻿using System;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Tree;
+using System.Collections.Generic;
 using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
+using UnityEngine;
 
-namespace Dazel.Tests.EditMode.Semantics
+namespace Tests.EditMode.Semantics
 {
     [TestFixture]
     public class TypeCheckTests
@@ -21,7 +23,6 @@ namespace Dazel.Tests.EditMode.Semantics
             "           SomeVar2 = 1 + 2 / 3;" + // Test expressions & integers
             "           x = SomeVar2;" + // Test identifier values
             "       }" +
-            "       let = Player.Health;" + // Test member access 
             "       arr = [1, 2, 3];" + // Test arrays
             "   }" +
             "" +
@@ -34,7 +35,7 @@ namespace Dazel.Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_AllScopesAccountedFor()
         {
-            AbstractSyntaxTree ast = BuildAst(TestCode);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode);
             TypeChecker tc = new TypeChecker(ast);
 
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
@@ -56,7 +57,7 @@ namespace Dazel.Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_ArrayPlusIntegerFails()
         {
-            AbstractSyntaxTree ast = BuildAst(TestCode2);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode2);
             TypeChecker tc = new TypeChecker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
@@ -75,58 +76,164 @@ namespace Dazel.Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_MemberAccessNotFoundIfNotDeclared()
         {
-            AbstractSyntaxTree ast = BuildAst(TestCode3);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3);
             TypeChecker tc = new TypeChecker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<InvalidOperationException>(TestDelegate);
         }
         
-        private const string TestCode4 =
+        private const string TestCode4_1 =
             "Screen SampleScreen1" +
             "{" +
-            "   Map" +
+            "   Exits" +
             "   {" +
-            "       memAccExit = Player.Health + 50;" +
+            "       exit1 = Exit([0, 0], SampleScreen2.Exits.exit1);" + 
+            "   }" +
+            "}";
+
+        private const string TestCode4_2 =
+            "Screen SampleScreen2" +
+            "{" +
+            "   Exits" +
+            "   {" +
+            "       exit1 = Exit([0, 0], SampleScreen1.Exits.exit1)" +
             "   }" +
             "}";
         
         [Test]
         public void TypeCheck_Visit_MemberAccessValidExpressionSucceeds()
         {
-            AbstractSyntaxTree ast = BuildAst(TestCode4);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_1, TestCode4_2);
             TypeChecker tc = new TypeChecker(ast);
+            new AstPrinter().Visit(ast.Root.GameObjects["SampleScreen1"]);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            
             Assert.DoesNotThrow(TestDelegate);
         }
         
-        private const string TestCode5 =
+        private const string TestCode4_3 =
             "Screen SampleScreen1" +
             "{" +
-            "   Map" +
+            "   Exits" +
             "   {" +
-            "       memAccExit = Player.Health + \"50\";" +
+            "       exit1 = Exit([0, 0], SampleScreen2.Exits.exit1);" + 
+            "       exit1 = exit1 + exit1;" + 
+            "   }" +
+            "}";
+
+        private const string TestCode4_4 =
+            "Screen SampleScreen2" +
+            "{" +
+            "   Exits" +
+            "   {" +
+            "       exit1 = Exit([0, 0], SampleScreen1.Exits.exit1)" +
             "   }" +
             "}";
         
         [Test]
-        public void TypeCheck_Visit_MemberAccessInvalidExpressionFails()
+        public void TypeCheck_Visit_ExitCannotBeUsedInExpressions()
         {
-            AbstractSyntaxTree ast = BuildAst(TestCode5);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_3, TestCode4_4);
+            TypeChecker tc = new TypeChecker(ast);
+            new AstPrinter().Visit(ast.Root.GameObjects["SampleScreen1"]);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            
+            Assert.Throws<InvalidOperationException>(TestDelegate);
+        }
+
+        private const string TestCode6 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       x = 50 - Size(39, 29);" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_AddNullFunctionInvocationToInteger()
+        {
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode6);
             TypeChecker tc = new TypeChecker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<InvalidOperationException>(TestDelegate);
         }
-
-        private AbstractSyntaxTree BuildAst(string code)
+        
+        private const string TestCode7 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       x = Size(39, 29);" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_AssignNullFunctionToVariableAllowed()
         {
-            ICharStream stream = CharStreams.fromString(code);
-            ITokenSource lexer = new DazelLexer(stream);
-            ITokenStream tokens = new CommonTokenStream(lexer);
-            IParseTree parseTree = new DazelParser(tokens) {BuildParseTree = true}.start();
-            return new AstBuilder().BuildAst(parseTree);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode7);
+            TypeChecker tc = new TypeChecker(ast);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
+            ast.TryRetrieveNode(variablePath, out string identifier, out ValueNode value);
+            
+            Assert.DoesNotThrow(TestDelegate);
+            Assert.That(value == null);
+            Assert.That(identifier == "x");
+        }
+        
+        private const string TestCode8 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       x = Size(39, 29) + 321;" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_NullFunctionExpressionPlusIntegerThrows()
+        {
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode8);
+            TypeChecker tc = new TypeChecker(ast);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
+            ast.TryRetrieveNode(variablePath, out string identifier, out ValueNode value);
+            
+            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.That(value == null);
+            Assert.That(identifier == "x");
+        }
+        
+        private const string TestCode9 =
+            "Screen SampleScreen1" +
+            "{" +
+            "   Map" +
+            "   {" +
+            "       x = 1 + 1.5;" +
+            "   }" +
+            "}";
+        
+        [Test]
+        public void TypeCheck_Visit_IntegerPlusFloatSucceeds()
+        {
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode9);
+            TypeChecker tc = new TypeChecker(ast);
+
+            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
+            ast.TryRetrieveNode(variablePath, out string identifier, out ExpressionNode value);
+            
+            Assert.DoesNotThrow(TestDelegate);
+            Assert.That(value != null, "value != null");
+            Assert.That(identifier == "x", "identifier == 'x'");
+            Debug.Log(value);
         }
     }
 }
