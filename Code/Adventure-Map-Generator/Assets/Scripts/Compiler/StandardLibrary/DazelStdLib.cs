@@ -32,7 +32,6 @@ namespace Dazel.Compiler.StandardLibrary
         
         private static void AddMapFunctions()
         {
-            Functions.Add("Print", () => new PrintFunction());
             Functions.Add("Size", () => new SizeFunction());
             Functions.Add("Line", () => new LineFunction());
             Functions.Add("Floor", () => new FloorFunction());

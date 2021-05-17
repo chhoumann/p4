@@ -112,7 +112,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 {
                     throw new InvalidOperationException(
                         $"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist.");
-                }            
+                } 
             }
 
             if (functionInvocationNode.Function is ExitFunction exitFunction)
@@ -120,11 +120,6 @@ namespace Dazel.Compiler.SemanticAnalysis
                 exitFunction.memberAccessNode.Accept(this);
             }
 
-            if (functionInvocationNode.Function is PrintFunction printFunction)
-            {
-                printFunction.PostAstExecute();
-            }
-            
             foreach (ValueNode valueNode in functionInvocationNode.Parameters)
             {
                 if (valueNode is MemberAccessNode memberAccessNode)

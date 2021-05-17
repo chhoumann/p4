@@ -21,7 +21,7 @@ namespace Dazel.Compiler.StandardLibrary
         
         public abstract ValueNode GetReturnType(List<ValueNode> parameters);
         
-        public virtual void PostAstExecute() { }
+        public virtual void PostAstExecute(AbstractSyntaxTree ast) { }
 
         protected ArgumentException InvalidArgumentsException(IEnumerable<ValueNode> parameters)
         {
