@@ -76,11 +76,8 @@ namespace Dazel.Compiler.SemanticAnalysis
             SymbolTable<SymbolTableEntry> currentSymbolTable = EnvironmentStack.Peek();
             SymbolType expressionType = new ExpressionTypeChecker(ast, currentSymbolTable).GetType(assignmentNode.Expression);
 
-            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionType)
-            {
-                ExpressionNode = assignmentNode.Expression
-            };
-            
+            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(assignmentNode.Expression, expressionType);
+
             currentSymbolTable.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }
     }
