@@ -6,8 +6,9 @@ namespace Dazel.Compiler.SemanticAnalysis
     {
         public ExpressionNode ExpressionNode { get; set; }
         
-        public VariableSymbolTableEntry(SymbolType type) : base(type)
+        public VariableSymbolTableEntry(ExpressionNode expressionNode, SymbolType type) : base(type)
         {
+            ExpressionNode = expressionNode;
         }
     }
 }
