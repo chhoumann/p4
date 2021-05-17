@@ -191,7 +191,7 @@ namespace Dazel.Compiler.Ast
                 case DazelLexer.IDENTIFIER:
                     return new IdentifierValueNode
                     {
-                        Value = context.GetText()
+                        Identifier = context.GetText()
                     };
                 case DazelLexer.INT:
                     return new IntValueNode

@@ -37,11 +37,11 @@ namespace Tests.EditMode.Semantics
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode);
             TypeChecker tc = new TypeChecker(ast);
-
+            
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
             // We know that, if the stack height is 0, then the scopes have all been popped off the stack.
-            Assert.That(tc.EnvironmentStack.Count == 0);
+            Assert.That(tc.EnvironmentStack.Count == 0, "tc.EnvironmentStack.Count == 0");
         }
         
         private const string TestCode2 =

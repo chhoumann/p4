@@ -201,7 +201,7 @@ namespace Tests.EditMode.AST
                     break;
                 // x = SomeVar3
                 case "x":
-                    Assert.That(assignmentNode.Expression is IdentifierValueNode {Value: "SomeVar2"});
+                    Assert.That(assignmentNode.Expression is IdentifierValueNode {Identifier: "SomeVar2"});
                     break;
                 // let = SampleScreen1.Exits.exit1
                 case "let":

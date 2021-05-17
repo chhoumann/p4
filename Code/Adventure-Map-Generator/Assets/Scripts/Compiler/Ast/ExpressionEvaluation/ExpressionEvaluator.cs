@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
+using UnityEngine;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
@@ -77,23 +78,8 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            VariableHandler(memberAccessNode.Identifiers);
-        }
-
-        public void Visit(FloatValueNode floatValueNode)
-        {
-            Result = calculator.GetValue(floatValueNode.Value);
-        }
-
-        public void Visit(IdentifierValueNode identifierValueNode)
-        {
-            List<string> identifierList = new List<string>() {identifierValueNode.Value};
-
-            VariableHandler(identifierList);
-        }
-
-        private void VariableHandler(List<string> identifierList)
-        {
+            List<string> identifierList = memberAccessNode.Identifiers;
+            
             if (ast.TryRetrieveNode(identifierList, out string _, out ValueNode valueNode))
             {
                 switch (valueNode)
@@ -115,7 +101,28 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
             }
         }
 
-        public void Visit(IntValueNode intValueNode)
+        public void Visit(FloatValueNode floatValueNode)
+        {
+            Result = calculator.GetValue(floatValueNode.Value);
+        }
+
+        public void Visit(IdentifierValueNode identifierValueNode)
+        {
+            switch (identifierValueNode.ValueNode)
+            {
+                case IntValueNode intValueNode:
+                    Result = calculator.GetValue(intValueNode.Value);
+                    break;
+                case FloatValueNode floatValueNode:
+                    Result = calculator.GetValue(floatValueNode.Value);
+                    break;
+                default:
+                    throw new InvalidOperationException(
+                        $"Identifier {string.Join(", ", identifierValueNode.Identifier)} with type {identifierValueNode.Type} is not supported.");
+            }
+        }
+
+       public void Visit(IntValueNode intValueNode)
         {
             Result = calculator.GetValue(intValueNode.Value);
         }

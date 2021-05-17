@@ -60,7 +60,7 @@ namespace Dazel.Compiler.Ast
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            sb.Append(identifierValueNode.Value);
+            sb.Append(identifierValueNode.Identifier);
         }
 
         public void Visit(IntValueNode intValueNode)

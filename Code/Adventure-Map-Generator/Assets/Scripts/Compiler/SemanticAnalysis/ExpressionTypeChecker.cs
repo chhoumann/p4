@@ -1,10 +1,11 @@
 ﻿using System;
 using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -96,7 +97,15 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            CurrentType = symbolTable.RetrieveSymbol(identifierValueNode.Value).Type;
+            SymbolTableEntry entry = symbolTable.RetrieveSymbol(identifierValueNode.Identifier);
+
+            if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
+            {
+                var expression = variableSymbolTableEntry.ExpressionNode;
+                identifierValueNode.ValueNode = EvaluateNumericalExpression(expression, entry.Type);
+            }
+            
+            CurrentType = symbolTable.RetrieveSymbol(identifierValueNode.Identifier).Type;
         }
 
         public void Visit(IntValueNode intValueNode)
@@ -130,6 +139,33 @@ namespace Dazel.Compiler.SemanticAnalysis
         public void Visit(ExitValueNode exitValueNode)
         {
             currentType = exitValueNode.Type;
+        }
+        
+        private ValueNode EvaluateNumericalExpression(ExpressionNode expressionNode, SymbolType expressionType)
+        {
+            if (expressionType == SymbolType.Float)
+            {
+                var floatValueNode = new FloatValueNode();
+                var expressionEvaluator = new ExpressionEvaluator<float, FloatCalculator>(ast);
+
+                expressionNode.Accept(expressionEvaluator);
+
+                floatValueNode.Value = expressionEvaluator.Result;
+                return floatValueNode;
+            }
+
+            if (expressionType == SymbolType.Integer)
+            {
+                var intValueNode = new IntValueNode();
+                var expressionEvaluator = new ExpressionEvaluator<int, IntCalculator>(ast);
+
+                expressionNode.Accept(expressionEvaluator);
+
+                intValueNode.Value = expressionEvaluator.Result;
+                return intValueNode;
+            }
+
+            return null;
         }
 
         #region IVisitor unimplemented

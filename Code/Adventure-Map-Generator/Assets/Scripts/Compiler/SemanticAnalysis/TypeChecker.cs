@@ -1,4 +1,7 @@
-﻿using Dazel.Compiler.Ast;
+﻿using System;
+using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
@@ -73,7 +76,11 @@ namespace Dazel.Compiler.SemanticAnalysis
             SymbolTable<SymbolTableEntry> currentSymbolTable = EnvironmentStack.Peek();
             SymbolType expressionType = new ExpressionTypeChecker(ast, currentSymbolTable).GetType(assignmentNode.Expression);
 
-            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionType);
+            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionType)
+            {
+                ExpressionNode = assignmentNode.Expression
+            };
+            
             currentSymbolTable.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }
     }

@@ -8,6 +8,7 @@ using Dazel.Compiler.CodeGeneration;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.IntermediateModels;
+using UnityEditor;
 
 namespace Dazel.Compiler
 {
