@@ -6,16 +6,16 @@ using Dazel.Compiler.Ast.Visitors;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
-    public sealed class ExpressionEvaluator<T, S> : IExpressionVisitor
-        where S : Calculator<T>, new()
+    public sealed class ExpressionEvaluator<T> : IExpressionVisitor
     {
         public T Result { get; private set; }
         private readonly AbstractSyntaxTree ast;
-        private Calculator<T> calculator = new S();
+        private readonly Calculator<T> calculator;
 
-        public ExpressionEvaluator(AbstractSyntaxTree ast)
+        public ExpressionEvaluator(AbstractSyntaxTree ast, Calculator<T> calculator)
         {
             this.ast = ast;
+            this.calculator = calculator;
         }
         
         public void Visit(SumExpressionNode sumExpressionNode)
@@ -35,7 +35,8 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
                     Result = calculator.Subtract(a, b);
                     break;
                 default:
-                    throw new InvalidOperationException($"Operation {sumExpressionNode.OperationNode.Operator} is not valid.");
+                    DazelCompiler.Logger.EmitError($"Operation {sumExpressionNode.OperationNode.Operator} is not valid.", sumExpressionNode.Token);
+                    break;
             }
         }
 
@@ -61,7 +62,8 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
                     Result = calculator.Divide(a, b);
                     break;
                 default:
-                    throw new InvalidOperationException($"Operation {factorExpressionNode.OperationNode.Operator} is not valid.");
+                    DazelCompiler.Logger.EmitError($"Operation {factorExpressionNode.OperationNode.Operator} is not valid.", factorExpressionNode.Token);
+                    break;
             }
         }
 
@@ -106,7 +108,7 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
             }
             else
             {
-                throw new InvalidOperationException($"Identifier {string.Join(", ", identifierList)} was used but could not be found.");
+                DazelCompiler.Logger.EmitError($"Identifier {string.Join(", ", identifierList)} was used but could not be found.", memberAccessNode.Token);
             }
         }
 

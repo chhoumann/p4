@@ -1,12 +1,9 @@
-﻿using System;
-using Dazel.Compiler.Ast;
+﻿using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
-using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -29,7 +26,7 @@ namespace Dazel.Compiler.SemanticAnalysis
             {
                 if (currentType == SymbolType.Exit)
                 {
-                    throw new InvalidOperationException("Exits cannot be used in expressions.");
+                    DazelCompiler.Logger.EmitError("Exits cannot be used in expressions.");
                 }
                 
                 if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
@@ -38,7 +35,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                     return;
                 }
                 
-                throw new InvalidOperationException($"Type mismatch. {value} is not {currentType}");
+                DazelCompiler.Logger.EmitError($"Type mismatch. {value} is not {currentType}");
             }
         }
         
@@ -56,12 +53,12 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (sumExpressionNode.Left == null)
             {
-                throw new InvalidOperationException("Expression left operand is null");
+                DazelCompiler.Logger.EmitError("Expression left operand is null", sumExpressionNode.Token);
             }
             
             if (sumExpressionNode.Right == null)
             {
-                throw new InvalidOperationException("Expression right operand is null");
+                DazelCompiler.Logger.EmitError("Expression right operand is null", sumExpressionNode.Token);
             }
             
             sumExpressionNode.Left.Accept(this);
@@ -87,7 +84,7 @@ namespace Dazel.Compiler.SemanticAnalysis
             }
             else
             {
-                throw new InvalidOperationException($"{string.Join(".", memberAccessNode.Identifiers)} was not found.");
+                DazelCompiler.Logger.EmitError($"{string.Join(".", memberAccessNode.Identifiers)} was not found.", memberAccessNode.Token);
             }
         }
 
@@ -127,7 +124,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 }
                 else
                 {
-                    throw new InvalidOperationException($"Type mismatch. {value} is not {currentType}");
+                    DazelCompiler.Logger.EmitError($"Type mismatch. {value} is not {currentType}", value.Token);
                 }
             }
         }
@@ -150,7 +147,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 case SymbolType.Float:
                 {
                     var floatValueNode = new FloatValueNode();
-                    var expressionEvaluator = new ExpressionEvaluator<float, FloatCalculator>(ast);
+                    var expressionEvaluator = new ExpressionEvaluator<float>(ast, new FloatCalculator(expressionNode.Token));
 
                     expressionNode.Accept(expressionEvaluator);
 
@@ -161,7 +158,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 case SymbolType.Integer:
                 {
                     var intValueNode = new IntValueNode();
-                    var expressionEvaluator = new ExpressionEvaluator<int, IntCalculator>(ast);
+                    var expressionEvaluator = new ExpressionEvaluator<int>(ast, new IntCalculator(expressionNode.Token));
 
                     expressionNode.Accept(expressionEvaluator);
 

@@ -1,50 +1,68 @@
-﻿using System;
+﻿using Antlr4.Runtime;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
     public sealed class ArrayCalculator : Calculator<ArrayNode>
     {
+        public ArrayCalculator(IToken token) : base(token) { }
+        
         public override ArrayNode Add(ArrayNode a, ArrayNode b)
         {
-            throw new InvalidOperationException("Cannot add arrays.");
+            DazelCompiler.Logger.EmitError("Cannot add arrays.", Token);
+            
+            return null;
         }
 
         public override ArrayNode Subtract(ArrayNode a, ArrayNode b)
         {
-            throw new InvalidOperationException("Cannot subtract arrays.");
+            DazelCompiler.Logger.EmitError("Cannot subtract arrays.", Token);
+            
+            return null;
         }
 
         public override ArrayNode Multiply(ArrayNode a, ArrayNode b)
         {
-            throw new InvalidOperationException("Cannot multiply arrays.");
+            DazelCompiler.Logger.EmitError("Cannot multiply arrays.", Token);
+            
+            return null;
         }
 
         public override ArrayNode Divide(ArrayNode a, ArrayNode b)
         {
-            throw new InvalidOperationException("Cannot divide arrays.");
+            DazelCompiler.Logger.EmitError("Cannot divide arrays.", Token);
+            
+            return null;
         }
 
         public override ArrayNode GetValue(int a)
         {
-            throw new InvalidOperationException($"Integer {a} is not an array.");
+            DazelCompiler.Logger.EmitError($"Integer {a} is not an array.", Token);
+            
+            return null;
         }
 
         public override ArrayNode GetValue(float a)
         {
-            throw new InvalidOperationException($"Float {a} is not an array.");
+            DazelCompiler.Logger.EmitError($"Float {a} is not an array.", Token);
+            
+            return null;
         }
 
         public override ArrayNode GetValue(string a)
         {
-            throw new InvalidOperationException($"String {a} is not an array.");
+            DazelCompiler.Logger.EmitError($"String {a} is not an array.", Token);
+            
+            return null;
         }
 
         public override ArrayNode GetValue(ArrayNode a) => a;
 
         public override ArrayNode GetValue(ExitValueNode a)
         {
-            throw new InvalidOperationException("ExitValue is not an array.");
+            DazelCompiler.Logger.EmitError("ExitValue is not an array.", Token);
+            
+            return null;
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+﻿using Antlr4.Runtime;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
     public sealed class FloatCalculator : Calculator<float>
     {
+        public FloatCalculator(IToken token) : base(token) { }
+        
         public override float Add(float a, float b) => a + b;
 
         public override float Subtract(float a, float b) => a - b;

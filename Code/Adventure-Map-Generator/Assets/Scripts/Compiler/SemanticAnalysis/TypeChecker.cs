@@ -84,37 +84,37 @@ namespace Dazel.Compiler.SemanticAnalysis
                     expressionValue = null;
                     break;
                 case SymbolType.Float:
-                    var floatEval = new ExpressionEvaluator<float, FloatCalculator>(ast);
+                    var floatEval = new ExpressionEvaluator<float>(ast, new FloatCalculator(assignmentNode.Token));
                     assignmentNode.Expression.Accept(floatEval);
                     expressionValue = new FloatValueNode() {Value = floatEval.Result};
                     break;
                 case SymbolType.String:
-                    var stringEval = new ExpressionEvaluator<string, StringOperations>(ast);
+                    var stringEval = new ExpressionEvaluator<string>(ast, new StringOperations(assignmentNode.Token));
                     assignmentNode.Expression.Accept(stringEval);
                     expressionValue = new StringNode() {Value = stringEval.Result};
                     break;
                 case SymbolType.Integer:
-                    var intEval = new ExpressionEvaluator<int, IntCalculator>(ast);
+                    var intEval = new ExpressionEvaluator<int>(ast, new IntCalculator(assignmentNode.Token));
                     assignmentNode.Expression.Accept(intEval);
                     expressionValue = new FloatValueNode() {Value = intEval.Result};
                     break;
                 case SymbolType.Array:
-                    var arrayEval = new ExpressionEvaluator<ArrayNode, ArrayCalculator>(ast);
+                    var arrayEval = new ExpressionEvaluator<ArrayNode>(ast, new ArrayCalculator(assignmentNode.Token));
                     assignmentNode.Expression.Accept(arrayEval);
                     expressionValue = arrayEval.Result;
                     break;
                 case SymbolType.Exit:
-                    var exitEval = new ExpressionEvaluator<ExitValueNode, ExitValueCalculator>(ast);
+                    var exitEval = new ExpressionEvaluator<ExitValueNode>(ast, new ExitValueCalculator(assignmentNode.Token));
                     assignmentNode.Expression.Accept(exitEval);
                     expressionValue = exitEval.Result;
                     break;
                 case SymbolType.Identifier:
-                    var idEval = new ExpressionEvaluator<ValueNode, NoOpCalculator<ValueNode>>(ast);
+                    var idEval = new ExpressionEvaluator<ValueNode>(ast, new NoOpCalculator<ValueNode>(assignmentNode.Token));
                     assignmentNode.Expression.Accept(idEval);
                     expressionValue = idEval.Result;
                     break;
                 case SymbolType.MemberAccess:
-                    var maEval = new ExpressionEvaluator<ValueNode, NoOpCalculator<ValueNode>>(ast);
+                    var maEval = new ExpressionEvaluator<ValueNode>(ast,new NoOpCalculator<ValueNode>(assignmentNode.Token));
                     assignmentNode.Expression.Accept(maEval);
                     expressionValue = maEval.Result;
                     break;

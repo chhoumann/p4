@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Antlr4.Runtime;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
     public sealed class IntCalculator : Calculator<int>
     {
+        public IntCalculator(IToken token) : base(token) { }
+
         public override int Add(int a, int b) => a + b;
 
         public override int Subtract(int a, int b) => a - b;

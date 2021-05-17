@@ -1,10 +1,13 @@
 ﻿using System;
+using Antlr4.Runtime;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
     public sealed class NoOpCalculator<T> : Calculator<T>
     {
+        public NoOpCalculator(IToken token) : base(token) { }
+        
         public override T Add(T a, T b)
         {
             throw new NotImplementedException();

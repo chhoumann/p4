@@ -27,7 +27,7 @@ namespace Tests.EditMode.AST
             
             if (ast.TryRetrieveNode(identifierList, out string identifier, out ExpressionNode expressionNode))
             {
-                ExpressionEvaluator<int, IntCalculator> evaluator = new ExpressionEvaluator<int, IntCalculator>(ast);
+                ExpressionEvaluator<int> evaluator = new ExpressionEvaluator<int>(ast, new IntCalculator(expressionNode.Token));
                 expressionNode.Accept(evaluator);
                 
                 Assert.That(evaluator.Result == 3, "evaluator.Result == 3");
@@ -56,7 +56,7 @@ namespace Tests.EditMode.AST
             
             if (ast.TryRetrieveNode(identifierList, out string identifier, out ExpressionNode expressionNode))
             {
-                ExpressionEvaluator<float, FloatCalculator> evaluator = new ExpressionEvaluator<float, FloatCalculator>(ast);
+                ExpressionEvaluator<float> evaluator = new ExpressionEvaluator<float>(ast, new FloatCalculator(expressionNode.Token));
                 expressionNode.Accept(evaluator);
                 
                 Assert.That(evaluator.Result == 52.5f, "evaluator.Result == 52.5f");
