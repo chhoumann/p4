@@ -20,7 +20,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions.MapFunctions
             {
                 if (valueNode.Type != SymbolType.Integer)
                 {
-                    throw new ArgumentException("Invalid type.");
+                    DazelCompiler.Logger.EmitError("Invalid type.", valueNode.Token);
                 }
             }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.SemanticAnalysis;
@@ -22,7 +21,8 @@ namespace Dazel.Compiler.Ast.Nodes.StatementNodes
                 return function.GetReturnType(Parameters);
             }
 
-            throw new ArgumentException($"{Identifier} function not found in Dazel Standard Library.");
+            DazelCompiler.Logger.EmitError($"{Identifier} function not found in Dazel Standard Library.", Token);
+            return null;
         }
 
         public override void Accept(IStatementVisitor visitor)

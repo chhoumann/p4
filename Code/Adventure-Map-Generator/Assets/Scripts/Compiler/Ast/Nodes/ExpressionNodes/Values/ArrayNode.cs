@@ -26,7 +26,9 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
                 return new Vector2(x.Value, y.Value);
             }
 
-            throw new ArgumentException($"Invalid number of arguments: {Values.Count}.");
+            DazelCompiler.Logger.EmitError($"Invalid number of arguments: {Values.Count}.", Token);
+            
+            return Vector2.Zero;
         }
 
         public override string ToString()

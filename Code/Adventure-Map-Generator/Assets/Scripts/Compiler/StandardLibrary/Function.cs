@@ -23,7 +23,7 @@ namespace Dazel.Compiler.StandardLibrary
         
         public virtual void PostAstExecute(AbstractSyntaxTree ast) { }
 
-        protected ArgumentException InvalidArgumentsException(IEnumerable<ValueNode> parameters)
+        protected void InvalidArgumentsException(IEnumerable<ValueNode> parameters)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Invalid arguments in function {GetType()}:");
@@ -33,7 +33,7 @@ namespace Dazel.Compiler.StandardLibrary
                 sb.AppendLine($"{valueNode}");
             }
             
-            throw new ArgumentException(sb.ToString());
+            DazelCompiler.Logger.EmitError(sb.ToString(), ValueNode.Token);
         }
     }
 }

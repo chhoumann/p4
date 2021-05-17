@@ -26,7 +26,9 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
                 return new ScreenExitValueNode(ConnectedScreenIdentifier, exitDirection);
             }
 
-            throw InvalidArgumentsException(parameters);
+            InvalidArgumentsException(parameters);
+
+            return null;
         }
     }
 }

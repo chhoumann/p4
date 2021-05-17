@@ -13,13 +13,14 @@ namespace Dazel.Compiler
 {
     public sealed class DazelCompiler
     {
-        private readonly DazelLogger dazelLogger;
+        public static DazelLogger Logger { get; private set; }
+        
         private readonly IEnumerable<string> files;
         private readonly bool fromFile;
 
         private DazelCompiler()
         {
-            dazelLogger = new DazelLogger();
+            Logger = new DazelLogger();
         }
 
         public DazelCompiler(string sourceFileDirectory) : this()
@@ -50,7 +51,7 @@ namespace Dazel.Compiler
             }
             catch (Exception e)
             {
-                dazelLogger.EmitError(e.Message);
+                Logger.EmitError(e.Message, null);
             }
 
             screenModels = default;
@@ -67,7 +68,7 @@ namespace Dazel.Compiler
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
-                parser.AddErrorListener(new DazelErrorListener(dazelLogger));
+                parser.AddErrorListener(new DazelErrorListener(Logger));
 
                 parseTrees.Add(parser.start());
             }

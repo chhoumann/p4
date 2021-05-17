@@ -8,7 +8,7 @@ namespace Dazel.Compiler.ErrorHandler
 {
     public sealed class DazelErrorListener : BaseErrorListener
     {
-        private DazelLogger dazelLogger;
+        private readonly DazelLogger dazelLogger;
 
         public DazelErrorListener(DazelLogger dazelLogger)
         {
@@ -30,7 +30,7 @@ namespace Dazel.Compiler.ErrorHandler
 
             string ruleStack = string.Join("\n", reversedInvocationStack);
             
-            dazelLogger.EmitError(errorLog.ToString());
+            dazelLogger.EmitError(errorLog.ToString(), offendingSymbol);
         }
 
         private string UnderlineError(IRecognizer recognizer, IToken offendingToken, int line, int charPositionInLine)

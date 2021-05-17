@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Dazel.Compiler.Ast;
+﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
-using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
-using UnityEngine;
 
 namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
 {
@@ -25,7 +21,9 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
                 return ValueNode;
             }
             
-            throw InvalidArgumentsException(parameters);
+            InvalidArgumentsException(parameters);
+
+            return null;
         }
     }
 }

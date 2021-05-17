@@ -4,7 +4,7 @@ namespace Dazel.Compiler.Ast.Nodes
 {
     public abstract class Node<TVisitor>
     {
-        public ParserRuleContext Context { get; set; }
+        public IToken Token { get; set; }
         
         public abstract void Accept(TVisitor visitor);
     }

@@ -23,7 +23,9 @@ namespace Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions
                 return null;
             }
 
-            throw InvalidArgumentsException(parameters);
+            InvalidArgumentsException(parameters);
+
+            return null;
         }
     }
 }

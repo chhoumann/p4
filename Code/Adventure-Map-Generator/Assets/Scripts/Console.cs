@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Game.Core;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Dazel
 {

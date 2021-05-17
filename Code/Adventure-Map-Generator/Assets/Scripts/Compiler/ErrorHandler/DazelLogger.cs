@@ -1,4 +1,5 @@
 ﻿using System;
+using Antlr4.Runtime;
 using UnityEngine;
 
 namespace Dazel.Compiler.ErrorHandler
@@ -7,9 +8,10 @@ namespace Dazel.Compiler.ErrorHandler
     {
         public static event Action<string, LogType> LogMessageReceived; 
 
-        public void EmitError(string error)
+        public void EmitError(string message, IToken token)
         {
-            LogMessageReceived?.Invoke(error, LogType.Error);
+            string output = $"Error on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
+            LogMessageReceived?.Invoke(output, LogType.Error);
         }
         
         public void EmitWarning(string error)
