@@ -8,11 +8,11 @@ namespace Dazel.Compiler.ErrorHandler
 {
     public sealed class DazelErrorListener : BaseErrorListener
     {
-        private IErrorLogger ErrorLogger;
+        private DazelLogger dazelLogger;
 
-        public DazelErrorListener(IErrorLogger errorLogger)
+        public DazelErrorListener(DazelLogger dazelLogger)
         {
-            ErrorLogger = errorLogger;
+            this.dazelLogger = dazelLogger;
         }
 
         public override void SyntaxError(TextWriter output, IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine,
@@ -23,12 +23,14 @@ namespace Dazel.Compiler.ErrorHandler
             
             IEnumerable<string> reversedInvocatonStack = (((Parser) recognizer).GetRuleInvocationStack()).Reverse();
             string underlineError = UnderlineError(recognizer, offendingSymbol, line, charPositionInLine);
-            
-            errorLog.AppendLine($"Rule stack:\n {string.Join("\n", reversedInvocatonStack)}\n");
+
+            errorLog.AppendLine($"File: {recognizer.InputStream.SourceName}");
             errorLog.AppendLine($"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
             errorLog.AppendLine($"Error: \n{underlineError}");
+
+            string ruleStack = string.Join("\n", reversedInvocatonStack);
             
-            ErrorLogger.AddToErrorList(errorLog.ToString());
+            dazelLogger.EmitError(errorLog.ToString(), ruleStack);
         }
 
         private string UnderlineError(IRecognizer recognizer, IToken offendingToken, int line, int charPositionInLine)

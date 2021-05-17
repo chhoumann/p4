@@ -13,13 +13,13 @@ namespace Dazel.Compiler
 {
     public sealed class DazelCompiler
     {
-        private readonly IErrorLogger errorLogger;
+        private readonly DazelLogger dazelLogger;
         private readonly IEnumerable<string> files;
         private readonly bool fromFile;
 
         private DazelCompiler()
         {
-            errorLogger = new DazelErrorLogger();
+            dazelLogger = new DazelLogger();
         }
 
         public DazelCompiler(string sourceFileDirectory) : this()
@@ -42,11 +42,6 @@ namespace Dazel.Compiler
 
                 AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
 
-                if (errorLogger.HasErrors)
-                {
-                    throw new Exception("Invalid Dazel code.");
-                }
-                
                 PrintAst(ast);
                 PerformSemanticAnalysis(ast);
 
@@ -55,12 +50,7 @@ namespace Dazel.Compiler
             }
             catch (Exception e)
             {
-                errorLogger.AddToErrorList(e.Message);
-                errorLogger.AddToErrorList(e.StackTrace);
-            }
-            finally
-            {
-                errorLogger.Log();
+                dazelLogger.EmitError(e.Message, e.StackTrace);
             }
 
             screenModels = default;
@@ -77,7 +67,7 @@ namespace Dazel.Compiler
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
-                parser.AddErrorListener(new DazelErrorListener(errorLogger));
+                parser.AddErrorListener(new DazelErrorListener(dazelLogger));
 
                 parseTrees.Add(parser.start());
             }
