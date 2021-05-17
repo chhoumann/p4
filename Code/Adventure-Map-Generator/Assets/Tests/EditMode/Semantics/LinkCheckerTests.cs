@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dazel.Compiler.Ast;
-using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests.EditMode.Semantics
 {
@@ -31,7 +29,7 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_ThrowOnInvalidExitLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode1_2);
-            LinkChecker tc = new LinkChecker(ast);
+            Linker tc = new Linker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<InvalidOperationException>(TestDelegate);
@@ -50,7 +48,7 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_SuccessOnValidLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode2_1);
-            LinkChecker tc = new LinkChecker(ast);
+            Linker tc = new Linker(ast);
 
             List<string> samplescreen2exit = new List<string>() {"SampleScreen2", "Exits", "s2exit1"};
             bool wasFound = ast.TryRetrieveNode(samplescreen2exit);
@@ -82,7 +80,7 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_ValidMemberAccessSucceeds()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_1, TestCode3_2);
-            LinkChecker tc = new LinkChecker(ast);
+            Linker tc = new Linker(ast);
 
             List<string> link = new List<string>() {"SampleScreen1", "Exits", "x"};
             bool wasFound = ast.TryRetrieveNode(link);
@@ -105,7 +103,7 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_InValidMemberAccessThrows()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
-            LinkChecker tc = new LinkChecker(ast);
+            Linker tc = new Linker(ast);
 
             List<string> link = new List<string>() {"SampleScreen1", "Exits", "x"};
             bool wasFound = ast.TryRetrieveNode(link);
