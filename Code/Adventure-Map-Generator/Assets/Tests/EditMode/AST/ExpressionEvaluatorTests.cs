@@ -3,15 +3,13 @@ using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using NUnit.Framework;
-using UnityEditor;
-using UnityEngine;
 
 namespace Tests.EditMode.AST
 {
     [TestFixture]
     public class ExpressionEvaluatorTests
     {
-        private const string TestCode1 =
+        private const string TestCode1_1 =
             "Screen SampleScreen1" +
             "{" +
             "   Map" +
@@ -23,7 +21,7 @@ namespace Tests.EditMode.AST
         [Test]
         public void ExpressionEvaluator_Visit_SimpleAddition()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1);
 
             var identifierList = new List<string> {"SampleScreen1", "Map", "x"};
             
@@ -33,14 +31,13 @@ namespace Tests.EditMode.AST
                 expressionNode.Accept(evaluator);
                 
                 Assert.That(evaluator.Result == 3, "evaluator.Result == 3");
-                Debug.Log(evaluator.Result);
             }
             else
             {
                 Assert.Fail("Identifier not found.");
             }
         }
-        
+
         private const string TestCode2 =
             "Screen SampleScreen1" +
             "{" +
@@ -62,8 +59,7 @@ namespace Tests.EditMode.AST
                 ExpressionEvaluator<float, FloatCalculator> evaluator = new ExpressionEvaluator<float, FloatCalculator>(ast);
                 expressionNode.Accept(evaluator);
                 
-                Assert.That(evaluator.Result == 52.5f, "evaluator.Result == 52.5");
-                Debug.Log(evaluator.Result);
+                Assert.That(evaluator.Result == 52.5f, "evaluator.Result == 52.5f");
             }
             else
             {
