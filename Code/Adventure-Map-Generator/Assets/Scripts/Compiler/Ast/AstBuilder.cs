@@ -8,7 +8,6 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
-using UnityEngine;
 
 namespace Dazel.Compiler.Ast
 {
@@ -61,6 +60,7 @@ namespace Dazel.Compiler.Ast
 
             GameObjectNode gameObjectNode = new GameObjectNode()
             {
+                Context = context,
                 Identifier = context.GetChild(1).GetText(),
                 TypeNode = typeNode,
                 Contents = VisitGameObjectContents(context.gameObjectBlock().gameObjectContents())
@@ -92,22 +92,40 @@ namespace Dazel.Compiler.Ast
             switch (context.gameObjectContentType.Type)
             {
                 case DazelLexer.MAP:
-                    gameObjectContentTypeNode = new MapTypeNode();
+                    gameObjectContentTypeNode = new MapTypeNode()
+                    {
+                        Context = context
+                    };
                     break;
                 case DazelLexer.ONSCREENENTERED:
-                    gameObjectContentTypeNode = new OnScreenEnteredTypeNode();
+                    gameObjectContentTypeNode = new OnScreenEnteredTypeNode()
+                    {
+                        Context = context
+                    };
                     break;
                 case DazelLexer.ENTITIES:
-                    gameObjectContentTypeNode = new EntitiesTypeNodeNode();
+                    gameObjectContentTypeNode = new EntitiesTypeNodeNode()
+                    {
+                        Context = context
+                    };
                     break;
                 case DazelLexer.EXITS:
-                    gameObjectContentTypeNode = new ExitsTypeNodeNode();
+                    gameObjectContentTypeNode = new ExitsTypeNodeNode()
+                    {
+                        Context = context
+                    };
                     break;
                 case DazelLexer.DATA:
-                    gameObjectContentTypeNode = new DataTypeNodeNode();
+                    gameObjectContentTypeNode = new DataTypeNodeNode()
+                    {
+                        Context = context
+                    };
                     break;
                 case DazelLexer.PATTERN:
-                    gameObjectContentTypeNode = new PatternTypeNode();
+                    gameObjectContentTypeNode = new PatternTypeNode()
+                    {
+                        Context = context
+                    };
                     break;
                 default:
                     throw new ArgumentException("Invalid content type.");
@@ -115,6 +133,7 @@ namespace Dazel.Compiler.Ast
             
             GameObjectContentNode contentNode = new GameObjectContentNode()
             {
+                Context = context,
                 Statements = VisitStatementBlock(context.statementBlock()),
                 TypeNode = gameObjectContentTypeNode,
             };
@@ -135,6 +154,7 @@ namespace Dazel.Compiler.Ast
             {
                 return new SumExpressionNode
                 {
+                    Context = context,
                     Left = VisitSumExpression(context.sumExpression()),
                     OperationNode = VisitSumOperation(context.sumOperation()),
                     Right = VisitFactorExpression(context.factorExpression())
@@ -150,6 +170,7 @@ namespace Dazel.Compiler.Ast
             {
                 return new FactorExpressionNode
                 {
+                    Context = context,
                     Left = VisitFactorExpression(context.factorExpression()),
                     OperationNode = VisitFactorOperation(context.factorOperation()),
                     Right = VisitTerminalExpression(context.terminalExpression())
@@ -191,21 +212,25 @@ namespace Dazel.Compiler.Ast
                 case DazelLexer.IDENTIFIER:
                     return new IdentifierValueNode
                     {
+                        Context = context,
                         Identifier = context.GetText()
                     };
                 case DazelLexer.INT:
                     return new IntValueNode
                     {
+                        Context = context,
                         Value = int.Parse(context.GetText())
                     };
                 case DazelLexer.FLOAT:
                     return new FloatValueNode
                     {
+                        Context = context,
                         Value = float.Parse(context.GetText())
                     };
                 case DazelLexer.STRING:
                     return new StringNode
                     {
+                        Context = context,
                         Value = context.GetText().Replace("\"", string.Empty)
                     };
                 default:
@@ -217,6 +242,7 @@ namespace Dazel.Compiler.Ast
         {
             return new ArrayNode()
             {
+                Context = context,
                 Values = VisitValueList(context.valueList())
             };
         }
@@ -243,6 +269,7 @@ namespace Dazel.Compiler.Ast
             
             return new FactorOperationNode()
             {
+                Context = context,
                 Operator = op
             };
         }
@@ -253,6 +280,7 @@ namespace Dazel.Compiler.Ast
 
             return new SumOperationNode()
             {
+                Context = context,
                 Operator = op
             };
         }
@@ -266,6 +294,7 @@ namespace Dazel.Compiler.Ast
             {
                 memberAccessNode = new MemberAccessNode
                 {
+                    Context = context,
                     Identifiers =
                     {
                         context.GetChild(0).GetText(),
@@ -277,6 +306,7 @@ namespace Dazel.Compiler.Ast
             {
                 memberAccessNode = new MemberAccessNode
                 {
+                    Context = context,
                     Identifiers =
                     {
                         context.GetChild(0).GetText(),
@@ -303,6 +333,7 @@ namespace Dazel.Compiler.Ast
             {
                 statements.Add(new StatementBlockNode()
                 {
+                    Context = context,
                     Statements = new List<StatementNode>(VisitStatementBlock(context.statementBlock()))
                 });
             }
@@ -344,12 +375,18 @@ namespace Dazel.Compiler.Ast
         
         public RepeatNode VisitRepeatLoop(DazelParser.RepeatLoopContext context)
         {
-            return new RepeatNode();
+            return new RepeatNode()
+            {
+                Context = context
+            };
         }
 
         public IfStatementNode VisitIfStatement(DazelParser.IfStatementContext context)
         {
-            return new IfStatementNode();
+            return new IfStatementNode()
+            {
+                Context = context
+            };
         }
 
         public StatementExpressionNode VisitStatementExpression(DazelParser.StatementExpressionContext context)
@@ -369,6 +406,7 @@ namespace Dazel.Compiler.Ast
         {
             return new FunctionInvocationNode()
             {
+                Context = context,
                 Identifier = context.IDENTIFIER().GetText(),
                 Parameters = VisitValueList(context.valueList()),
             };
@@ -378,6 +416,7 @@ namespace Dazel.Compiler.Ast
         {
             return new AssignmentNode()
             {
+                Context = context,
                 Identifier = context.IDENTIFIER().GetText(),
                 Expression = VisitExpression(context.expression())
             };
