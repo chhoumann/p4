@@ -58,7 +58,8 @@ As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in
     }
 \end{lstlisting}
 
-Before continuing it is prudent to recap what defines a scope within \dazel{}. A scope can be opened immediately following a \textbf{GameObject}, any of the \textbf{GameObjectContents} and by anonymous blocks which are denoted as \textbf{StatementBlocks}. This means that, when stepping into the visit method on line \ref{line:StepIntoVisitGO} and the visiting through the AST begins, that those three node types contain a call to the \texttt{OpenScope} and \texttt{CloseScope}. This is captured in \snipref{lst:ApplyScope}.
+Before continuing it is prudent to recap what defines a scope within \dazel{}. A scope can be opened immediately following a \textbf{GameObject}, any of the \textbf{GameObjectContents} and \textbf{StatementBlocks}. Note that \textbf{StatementBlocks} contains statements. 
+This means that, when stepping into the visit method on line \ref{line:StepIntoVisitGO} and the visiting through the AST begins, that those three node types contain a call to the \texttt{OpenScope} and \texttt{CloseScope}. This is captured in \snipref{lst:ApplyScope}.
 
 \begin{lstlisting}[caption={Applying Scope to GameObjects, GameObjectContents and StatementBlocks}, label={lst:ApplyScope},escapechar=|]
     public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
@@ -91,9 +92,11 @@ Before continuing it is prudent to recap what defines a scope within \dazel{}. A
         {
             OpenScope();
 
-            foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this);
+            foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this); |\label{line:StatementVisit}|
 
             CloseScope();
         }
 \end{lstlisting}
 
+Once the visitor starts visiting each statement seen on line \ref{line:StatementVisit} in code \snipref{lst:ApplyScope}, is when type checking begins. Each statement has type checking that is designed to accommodate checking based on the type of statement it is. Note that not every type of statement has been been implemented.
+An example of type checking in a statement is the type checking of the parameters of a \texttt{FunctionInvocationNode}. 
