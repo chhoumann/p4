@@ -232,8 +232,7 @@ namespace Tests.EditMode.AST
         public void Visit(ArrayNode arrayNode) { }
         public void Visit(StringNode stringNode) { }
 
-        public void Visit(ExitValueNode exitValueNode) {
-        }
+        public void Visit(ExitValueNode exitValueNode) { }
 
         #endregion
     }

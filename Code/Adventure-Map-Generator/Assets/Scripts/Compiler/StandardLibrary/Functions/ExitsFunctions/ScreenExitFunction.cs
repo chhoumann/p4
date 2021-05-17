@@ -23,7 +23,10 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
                 ExitDirection = exitDirection;
                 ConnectedScreenIdentifier = screenId.Identifier;
 
-                return new ScreenExitValueNode(ConnectedScreenIdentifier, exitDirection);
+                return new ScreenExitValueNode(ConnectedScreenIdentifier, exitDirection)
+                {
+                    Token = dirId.Token
+                };
             }
 
             InvalidArgumentsException(parameters);

@@ -14,9 +14,10 @@ namespace Dazel.Compiler.ErrorHandler
             LogMessageReceived?.Invoke(output, LogType.Error);
         }
         
-        public void EmitWarning(string error)
+        public void EmitWarning(string message, IToken token)
         {
-            LogMessageReceived?.Invoke(error, LogType.Warning);
+            string output = $"Warning on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
+            LogMessageReceived?.Invoke(output, LogType.Warning);
         }
         
         public void EmitMessage(string error)

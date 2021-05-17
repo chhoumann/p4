@@ -178,7 +178,7 @@ namespace Dazel.Compiler.CodeGeneration
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
-                Debug.LogWarning("TileExits have not been implemented yet.");
+                DazelCompiler.Logger.EmitWarning("TileExits have not been implemented yet.", tileExit.Token);
             }
 
             if (exitValueNode is ScreenExitValueNode screenExit)

@@ -117,7 +117,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
             if (functionInvocationNode.Function is ExitFunction exitFunction)
             {
-                exitFunction.memberAccessNode.Accept(this);
+                exitFunction.MemberAccessNode.Accept(this);
             }
 
             foreach (ValueNode valueNode in functionInvocationNode.Parameters)

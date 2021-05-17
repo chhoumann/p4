@@ -8,6 +8,7 @@ using Dazel.Compiler.CodeGeneration;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.IntermediateModels;
+using UnityEngine;
 
 namespace Dazel.Compiler
 {
@@ -51,7 +52,7 @@ namespace Dazel.Compiler
             }
             catch (Exception e)
             {
-                Logger.EmitError(e.Message, null);
+                throw;
             }
 
             screenModels = default;
