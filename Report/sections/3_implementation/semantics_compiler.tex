@@ -46,15 +46,54 @@ The two methods \texttt{OpenScope()} and \texttt{CloseScope()} are each responsi
 Finally, the class \textbf{TypeChecker} will implement the abstract class \textbf{SemanticAnalysis}. \textbf{TypeChecker} will then have access to the \texttt{OpenScope()} and \texttt{CloseScope()} methods. As well as have access to these methods it will also contain the definitions for the visitor methods that will be responsible for visiting each node in the AST to perform both scope and type checking.
 
 \subsubsection*{Scope and type checking}
-As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call \texttt{Visit} for every \textbf{GameObject}, such that the entire AST gets visited - Recall that \textbf{GameObject} represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
+As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking - Recall that \textbf{GameObject} represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
 
 \begin{lstlisting}[caption={Typechecker object for every gameObject}, label={lst:TypeCheckEachGO},escapechar=|]
     private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
     {
         foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
         {
-            new TypeChecker(ast).Visit(gameObject);
+            new TypeChecker(ast).Visit(gameObject); |\label{line:StepIntoVisitGO}|
         }
     }
+\end{lstlisting}
+
+Before continuing it is prudent to recap what defines a scope within \dazel{}. A scope can be opened immediately following a \textbf{GameObject}, any of the \textbf{GameObjectContents} and by anonymous blocks which are denoted as \textbf{StatementBlocks}. This means that, when stepping into the visit method on line \ref{line:StepIntoVisitGO} and the visiting through the AST begins, that those three node types contain a call to the \texttt{OpenScope} and \texttt{CloseScope}. This is captured in \snipref{lst:ApplyScope}.
+
+\begin{lstlisting}[caption={Applying Scope to GameObjects, GameObjectContents and StatementBlocks}, label={lst:ApplyScope},escapechar=|]
+    public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
+    {
+        ...
+
+        public void Visit(GameObjectNode gameObjectNode)
+        {
+            OpenScope();
+
+            foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents) Visit(gameObjectContent);
+
+            CloseScope();
+        }
+
+        ...
+
+        public void Visit(GameObjectContentNode gameObjectContentNode)
+        {
+            OpenScope();
+
+            foreach (StatementNode statementNode in gameObjectContentNode.Statements) statementNode.Accept(this);
+
+            CloseScope();
+        }
+
+        ... 
+
+        public void Visit(StatementBlockNode statementBlockNode)
+        {
+            OpenScope();
+
+            foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this);
+
+            CloseScope();
+        }
 \end{lstlisting}
 
