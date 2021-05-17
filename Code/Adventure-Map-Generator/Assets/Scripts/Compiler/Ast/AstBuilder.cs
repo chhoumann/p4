@@ -243,7 +243,7 @@ namespace Dazel.Compiler.Ast
             
             return new FactorOperationNode()
             {
-                Operation = op
+                Operator = op
             };
         }
         
@@ -253,7 +253,7 @@ namespace Dazel.Compiler.Ast
 
             return new SumOperationNode()
             {
-                Operation = op
+                Operator = op
             };
         }
         

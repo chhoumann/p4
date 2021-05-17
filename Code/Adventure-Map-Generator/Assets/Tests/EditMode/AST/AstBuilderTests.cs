@@ -190,10 +190,10 @@ namespace Tests.EditMode.AST
                     Assert.That(assignmentNode.Expression is SumExpressionNode
                         {
                             Left: IntValueNode {Value: 3},
-                            OperationNode: {Operation: '+'},
+                            OperationNode: {Operator: '+'},
                             Right: FactorExpressionNode {
                                 Left: IntValueNode {Value: 3},
-                                OperationNode: {Operation: '/'},
+                                OperationNode: {Operator: '/'},
                                 Right: IntValueNode {Value: 3},
                             }
                         }

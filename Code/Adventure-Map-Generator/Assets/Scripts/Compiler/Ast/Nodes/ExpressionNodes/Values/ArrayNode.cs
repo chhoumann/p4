@@ -28,5 +28,10 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
 
             throw new ArgumentException($"Invalid number of arguments: {Values.Count}.");
         }
+
+        public override string ToString()
+        {
+            return $"[{string.Join(", ", Values)}]";
+        }
     }
 }

@@ -6,7 +6,7 @@ using Dazel.Compiler.ErrorHandler;
 
 namespace Tests.EditMode
 {
-    public sealed class TestAstBuilder
+    public static class TestAstBuilder
     {
         public static AbstractSyntaxTree BuildAst(params string[] code)
         {

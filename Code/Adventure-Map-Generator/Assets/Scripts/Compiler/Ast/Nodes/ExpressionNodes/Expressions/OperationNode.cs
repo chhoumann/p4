@@ -2,6 +2,6 @@
 {
     public abstract class OperationNode : ExpressionNode
     {
-        public char Operation { get; set; }
+        public char Operator { get; set; }
     }
 }
