@@ -11,32 +11,13 @@ namespace Dazel.Compiler.SemanticAnalysis
     {
         private readonly AbstractSyntaxTree ast;
         private readonly SymbolTable<SymbolTableEntry> symbolTable;
+        private readonly TypeHandler typeHandler;
 
         public ExpressionTypeChecker(AbstractSyntaxTree ast, SymbolTable<SymbolTableEntry> symbolTable)
         {
             this.ast = ast;
             this.symbolTable = symbolTable;
-        }
-        
-        private SymbolType currentType = SymbolType.Null;
-        private SymbolType CurrentType
-        {
-            get => currentType;
-            set
-            {
-                if (currentType == SymbolType.Exit)
-                {
-                    DazelCompiler.Logger.EmitError("Exits cannot be used in expressions.");
-                }
-                
-                if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
-                {
-                    currentType = value;
-                    return;
-                }
-                
-                DazelCompiler.Logger.EmitError($"Type mismatch. {value} is not {currentType}");
-            }
+            typeHandler = new TypeHandler();
         }
         
         public SymbolType GetType(ExpressionNode expression)
@@ -46,7 +27,7 @@ namespace Dazel.Compiler.SemanticAnalysis
             
             expression.Accept(this);
             
-            return CurrentType;
+            return typeHandler.CurrentType;
         }
         
         public void Visit(SumExpressionNode sumExpressionNode)
@@ -80,7 +61,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out string identifier, out ValueNode value))
             {
-                CurrentType = value.Type;
+                typeHandler.SetType(value.Type, value.Token);
             }
             else
             {
@@ -90,7 +71,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FloatValueNode floatValueNode)
         {
-            CurrentType = floatValueNode.Type;
+            typeHandler.SetType(floatValueNode.Type, floatValueNode.Token);
         }
 
         public void Visit(IdentifierValueNode identifierValueNode)
@@ -103,19 +84,21 @@ namespace Dazel.Compiler.SemanticAnalysis
                 SetNumericalExpression(identifierValueNode, expression, entry.Type);
             }
 
-            CurrentType = symbolTable.RetrieveSymbol(identifierValueNode.Identifier).Type;
+            SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbol(identifierValueNode.Identifier);
+            typeHandler.SetType(symbolTableEntry.Type, identifierValueNode.Token);
         }
 
         public void Visit(IntValueNode intValueNode)
         {
-            CurrentType = intValueNode.Type;
+            typeHandler.SetType(intValueNode.Type, intValueNode.Token);
         }
 
         public void Visit(ArrayNode arrayNode)
         {
-            CurrentType = arrayNode.Type;
-
+            typeHandler.SetType(arrayNode.Type, arrayNode.Token);
+            
             SymbolType valueType = arrayNode.Values[0].Type;
+            
             foreach (ValueNode value in arrayNode.Values)
             {
                 if (value.Type == valueType)
@@ -124,19 +107,19 @@ namespace Dazel.Compiler.SemanticAnalysis
                 }
                 else
                 {
-                    DazelCompiler.Logger.EmitError($"Type mismatch. {value} is not {currentType}", value.Token);
+                    DazelCompiler.Logger.EmitError($"Type mismatch. {value} is not {typeHandler.CurrentType}", value.Token);
                 }
             }
         }
 
         public void Visit(StringNode stringNode)
         {
-            CurrentType = stringNode.Type;
+            typeHandler.SetType(stringNode.Type, stringNode.Token); 
         }
 
         public void Visit(ExitValueNode exitValueNode)
         {
-            currentType = exitValueNode.Type;
+            typeHandler.SetType(exitValueNode.Type, exitValueNode.Token); 
         }
         
         private void SetNumericalExpression(IdentifierValueNode identifierValueNode,
