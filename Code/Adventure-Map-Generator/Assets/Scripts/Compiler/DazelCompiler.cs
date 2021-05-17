@@ -50,7 +50,7 @@ namespace Dazel.Compiler
             }
             catch (Exception e)
             {
-                dazelLogger.EmitError(e.Message, e.StackTrace);
+                dazelLogger.EmitError(e.Message);
             }
 
             screenModels = default;

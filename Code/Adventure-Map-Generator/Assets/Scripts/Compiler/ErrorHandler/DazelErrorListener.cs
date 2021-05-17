@@ -30,7 +30,7 @@ namespace Dazel.Compiler.ErrorHandler
 
             string ruleStack = string.Join("\n", reversedInvocatonStack);
             
-            dazelLogger.EmitError(errorLog.ToString(), ruleStack);
+            dazelLogger.EmitError(errorLog.ToString());
         }
 
         private string UnderlineError(IRecognizer recognizer, IToken offendingToken, int line, int charPositionInLine)

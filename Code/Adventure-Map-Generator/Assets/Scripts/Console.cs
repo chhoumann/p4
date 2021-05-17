@@ -32,7 +32,7 @@ namespace Dazel
             DazelLogger.LogMessageReceived -= Log;
         }
         
-        private void Log(string logString, string stackTrace, LogType type)
+        private void Log(string logString, LogType type)
         {
             if (!GameManager.Instance.LoggingEnabled) return;
             

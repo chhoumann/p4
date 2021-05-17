@@ -1,26 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Dazel.Compiler.ErrorHandler
 {
     public sealed class DazelLogger
     {
-        public static event Action<string, string, LogType> LogMessageReceived; 
+        public static event Action<string, LogType> LogMessageReceived; 
 
-        public void EmitError(string error, string stackTrace)
+        public void EmitError(string error)
         {
-            LogMessageReceived?.Invoke(error, stackTrace, LogType.Error);
+            LogMessageReceived?.Invoke(error, LogType.Error);
         }
         
-        public void EmitWarning(string error, string stackTrace)
+        public void EmitWarning(string error)
         {
-            LogMessageReceived?.Invoke(error, stackTrace, LogType.Warning);
+            LogMessageReceived?.Invoke(error, LogType.Warning);
         }
         
-        public void EmitMessage(string error, string stackTrace)
+        public void EmitMessage(string error)
         {
-            LogMessageReceived?.Invoke(error, stackTrace, LogType.Log);
+            LogMessageReceived?.Invoke(error, LogType.Log);
         }
     }
 }
