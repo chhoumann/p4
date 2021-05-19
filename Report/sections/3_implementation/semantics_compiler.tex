@@ -1,0 +1,102 @@
+\section{Performing semantic analysis}
+
+Once the AST has been constructued the next phase of the compiler is to perform semantic analysis. From the same client method \texttt{Run()} seen in \snipref{lst:RunMethod} the semantic analysis is performed. This is done through the \texttt{PerformSemanticAnalysis(ast)} method. 
+Similar to previously \texttt{PerformSemanticAnalysis(ast)} in \snipref{lst:RunMethodSecond} starts a visitor sequence on the built AST that is stored in the variable \textbf{ast} seen on \ref{line:ASTSavedInVar}. This is done by passing the AST through the parameter of \texttt{PerformSemanticAnalysis(ast)} seen on line \ref{line:PerformSemAna}.
+
+\begin{lstlisting}[caption={The Run method that serves as a client inside the DazelCompiler class}, label={lst:RunMethodSecond},escapechar=|]
+    public IEnumerable<ScreenModel> Run()
+    {
+        AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees); |\label{line:ASTSavedInVar}|
+
+        ...
+        
+        PerformSemanticAnalysis(ast); |\label{line:PerformSemAna}|
+
+        ...
+    }
+\end{lstlisting}
+
+During the visititation of the AST both scope checking and type checking is done simultaniously. 
+In order to accommodate the ability to perform checking for both at the same time we implemented an abstract class \textbf{SemanticAnalysis}. The purpose of this class is to implement a stack which can be seen on line \ref{line:Stack} that can hold a symbol table for each frame in the stack. The benefit of this approach is that each scope will be a symbol table on the stack and therefore the inner most nested scopes will always be at the top of the stack. This allows us to enforce static scoping by referencing the symbol tables further down the stack for existing declarations.
+
+The definition of this abstract class can be seen in \snipref{lst:ACSemanticAnalysis}.
+
+\begin{lstlisting}[caption={Abstract class SemanticAnalysis}, label={lst:ACSemanticAnalysis},escapechar=|]
+    public abstract class SemanticAnalysis
+    {
+        public readonly Stack<SymbolTable<SymbolTableEntry>> EnvironmentStack = new Stack<SymbolTable<SymbolTableEntry>>(); |\label{line:Stack}|
+
+        protected void OpenScope()
+        {
+            SymbolTable<SymbolTableEntry> parentScope = EnvironmentStack.Count > 0 ? EnvironmentStack.Peek() : null; |\label{line:IsStackEmpty}|
+            SymbolTable<SymbolTableEntry> newScope = new SymbolTable<SymbolTableEntry>(parentScope);
+            
+            EnvironmentStack.Push(newScope); |\label{line:PushNewScopeToStack}|
+        }
+
+        protected void CloseScope()
+        {
+            EnvironmentStack.Pop();
+        }
+    }
+\end{lstlisting}
+
+The two methods \texttt{OpenScope()} and \texttt{CloseScope()} are each responsible for handling the push and pop actions for the stack respectively.
+\texttt{OpenScope()} has two responsibilities. First of which is to check if the stack is empty. In case it is not empty, whatever value is currently at the top of the stack should become the parent of the next value on the stack. This way we ensure that there always is access to the previous scopes when the scope checking is performed at a later stage. This can be seen on line \ref{line:IsStackEmpty} to \ref{line:PushNewScopeToStack}.
+Finally, the class \textbf{TypeChecker} will implement the abstract class \textbf{SemanticAnalysis}. \textbf{TypeChecker} will then have access to the \texttt{OpenScope()} and \texttt{CloseScope()} methods. As well as have access to these methods it will also contain the definitions for the visitor methods that will be responsible for visiting each node in the AST to perform both scope and type checking.
+
+\subsubsection*{Scope and type checking}
+As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking - Recall that \textbf{GameObject} represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
+
+\begin{lstlisting}[caption={Typechecker object for every gameObject}, label={lst:TypeCheckEachGO},escapechar=|]
+    private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
+    {
+        foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+        {
+            new TypeChecker(ast).Visit(gameObject); |\label{line:StepIntoVisitGO}|
+        }
+    }
+\end{lstlisting}
+
+Before continuing it is prudent to recap what defines a scope within \dazel{}. A scope can be opened immediately following a \textbf{GameObject}, any of the \textbf{GameObjectContents} and \textbf{StatementBlocks}. Note that \textbf{StatementBlocks} contains statements. 
+This means that, when stepping into the visit method on line \ref{line:StepIntoVisitGO} and the visiting through the AST begins, that those three node types contain a call to the \texttt{OpenScope} and \texttt{CloseScope}. This is captured in \snipref{lst:ApplyScope}.
+
+\begin{lstlisting}[caption={Applying Scope to GameObjects, GameObjectContents and StatementBlocks}, label={lst:ApplyScope},escapechar=|]
+    public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
+    {
+        ...
+
+        public void Visit(GameObjectNode gameObjectNode)
+        {
+            OpenScope();
+
+            foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents) Visit(gameObjectContent);
+
+            CloseScope();
+        }
+
+        ...
+
+        public void Visit(GameObjectContentNode gameObjectContentNode)
+        {
+            OpenScope();
+
+            foreach (StatementNode statementNode in gameObjectContentNode.Statements) statementNode.Accept(this);
+
+            CloseScope();
+        }
+
+        ... 
+
+        public void Visit(StatementBlockNode statementBlockNode)
+        {
+            OpenScope();
+
+            foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this); |\label{line:StatementVisit}|
+
+            CloseScope();
+        }
+\end{lstlisting}
+
+Once the visitor starts visiting each statement seen on line \ref{line:StatementVisit} in code \snipref{lst:ApplyScope}, is when type checking begins. Each statement has type checking that is designed to accommodate checking based on the type of statement it is. Note that not every type of statement has been been implemented.
+An example of type checking in a statement is the type checking of the parameters of a \texttt{FunctionInvocationNode}. 
