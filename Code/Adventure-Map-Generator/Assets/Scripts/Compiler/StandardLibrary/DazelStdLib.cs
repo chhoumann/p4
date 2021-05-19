@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dazel.Compiler.StandardLibrary.Functions;
 using Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.MapFunctions;

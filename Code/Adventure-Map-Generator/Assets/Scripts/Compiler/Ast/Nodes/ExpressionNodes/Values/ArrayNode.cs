@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
@@ -26,7 +26,14 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
                 return new Vector2(x.Value, y.Value);
             }
 
-            throw new ArgumentException($"Invalid number of arguments: {Values.Count}.");
+            DazelLogger.EmitError($"Invalid number of arguments: {Values.Count}.", Token);
+            
+            return Vector2.Zero;
+        }
+
+        public override string ToString()
+        {
+            return $"[{string.Join(", ", Values)}]";
         }
     }
 }

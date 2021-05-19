@@ -1,20 +1,22 @@
-﻿using System;
-using Dazel.Compiler.Ast;
+﻿using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
+using Dazel.Compiler.StandardLibrary.Functions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class LinkChecker : ICompleteVisitor
+    public sealed class Linker : ICompleteVisitor
     {
-        private AbstractSyntaxTree abstractSyntaxTree;
+        private readonly AbstractSyntaxTree abstractSyntaxTree;
 
-        public LinkChecker(AbstractSyntaxTree abstractSyntaxTree)
+        public Linker(AbstractSyntaxTree abstractSyntaxTree)
         {
             this.abstractSyntaxTree = abstractSyntaxTree;
         }
@@ -100,25 +102,30 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(AssignmentNode assignmentNode)
         {
-            assignmentNode.Expression.Accept(this);
+            assignmentNode.Expression?.Accept(this);
         }
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            if (functionInvocationNode.Function is ScreenExitFunction screenExitFunction)
+            switch (functionInvocationNode.Function)
             {
-                if (!abstractSyntaxTree.TryRetrieveGameObject(screenExitFunction.ConnectedScreenIdentifier))
+                case ScreenExitFunction screenExitFunction:
                 {
-                    throw new InvalidOperationException(
-                        $"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist.");
-                }            
+                    if (!abstractSyntaxTree.TryRetrieveGameObject(screenExitFunction.ConnectedScreenIdentifier))
+                    {
+                        DazelLogger.EmitError(
+                            $"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist.", functionInvocationNode.Token);
+                    }
+                    break;
+                }
+                case ExitFunction exitFunction:
+                    exitFunction.MemberAccessNode.Accept(this);
+                    break;
+                case PrintFunction printFunction:
+                    printFunction.Log();
+                    break;
             }
 
-            if (functionInvocationNode.Function is ExitFunction exitFunction)
-            {
-                exitFunction.memberAccessNode.Accept(this);
-            }
-            
             foreach (ValueNode valueNode in functionInvocationNode.Parameters)
             {
                 if (valueNode is MemberAccessNode memberAccessNode)
@@ -157,11 +164,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            if (!abstractSyntaxTree.TryRetrieveNode(memberAccessNode.Identifiers))
-            {
-                throw new InvalidOperationException(
-                    $"Member {string.Join(".", memberAccessNode.Identifiers)} does not exist.");
-            }
+            EnvironmentStore.AccessMember(memberAccessNode);
         }
 
         public void Visit(FloatValueNode floatValueNode)
@@ -192,19 +195,15 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
-                if (!abstractSyntaxTree.TryRetrieveNode(tileExit.ToExit.Identifiers))
-                {
-                    throw new InvalidOperationException(
-                        $"Exit {tileExit} is invalid: {string.Join(".", tileExit.ToExit.Identifiers)} does not exist.");
-                }
+                EnvironmentStore.AccessMember(tileExit.ToExit);
             }
 
             if (exitValueNode is ScreenExitValueNode screenExit)
             {
                 if (!abstractSyntaxTree.TryRetrieveGameObject(screenExit.ConnectedScreenIdentifier))
                 {
-                    throw new InvalidOperationException(
-                        $"Exit {screenExit} is invalid: {screenExit.ConnectedScreenIdentifier} does not exist.");
+                    DazelLogger.EmitError(
+                        $"Exit {screenExit} is invalid: {screenExit.ConnectedScreenIdentifier} does not exist.", screenExit.Token);
                 }
             }
         }

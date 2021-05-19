@@ -1,43 +1,22 @@
-﻿using System;
-using Dazel.Compiler.Ast;
+﻿using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
-using UnityEngine;
+using Dazel.Compiler.ErrorHandler;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
     public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
-        private readonly AbstractSyntaxTree ast;
-        private readonly SymbolTable<SymbolTableEntry> symbolTable;
+        private readonly SymbolTable scope;
+        private readonly TypeHandler typeHandler;
 
-        public ExpressionTypeChecker(AbstractSyntaxTree ast, SymbolTable<SymbolTableEntry> symbolTable)
+        public ExpressionTypeChecker(SymbolTable scope)
         {
-            this.ast = ast;
-            this.symbolTable = symbolTable;
-        }
-        
-        private SymbolType currentType = SymbolType.Null;
-        private SymbolType CurrentType
-        {
-            get => currentType;
-            set
-            {
-                if (currentType == SymbolType.Exit)
-                {
-                    throw new InvalidOperationException("Exits cannot be used in expressions.");
-                }
-                
-                if (currentType == SymbolType.Null || currentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
-                {
-                    currentType = value;
-                    return;
-                }
-                
-                throw new InvalidOperationException($"Type mismatch. {value} is not {currentType}");
-            }
+            this.scope = scope;
+            typeHandler = new TypeHandler();
         }
         
         public SymbolType GetType(ExpressionNode expression)
@@ -47,19 +26,19 @@ namespace Dazel.Compiler.SemanticAnalysis
             
             expression.Accept(this);
             
-            return CurrentType;
+            return typeHandler.CurrentType;
         }
         
         public void Visit(SumExpressionNode sumExpressionNode)
         {
             if (sumExpressionNode.Left == null)
             {
-                throw new InvalidOperationException("Expression left operand is null");
+                DazelLogger.EmitError("Expression left operand is null", sumExpressionNode.Token);
             }
             
             if (sumExpressionNode.Right == null)
             {
-                throw new InvalidOperationException("Expression right operand is null");
+                DazelLogger.EmitError("Expression right operand is null", sumExpressionNode.Token);
             }
             
             sumExpressionNode.Left.Accept(this);
@@ -79,36 +58,40 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out string identifier, out ValueNode value))
-            {
-                CurrentType = value.Type;
-            }
-            else
-            {
-                throw new InvalidOperationException($"{string.Join(".", memberAccessNode.Identifiers)} was not found.");
-            }
+            ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
+            typeHandler.SetType(member.Type, member.Token);
         }
 
         public void Visit(FloatValueNode floatValueNode)
         {
-            CurrentType = floatValueNode.Type;
+            typeHandler.SetType(floatValueNode.Type, floatValueNode.Token);
         }
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            CurrentType = symbolTable.RetrieveSymbol(identifierValueNode.Value).Type;
+            SymbolTableEntry entry = scope.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+
+            if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
+            {
+                ExpressionNode expression = variableSymbolTableEntry.ValueNode;
+                SetNumericalExpression(identifierValueNode, expression, entry.Type);
+            }
+
+            SymbolTableEntry symbolTableEntry = scope.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+            typeHandler.SetType(symbolTableEntry.Type, identifierValueNode.Token);
         }
 
         public void Visit(IntValueNode intValueNode)
         {
-            CurrentType = intValueNode.Type;
+            typeHandler.SetType(intValueNode.Type, intValueNode.Token);
         }
 
         public void Visit(ArrayNode arrayNode)
         {
-            CurrentType = arrayNode.Type;
-
+            typeHandler.SetType(arrayNode.Type, arrayNode.Token);
+            
             SymbolType valueType = arrayNode.Values[0].Type;
+            
             foreach (ValueNode value in arrayNode.Values)
             {
                 if (value.Type == valueType)
@@ -117,19 +100,49 @@ namespace Dazel.Compiler.SemanticAnalysis
                 }
                 else
                 {
-                    throw new InvalidOperationException($"Type mismatch. {value} is not {currentType}");
+                    DazelLogger.EmitError($"Type mismatch. {value} is not {typeHandler.CurrentType}", value.Token);
                 }
             }
         }
 
         public void Visit(StringNode stringNode)
         {
-            CurrentType = stringNode.Type;
+            typeHandler.SetType(stringNode.Type, stringNode.Token); 
         }
 
         public void Visit(ExitValueNode exitValueNode)
         {
-            currentType = exitValueNode.Type;
+            typeHandler.SetType(exitValueNode.Type, exitValueNode.Token); 
+        }
+        
+        private void SetNumericalExpression(IdentifierValueNode identifierValueNode,
+            ExpressionNode expressionNode, SymbolType expressionType)
+        {
+            switch (expressionType)
+            {
+                case SymbolType.Float:
+                {
+                    FloatValueNode floatValueNode = new FloatValueNode();
+                    ExpressionEvaluator<float> expressionEvaluator = new ExpressionEvaluator<float>(new FloatCalculator(expressionNode.Token));
+
+                    expressionNode.Accept(expressionEvaluator);
+
+                    floatValueNode.Value = expressionEvaluator.Result;
+                    identifierValueNode.ValueNode = floatValueNode;
+                    break;
+                }
+                case SymbolType.Integer:
+                {
+                    IntValueNode intValueNode = new IntValueNode();
+                    ExpressionEvaluator<int> expressionEvaluator = new ExpressionEvaluator<int>(new IntCalculator(expressionNode.Token));
+
+                    expressionNode.Accept(expressionEvaluator);
+
+                    intValueNode.Value = expressionEvaluator.Result;
+                    identifierValueNode.ValueNode = intValueNode;
+                    break;
+                }
+            }
         }
 
         #region IVisitor unimplemented

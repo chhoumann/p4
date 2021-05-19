@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using Dazel.Compiler.Ast;
-using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests.EditMode.Semantics
 {
-    public class ExitCheckerTests
+    public sealed class ExitCheckerTests : DazelTestBase
     {
         private const string TestCode1_1 =
             "Screen SampleScreen1" +
@@ -31,10 +29,10 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_ThrowOnInvalidExitLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode1_2);
-            LinkChecker tc = new LinkChecker(ast);
+            Linker tc = new Linker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
         }
         
         private const string TestCode2_1 = 
@@ -42,7 +40,7 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       s2exit1 = Exit([1, 1], SampleScreen2.Exits.s1exit1);" + 
+            "       s2exit1 = Exit([1, 1], SampleScreen1.Exits.s1exit1);" + 
             "   }" +
             "}";
 
@@ -50,14 +48,21 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_SuccessOnValidLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode2_1);
-            LinkChecker tc = new LinkChecker(ast);
 
-            List<string> samplescreen2exit = new List<string>() {"SampleScreen2", "Exits", "s2exit1"};
-            bool wasFound = ast.TryRetrieveNode(samplescreen2exit);
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            void TestDelegate()
+            {
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new TypeChecker(ast).Visit(gameObject);
+                }
+            
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new Linker(ast).Visit(gameObject);
+                }
+            }
             
             Assert.DoesNotThrow(TestDelegate);
-            Assert.True(wasFound);
         }
         
         private const string TestCode3_1 = 
@@ -65,7 +70,7 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       x = SampleScreen2.Exits.s2exit1;" + 
+            "       s1exit1 = Exit([1, 1], SampleScreen2.Exits.s2exit1);" + 
             "   }" +
             "}";
         
@@ -74,7 +79,7 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       s2exit1 = Exit([1, 1], SampleScreen2.Exits.s1exit1);" + 
+            "       s2exit1 = Exit([1, 1], SampleScreen1.Exits.s1exit1);" + 
             "   }" +
             "}";
 
@@ -82,14 +87,21 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_ValidMemberAccessSucceeds()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_1, TestCode3_2);
-            LinkChecker tc = new LinkChecker(ast);
-
-            List<string> link = new List<string>() {"SampleScreen1", "Exits", "x"};
-            bool wasFound = ast.TryRetrieveNode(link);
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            
+            void TestDelegate()
+            {
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new TypeChecker(ast).Visit(gameObject);
+                }
+            
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new Linker(ast).Visit(gameObject);
+                }
+            }
             
             Assert.DoesNotThrow(TestDelegate);
-            Assert.True(wasFound);
         }
         
         private const string TestCode3_3 = 
@@ -104,15 +116,12 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void LinkCheck_Visit_InValidMemberAccessThrows()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
-            LinkChecker tc = new LinkChecker(ast);
-
-            List<string> link = new List<string>() {"SampleScreen1", "Exits", "x"};
-            bool wasFound = ast.TryRetrieveNode(link);
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            
-            Assert.Throws<InvalidOperationException>(TestDelegate);
-            Assert.True(wasFound);
+            Assert.Throws<Exception>(() =>
+            {
+                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
+                Linker tc = new Linker(ast);
+                tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            });
         }
     }
 }

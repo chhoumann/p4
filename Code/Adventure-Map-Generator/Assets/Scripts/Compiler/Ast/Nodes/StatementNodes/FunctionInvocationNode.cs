@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.Compiler.StandardLibrary;
-using UnityEngine;
 
 namespace Dazel.Compiler.Ast.Nodes.StatementNodes
 {
@@ -15,15 +14,18 @@ namespace Dazel.Compiler.Ast.Nodes.StatementNodes
         public SymbolType ReturnType { get; set; }
         public Function Function { get; private set; }
 
-        public ValueNode Create()
+        public ValueNode Create(SymbolTable currentSymbolTable)
         {
             if (DazelStdLib.TryGetFunction(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
                 Function = function;
+                Function.CurrentSymbolTable = currentSymbolTable;
+
                 return function.GetReturnType(Parameters);
             }
-
-            throw new ArgumentException($"{Identifier} function not found in Dazel Standard Library.");
+            
+            DazelLogger.EmitError($"{Identifier} function not found in Dazel Standard Library.", Token);
+            return null;
         }
 
         public override void Accept(IStatementVisitor visitor)

@@ -1,13 +1,18 @@
-﻿using Dazel.Compiler.Ast;
+﻿using System;
+using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
+    public sealed class TypeChecker : IGameObjectVisitor, IStatementVisitor
     {
         private readonly AbstractSyntaxTree ast;
+        private string currentGameObject;
 
         public TypeChecker(AbstractSyntaxTree ast)
         {
@@ -16,11 +21,12 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(GameObjectNode gameObjectNode)
         {
-            OpenScope();
+            currentGameObject = gameObjectNode.Identifier;
+            foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents)
+            {
+                Visit(gameObjectContent);
+            }
 
-            foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents) Visit(gameObjectContent);
-
-            CloseScope();
         }
 
         public void Visit(EntityNode entityNode)
@@ -29,11 +35,10 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(GameObjectContentNode gameObjectContentNode)
         {
-            OpenScope();
-
-            foreach (StatementNode statementNode in gameObjectContentNode.Statements) statementNode.Accept(this);
-
-            CloseScope();
+            foreach (StatementNode statementNode in gameObjectContentNode.Statements)
+            {
+                statementNode.Accept(this);
+            }
         }
 
         public void Visit(MovePatternNode movePatternNode)
@@ -46,11 +51,10 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(StatementBlockNode statementBlockNode)
         {
-            OpenScope();
-            
-            foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this);
-
-            CloseScope();
+            foreach (StatementNode statement in statementBlockNode.Statements)
+            {
+                statement.Accept(this);
+            }
         }
 
         public void Visit(IfStatementNode ifStatementNode)
@@ -63,18 +67,10 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
-
-            EnvironmentStack.Peek().AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);
         }
 
         public void Visit(AssignmentNode assignmentNode)
         {
-            SymbolTable<SymbolTableEntry> currentSymbolTable = EnvironmentStack.Peek();
-            SymbolType expressionType = new ExpressionTypeChecker(ast, currentSymbolTable).GetType(assignmentNode.Expression);
-
-            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionType);
-            currentSymbolTable.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }
     }
 }

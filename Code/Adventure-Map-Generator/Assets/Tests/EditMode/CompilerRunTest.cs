@@ -1,10 +1,11 @@
 ﻿using Dazel.Compiler;
+using Dazel.Compiler.ErrorHandler;
 using NUnit.Framework;
 
 namespace Tests.EditMode
 {
     [TestFixture]
-    public class CompilerRunTest
+    public class CompilerRunTest : DazelTestBase
     {
         private const string TestCode1_1 =
             "Screen SampleScreen1" +
@@ -55,8 +56,9 @@ namespace Tests.EditMode
         {
             UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
             DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2);
-            bool run = dazelCompiler.TryRun(out _);
-            Assert.False(run);
+            DazelLogger.ThrowExceptions = false;
+            
+            Assert.False(dazelCompiler.TryRun(out _));
         }
     }
 }

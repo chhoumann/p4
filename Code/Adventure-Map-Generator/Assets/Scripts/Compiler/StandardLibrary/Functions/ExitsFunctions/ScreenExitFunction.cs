@@ -18,15 +18,20 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
             if (parameters[0] is IdentifierValueNode dirId && parameters[1] is IdentifierValueNode screenId
-                && Enum.TryParse(dirId.Value, false, out Direction exitDirection))
+                && Enum.TryParse(dirId.Identifier, false, out Direction exitDirection))
             {
                 ExitDirection = exitDirection;
-                ConnectedScreenIdentifier = screenId.Value;
+                ConnectedScreenIdentifier = screenId.Identifier;
 
-                return new ScreenExitValueNode(ConnectedScreenIdentifier, exitDirection);
+                return new ScreenExitValueNode(ConnectedScreenIdentifier, exitDirection)
+                {
+                    Token = dirId.Token
+                };
             }
 
-            throw InvalidArgumentsException(parameters);
+            InvalidArgumentsException(parameters);
+
+            return null;
         }
     }
 }

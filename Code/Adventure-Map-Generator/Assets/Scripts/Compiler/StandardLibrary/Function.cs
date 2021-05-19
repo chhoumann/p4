@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.StandardLibrary
@@ -12,7 +12,8 @@ namespace Dazel.Compiler.StandardLibrary
         public abstract int NumArguments { get; }
         private SymbolType ReturnType { get; }
 
-        protected ValueNode ValueNode;
+        public ValueNode ValueNode { get; protected set; }
+        public SymbolTable CurrentSymbolTable { get; set; }
 
         protected Function(SymbolType returnType)
         {
@@ -20,8 +21,10 @@ namespace Dazel.Compiler.StandardLibrary
         }
         
         public abstract ValueNode GetReturnType(List<ValueNode> parameters);
+        
+        public virtual void PostAstExecute(AbstractSyntaxTree ast) { }
 
-        protected ArgumentException InvalidArgumentsException(IEnumerable<ValueNode> parameters)
+        protected void InvalidArgumentsException(IEnumerable<ValueNode> parameters)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Invalid arguments in function {GetType()}:");
@@ -31,7 +34,7 @@ namespace Dazel.Compiler.StandardLibrary
                 sb.AppendLine($"{valueNode}");
             }
             
-            throw new ArgumentException(sb.ToString());
+            DazelLogger.EmitError(sb.ToString(), ValueNode.Token);
         }
     }
 }

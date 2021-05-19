@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.MapFunctions;
@@ -178,12 +178,11 @@ namespace Dazel.Compiler.CodeGeneration
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
-                Debug.LogWarning("TileExits have not been implemented yet.");
+                DazelLogger.EmitWarning("TileExits have not been implemented yet.", tileExit.Token);
             }
 
             if (exitValueNode is ScreenExitValueNode screenExit)
             {
-                Debug.Log($"Go {screenExit.ExitDirection.ToString()} to go to {screenExit.ConnectedScreenIdentifier}");
                 screenModel.ScreenExits.Add(new ScreenExitModel(screenExit.ConnectedScreenIdentifier, screenExit.ExitDirection));
             }
         }

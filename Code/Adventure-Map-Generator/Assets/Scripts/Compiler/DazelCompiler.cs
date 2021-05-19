@@ -8,27 +8,22 @@ using Dazel.Compiler.CodeGeneration;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.IntermediateModels;
+using UnityEngine;
 
 namespace Dazel.Compiler
 {
     public sealed class DazelCompiler
     {
-        private readonly IErrorLogger errorLogger;
         private readonly IEnumerable<string> files;
         private readonly bool fromFile;
 
-        private DazelCompiler()
-        {
-            errorLogger = new DazelErrorLogger();
-        }
-
-        public DazelCompiler(string sourceFileDirectory) : this()
+        public DazelCompiler(string sourceFileDirectory) 
         {
             files = SourceFileGetter.GetFilesInDirectory(sourceFileDirectory);
             fromFile = true;
         }
 
-        public DazelCompiler(params string[] files) : this()
+        public DazelCompiler(params string[] files)
         {
             this.files = files;
             fromFile = false;
@@ -36,35 +31,15 @@ namespace Dazel.Compiler
         
         public bool TryRun(out IEnumerable<ScreenModel> screenModels)
         {
-            try
-            {
-                IEnumerable<IParseTree> parseTrees = BuildParseTrees();
+            IEnumerable<IParseTree> parseTrees = BuildParseTrees();
 
-                AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
+            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
 
-                if (errorLogger.HasErrors)
-                {
-                    throw new Exception("Invalid Dazel code.");
-                }
-                
-                PrintAst(ast);
-                PerformSemanticAnalysis(ast);
-
-                screenModels = GenerateIntermediateModels(ast);
-                return true;
-            }
-            catch (Exception e)
-            {
-                errorLogger.AddToErrorList(e.Message);
-                errorLogger.AddToErrorList(e.StackTrace);
-            }
-            finally
-            {
-                errorLogger.Log();
-            }
-
-            screenModels = default;
-            return false;
+            PrintAst(ast);
+            PerformSemanticAnalysis(ast);
+            
+            screenModels = GenerateIntermediateModels(ast);
+            return !DazelLogger.HasErrors;
         }
 
         private IEnumerable<IParseTree> BuildParseTrees()
@@ -77,7 +52,7 @@ namespace Dazel.Compiler
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
-                parser.AddErrorListener(new DazelErrorListener(errorLogger));
+                parser.AddErrorListener(new DazelErrorListener());
 
                 parseTrees.Add(parser.start());
             }
@@ -99,7 +74,11 @@ namespace Dazel.Compiler
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 new TypeChecker(ast).Visit(gameObject);
-                new LinkChecker(ast).Visit(gameObject);
+            }
+            
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+            {
+                new Linker(ast).Visit(gameObject);
             }
         }
 
