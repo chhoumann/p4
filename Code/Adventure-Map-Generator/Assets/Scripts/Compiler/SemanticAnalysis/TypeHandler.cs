@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using Dazel.Compiler.ErrorHandler;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -10,7 +11,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (CurrentType == SymbolType.Exit)
             {
-                DazelCompiler.Logger.EmitError("Exits cannot be used in expressions.", token);
+                DazelLogger.EmitError("Exits cannot be used in expressions.", token);
             }
                 
             if (CurrentType == SymbolType.Null || CurrentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
@@ -19,7 +20,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 return;
             }
                 
-            DazelCompiler.Logger.EmitError($"Type mismatch. {value} is not {CurrentType}", token);
+            DazelLogger.EmitError($"Type mismatch. {value} is not {CurrentType}", token);
         }
     }
 }

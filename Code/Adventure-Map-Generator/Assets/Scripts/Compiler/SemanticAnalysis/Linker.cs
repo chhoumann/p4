@@ -5,6 +5,7 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.StandardLibrary.Functions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 
@@ -111,7 +112,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 {
                     if (!abstractSyntaxTree.TryRetrieveGameObject(screenExitFunction.ConnectedScreenIdentifier))
                     {
-                        DazelCompiler.Logger.EmitError(
+                        DazelLogger.EmitError(
                             $"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist.", functionInvocationNode.Token);
                     }
                     break;
@@ -164,7 +165,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (!abstractSyntaxTree.TryRetrieveNode(memberAccessNode.Identifiers))
             {
-                DazelCompiler.Logger.EmitError(
+                DazelLogger.EmitError(
                     $"Member {string.Join(".", memberAccessNode.Identifiers)} does not exist.", memberAccessNode.Token);
             }
         }
@@ -199,7 +200,7 @@ namespace Dazel.Compiler.SemanticAnalysis
             {
                 if (!abstractSyntaxTree.TryRetrieveNode(tileExit.ToExit.Identifiers))
                 {
-                    DazelCompiler.Logger.EmitError(
+                    DazelLogger.EmitError(
                         $"Exit {tileExit} is invalid: {string.Join(".", tileExit.ToExit.Identifiers)} does not exist.", exitValueNode.Token);
                 }
             }
@@ -208,7 +209,7 @@ namespace Dazel.Compiler.SemanticAnalysis
             {
                 if (!abstractSyntaxTree.TryRetrieveGameObject(screenExit.ConnectedScreenIdentifier))
                 {
-                    DazelCompiler.Logger.EmitError(
+                    DazelLogger.EmitError(
                         $"Exit {screenExit} is invalid: {screenExit.ConnectedScreenIdentifier} does not exist.", screenExit.Token);
                 }
             }

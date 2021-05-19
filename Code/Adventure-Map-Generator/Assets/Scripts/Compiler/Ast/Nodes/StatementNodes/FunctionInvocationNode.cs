@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.Compiler.StandardLibrary;
-using UnityEngine;
 
 namespace Dazel.Compiler.Ast.Nodes.StatementNodes
 {
@@ -22,7 +22,7 @@ namespace Dazel.Compiler.Ast.Nodes.StatementNodes
                 return function.GetReturnType(Parameters);
             }
             
-            DazelCompiler.Logger.EmitError($"{Identifier} function not found in Dazel Standard Library.", Token);
+            DazelLogger.EmitError($"{Identifier} function not found in Dazel Standard Library.", Token);
             return null;
         }
 

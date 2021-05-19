@@ -4,6 +4,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -34,12 +35,12 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (sumExpressionNode.Left == null)
             {
-                DazelCompiler.Logger.EmitError("Expression left operand is null", sumExpressionNode.Token);
+                DazelLogger.EmitError("Expression left operand is null", sumExpressionNode.Token);
             }
             
             if (sumExpressionNode.Right == null)
             {
-                DazelCompiler.Logger.EmitError("Expression right operand is null", sumExpressionNode.Token);
+                DazelLogger.EmitError("Expression right operand is null", sumExpressionNode.Token);
             }
             
             sumExpressionNode.Left.Accept(this);
@@ -65,7 +66,7 @@ namespace Dazel.Compiler.SemanticAnalysis
             }
             else
             {
-                DazelCompiler.Logger.EmitError($"{string.Join(".", memberAccessNode.Identifiers)} was not found.", memberAccessNode.Token);
+                DazelLogger.EmitError($"{string.Join(".", memberAccessNode.Identifiers)} was not found.", memberAccessNode.Token);
             }
         }
 
@@ -107,7 +108,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 }
                 else
                 {
-                    DazelCompiler.Logger.EmitError($"Type mismatch. {value} is not {typeHandler.CurrentType}", value.Token);
+                    DazelLogger.EmitError($"Type mismatch. {value} is not {typeHandler.CurrentType}", value.Token);
                 }
             }
         }

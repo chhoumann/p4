@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.ErrorHandler;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
@@ -11,21 +12,21 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
         public override string Subtract(string a, string b)
         {
-            DazelCompiler.Logger.EmitError($"Cannot subtract string {a} from {b}.", Token);
+            DazelLogger.EmitError($"Cannot subtract string {a} from {b}.", Token);
             
             return null;
         }
 
         public override string Multiply(string a, string b)
         {
-            DazelCompiler.Logger.EmitError($"Cannot multiply string {a} and {b}.", Token);
+            DazelLogger.EmitError($"Cannot multiply string {a} and {b}.", Token);
             
             return null;
         }
 
         public override string Divide(string a, string b)
         {
-            DazelCompiler.Logger.EmitError($"Cannot divide string {a} and {b}.", Token);
+            DazelLogger.EmitError($"Cannot divide string {a} and {b}.", Token);
             
             return null;
         }
@@ -38,14 +39,14 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
         public override string GetValue(ArrayNode a)
         {
-            DazelCompiler.Logger.EmitError("Arrays cannot be used as strings.", Token);
+            DazelLogger.EmitError("Arrays cannot be used as strings.", Token);
             
             return null;
         }
 
         public override string GetValue(ExitValueNode a)
         {
-            DazelCompiler.Logger.EmitError("Exits cannot be used as strings.", Token);
+            DazelLogger.EmitError("Exits cannot be used as strings.", Token);
             
             return null;
         }

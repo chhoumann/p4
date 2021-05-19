@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.StandardLibrary.Functions.MapFunctions
@@ -20,7 +20,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions.MapFunctions
             {
                 if (valueNode.Type != SymbolType.Integer)
                 {
-                    DazelCompiler.Logger.EmitError("Invalid type.", valueNode.Token);
+                    DazelLogger.EmitError("Invalid type.", valueNode.Token);
                 }
             }
 

@@ -8,13 +8,6 @@ namespace Dazel.Compiler.ErrorHandler
 {
     public sealed class DazelErrorListener : BaseErrorListener
     {
-        private readonly DazelLogger dazelLogger;
-
-        public DazelErrorListener(DazelLogger dazelLogger)
-        {
-            this.dazelLogger = dazelLogger;
-        }
-
         public override void SyntaxError(TextWriter output, IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine,
             string msg, RecognitionException e)
         {
@@ -27,7 +20,7 @@ namespace Dazel.Compiler.ErrorHandler
             errorLog.AppendLine($"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
             errorLog.AppendLine($"Error: \n{underlineError}");
 
-            dazelLogger.EmitError(errorLog.ToString(), offendingSymbol);
+            DazelLogger.EmitError(errorLog.ToString(), offendingSymbol);
         }
 
         private string UnderlineError(IRecognizer recognizer, IToken offendingToken, int line, int charPositionInLine)

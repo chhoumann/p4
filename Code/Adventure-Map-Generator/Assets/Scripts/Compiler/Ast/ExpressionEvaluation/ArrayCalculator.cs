@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.ErrorHandler;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
@@ -9,49 +10,49 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
         
         public override ArrayNode Add(ArrayNode a, ArrayNode b)
         {
-            DazelCompiler.Logger.EmitError("Cannot add arrays.", Token);
+            DazelLogger.EmitError("Cannot add arrays.", Token);
             
             return null;
         }
 
         public override ArrayNode Subtract(ArrayNode a, ArrayNode b)
         {
-            DazelCompiler.Logger.EmitError("Cannot subtract arrays.", Token);
+            DazelLogger.EmitError("Cannot subtract arrays.", Token);
             
             return null;
         }
 
         public override ArrayNode Multiply(ArrayNode a, ArrayNode b)
         {
-            DazelCompiler.Logger.EmitError("Cannot multiply arrays.", Token);
+            DazelLogger.EmitError("Cannot multiply arrays.", Token);
             
             return null;
         }
 
         public override ArrayNode Divide(ArrayNode a, ArrayNode b)
         {
-            DazelCompiler.Logger.EmitError("Cannot divide arrays.", Token);
+            DazelLogger.EmitError("Cannot divide arrays.", Token);
             
             return null;
         }
 
         public override ArrayNode GetValue(int a)
         {
-            DazelCompiler.Logger.EmitError($"Integer {a} is not an array.", Token);
+            DazelLogger.EmitError($"Integer {a} is not an array.", Token);
             
             return null;
         }
 
         public override ArrayNode GetValue(float a)
         {
-            DazelCompiler.Logger.EmitError($"Float {a} is not an array.", Token);
+            DazelLogger.EmitError($"Float {a} is not an array.", Token);
             
             return null;
         }
 
         public override ArrayNode GetValue(string a)
         {
-            DazelCompiler.Logger.EmitError($"String {a} is not an array.", Token);
+            DazelLogger.EmitError($"String {a} is not an array.", Token);
             
             return null;
         }
@@ -60,7 +61,7 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
         public override ArrayNode GetValue(ExitValueNode a)
         {
-            DazelCompiler.Logger.EmitError("ExitValue is not an array.", Token);
+            DazelLogger.EmitError("ExitValue is not an array.", Token);
             
             return null;
         }

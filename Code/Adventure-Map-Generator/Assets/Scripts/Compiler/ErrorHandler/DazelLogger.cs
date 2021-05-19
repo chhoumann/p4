@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Dazel.Compiler.ErrorHandler
 {
-    public sealed class DazelLogger
+    public static class DazelLogger
     {
         public static event Action<string, LogType> LogMessageReceived;
 
-        public bool ThrowExceptions { get; set; }
+        public static bool ThrowExceptions { get; set; }
 
-        public void EmitError(string message, IToken token)
+        public static void EmitError(string message, IToken token)
         {
             string output = $"Error on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
             LogMessageReceived?.Invoke(output, LogType.Error);
@@ -21,13 +21,13 @@ namespace Dazel.Compiler.ErrorHandler
             }
         }
         
-        public void EmitWarning(string message, IToken token)
+        public static void EmitWarning(string message, IToken token)
         {
             string output = $"Warning on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
             LogMessageReceived?.Invoke(output, LogType.Warning);
         }
         
-        public void EmitMessage(string message, IToken token)
+        public static void EmitMessage(string message, IToken token)
         {
             string output = $"Message on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
             LogMessageReceived?.Invoke(output, LogType.Log);

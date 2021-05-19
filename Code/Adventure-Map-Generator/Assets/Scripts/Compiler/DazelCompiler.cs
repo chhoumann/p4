@@ -11,35 +11,21 @@ using Dazel.IntermediateModels;
 
 namespace Dazel.Compiler
 {
-    public static class DazelCompiler
+    public sealed class DazelCompiler
     {
-        public static DazelLogger Logger { get; private set; }
-        
         private readonly IEnumerable<string> files;
         private readonly bool fromFile;
 
-        private DazelCompiler()
-        {
-            Logger = new DazelLogger();
-        }
-
-        public DazelCompiler(string sourceFileDirectory) : this()
+        public DazelCompiler(string sourceFileDirectory) 
         {
             files = SourceFileGetter.GetFilesInDirectory(sourceFileDirectory);
             fromFile = true;
         }
 
-        public DazelCompiler(params string[] files) : this()
+        public DazelCompiler(params string[] files)
         {
             this.files = files;
             fromFile = false;
-        }
-
-        public DazelCompiler ThrowExceptions(bool throwExceptions)
-        {
-            Logger.ThrowExceptions = throwExceptions;
-            
-            return this;
         }
         
         public bool TryRun(out IEnumerable<ScreenModel> screenModels)

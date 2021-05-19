@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
@@ -35,7 +35,7 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
                     Result = calculator.Subtract(a, b);
                     break;
                 default:
-                    DazelCompiler.Logger.EmitError($"Operation {sumExpressionNode.OperationNode.Operator} is not valid.", sumExpressionNode.Token);
+                    DazelLogger.EmitError($"Operation {sumExpressionNode.OperationNode.Operator} is not valid.", sumExpressionNode.Token);
                     break;
             }
         }
@@ -62,7 +62,7 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
                     Result = calculator.Divide(a, b);
                     break;
                 default:
-                    DazelCompiler.Logger.EmitError($"Operation {factorExpressionNode.OperationNode.Operator} is not valid.", factorExpressionNode.Token);
+                    DazelLogger.EmitError($"Operation {factorExpressionNode.OperationNode.Operator} is not valid.", factorExpressionNode.Token);
                     break;
             }
         }
@@ -108,7 +108,7 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
             }
             else
             {
-                DazelCompiler.Logger.EmitError($"Identifier {string.Join(", ", identifierList)} was used but could not be found.", memberAccessNode.Token);
+                DazelLogger.EmitError($"Identifier {string.Join(", ", identifierList)} was used but could not be found.", memberAccessNode.Token);
             }
         }
 

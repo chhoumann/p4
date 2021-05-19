@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.StandardLibrary
@@ -33,7 +33,7 @@ namespace Dazel.Compiler.StandardLibrary
                 sb.AppendLine($"{valueNode}");
             }
             
-            DazelCompiler.Logger.EmitError(sb.ToString(), ValueNode.Token);
+            DazelLogger.EmitError(sb.ToString(), ValueNode.Token);
         }
     }
 }

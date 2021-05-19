@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using UnityEngine;
 
@@ -23,10 +24,10 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         {
             if (ValueNode is IdentifierValueNode identifierValueNode)
             {
-                DazelCompiler.Logger.EmitMessage(identifierValueNode.ValueNode.ToString(), ValueNode.Token);
+                DazelLogger.EmitMessage(identifierValueNode.ValueNode.ToString(), ValueNode.Token);
             } else
             {
-                DazelCompiler.Logger.EmitMessage(ValueNode.ToString(), ValueNode.Token);
+                DazelLogger.EmitMessage(ValueNode.ToString(), ValueNode.Token);
             }
         }
     }
