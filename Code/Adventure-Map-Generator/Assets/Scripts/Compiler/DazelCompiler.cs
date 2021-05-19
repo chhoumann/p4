@@ -61,7 +61,7 @@ namespace Dazel.Compiler
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
-                parser.AddErrorListener(new DazelErrorListener(Logger));
+                parser.AddErrorListener(new DazelErrorListener());
 
                 parseTrees.Add(parser.start());
             }
