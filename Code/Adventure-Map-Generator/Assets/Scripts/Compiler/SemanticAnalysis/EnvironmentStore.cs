@@ -2,7 +2,7 @@
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public abstract class SemanticAnalysis
+    public abstract class EnvironmentStore
     {
         public readonly Stack<SymbolTable<SymbolTableEntry>> EnvironmentStack = new Stack<SymbolTable<SymbolTableEntry>>();
 

@@ -16,6 +16,7 @@ namespace Tests.EditMode.AST
             "   Map" +
             "   {" +
             "       x = 1 + 2;" +
+            "       x = 5; " +
             "   }" +
             "}";
         
@@ -30,6 +31,8 @@ namespace Tests.EditMode.AST
             {
                 ExpressionEvaluator<int> evaluator = new ExpressionEvaluator<int>(ast, new IntCalculator(expressionNode.Token));
                 expressionNode.Accept(evaluator);
+
+                Debug.Log(evaluator.Result);
                 
                 Assert.That(evaluator.Result == 3, "evaluator.Result == 3");
             }

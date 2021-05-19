@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
+    public sealed class TypeChecker : EnvironmentStore, IGameObjectVisitor, IStatementVisitor
     {
         private readonly AbstractSyntaxTree ast;
 

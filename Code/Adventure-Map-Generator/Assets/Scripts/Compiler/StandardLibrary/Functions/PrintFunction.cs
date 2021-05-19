@@ -25,7 +25,8 @@ namespace Dazel.Compiler.StandardLibrary.Functions
             if (ValueNode is IdentifierValueNode identifierValueNode)
             {
                 DazelLogger.EmitMessage(identifierValueNode.ValueNode.ToString(), ValueNode.Token);
-            } else
+            }
+            else
             {
                 DazelLogger.EmitMessage(ValueNode.ToString(), ValueNode.Token);
             }

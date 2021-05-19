@@ -6,7 +6,7 @@ using Dazel.Compiler.ErrorHandler;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
-    public sealed class ExpressionEvaluator<T> : IExpressionVisitor
+    public sealed class ExpressionEvaluator<T> : SemanticAnalysis, IExpressionVisitor
     {
         public T Result { get; private set; }
         private readonly AbstractSyntaxTree ast;

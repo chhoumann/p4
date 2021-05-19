@@ -11,7 +11,7 @@ using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class Linker : ICompleteVisitor
+    public sealed class Linker : EnvironmentStore, ICompleteVisitor
     {
         private readonly AbstractSyntaxTree abstractSyntaxTree;
 
