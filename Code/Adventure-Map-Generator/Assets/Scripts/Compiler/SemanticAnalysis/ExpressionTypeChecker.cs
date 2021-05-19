@@ -10,10 +10,10 @@ namespace Dazel.Compiler.SemanticAnalysis
 {
     public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
-        private readonly SymbolTable<SymbolTableEntry> scope;
+        private readonly SymbolTable scope;
         private readonly TypeHandler typeHandler;
 
-        public ExpressionTypeChecker(SymbolTable<SymbolTableEntry> scope)
+        public ExpressionTypeChecker(SymbolTable scope)
         {
             this.scope = scope;
             typeHandler = new TypeHandler();

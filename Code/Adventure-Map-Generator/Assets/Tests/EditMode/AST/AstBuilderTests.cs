@@ -2,6 +2,7 @@
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
@@ -9,11 +10,12 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
 using NUnit.Framework;
+using UnityEngine;
 
-namespace Tests.EditMode.AST
+namespace Tests.EditMode.AST 
 {
     [TestFixture]
-    public sealed class AstBuilderTests : ICompleteVisitor
+    public sealed class AstBuilderTests : DazelTestBase, ICompleteVisitor
     {
         private IParseTree parseTree;
         
@@ -28,7 +30,6 @@ namespace Tests.EditMode.AST
             "           SomeVar2 = 3 + 3 / 3;" + // Test expressions & integers
             "           x = SomeVar2;" + // Test identifier values
             "       }" +
-            "       let = Player.Health;" + // Test member access 
             "       arr = [1, 2, 3];" + // Test arrays
             "   }" +
             "" +
@@ -86,8 +87,8 @@ namespace Tests.EditMode.AST
             Assert.That(gameObjectNode.Contents[0].TypeNode is MapTypeNode, "gameObject.Contents[0].Type is MapType");
             Assert.That(gameObjectNode.Contents[1].TypeNode is EntitiesTypeNodeNode, "gameObject.Contents[1].Type is EntitiesType");
 
-            // Map has 12 top-level statements (some statement blocks have nested statements)
-            Assert.That(gameObjectNode.Contents[0].Statements.Count == 5, $"gameObject.Contents[0].Statements.Count == 5." +
+            // Map has 11 top-level statements (some statement blocks have nested statements)
+            Assert.That(gameObjectNode.Contents[0].Statements.Count == 4, $"gameObject.Contents[0].Statements.Count == 4." +
                                                                        $"Found {gameObjectNode.Contents[0].Statements.Count}");
             
             // Entities has 1 top-level statement
@@ -187,28 +188,11 @@ namespace Tests.EditMode.AST
                     break;
                 // SomeVar2 = 3 + 3 / 3
                 case "SomeVar2":
-                    Assert.That(assignmentNode.Expression is SumExpressionNode
-                        {
-                            Left: IntValueNode {Value: 3},
-                            OperationNode: {Operator: '+'},
-                            Right: FactorExpressionNode {
-                                Left: IntValueNode {Value: 3},
-                                OperationNode: {Operator: '/'},
-                                Right: IntValueNode {Value: 3},
-                            }
-                        }
-                    );
+                    Assert.That(assignmentNode.Expression is FloatValueNode {Value: 4.0f});
                     break;
-                // x = SomeVar3
+                // x = SomeVar2
                 case "x":
-                    Assert.That(assignmentNode.Expression is IdentifierValueNode {Identifier: "SomeVar2"});
-                    break;
-                // let = SampleScreen1.Exits.exit1
-                case "let":
-                    Assert.That(assignmentNode.Expression is MemberAccessNode me &&
-                                me.Identifiers[0] == "Player" && 
-                                me.Identifiers[1] == "Health" 
-                    );
+                    Assert.That(assignmentNode.Expression is FloatValueNode {Value: 4.0f});
                     break;
                 // arr = [1, 2, 3]
                 case "arr":

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Dazel.Compiler.Ast;
+﻿using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
@@ -9,11 +8,8 @@ using NUnit.Framework;
 namespace Tests.EditMode.AST
 {
     [TestFixture]
-    public class ExpressionEvaluatorTests
+    public class ExpressionEvaluatorTests : DazelTestBase
     {
-        [TearDown]
-        public void CleanUp() => EnvironmentStore.CleanUp();
-        
         [Test]
         public void ExpressionEvaluator_Visit_SimpleAddition()
         {

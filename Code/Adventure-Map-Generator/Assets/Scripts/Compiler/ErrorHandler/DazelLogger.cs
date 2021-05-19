@@ -10,8 +10,13 @@ namespace Dazel.Compiler.ErrorHandler
 
         public static bool ThrowExceptions { get; set; }
 
+        public static bool HasErrors { get; set; }
+
         public static void EmitError(string message, IToken token)
         {
+            HasErrors = true;
+            Debug.Log("VAR");
+            
             string output = $"Error on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
             LogMessageReceived?.Invoke(output, LogType.Error);
 

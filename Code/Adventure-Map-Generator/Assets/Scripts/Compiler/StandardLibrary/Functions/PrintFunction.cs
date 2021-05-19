@@ -11,7 +11,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         public PrintFunction() : base(SymbolType.Void) { }
 
         public override int NumArguments => 1;
-        private SymbolTable<SymbolTableEntry> currentSymbolTable;
+        private  SymbolTableEntry currentSymbolTable;
         
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {

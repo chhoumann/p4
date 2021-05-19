@@ -25,8 +25,10 @@ namespace Dazel.Compiler.Ast
             foreach (IParseTree parseTree in parseTrees)
             {
                 DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext;
+                GameObjectIdentifier = gameObjectContext.GetChild(1).GetText();
+                OpenScope();
                 GameObjectNode gameObjectNode = VisitGameObject(gameObjectContext);
-                
+                CloseScope();
                 gameObjects.Add(gameObjectNode.Identifier, gameObjectNode);
             }
 
@@ -65,7 +67,6 @@ namespace Dazel.Compiler.Ast
             }
 
             GameObjectIdentifier = context.GetChild(1).GetText();
-            OpenScope();
 
             GameObjectNode gameObjectNode = new GameObjectNode()
             {
@@ -75,13 +76,14 @@ namespace Dazel.Compiler.Ast
                 Contents = VisitGameObjectContents(context.gameObjectBlock().gameObjectContents())
             };
             
-            CloseScope();
 
             return gameObjectNode;
         }
 
         public List<GameObjectContentNode> VisitGameObjectContents(DazelParser.GameObjectContentsContext context)
         {
+            OpenScope();
+
             List<GameObjectContentNode> contents = new List<GameObjectContentNode>();
 
             if (context.gameObjectContent() == null) return contents;
@@ -93,12 +95,13 @@ namespace Dazel.Compiler.Ast
                 contents.AddRange(VisitGameObjectContents(context.gameObjectContents()));
             }
             
+            CloseScope();
+
             return contents;
         }
 
         public GameObjectContentNode VisitGameObjectContent(DazelParser.GameObjectContentContext context)
         {
-            OpenScope();
 
             GameObjectContentTypeNode gameObjectContentTypeNode;
             
@@ -150,8 +153,7 @@ namespace Dazel.Compiler.Ast
                 Statements = VisitStatementBlock(context.statementBlock()),
                 TypeNode = gameObjectContentTypeNode,
             };
-            
-            CloseScope();
+
 
             return contentNode;
         }

@@ -39,7 +39,7 @@ namespace Dazel.Compiler
             PerformSemanticAnalysis(ast);
             
             screenModels = GenerateIntermediateModels(ast);
-            return true;
+            return !DazelLogger.HasErrors;
         }
 
         private IEnumerable<IParseTree> BuildParseTrees()

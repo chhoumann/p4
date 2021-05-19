@@ -10,11 +10,8 @@ using UnityEngine;
 namespace Tests.EditMode.Semantics
 {
     [TestFixture]
-    public class TypeCheckTests
+    public class TypeCheckTests : DazelTestBase
     {
-        [TearDown]
-        public void CleanUp() => EnvironmentStore.CleanUp();
-        
         private void TestDelegate(AbstractSyntaxTree ast)
         {
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -74,9 +71,13 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_ArrayPlusIntegerFails()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode2);
 
-            Assert.Throws<Exception>(() => TestDelegate(ast));
+            Assert.Throws<Exception>(() =>
+            {
+                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode2);
+
+                TestDelegate(ast);
+            });
         }
         
         private const string TestCode3 =
@@ -91,9 +92,12 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_MemberAccessNotFoundIfNotDeclared()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3);
+            Assert.Throws<Exception>(() =>
+            {
+                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3);
 
-            Assert.Throws<Exception>(() => TestDelegate(ast));
+                TestDelegate(ast);
+            });
         }
         
         private const string TestCode4_1 =
@@ -145,9 +149,12 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_ExitCannotBeUsedInExpressions()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_3, TestCode4_4);
-            
-            Assert.Throws<Exception>(() => TestDelegate(ast));
+            Assert.Throws<Exception>(() =>
+            {
+                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_3, TestCode4_4);
+
+                TestDelegate(ast);
+            });
         }
 
         private const string TestCode6 =
@@ -162,9 +169,11 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_AddNullFunctionInvocationToInteger()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode6);
-
-            Assert.Throws<Exception>(() => TestDelegate(ast));
+            Assert.Throws<Exception>(() =>
+            {
+                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode6);
+                TestDelegate(ast);
+            });
         }
         
         private const string TestCode7 =
@@ -202,9 +211,12 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_NullFunctionExpressionPlusIntegerThrows()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode8);
-            
-            Assert.Throws<Exception>(() => TestDelegate(ast));
+            Assert.Throws<Exception>(() =>
+            {
+                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode8);
+
+                TestDelegate(ast);
+            });
         }
         
         private const string TestCode9 =

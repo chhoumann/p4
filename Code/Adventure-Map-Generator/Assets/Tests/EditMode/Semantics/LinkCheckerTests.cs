@@ -6,11 +6,8 @@ using NUnit.Framework;
 
 namespace Tests.EditMode.Semantics
 {
-    public sealed class ExitCheckerTests
+    public sealed class ExitCheckerTests : DazelTestBase
     {
-        [TearDown]
-        public void CleanUp() => EnvironmentStore.CleanUp();
-        
         private const string TestCode1_1 =
             "Screen SampleScreen1" +
             "{" +
@@ -119,12 +116,12 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void LinkCheck_Visit_InValidMemberAccessThrows()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
-            Linker tc = new Linker(ast);
-            
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            
-            Assert.Throws<Exception>(TestDelegate);
+            Assert.Throws<Exception>(() =>
+            {
+                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
+                Linker tc = new Linker(ast);
+                tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            });
         }
     }
 }
