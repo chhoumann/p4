@@ -38,8 +38,6 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public SymbolTableEntry RetrieveSymbolInChildScope(string identifier)
         {
-            //Debug.Log($"{string.Join(", ", symbols.Keys)}");
-            
             if (symbols.TryGetValue(identifier, out SymbolTableEntry symbol))
             {
                 return symbol;

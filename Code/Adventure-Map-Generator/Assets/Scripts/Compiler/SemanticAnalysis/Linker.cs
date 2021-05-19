@@ -195,7 +195,6 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
-                Debug.Log($"{tileExit.Coordinates}: {tileExit.ToExit}");
                 EnvironmentStore.AccessMember(tileExit.ToExit);
             }
 
