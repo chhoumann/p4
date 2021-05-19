@@ -2,7 +2,6 @@
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
-using UnityEngine;
 
 namespace Dazel.Compiler.StandardLibrary.Functions
 {
@@ -11,7 +10,6 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         public PrintFunction() : base(SymbolType.Void) { }
 
         public override int NumArguments => 1;
-        private  SymbolTableEntry currentSymbolTable;
         
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
@@ -22,14 +20,15 @@ namespace Dazel.Compiler.StandardLibrary.Functions
 
         public void Log()
         {
-            /*if (ValueNode is IdentifierValueNode identifierValueNode)
+            if (ValueNode is IdentifierValueNode identifierValueNode)
             {
-                DazelLogger.EmitMessage(symbolTableEntry.ToString(), ValueNode.Token);
+                SymbolTableEntry entry = CurrentSymbolTable.RetrieveSymbolInChildScope(identifierValueNode.Identifier);
+                DazelLogger.EmitMessage(entry.ToString(), ValueNode.Token);
             }
             else
             {
                 DazelLogger.EmitMessage(ValueNode.ToString(), ValueNode.Token);
-            }*/
+            }
         }
     }
 }

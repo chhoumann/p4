@@ -14,11 +14,13 @@ namespace Dazel.Compiler.Ast.Nodes.StatementNodes
         public SymbolType ReturnType { get; set; }
         public Function Function { get; private set; }
 
-        public ValueNode Create()
+        public ValueNode Create(SymbolTable currentSymbolTable)
         {
             if (DazelStdLib.TryGetFunction(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
                 Function = function;
+                Function.CurrentSymbolTable = currentSymbolTable;
+
                 return function.GetReturnType(Parameters);
             }
             

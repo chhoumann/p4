@@ -431,7 +431,7 @@ namespace Dazel.Compiler.Ast
                 Parameters = VisitValueList(context.valueList()),
             };
             
-            functionInvocationNode.Create();
+            functionInvocationNode.Create(CurrentTopScope);
             
             FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
 

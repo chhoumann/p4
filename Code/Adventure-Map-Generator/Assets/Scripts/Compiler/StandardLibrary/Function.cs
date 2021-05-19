@@ -13,6 +13,7 @@ namespace Dazel.Compiler.StandardLibrary
         private SymbolType ReturnType { get; }
 
         public ValueNode ValueNode { get; protected set; }
+        public SymbolTable CurrentSymbolTable { get; set; }
 
         protected Function(SymbolType returnType)
         {
