@@ -55,9 +55,9 @@ namespace Tests.EditMode.Semantics
             
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
-            // Expect four scopes and one top symbol table
+            // Expect one top symbol table and that all scopes have been popped off the stack.
             Assert.That(EnvironmentStore.TopSymbolTablesCount == 1, "EnvironmentStore.TopSymbolTables.Count == 1");
-            Assert.That(astBuilder.EnvironmentStack.Count == 0, "tc.EnvironmentStack.Count == 4");
+            Assert.That(astBuilder.EnvironmentStack.Count == 0, "tc.EnvironmentStack.Count == 0");
         }
         
         private const string TestCode2 =
