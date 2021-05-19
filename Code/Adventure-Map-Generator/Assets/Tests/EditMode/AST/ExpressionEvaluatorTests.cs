@@ -16,8 +16,6 @@ namespace Tests.EditMode.AST
             "   Map" +
             "   {" +
             "       x = 1 + 2;" +
-            "       x = 1 + x;" +
-            "       x = 5;" +
             "   }" +
             "}";
         
