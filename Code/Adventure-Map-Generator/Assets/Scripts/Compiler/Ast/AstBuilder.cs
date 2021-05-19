@@ -470,7 +470,7 @@ namespace Dazel.Compiler.Ast
                 case SymbolType.Integer:
                     var intEval = new ExpressionEvaluator<int>(new IntCalculator(assignmentNode.Token));
                     assignmentNode.Expression.Accept(intEval);
-                    expressionValue = new FloatValueNode() {Value = intEval.Result};
+                    expressionValue = new IntValueNode() {Value = intEval.Result};
                     break;
                 case SymbolType.Array:
                     var arrayEval = new ExpressionEvaluator<ArrayNode>(new ArrayCalculator(assignmentNode.Token));

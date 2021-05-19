@@ -188,11 +188,11 @@ namespace Tests.EditMode.AST
                     break;
                 // SomeVar2 = 3 + 3 / 3
                 case "SomeVar2":
-                    Assert.That(assignmentNode.Expression is FloatValueNode {Value: 4.0f});
+                    Assert.That(assignmentNode.Expression is IntValueNode {Value: 4});
                     break;
                 // x = SomeVar2
                 case "x":
-                    Assert.That(assignmentNode.Expression is FloatValueNode {Value: 4.0f});
+                    Assert.That(assignmentNode.Expression is IntValueNode {Value: 4});
                     break;
                 // arr = [1, 2, 3]
                 case "arr":
