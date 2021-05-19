@@ -1,5 +1,8 @@
-﻿using Dazel.Compiler;
+﻿using System;
+using Dazel.Compiler;
+using Dazel.Compiler.ErrorHandler;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Tests.EditMode
 {
@@ -53,10 +56,15 @@ namespace Tests.EditMode
         [Test]
         public void DazelCompiler_TryRun_ThrowOnValidSourceCode()
         {
-            UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
-            DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2).ThrowExceptions(true);
-            bool run = dazelCompiler.TryRun(out _);
-            Assert.False(run);
+            void TestDelegate()
+            {
+                UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
+                DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2);
+                DazelLogger.ThrowExceptions = true;
+                
+                Assert.False(dazelCompiler.TryRun(out _));
+            }
+            Assert.DoesNotThrow(TestDelegate);
         }
     }
 }

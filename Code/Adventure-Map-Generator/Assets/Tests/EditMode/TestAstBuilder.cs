@@ -11,6 +11,7 @@ namespace Tests.EditMode
         public static AbstractSyntaxTree BuildAst(params string[] code)
         {
             List<IParseTree> parseTrees = new List<IParseTree>();
+            DazelLogger.ThrowExceptions = true;
 
             foreach (string s in code)
             {
@@ -18,7 +19,7 @@ namespace Tests.EditMode
                 ITokenSource lexer = new DazelLexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 DazelParser parser = new DazelParser(tokens) {BuildParseTree = true};
-                parser.AddErrorListener(new DazelErrorListener(new DazelLogger() {ThrowExceptions = true}));
+                parser.AddErrorListener(new DazelErrorListener());
 
                 parseTrees.Add(parser.start());
             }

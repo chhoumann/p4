@@ -42,9 +42,9 @@ namespace Dazel.Compiler
                 screenModels = GenerateIntermediateModels(ast);
                 return true;
             }
-            catch (Exception e)
+            catch
             {
-                throw;
+                // ignored
             }
 
             screenModels = default;
