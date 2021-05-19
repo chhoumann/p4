@@ -46,8 +46,6 @@ namespace Dazel.Compiler
             catch (Exception e)
             {
                 // ignored
-                throw e;
-                Debug.Log(e.Message);
             }
 
             screenModels = default;
