@@ -101,7 +101,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(AssignmentNode assignmentNode)
         {
-            assignmentNode.Expression.Accept(this);
+            assignmentNode.Expression?.Accept(this);
         }
 
         public void Visit(FunctionInvocationNode functionInvocationNode)

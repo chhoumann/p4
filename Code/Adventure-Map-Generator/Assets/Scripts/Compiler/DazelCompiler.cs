@@ -8,6 +8,7 @@ using Dazel.Compiler.CodeGeneration;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.IntermediateModels;
+using UnityEngine;
 
 namespace Dazel.Compiler
 {
@@ -42,9 +43,11 @@ namespace Dazel.Compiler
                 screenModels = GenerateIntermediateModels(ast);
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 // ignored
+                throw e;
+                Debug.Log(e.Message);
             }
 
             screenModels = default;

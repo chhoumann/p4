@@ -14,6 +14,19 @@ namespace Tests.EditMode.Semantics
     {
         [TearDown]
         public void CleanUp() => EnvironmentStore.CleanUp();
+        
+        private void TestDelegate(AbstractSyntaxTree ast)
+        {
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+            {
+                new TypeChecker(ast).Visit(gameObject);
+            }
+            
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+            {
+                new Linker(ast).Visit(gameObject);
+            }
+        }
 
         private const string TestCode =
             "Screen SampleScreen1" + // Test GameObject
@@ -62,10 +75,8 @@ namespace Tests.EditMode.Semantics
         public void TypeCheck_Visit_ArrayPlusIntegerFails()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode2);
-            TypeChecker tc = new TypeChecker(ast);
 
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<Exception>(TestDelegate);
+            Assert.Throws<Exception>(() => TestDelegate(ast));
         }
         
         private const string TestCode3 =
@@ -81,10 +92,8 @@ namespace Tests.EditMode.Semantics
         public void TypeCheck_Visit_MemberAccessNotFoundIfNotDeclared()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3);
-            TypeChecker tc = new TypeChecker(ast);
 
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<Exception>(TestDelegate);
+            Assert.Throws<Exception>(() => TestDelegate(ast));
         }
         
         private const string TestCode4_1 =
@@ -109,22 +118,9 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_MemberAccessValidExpressionSucceeds()
         {
-            void TestDelegate()
-            {
-                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_1, TestCode4_2);
-                
-                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
-                {
-                    new TypeChecker(ast).Visit(gameObject);
-                }
-                
-                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
-                {
-                    new Linker(ast).Visit(gameObject);
-                }
-            }
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_1, TestCode4_2);
             
-            Assert.DoesNotThrow(TestDelegate);
+            Assert.DoesNotThrow(() => TestDelegate(ast));
         }
         
         private const string TestCode4_3 =
@@ -142,29 +138,16 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       exit1 = Exit([0, 0], SampleScreen1.Exits.exit1)" +
+            "       exit1 = Exit([0, 0], SampleScreen1.Exits.exit1);" +
             "   }" +
             "}";
         
         [Test]
         public void TypeCheck_Visit_ExitCannotBeUsedInExpressions()
         {
-            void TestDelegate()
-            {
-                AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_3, TestCode4_4);
-                
-                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
-                {
-                    new TypeChecker(ast).Visit(gameObject);
-                }
-                
-                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
-                {
-                    new Linker(ast).Visit(gameObject);
-                }
-            }
-
-            Assert.Throws<Exception>(TestDelegate);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_3, TestCode4_4);
+            
+            Assert.Throws<Exception>(() => TestDelegate(ast));
         }
 
         private const string TestCode6 =
@@ -180,10 +163,8 @@ namespace Tests.EditMode.Semantics
         public void TypeCheck_Visit_AddNullFunctionInvocationToInteger()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode6);
-            TypeChecker tc = new TypeChecker(ast);
 
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<Exception>(TestDelegate);
+            Assert.Throws<Exception>(() => TestDelegate(ast));
         }
         
         private const string TestCode7 =
@@ -199,14 +180,13 @@ namespace Tests.EditMode.Semantics
         public void TypeCheck_Visit_AssignNullFunctionToVariableAllowed()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode7);
-            TypeChecker tc = new TypeChecker(ast);
 
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            Assert.DoesNotThrow(() => TestDelegate(ast));
+
             List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
 
             ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
             
-            Assert.DoesNotThrow(TestDelegate);
             Assert.That(value == null);
         }
         
@@ -223,15 +203,8 @@ namespace Tests.EditMode.Semantics
         public void TypeCheck_Visit_NullFunctionExpressionPlusIntegerThrows()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode8);
-            TypeChecker tc = new TypeChecker(ast);
-
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
             
-            ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
-            
-            Assert.Throws<Exception>(TestDelegate);
-            Assert.That(value == null);
+            Assert.Throws<Exception>(() => TestDelegate(ast));
         }
         
         private const string TestCode9 =
@@ -247,14 +220,12 @@ namespace Tests.EditMode.Semantics
         public void TypeCheck_Visit_IntegerPlusFloatSucceeds()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode9);
-            TypeChecker tc = new TypeChecker(ast);
+            Assert.DoesNotThrow(() => TestDelegate(ast));
 
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
             
             ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
             
-            Assert.DoesNotThrow(TestDelegate);
             Assert.That(value != null, "value != null");
             Debug.Log(value);
         }

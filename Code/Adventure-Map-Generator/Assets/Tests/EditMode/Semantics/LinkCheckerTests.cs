@@ -1,5 +1,6 @@
 ﻿using System;
 using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
 
@@ -42,7 +43,7 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       s2exit1 = Exit([1, 1], SampleScreen2.Exits.s1exit1);" + 
+            "       s2exit1 = Exit([1, 1], SampleScreen1.Exits.s1exit1);" + 
             "   }" +
             "}";
 
@@ -50,9 +51,19 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_SuccessOnValidLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode2_1);
-            Linker tc = new Linker(ast);
 
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            void TestDelegate()
+            {
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new TypeChecker(ast).Visit(gameObject);
+                }
+            
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new Linker(ast).Visit(gameObject);
+                }
+            }
             
             Assert.DoesNotThrow(TestDelegate);
         }
@@ -62,7 +73,7 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       x = SampleScreen2.Exits.s2exit1;" + 
+            "       s1exit1 = Exit([1, 1], SampleScreen2.Exits.s2exit1);" + 
             "   }" +
             "}";
         
@@ -71,7 +82,7 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       s2exit1 = Exit([1, 1], SampleScreen2.Exits.s1exit1);" + 
+            "       s2exit1 = Exit([1, 1], SampleScreen1.Exits.s1exit1);" + 
             "   }" +
             "}";
 
@@ -79,9 +90,19 @@ namespace Tests.EditMode.Semantics
         public void LinkCheck_Visit_ValidMemberAccessSucceeds()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_1, TestCode3_2);
-            Linker tc = new Linker(ast);
-
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            
+            void TestDelegate()
+            {
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new TypeChecker(ast).Visit(gameObject);
+                }
+            
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new Linker(ast).Visit(gameObject);
+                }
+            }
             
             Assert.DoesNotThrow(TestDelegate);
         }
