@@ -182,7 +182,6 @@ namespace Dazel.Compiler.CodeGeneration
 
             if (exitValueNode is ScreenExitValueNode screenExit)
             {
-                Debug.Log($"Go {screenExit.ExitDirection.ToString()} to go to {screenExit.ConnectedScreenIdentifier}");
                 screenModel.ScreenExits.Add(new ScreenExitModel(screenExit.ConnectedScreenIdentifier, screenExit.ExitDirection));
             }
         }

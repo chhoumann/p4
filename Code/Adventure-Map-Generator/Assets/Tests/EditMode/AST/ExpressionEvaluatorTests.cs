@@ -3,6 +3,7 @@ using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Tests.EditMode.AST
 {
@@ -15,6 +16,8 @@ namespace Tests.EditMode.AST
             "   Map" +
             "   {" +
             "       x = 1 + 2;" +
+            "       x = 1 + x;" +
+            "       x = 5;" +
             "   }" +
             "}";
         
@@ -31,6 +34,7 @@ namespace Tests.EditMode.AST
                 expressionNode.Accept(evaluator);
                 
                 Assert.That(evaluator.Result == 3, "evaluator.Result == 3");
+                Debug.Log(evaluator.Result);
             }
             else
             {

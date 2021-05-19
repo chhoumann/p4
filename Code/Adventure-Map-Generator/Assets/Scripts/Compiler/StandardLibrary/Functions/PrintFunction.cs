@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.SemanticAnalysis;
+using UnityEngine;
 
 namespace Dazel.Compiler.StandardLibrary.Functions
 {
@@ -12,13 +13,21 @@ namespace Dazel.Compiler.StandardLibrary.Functions
 
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
+            Debug.Log($"Patient0: {parameters[0]}");
             ValueNode = parameters[0];
+            Debug.Log($"Given {ValueNode}");
             return null;
         }
 
         public void Log()
         {
-            DazelCompiler.Logger.EmitMessage(ValueNode.ToString(), ValueNode.Token);
+            if (ValueNode is IdentifierValueNode identifierValueNode)
+            {
+                DazelCompiler.Logger.EmitMessage(identifierValueNode.ValueNode.ToString(), ValueNode.Token);
+            } else
+            {
+                DazelCompiler.Logger.EmitMessage(ValueNode.ToString(), ValueNode.Token);
+            }
         }
     }
 }

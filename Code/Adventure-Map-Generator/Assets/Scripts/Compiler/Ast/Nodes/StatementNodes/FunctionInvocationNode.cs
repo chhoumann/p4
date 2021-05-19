@@ -3,6 +3,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.Compiler.StandardLibrary;
+using UnityEngine;
 
 namespace Dazel.Compiler.Ast.Nodes.StatementNodes
 {
