@@ -23,8 +23,10 @@ namespace Dazel.Compiler.Ast
             {
                 if (gameObjectContent.TypeNode.ContentType.ToString() == identifierList[1])
                 {
-                    foreach (StatementNode statementNode in gameObjectContent.Statements)
+                    for (int i = gameObjectContent.Statements.Count - 1; i >= 0; i--)
                     {
+                        StatementNode statementNode = gameObjectContent.Statements[i];
+
                         if (statementNode is AssignmentNode assignmentNode &&
                             assignmentNode.Identifier == identifierList[2])
                         {
@@ -38,6 +40,7 @@ namespace Dazel.Compiler.Ast
 
             identifier = default;
             node = default;
+            
             return false;
         }
         

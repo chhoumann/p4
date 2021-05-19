@@ -34,7 +34,6 @@ namespace Tests.EditMode.AST
                 expressionNode.Accept(evaluator);
                 
                 Assert.That(evaluator.Result == 3, "evaluator.Result == 3");
-                Debug.Log(evaluator.Result);
             }
             else
             {
