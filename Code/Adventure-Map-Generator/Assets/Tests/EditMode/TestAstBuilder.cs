@@ -8,7 +8,7 @@ namespace Tests.EditMode
 {
     public static class TestAstBuilder
     {
-        public static AbstractSyntaxTree BuildAst(params string[] code)
+        public static (AstBuilder, List<IParseTree> parseTrees) GetAstBuilderAndParseTrees(params string[] code)
         {
             List<IParseTree> parseTrees = new List<IParseTree>();
             DazelLogger.ThrowExceptions = true;
@@ -24,7 +24,14 @@ namespace Tests.EditMode
                 parseTrees.Add(parser.start());
             }
 
-            return new AstBuilder().BuildAst(parseTrees);
+            return (new AstBuilder(), parseTrees);
+        }
+        
+        public static AbstractSyntaxTree BuildAst(params string[] code)
+        {
+            (AstBuilder astBuilder, List<IParseTree> parseTrees) = GetAstBuilderAndParseTrees(code);
+
+            return astBuilder.BuildAst(parseTrees);
         }
     }
 }

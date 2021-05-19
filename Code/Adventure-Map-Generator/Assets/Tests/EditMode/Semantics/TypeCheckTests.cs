@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Antlr4.Runtime.Tree;
 using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
@@ -48,14 +49,15 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_AllScopesAccountedFor()
         {
-            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode);
+            (AstBuilder astBuilder, List<IParseTree> parseTrees) = TestAstBuilder.GetAstBuilderAndParseTrees(TestCode);
+            AbstractSyntaxTree ast = astBuilder.BuildAst(parseTrees);
             TypeChecker tc = new TypeChecker(ast);
             
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
             // Expect four scopes and one top symbol table
             Assert.That(EnvironmentStore.TopSymbolTablesCount == 1, "EnvironmentStore.TopSymbolTables.Count == 1");
-            //Assert.That(ast.EnvironmentStack.Count == 4, "tc.EnvironmentStack.Count == 4");
+            Assert.That(astBuilder.EnvironmentStack.Count == 0, "tc.EnvironmentStack.Count == 4");
         }
         
         private const string TestCode2 =
@@ -239,7 +241,6 @@ namespace Tests.EditMode.Semantics
             ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
             
             Assert.That(value != null, "value != null");
-            Debug.Log(value);
         }
     }
 }
