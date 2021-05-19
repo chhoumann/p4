@@ -32,7 +32,7 @@ namespace Tests.EditMode.Semantics
             Linker tc = new Linker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
         }
         
         private const string TestCode2_1 = 
@@ -109,7 +109,7 @@ namespace Tests.EditMode.Semantics
             bool wasFound = ast.TryRetrieveNode(link);
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
             Assert.True(wasFound);
         }
     }

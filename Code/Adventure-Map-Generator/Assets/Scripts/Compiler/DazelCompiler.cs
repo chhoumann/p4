@@ -11,7 +11,7 @@ using Dazel.IntermediateModels;
 
 namespace Dazel.Compiler
 {
-    public sealed class DazelCompiler
+    public static class DazelCompiler
     {
         public static DazelLogger Logger { get; private set; }
         

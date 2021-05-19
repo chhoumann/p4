@@ -21,7 +21,7 @@ namespace Dazel.Compiler.Ast.Nodes.StatementNodes
                 Function = function;
                 return function.GetReturnType(Parameters);
             }
-
+            
             DazelCompiler.Logger.EmitError($"{Identifier} function not found in Dazel Standard Library.", Token);
             return null;
         }

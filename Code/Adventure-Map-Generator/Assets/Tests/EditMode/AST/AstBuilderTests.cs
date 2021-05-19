@@ -71,7 +71,7 @@ namespace Tests.EditMode.AST
         public void ASTBuilder_Visit_NonExistingFunctionCallThrows()
         {
             void TestDelegate() => TestAstBuilder.BuildAst(TestCode1);
-            Assert.Throws<ArgumentException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
         }
 
         #region Visitor

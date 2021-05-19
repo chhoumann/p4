@@ -61,7 +61,7 @@ namespace Tests.EditMode.Semantics
             TypeChecker tc = new TypeChecker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
         }
         
         private const string TestCode3 =
@@ -80,7 +80,7 @@ namespace Tests.EditMode.Semantics
             TypeChecker tc = new TypeChecker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
         }
         
         private const string TestCode4_1 =
@@ -141,7 +141,7 @@ namespace Tests.EditMode.Semantics
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
         }
 
         private const string TestCode6 =
@@ -160,7 +160,7 @@ namespace Tests.EditMode.Semantics
             TypeChecker tc = new TypeChecker(ast);
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
         }
         
         private const string TestCode7 =
@@ -206,7 +206,7 @@ namespace Tests.EditMode.Semantics
             List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
             ast.TryRetrieveNode(variablePath, out string identifier, out ValueNode value);
             
-            Assert.Throws<InvalidOperationException>(TestDelegate);
+            Assert.Throws<Exception>(TestDelegate);
             Assert.That(value == null);
             Assert.That(identifier == "x");
         }

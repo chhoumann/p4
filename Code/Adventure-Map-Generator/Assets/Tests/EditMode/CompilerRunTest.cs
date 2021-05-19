@@ -54,7 +54,7 @@ namespace Tests.EditMode
         public void DazelCompiler_TryRun_ThrowOnValidSourceCode()
         {
             UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
-            DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2);
+            DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2).ThrowExceptions(true);
             bool run = dazelCompiler.TryRun(out _);
             Assert.False(run);
         }
