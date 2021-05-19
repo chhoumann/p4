@@ -11,18 +11,21 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         public PrintFunction() : base(SymbolType.Void) { }
 
         public override int NumArguments => 1;
-
+        
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
             ValueNode = parameters[0];
+
             return null;
         }
 
-        public void Log()
+        public void Log(SymbolTable<SymbolTableEntry> currentSymbolTable)
         {
             if (ValueNode is IdentifierValueNode identifierValueNode)
             {
-                DazelLogger.EmitMessage(identifierValueNode.ValueNode.ToString(), ValueNode.Token);
+                SymbolTableEntry symbolTableEntry = currentSymbolTable.symbols[identifierValueNode.Identifier];
+                
+                DazelLogger.EmitMessage(symbolTableEntry.ToString(), ValueNode.Token);
             }
             else
             {

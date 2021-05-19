@@ -9,9 +9,10 @@ namespace Dazel.Compiler.SemanticAnalysis
         protected abstract string GameObjectIdentifier { get; set; }
         
         public Stack<SymbolTable<SymbolTableEntry>> EnvironmentStack { get; } = new Stack<SymbolTable<SymbolTableEntry>>();
-        public static int TopSymbolTablesCount => TopSymbolTables.Count;
+        public static int TopSymbolTablesCount => topSymbolTables.Count;
 
-        private static Dictionary<string, SymbolTable<SymbolTableEntry>> TopSymbolTables { get; } = new Dictionary<string, SymbolTable<SymbolTableEntry>>();
+        public static IReadOnlyDictionary<string, SymbolTable<SymbolTableEntry>> TopSymbolTables => topSymbolTables;
+        private static readonly Dictionary<string, SymbolTable<SymbolTableEntry>> topSymbolTables = new Dictionary<string, SymbolTable<SymbolTableEntry>>();
         
         protected SymbolTable<SymbolTableEntry> CurrentTopScope;
         
@@ -24,9 +25,9 @@ namespace Dazel.Compiler.SemanticAnalysis
 
             parentScope?.Children.Add(newScope);
 
-            if (parentScope == null && !TopSymbolTables.ContainsKey(GameObjectIdentifier))
+            if (parentScope == null && !topSymbolTables.ContainsKey(GameObjectIdentifier))
             {
-                TopSymbolTables.Add(GameObjectIdentifier, newScope);
+                topSymbolTables.Add(GameObjectIdentifier, newScope);
             }
             
             CurrentTopScope = newScope;
@@ -55,7 +56,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             string symbolIdentifier = identifierList[identifierList.Count - 1];
             
-            SymbolTable<SymbolTableEntry> symbolTable = TopSymbolTables[identifierList[0]];
+            SymbolTable<SymbolTableEntry> symbolTable = topSymbolTables[identifierList[0]];
             SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInChildScope(symbolIdentifier);
 
             if (symbolTableEntry is VariableSymbolTableEntry variableSymbolTableEntry)
@@ -66,6 +67,6 @@ namespace Dazel.Compiler.SemanticAnalysis
             return null;
         }
         
-        public static void CleanUp() => TopSymbolTables.Clear();
+        public static void CleanUp() => topSymbolTables.Clear();
     }
 }
