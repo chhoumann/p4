@@ -8,6 +8,7 @@ using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.StandardLibrary.Functions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -194,6 +195,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
+                Debug.Log($"{tileExit.Coordinates}: {tileExit.ToExit}");
                 EnvironmentStore.AccessMember(tileExit.ToExit);
             }
 

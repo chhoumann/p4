@@ -22,16 +22,14 @@ namespace Dazel.Compiler.StandardLibrary.Functions
 
         public void Log()
         {
-            if (ValueNode is IdentifierValueNode identifierValueNode)
+            /*if (ValueNode is IdentifierValueNode identifierValueNode)
             {
-                SymbolTableEntry symbolTableEntry = currentSymbolTable.symbols[identifierValueNode.Identifier];
-                
                 DazelLogger.EmitMessage(symbolTableEntry.ToString(), ValueNode.Token);
             }
             else
             {
                 DazelLogger.EmitMessage(ValueNode.ToString(), ValueNode.Token);
-            }
+            }*/
         }
     }
 }

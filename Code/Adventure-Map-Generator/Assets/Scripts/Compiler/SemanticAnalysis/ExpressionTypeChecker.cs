@@ -10,14 +10,12 @@ namespace Dazel.Compiler.SemanticAnalysis
 {
     public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
-        private readonly AbstractSyntaxTree ast;
-        private readonly SymbolTable<SymbolTableEntry> symbolTable;
+        private readonly SymbolTable<SymbolTableEntry> scope;
         private readonly TypeHandler typeHandler;
 
-        public ExpressionTypeChecker(AbstractSyntaxTree ast, SymbolTable<SymbolTableEntry> symbolTable)
+        public ExpressionTypeChecker(SymbolTable<SymbolTableEntry> scope)
         {
-            this.ast = ast;
-            this.symbolTable = symbolTable;
+            this.scope = scope;
             typeHandler = new TypeHandler();
         }
         
@@ -71,7 +69,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            SymbolTableEntry entry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+            SymbolTableEntry entry = scope.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
 
             if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
             {
@@ -79,7 +77,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 SetNumericalExpression(identifierValueNode, expression, entry.Type);
             }
 
-            SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+            SymbolTableEntry symbolTableEntry = scope.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
             typeHandler.SetType(symbolTableEntry.Type, identifierValueNode.Token);
         }
 

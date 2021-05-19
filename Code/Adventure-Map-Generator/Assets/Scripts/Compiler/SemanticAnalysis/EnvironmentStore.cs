@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.ErrorHandler;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -18,14 +19,14 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         protected void OpenScope()
         {
-            SymbolTable<SymbolTableEntry> parentScope = EnvironmentStack.Count > 0 ? EnvironmentStack.Peek() : null;
+            SymbolTable<SymbolTableEntry> parentScope = EnvironmentStack.Count > 0 ? CurrentTopScope : null;
             SymbolTable<SymbolTableEntry> newScope = new SymbolTable<SymbolTableEntry>(parentScope);
             
             EnvironmentStack.Push(newScope);
 
             parentScope?.Children.Add(newScope);
 
-            if (parentScope == null && !topSymbolTables.ContainsKey(GameObjectIdentifier))
+            if (!topSymbolTables.ContainsKey(GameObjectIdentifier))
             {
                 topSymbolTables.Add(GameObjectIdentifier, newScope);
             }
@@ -55,7 +56,20 @@ namespace Dazel.Compiler.SemanticAnalysis
         public static VariableSymbolTableEntry AccessMember(List<string> identifierList)
         {
             string symbolIdentifier = identifierList[identifierList.Count - 1];
-            
+            /*Debug.Log($"Looking for {symbolIdentifier} in {identifierList[0]}");
+
+            Debug.Log(topSymbolTables[identifierList[0]]);
+            Debug.Log(topSymbolTables[identifierList[0]].Children.Count);
+
+            foreach (var child in topSymbolTables[identifierList[0]].Children)
+            {
+                foreach (KeyValuePair<string, SymbolTableEntry> childSymbol in child.symbols)
+                {
+                    Debug.Log(childSymbol.Key);
+                    Debug.Log(childSymbol.Value);
+                }
+            }*/
+
             SymbolTable<SymbolTableEntry> symbolTable = topSymbolTables[identifierList[0]];
             SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInChildScope(symbolIdentifier);
 

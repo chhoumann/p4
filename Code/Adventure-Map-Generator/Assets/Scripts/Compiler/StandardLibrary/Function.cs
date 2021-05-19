@@ -12,7 +12,7 @@ namespace Dazel.Compiler.StandardLibrary
         public abstract int NumArguments { get; }
         private SymbolType ReturnType { get; }
 
-        protected ValueNode ValueNode;
+        public ValueNode ValueNode { get; protected set; }
 
         protected Function(SymbolType returnType)
         {

@@ -56,7 +56,9 @@ namespace Dazel.Compiler.SemanticAnalysis
                 }
             }
 
-            throw new ArgumentException($"Invalid identifier: {identifier}.");
+            var x = new ArgumentException($"Invalid identifier: {identifier}.");
+            Debug.Log(x);
+            throw x;
         }
         
         public SymbolTable<T> RetrieveSymbolTable(string symbolIdentifier)
@@ -73,6 +75,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void AddOrUpdateSymbol(string identifier, T data)
         {
+            Debug.Log($"{identifier}: {data} ({typeof(T)})");
             if (symbols.ContainsKey(identifier))
             {
                 symbols[identifier] = data;
