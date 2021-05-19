@@ -14,9 +14,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions
 
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
-            Debug.Log($"Patient0: {parameters[0]}");
             ValueNode = parameters[0];
-            Debug.Log($"Given {ValueNode}");
             return null;
         }
 
