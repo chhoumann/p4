@@ -83,6 +83,10 @@ namespace Dazel.Compiler
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
                 new TypeChecker(ast).Visit(gameObject);
+            }
+            
+            foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+            {
                 new Linker(ast).Visit(gameObject);
             }
         }

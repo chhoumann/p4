@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.ErrorHandler;
+using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
-    public sealed class ExpressionEvaluator<T> : SemanticAnalysis, IExpressionVisitor
+    public sealed class ExpressionEvaluator<T> : IExpressionVisitor
     {
         public T Result { get; private set; }
-        private readonly AbstractSyntaxTree ast;
         private readonly Calculator<T> calculator;
 
-        public ExpressionEvaluator(AbstractSyntaxTree ast, Calculator<T> calculator)
+        public ExpressionEvaluator(Calculator<T> calculator)
         {
-            this.ast = ast;
             this.calculator = calculator;
         }
         
@@ -79,36 +79,28 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            List<string> identifierList = memberAccessNode.Identifiers;
+            ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
             
-            if (ast.TryRetrieveNode(identifierList, out string _, out ValueNode valueNode))
+            switch (member)
             {
-                switch (valueNode)
-                {
-                    case ArrayNode arrayNode:
-                        Result = calculator.GetValue(arrayNode);
-                        break;
-                    case ScreenExitValueNode screenExitValueNode:
-                        screenExitValueNode.Accept(this);
-                        break;
-                    case TileExitValueNode tileExitValueNode:
-                        tileExitValueNode.Accept(this);
-                        break;
-                    case IntValueNode intValueNode:
-                        Result = calculator.GetValue(intValueNode.Value);
-                        break;
-                    case StringNode stringNode:
-                        Result = calculator.GetValue(stringNode.Value);
-                        break;
-                    case FloatValueNode floatValueNode:
-                        Result = calculator.GetValue(floatValueNode.Value);
-                        break;
-                    
-                }
-            }
-            else
-            {
-                DazelLogger.EmitError($"Identifier {string.Join(", ", identifierList)} was used but could not be found.", memberAccessNode.Token);
+                case ArrayNode arrayNode:
+                    Result = calculator.GetValue(arrayNode);
+                    break;
+                case ScreenExitValueNode screenExitValueNode:
+                    screenExitValueNode.Accept(this);
+                    break;
+                case TileExitValueNode tileExitValueNode:
+                    tileExitValueNode.Accept(this);
+                    break;
+                case IntValueNode intValueNode:
+                    Result = calculator.GetValue(intValueNode.Value);
+                    break;
+                case StringNode stringNode:
+                    Result = calculator.GetValue(stringNode.Value);
+                    break;
+                case FloatValueNode floatValueNode:
+                    Result = calculator.GetValue(floatValueNode.Value);
+                    break;
             }
         }
 

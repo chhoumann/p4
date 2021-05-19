@@ -14,5 +14,10 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
         {
             visitor.Visit(this);
         }
+
+        public override string ToString()
+        {
+            return string.Join(".", Identifiers);
+        }
     }
 }

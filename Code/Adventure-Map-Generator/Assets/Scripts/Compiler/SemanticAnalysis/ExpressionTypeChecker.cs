@@ -60,14 +60,8 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            if (ast.TryRetrieveNode(memberAccessNode.Identifiers, out string identifier, out ValueNode value))
-            {
-                typeHandler.SetType(value.Type, value.Token);
-            }
-            else
-            {
-                DazelLogger.EmitError($"{string.Join(".", memberAccessNode.Identifiers)} was not found.", memberAccessNode.Token);
-            }
+            ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
+            typeHandler.SetType(member.Type, member.Token);
         }
 
         public void Visit(FloatValueNode floatValueNode)
@@ -77,7 +71,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            SymbolTableEntry entry = symbolTable.RetrieveSymbol(identifierValueNode.Identifier);
+            SymbolTableEntry entry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
 
             if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
             {
@@ -85,7 +79,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 SetNumericalExpression(identifierValueNode, expression, entry.Type);
             }
 
-            SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbol(identifierValueNode.Identifier);
+            SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
             typeHandler.SetType(symbolTableEntry.Type, identifierValueNode.Token);
         }
 
@@ -131,7 +125,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 case SymbolType.Float:
                 {
                     var floatValueNode = new FloatValueNode();
-                    var expressionEvaluator = new ExpressionEvaluator<float>(ast, new FloatCalculator(expressionNode.Token));
+                    var expressionEvaluator = new ExpressionEvaluator<float>(new FloatCalculator(expressionNode.Token));
 
                     expressionNode.Accept(expressionEvaluator);
 
@@ -142,7 +136,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 case SymbolType.Integer:
                 {
                     var intValueNode = new IntValueNode();
-                    var expressionEvaluator = new ExpressionEvaluator<int>(ast, new IntCalculator(expressionNode.Token));
+                    var expressionEvaluator = new ExpressionEvaluator<int>(new IntCalculator(expressionNode.Token));
 
                     expressionNode.Accept(expressionEvaluator);
 

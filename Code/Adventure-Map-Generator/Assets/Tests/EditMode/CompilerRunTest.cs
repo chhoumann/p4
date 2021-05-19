@@ -1,14 +1,16 @@
-﻿using System;
-using Dazel.Compiler;
+﻿using Dazel.Compiler;
 using Dazel.Compiler.ErrorHandler;
+using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests.EditMode
 {
     [TestFixture]
     public class CompilerRunTest
     {
+        [TearDown]
+        public void CleanUp() => EnvironmentStore.CleanUp();
+        
         private const string TestCode1_1 =
             "Screen SampleScreen1" +
             "{" +

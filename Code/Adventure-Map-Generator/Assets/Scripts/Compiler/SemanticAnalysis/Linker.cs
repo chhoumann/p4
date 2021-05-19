@@ -11,7 +11,7 @@ using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class Linker : EnvironmentStore, ICompleteVisitor
+    public sealed class Linker : ICompleteVisitor
     {
         private readonly AbstractSyntaxTree abstractSyntaxTree;
 
@@ -163,11 +163,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            if (!abstractSyntaxTree.TryRetrieveNode(memberAccessNode.Identifiers))
-            {
-                DazelLogger.EmitError(
-                    $"Member {string.Join(".", memberAccessNode.Identifiers)} does not exist.", memberAccessNode.Token);
-            }
+            EnvironmentStore.AccessMember(memberAccessNode);
         }
 
         public void Visit(FloatValueNode floatValueNode)
@@ -198,11 +194,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             if (exitValueNode is TileExitValueNode tileExit)
             {
-                if (!abstractSyntaxTree.TryRetrieveNode(tileExit.ToExit.Identifiers))
-                {
-                    DazelLogger.EmitError(
-                        $"Exit {tileExit} is invalid: {string.Join(".", tileExit.ToExit.Identifiers)} does not exist.", exitValueNode.Token);
-                }
+                EnvironmentStore.AccessMember(tileExit.ToExit);
             }
 
             if (exitValueNode is ScreenExitValueNode screenExit)

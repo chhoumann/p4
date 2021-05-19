@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dazel.Compiler.Ast;
-using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
+using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
 using UnityEngine;
@@ -12,6 +12,9 @@ namespace Tests.EditMode.Semantics
     [TestFixture]
     public class TypeCheckTests
     {
+        [TearDown]
+        public void CleanUp() => EnvironmentStore.CleanUp();
+
         private const string TestCode =
             "Screen SampleScreen1" + // Test GameObject
             "{" +
@@ -40,8 +43,9 @@ namespace Tests.EditMode.Semantics
             
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
-            // We know that, if the stack height is 0, then the scopes have all been popped off the stack.
-            Assert.That(tc.EnvironmentStack.Count == 0, "tc.EnvironmentStack.Count == 0");
+            // Expect four scopes and one top symbol table
+            Assert.That(EnvironmentStore.TopSymbolTablesCount == 1, "EnvironmentStore.TopSymbolTables.Count == 1");
+            Assert.That(tc.EnvironmentStack.Count == 4, "tc.EnvironmentStack.Count == 4");
         }
         
         private const string TestCode2 =
@@ -88,6 +92,7 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
+            "       a = 1 + 1;" + 
             "       exit1 = Exit([0, 0], SampleScreen2.Exits.exit1);" + 
             "   }" +
             "}";
@@ -107,8 +112,16 @@ namespace Tests.EditMode.Semantics
             void TestDelegate()
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_1, TestCode4_2);
-                TypeChecker tc = new TypeChecker(ast);
-                tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+                
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new TypeChecker(ast).Visit(gameObject);
+                }
+                
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new Linker(ast).Visit(gameObject);
+                }
             }
             
             Assert.DoesNotThrow(TestDelegate);
@@ -139,7 +152,16 @@ namespace Tests.EditMode.Semantics
             void TestDelegate()
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode4_3, TestCode4_4);
-                new TypeChecker(ast).Visit(ast.Root.GameObjects["SampleScreen1"]);
+                
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new TypeChecker(ast).Visit(gameObject);
+                }
+                
+                foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
+                {
+                    new Linker(ast).Visit(gameObject);
+                }
             }
 
             Assert.Throws<Exception>(TestDelegate);
@@ -181,11 +203,11 @@ namespace Tests.EditMode.Semantics
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
-            ast.TryRetrieveNode(variablePath, out string identifier, out ValueNode value);
+
+            ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
             
             Assert.DoesNotThrow(TestDelegate);
             Assert.That(value == null);
-            Assert.That(identifier == "x");
         }
         
         private const string TestCode8 =
@@ -205,11 +227,11 @@ namespace Tests.EditMode.Semantics
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
-            ast.TryRetrieveNode(variablePath, out string identifier, out ValueNode value);
+            
+            ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
             
             Assert.Throws<Exception>(TestDelegate);
             Assert.That(value == null);
-            Assert.That(identifier == "x");
         }
         
         private const string TestCode9 =
@@ -229,11 +251,11 @@ namespace Tests.EditMode.Semantics
 
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
-            ast.TryRetrieveNode(variablePath, out string identifier, out ExpressionNode value);
+            
+            ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
             
             Assert.DoesNotThrow(TestDelegate);
             Assert.That(value != null, "value != null");
-            Assert.That(identifier == "x", "identifier == 'x'");
             Debug.Log(value);
         }
     }

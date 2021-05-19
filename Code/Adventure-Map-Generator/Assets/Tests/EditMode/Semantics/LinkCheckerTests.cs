@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using Dazel.Compiler.Ast;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
 
 namespace Tests.EditMode.Semantics
 {
-    public class ExitCheckerTests
+    public sealed class ExitCheckerTests
     {
+        [TearDown]
+        public void CleanUp() => EnvironmentStore.CleanUp();
+        
         private const string TestCode1_1 =
             "Screen SampleScreen1" +
             "{" +
@@ -50,12 +52,9 @@ namespace Tests.EditMode.Semantics
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode2_1);
             Linker tc = new Linker(ast);
 
-            List<string> samplescreen2exit = new List<string>() {"SampleScreen2", "Exits", "s2exit1"};
-            bool wasFound = ast.TryRetrieveNode(samplescreen2exit);
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
             Assert.DoesNotThrow(TestDelegate);
-            Assert.True(wasFound);
         }
         
         private const string TestCode3_1 = 
@@ -82,12 +81,9 @@ namespace Tests.EditMode.Semantics
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_1, TestCode3_2);
             Linker tc = new Linker(ast);
 
-            List<string> link = new List<string>() {"SampleScreen1", "Exits", "x"};
-            bool wasFound = ast.TryRetrieveNode(link);
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
             Assert.DoesNotThrow(TestDelegate);
-            Assert.True(wasFound);
         }
         
         private const string TestCode3_3 = 
@@ -104,13 +100,10 @@ namespace Tests.EditMode.Semantics
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
             Linker tc = new Linker(ast);
-
-            List<string> link = new List<string>() {"SampleScreen1", "Exits", "x"};
-            bool wasFound = ast.TryRetrieveNode(link);
+            
             void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             
             Assert.Throws<Exception>(TestDelegate);
-            Assert.True(wasFound);
         }
     }
 }
