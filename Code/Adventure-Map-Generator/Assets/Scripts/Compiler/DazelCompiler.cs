@@ -52,7 +52,7 @@ namespace Dazel.Compiler
 
                 PrintAst(ast);
                 PerformSemanticAnalysis(ast);
-
+                
                 screenModels = GenerateIntermediateModels(ast);
                 return true;
             }

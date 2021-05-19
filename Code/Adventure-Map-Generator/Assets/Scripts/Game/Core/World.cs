@@ -70,7 +70,6 @@ namespace Dazel.Game.Core
             foreach (ScreenModel screenModel in ScreenModels)
             {
                 GameScreen screen = screens[screenModel.Identifier];
-
                 foreach (ScreenExitModel screenExitModel in screenModel.ScreenExits)
                 {
                     GameScreen connectedScreen = screens[screenExitModel.ConnectedScreenIdentifier];

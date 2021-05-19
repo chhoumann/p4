@@ -21,15 +21,12 @@ namespace Dazel.Compiler.ErrorHandler
             StringBuilder errorLog = new StringBuilder();
             base.SyntaxError(output, recognizer, offendingSymbol, line, charPositionInLine, msg, e);
             
-            IEnumerable<string> reversedInvocationStack = ((Parser) recognizer).GetRuleInvocationStack().Reverse();
             string underlineError = UnderlineError(recognizer, offendingSymbol, line, charPositionInLine);
 
             errorLog.AppendLine($"File: {recognizer.InputStream.SourceName}");
             errorLog.AppendLine($"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
             errorLog.AppendLine($"Error: \n{underlineError}");
 
-            string ruleStack = string.Join("\n", reversedInvocationStack);
-            
             dazelLogger.EmitError(errorLog.ToString(), offendingSymbol);
         }
 
