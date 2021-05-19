@@ -10,11 +10,6 @@ namespace Dazel.Compiler.ErrorHandler
 
         public bool ThrowExceptions { get; set; }
 
-        public DazelLogger(bool throwExceptions)
-        {
-            ThrowExceptions = throwExceptions;
-        }
-        
         public void EmitError(string message, IToken token)
         {
             string output = $"Error on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
