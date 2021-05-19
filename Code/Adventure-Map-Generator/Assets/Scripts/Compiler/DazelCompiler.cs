@@ -31,25 +31,15 @@ namespace Dazel.Compiler
         
         public bool TryRun(out IEnumerable<ScreenModel> screenModels)
         {
-            try
-            {
-                IEnumerable<IParseTree> parseTrees = BuildParseTrees();
+            IEnumerable<IParseTree> parseTrees = BuildParseTrees();
 
-                AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
+            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
 
-                PrintAst(ast);
-                PerformSemanticAnalysis(ast);
-                
-                screenModels = GenerateIntermediateModels(ast);
-                return true;
-            }
-            catch (Exception e)
-            {
-                // ignored
-            }
-
-            screenModels = default;
-            return false;
+            PrintAst(ast);
+            PerformSemanticAnalysis(ast);
+            
+            screenModels = GenerateIntermediateModels(ast);
+            return true;
         }
 
         private IEnumerable<IParseTree> BuildParseTrees()
