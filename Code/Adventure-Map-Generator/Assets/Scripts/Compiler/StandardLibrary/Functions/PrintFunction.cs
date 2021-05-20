@@ -11,7 +11,6 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         public PrintFunction() : base(SymbolType.Void) { }
 
         public override int NumArguments => 1;
-        private SymbolTable<SymbolTableEntry> currentSymbolTable;
         
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
@@ -24,7 +23,7 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         {
             if (ValueNode is IdentifierValueNode identifierValueNode)
             {
-                SymbolTableEntry symbolTableEntry = currentSymbolTable.symbols[identifierValueNode.Identifier];
+                SymbolTableEntry symbolTableEntry = CurrentSymbolTable.symbols[identifierValueNode.Identifier];
                 
                 DazelLogger.EmitMessage(symbolTableEntry.ToString(), ValueNode.Token);
             }

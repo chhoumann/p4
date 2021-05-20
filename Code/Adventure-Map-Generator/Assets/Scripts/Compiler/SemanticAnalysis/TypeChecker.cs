@@ -5,6 +5,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.StandardLibrary.Functions;
 using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
@@ -80,6 +81,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
+            functionInvocationNode.Function.CurrentSymbolTable = CurrentTopScope;
             FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
             
             CurrentTopScope.AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);
