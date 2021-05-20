@@ -128,7 +128,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                     expressionValue = idEval.Result;
                     break;
                 case SymbolType.MemberAccess:
-                    expressionValue = (ValueNode)assignmentNode.Expression;
+                    expressionValue = (ValueNode) assignmentNode.Expression;
                     /*var maEval = new ExpressionEvaluator<ValueNode>(new NoOpCalculator<ValueNode>(assignmentNode.Token));
                     assignmentNode.Expression.Accept(maEval);
                     expressionValue = maEval.Result*/;

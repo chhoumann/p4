@@ -1,5 +1,6 @@
 ﻿using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.SemanticAnalysis;
+using UnityEngine;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
@@ -10,17 +11,11 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
         public override void Visit(MemberAccessNode memberAccessNode)
         {
             ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
-            
+
             switch (member)
             {
                 case ArrayNode arrayNode:
                     Result = Calculator.GetValue(arrayNode);
-                    break;
-                case ScreenExitValueNode screenExitValueNode:
-                    screenExitValueNode.Accept(this);
-                    break;
-                case TileExitValueNode tileExitValueNode:
-                    tileExitValueNode.Accept(this);
                     break;
                 case IntValueNode intValueNode:
                     Result = Calculator.GetValue(intValueNode.Value);
