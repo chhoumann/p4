@@ -56,7 +56,7 @@ namespace Tests.EditMode.Semantics
             {
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
                 {
-                    new TypeChecker(ast).Visit(gameObject);
+                    new TypeChecker().Visit(gameObject);
                 }
             
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -95,7 +95,7 @@ namespace Tests.EditMode.Semantics
             {
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
                 {
-                    new TypeChecker(ast).Visit(gameObject);
+                    new TypeChecker().Visit(gameObject);
                 }
             
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)

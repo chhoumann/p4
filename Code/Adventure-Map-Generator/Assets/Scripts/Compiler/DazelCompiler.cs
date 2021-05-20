@@ -8,7 +8,6 @@ using Dazel.Compiler.CodeGeneration;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.IntermediateModels;
-using UnityEngine;
 
 namespace Dazel.Compiler
 {
@@ -73,7 +72,7 @@ namespace Dazel.Compiler
         {
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
-                new TypeChecker(ast).Visit(gameObject);
+                new TypeChecker().Visit(gameObject);
             }
             
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)

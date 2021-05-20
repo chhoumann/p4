@@ -19,7 +19,7 @@ namespace Tests.EditMode.Semantics
         {
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
-                new TypeChecker(ast).Visit(gameObject);
+                new TypeChecker().Visit(gameObject);
             }
             
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -52,7 +52,7 @@ namespace Tests.EditMode.Semantics
         public void TypeCheck_Visit_AllScopesAccountedFor()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode);
-            TypeChecker tc = new TypeChecker(ast);
+            TypeChecker tc = new TypeChecker();
             
             tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
             

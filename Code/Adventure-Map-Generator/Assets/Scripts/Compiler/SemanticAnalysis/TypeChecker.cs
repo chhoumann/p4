@@ -5,8 +5,6 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
-using Dazel.Compiler.StandardLibrary.Functions;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -14,13 +12,6 @@ namespace Dazel.Compiler.SemanticAnalysis
     {
         protected override string GameObjectIdentifier { get; set; }
         
-        private readonly AbstractSyntaxTree ast;
-
-        public TypeChecker(AbstractSyntaxTree ast)
-        {
-            this.ast = ast;
-        }
-
         public void Visit(GameObjectNode gameObjectNode)
         {
             GameObjectIdentifier = gameObjectNode.Identifier;
