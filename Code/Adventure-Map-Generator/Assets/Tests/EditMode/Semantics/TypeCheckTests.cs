@@ -6,7 +6,6 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests.EditMode.Semantics
 {
@@ -49,11 +48,13 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_AllScopesAccountedFor()
         {
-            (AstBuilder astBuilder, List<IParseTree> parseTrees) = TestAstBuilder.GetAstBuilderAndParseTrees(TestCode);
-            AbstractSyntaxTree ast = astBuilder.BuildAst(parseTrees);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode);
             TypeChecker tc = new TypeChecker();
             
-            tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            foreach (GameObjectNode gameObjectNode in ast.Root.GameObjects.Values)
+            {
+                tc.Visit(gameObjectNode);
+            }
             
             // Expect four scopes and one top symbol table
             Assert.That(EnvironmentStore.TopSymbolTablesCount == 1, "EnvironmentStore.TopSymbolTables.Count == 1");
@@ -73,7 +74,6 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_ArrayPlusIntegerFails()
         {
-
             Assert.Throws<Exception>(() =>
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode2);
@@ -97,7 +97,7 @@ namespace Tests.EditMode.Semantics
             Assert.Throws<Exception>(() =>
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3);
-
+                
                 TestDelegate(ast);
             });
         }

@@ -204,7 +204,7 @@ namespace Dazel.Compiler.Ast
 
             if (context.functionInvocation() != null)
             {
-                return VisitFunctionInvocation(context.functionInvocation()).Create();
+                return VisitFunctionInvocation(context.functionInvocation()).Function.ValueNode;
             }
             
             switch (context.terminalValue.Type)
@@ -396,10 +396,7 @@ namespace Dazel.Compiler.Ast
                 return VisitAssignment(context.assignment());
             }
             
-            FunctionInvocationNode functionInvocation = VisitFunctionInvocation(context.functionInvocation());
-            functionInvocation.Create();
-
-            return functionInvocation;
+            return VisitFunctionInvocation(context.functionInvocation());
         }
 
         public FunctionInvocationNode VisitFunctionInvocation(DazelParser.FunctionInvocationContext context)
@@ -409,7 +406,7 @@ namespace Dazel.Compiler.Ast
                 Token = context.Start,
                 Identifier = context.IDENTIFIER().GetText(),
                 Parameters = VisitValueList(context.valueList()),
-            };
+            }.Setup();
         }
 
         public StatementExpressionNode VisitAssignment(DazelParser.AssignmentContext context)

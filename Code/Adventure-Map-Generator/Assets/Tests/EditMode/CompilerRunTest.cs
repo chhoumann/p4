@@ -1,7 +1,5 @@
 ﻿using Dazel.Compiler;
 using Dazel.Compiler.ErrorHandler;
-using Dazel.Compiler.SemanticAnalysis;
-using Dazel.Compiler.ErrorHandler;
 using NUnit.Framework;
 
 namespace Tests.EditMode
