@@ -5,19 +5,16 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.ErrorHandler;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
     public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
-        private readonly AbstractSyntaxTree ast;
-        private readonly SymbolTable<SymbolTableEntry> symbolTable;
+        private readonly SymbolTable symbolTable;
         private readonly TypeHandler typeHandler;
 
-        public ExpressionTypeChecker(AbstractSyntaxTree ast, SymbolTable<SymbolTableEntry> symbolTable)
+        public ExpressionTypeChecker(SymbolTable symbolTable)
         {
-            this.ast = ast;
             this.symbolTable = symbolTable;
             typeHandler = new TypeHandler();
         }

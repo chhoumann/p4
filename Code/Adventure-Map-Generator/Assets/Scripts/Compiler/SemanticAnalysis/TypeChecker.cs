@@ -89,7 +89,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(AssignmentNode assignmentNode)
         {
-            SymbolType expressionType = new ExpressionTypeChecker(ast, CurrentTopScope).GetType(assignmentNode.Expression);
+            SymbolType expressionType = new ExpressionTypeChecker(CurrentTopScope).GetType(assignmentNode.Expression);
             ValueNode expressionValue;
             
             switch (expressionType)

@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class SymbolTable<T>
+    public sealed class SymbolTable
     {
-        public readonly Dictionary<string, T> symbols = new Dictionary<string, T>();
+        public readonly Dictionary<string, SymbolTableEntry> symbols = new Dictionary<string, SymbolTableEntry>();
         
-        public SymbolTable<T> Parent { get; }
-        public List<SymbolTable<T>> Children { get; } = new List<SymbolTable<T>>();
+        public SymbolTable Parent { get; }
+        public List<SymbolTable> Children { get; } = new List<SymbolTable>();
 
-        public SymbolTable(SymbolTable<T> parent)
+        public SymbolTable(SymbolTable parent)
         {
             Parent = parent;
         }
 
-        public T RetrieveSymbolInParentScope(string identifier)
+        public SymbolTableEntry RetrieveSymbolInParentScope(string identifier)
         {
-            if (symbols.TryGetValue(identifier, out T symbol))
+            if (symbols.TryGetValue(identifier, out SymbolTableEntry symbol))
             {
                 return symbol;
             }
             
             if (Parent != null)
             {
-                T parentSymbol = Parent.RetrieveSymbolInParentScope(identifier);
+                SymbolTableEntry parentSymbol = Parent.RetrieveSymbolInParentScope(identifier);
 
                 if (parentSymbol != null)
                 {
@@ -36,18 +35,18 @@ namespace Dazel.Compiler.SemanticAnalysis
             throw new ArgumentException($"Invalid identifier: {identifier}.");
         }
         
-        public T RetrieveSymbolInChildScope(string identifier)
+        public SymbolTableEntry RetrieveSymbolInChildScope(string identifier)
         {
-            if (symbols.TryGetValue(identifier, out T symbol))
+            if (symbols.TryGetValue(identifier, out SymbolTableEntry symbol))
             {
                 return symbol;
             }
 
             if (Children.Count > 0)
             {
-                foreach (SymbolTable<T> childSymbolTable in Children)
+                foreach (SymbolTable childSymbolTable in Children)
                 {
-                    T childSymbol = childSymbolTable.RetrieveSymbolInChildScope(identifier);
+                    SymbolTableEntry childSymbol = childSymbolTable.RetrieveSymbolInChildScope(identifier);
 
                     if (childSymbol != null)
                     {
@@ -59,19 +58,19 @@ namespace Dazel.Compiler.SemanticAnalysis
             throw new ArgumentException($"Invalid identifier: {identifier}.");
         }
         
-        public SymbolTable<T> RetrieveSymbolTable(string symbolIdentifier)
+        public SymbolTable RetrieveSymbolTable(string symbolIdentifier)
         {
             if (symbols.ContainsKey(symbolIdentifier))
             {
                 return this;
             }
 
-            SymbolTable<T> parentSymbolTable = Parent?.RetrieveSymbolTable(symbolIdentifier);
+            SymbolTable parentSymbolTable = Parent?.RetrieveSymbolTable(symbolIdentifier);
 
             return parentSymbolTable;
         }
 
-        public void AddOrUpdateSymbol(string identifier, T data)
+        public void AddOrUpdateSymbol(string identifier, SymbolTableEntry data)
         {
             if (symbols.ContainsKey(identifier))
             {
@@ -79,7 +78,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 return;
             }
 
-            SymbolTable<T> symbolTable = RetrieveSymbolTable(identifier);
+            SymbolTable symbolTable = RetrieveSymbolTable(identifier);
 
             if (symbolTable != null)
             {
