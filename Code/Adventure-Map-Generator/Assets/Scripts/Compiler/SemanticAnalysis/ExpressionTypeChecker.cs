@@ -5,6 +5,7 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.ErrorHandler;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -60,8 +61,9 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
-            typeHandler.SetType(member.Type, member.Token);
+            //ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
+            //typeHandler.SetType(member.Type, member.Token);
+            typeHandler.SetType(memberAccessNode.Type, memberAccessNode.Token);
         }
 
         public void Visit(FloatValueNode floatValueNode)

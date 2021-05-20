@@ -128,9 +128,10 @@ namespace Dazel.Compiler.SemanticAnalysis
                     expressionValue = idEval.Result;
                     break;
                 case SymbolType.MemberAccess:
-                    var maEval = new ExpressionEvaluator<ValueNode>(new NoOpCalculator<ValueNode>(assignmentNode.Token));
+                    expressionValue = (ValueNode)assignmentNode.Expression;
+                    /*var maEval = new ExpressionEvaluator<ValueNode>(new NoOpCalculator<ValueNode>(assignmentNode.Token));
                     assignmentNode.Expression.Accept(maEval);
-                    expressionValue = maEval.Result;
+                    expressionValue = maEval.Result*/;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

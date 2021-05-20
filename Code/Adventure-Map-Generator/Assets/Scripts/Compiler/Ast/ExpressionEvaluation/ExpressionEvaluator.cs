@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
+﻿using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.ErrorHandler;
-using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
-    public sealed class ExpressionEvaluator<T> : IExpressionVisitor
+    public class ExpressionEvaluator<T> : IExpressionVisitor
     {
-        public T Result { get; private set; }
-        private readonly Calculator<T> calculator;
+        public T Result { get; protected set; }
+        protected readonly Calculator<T> Calculator;
 
         public ExpressionEvaluator(Calculator<T> calculator)
         {
-            this.calculator = calculator;
+            Calculator = calculator;
         }
         
         public void Visit(SumExpressionNode sumExpressionNode)
@@ -29,10 +26,10 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
             switch (sumExpressionNode.OperationNode.Operator)
             {
                 case Operators.AddOp:
-                    Result = calculator.Add(a, b);
+                    Result = Calculator.Add(a, b);
                     break;
                 case Operators.MinOp:
-                    Result = calculator.Subtract(a, b);
+                    Result = Calculator.Subtract(a, b);
                     break;
                 default:
                     DazelLogger.EmitError($"Operation {sumExpressionNode.OperationNode.Operator} is not valid.", sumExpressionNode.Token);
@@ -56,10 +53,10 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
             switch (factorExpressionNode.OperationNode.Operator)
             {
                 case Operators.MultOp:
-                    Result = calculator.Multiply(a, b);
+                    Result = Calculator.Multiply(a, b);
                     break;
                 case Operators.DivOp:
-                    Result = calculator.Divide(a, b);
+                    Result = Calculator.Divide(a, b);
                     break;
                 default:
                     DazelLogger.EmitError($"Operation {factorExpressionNode.OperationNode.Operator} is not valid.", factorExpressionNode.Token);
@@ -77,36 +74,13 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
             terminalExpressionNode.Child.Accept(this);
         }
 
-        public void Visit(MemberAccessNode memberAccessNode)
+        public virtual void Visit(MemberAccessNode memberAccessNode)
         {
-            ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
-            
-            switch (member)
-            {
-                case ArrayNode arrayNode:
-                    Result = calculator.GetValue(arrayNode);
-                    break;
-                case ScreenExitValueNode screenExitValueNode:
-                    screenExitValueNode.Accept(this);
-                    break;
-                case TileExitValueNode tileExitValueNode:
-                    tileExitValueNode.Accept(this);
-                    break;
-                case IntValueNode intValueNode:
-                    Result = calculator.GetValue(intValueNode.Value);
-                    break;
-                case StringNode stringNode:
-                    Result = calculator.GetValue(stringNode.Value);
-                    break;
-                case FloatValueNode floatValueNode:
-                    Result = calculator.GetValue(floatValueNode.Value);
-                    break;
-            }
         }
 
         public void Visit(FloatValueNode floatValueNode)
         {
-            Result = calculator.GetValue(floatValueNode.Value);
+            Result = Calculator.GetValue(floatValueNode.Value);
         }
 
         public void Visit(IdentifierValueNode identifierValueNode)
@@ -116,22 +90,22 @@ namespace Dazel.Compiler.Ast.ExpressionEvaluation
 
        public void Visit(IntValueNode intValueNode)
         {
-            Result = calculator.GetValue(intValueNode.Value);
+            Result = Calculator.GetValue(intValueNode.Value);
         }
 
         public void Visit(ArrayNode arrayNode)
         {
-            Result = calculator.GetValue(arrayNode);
+            Result = Calculator.GetValue(arrayNode);
         }
 
         public void Visit(StringNode stringNode)
         {
-            Result = calculator.GetValue(stringNode.Value);
+            Result = Calculator.GetValue(stringNode.Value);
         }
 
         public void Visit(ExitValueNode exitValueNode)
         {
-            Result = calculator.GetValue(exitValueNode);
+            Result = Calculator.GetValue(exitValueNode);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.ErrorHandler;
+using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -40,6 +41,11 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public static VariableSymbolTableEntry AccessMember(MemberAccessNode memberAccessNode)
         {
+            foreach (string key in topSymbolTables.Keys)
+            {
+                Debug.Log(key);
+            }
+            
             try
             {
                 return AccessMember(memberAccessNode.Identifiers);
