@@ -2,7 +2,6 @@
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
-using UnityEngine;
 
 namespace Dazel.Compiler.StandardLibrary.Functions
 {
@@ -23,9 +22,14 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         {
             if (ValueNode is IdentifierValueNode identifierValueNode)
             {
-                SymbolTableEntry symbolTableEntry = CurrentSymbolTable.symbols[identifierValueNode.Identifier];
-                
-                DazelLogger.EmitMessage(symbolTableEntry.ToString(), ValueNode.Token);
+                if (CurrentSymbolTable.symbols.TryGetValue(identifierValueNode.Identifier, out SymbolTableEntry symbolTableEntry))
+                {
+                    DazelLogger.EmitMessage(symbolTableEntry.ToString(), ValueNode.Token);
+                }
+                else
+                {
+                    DazelLogger.EmitWarning("null", ValueNode.Token);
+                }
             }
             else
             {
