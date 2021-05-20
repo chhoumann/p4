@@ -1,4 +1,4 @@
-﻿using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
+using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.ErrorHandler;

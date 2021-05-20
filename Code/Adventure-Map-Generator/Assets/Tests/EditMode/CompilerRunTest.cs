@@ -1,16 +1,14 @@
 ﻿using Dazel.Compiler;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
+using Dazel.Compiler.ErrorHandler;
 using NUnit.Framework;
 
 namespace Tests.EditMode
 {
     [TestFixture]
-    public class CompilerRunTest
+    public class CompilerRunTest : DazelTestBase
     {
-        [TearDown]
-        public void CleanUp() => EnvironmentStore.CleanUp();
-        
         private const string TestCode1_1 =
             "Screen SampleScreen1" +
             "{" +
@@ -58,15 +56,11 @@ namespace Tests.EditMode
         [Test]
         public void DazelCompiler_TryRun_ThrowOnValidSourceCode()
         {
-            void TestDelegate()
-            {
-                UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
-                DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2);
-                DazelLogger.ThrowExceptions = true;
-                
-                Assert.False(dazelCompiler.TryRun(out _));
-            }
-            Assert.DoesNotThrow(TestDelegate);
+            UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
+            DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2);
+            DazelLogger.ThrowExceptions = false;
+            
+            Assert.False(dazelCompiler.TryRun(out _));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Dazel.Compiler.Ast;
@@ -38,7 +37,7 @@ namespace Dazel.Compiler
             PerformSemanticAnalysis(ast);
             
             screenModels = GenerateIntermediateModels(ast);
-            return true;
+            return !DazelLogger.HasErrors;
         }
 
         private IEnumerable<IParseTree> BuildParseTrees()
@@ -89,7 +88,7 @@ namespace Dazel.Compiler
             {
                 switch (gameObject.TypeNode)
                 {
-                    case ScreenNode screenNode:
+                    case ScreenNode _:
                         screenModels.Add(new ScreenGenerator(gameObject).Generate());
                         break;
                 }
