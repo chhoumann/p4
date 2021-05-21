@@ -2,51 +2,53 @@
 
 Following the parsing phase, and given that there are no errors in the source code that violate the syntax rules, the construction of the abstract syntax tree (AST) will begin. The construction of the AST is achieved through the use of a visitor pattern, more specifically, a technique called double dispatch. The benefit of using this technique is that it gives the ability to separate algorithms from the objects on which they operate\cite{VisitorGuru}. 
 
-As is typical with a visitor pattern there is a client which is responsible for running the visitor operations by directing the appropiate operation in the visitor object through an accept method. In our case the client is the \textbf{Run()} method found in the class DazelCompiler. The definition for the for the method can be seen in \snipref{lst:RunMethod}.
+As is typical with a visitor pattern there is a client which is responsible for running the visitor operations by directing the appropiate operation in the visitor object through an accept method. In our case the client is the \textbf{TryRun} method found in the class DazelCompiler. The definition for the for the method can be seen in \snipref{lst:RunMethod}.
 
-\begin{lstlisting}[caption={The Run method that serves as a client inside the DazelCompiler class}, label={lst:RunMethod},escapechar=|]
-    public IEnumerable<ScreenModel> Run()
+\begin{lstlisting}[language=CSharp, caption={The Run method that serves as a client inside the DazelCompiler class}, label={lst:RunMethod},escapechar=|]
+public bool TryRun(out IEnumerable<ScreenModel> screenModels)
+{
+    ...
+
+    IEnumerable<IParseTree> parseTrees = BuildParseTrees(); |\label{line:ParseTreeBuilder}|
+
+    AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees); |\label{line:ASTBuilder}|
+
+    ...
+}
+\end{lstlisting}
+
+As can be seen on line \ref{line:ParseTreeBuilder} in \Snipref{lst:RunMethod} the initial step for the client is to run the lexical and parse phase which produces a parse tree. This is executed by the code produced by Antlr as mentioned in \ref{sec:antlrTool}. Once this phase is completed the result, the parse tree, is saved in the variable \textbf{parseTrees}, and an object of type \textbf{AstBuilder} is instantiated on which the \texttt{BuildAst} method is invoked with the parse tree. This class implements a visitor interface which defines methods for visiting the parse tree nodes. Through these method implementations, the \textbf{AstBuilder} can traverse the parse tree from which it constructs the abstract syntax tree nodes which can be seen on line \ref{line:ASTBuilder}. 
+
+The definition for the \textbf{BuildAst} method can be seen in \snipref{lst:BuildAstMethod}.
+
+\begin{lstlisting}[language=CSharp, caption={The BuildAst method}, label={lst:BuildAstMethod},escapechar=|]
+public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
+{
+    Dictionary<string, GameObjectNode> gameObjects = new Dictionary<string, GameObjectNode>(); |\label{line:GODictionary}|
+    
+    foreach (IParseTree parseTree in parseTrees) |\label{line:ParseForeach}|
     {
-            ...
-
-            IEnumerable<IParseTree> parseTrees = BuildParseTrees(); |\label{line:ParseTreeBuilder}|
-
-            AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees); |\label{line:ASTBuilder}|
-
-            ...
+        DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext; |\label{line:GetParseChild}|
+        GameObjectNode gameObjectNode = VisitGameObject(gameObjectContext); |\label{line:VisitGO}|
+        
+        gameObjects.Add(gameObjectNode.Identifier, gameObjectNode); |\label{line:ASTToDict}|
     }
+
+    RootNode root = new RootNode() |\label{line:newRoot}|
+    {
+        GameObjects = gameObjects
+    };
+    
+    return new AbstractSyntaxTree(root); |\label{line:CombinedAST}|
+}
 \end{lstlisting}
 
-As can be seen on line \ref{line:ParseTreeBuilder} the initial step for the client is to run the lexical and parse phase which produces a parse tree. This is executed by the code produced by Antlr as mentioned in \ref{sec:antlrTool}. Once this phase is completed the result, the parse tree, is saved in the variable \textbf{parseTrees} and passed through to the \textbf{BuildAst} method on line \ref{line:ASTBuilder}. 
-The method is then what is responsible for starting the visiting process based on the parse tree that was passed through the parameter. The definition for the \textbf{BuildAst} method can be seen in \snipref{lst:BuildAstMethod}.
+At the root of every parse tree is a \textbf{GameObject}. A \textbf{GameObject} in \dazel{} specifies an object whose content should be displayed in the final output - that is, the game. Each \textbf{GameObject} represents a text file that contains source code to be compiled. This means that there could be multiple text files, each specifying different \textbf{GameObjects} for the game and therefore multiple parse trees. 
+The consequence of this structure is that the compiler has to build an AST for each of the parse trees and finally produce a single AST by combining them with a single root. The process of visiting each parse tree can be seen on line \ref{line:ParseForeach} in the foreach loop. 
+The intial step of each iteration is to visit the \textbf{GameObjectContext} which contains the content of the \textbf{GameObject}.
 
-\begin{lstlisting}[caption={The BuildAst method}, label={lst:BuildAstMethod},escapechar=|]
-    public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
-        {
-            Dictionary<string, GameObjectNode> gameObjects = new Dictionary<string, GameObjectNode>(); |\label{line:GODictionary}|
-            
-            foreach (IParseTree parseTree in parseTrees) |\label{line:ParseForeach}|
-            {
-                DazelParser.GameObjectContext gameObjectContext = parseTree.GetChild(0) as DazelParser.GameObjectContext; |\label{line:GetParseChild}|
-                GameObjectNode gameObjectNode = VisitGameObject(gameObjectContext); |\label{line:VisitGO}|
-                
-                gameObjects.Add(gameObjectNode.Identifier, gameObjectNode); |\label{line:ASTToDict}|
-            }
 
-            RootNode root = new RootNode() |\label{line:newRoot}|
-            {
-                GameObjects = gameObjects
-            };
-            
-            return new AbstractSyntaxTree(root); |\label{line:CombinedAST}|
-        }
-\end{lstlisting}
-
-At the root of every parse tree is a \textbf{GameObject}. A \textbf{GameObject} in \dazel{} specifies an object, which content should be displayed inside the game in the final output. Each \textbf{GameObject} represents a text file that contains source code to be compiled. This means that there could be multiple text files, each specifying some content for the final output and therefore multiple parse trees. 
-The consequence of this structure is that the compiler has to build an AST for each of the parse trees and finally produce a single AST by combining them with a single root. On line \ref{line:ParseForeach} in the foreach loop, is where the process of visiting each parse tree starts. 
-The intial step of each iteration is to find and store each parse in a variable called \textbf{gameObjectContext}. The root of every parse tree is a \textbf{GameObject} which is the first child of every tree. This process can be seen on line \ref{line:ParseForeach} through the \texttt{parseTree.GetChild(0)} method call.
-Once the \textbf{GameObject} has been assigned to \textbf{gameObjectContext} the visitor is called on that given \textbf{gameObject} on line \ref{line:VisitGO} and an AST is produced. 
-In order to maintain the AST's for each iteration, we add them to a dictionary which can be seen on line \ref{line:ASTToDict}. 
+In order to maintain the ASTs for each iteration, we add them to a dictionary which can be seen on line \ref{line:ASTToDict}. 
 Note that a list structure could have been used to store the AST's, but we chose dictionaries for the faster lookup.
 
 Once all the individual AST's have been produced, they are combined by giving them a common root node which can be seen on line \ref{line:newRoot} and a combined AST, with the new root, is created on line \ref{line:CombinedAST}.
@@ -58,50 +60,51 @@ As \textbf{VisitGameObject} gets called, with the parse tree in its parameter, t
 
 Once the pattern matching is done we use object initialization to create a new \textbf{gameObjectNode} node on line \ref{line:NewGONode}. In the initialization of this object we call \texttt{VisitGameObjectContents} method on line \ref{line:VisitGameObjectContents} which is where the cascading effect of the visitor pattern begins.
 
-\begin{lstlisting}[caption={The initial stage of visiting}, label={lst:VisitParseTree},escapechar=|]
-    public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
+\begin{lstlisting}[language=CSharp, caption={The initial stage of visiting}, label={lst:VisitParseTree},escapechar=|]
+public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
+{
+    GameObjectTypeNode typeNode;
+    
+    switch (context.gameObjectType.Type) |\label{line:PatternMatch}|
     {
-        GameObjectTypeNode typeNode;
-        
-        switch (context.gameObjectType.Type) |\label{line:PatternMatch}|
-        {
-            case DazelLexer.SCREEN:
-                typeNode = new ScreenNode();
-                break;
-            case DazelLexer.ENTITY:
-                typeNode = new EntityNode();
-                break;
-            case DazelLexer.MOVE_PATTERN:
-                typeNode = new MovePatternNode();
-                break;
-            default:
-                throw new ArgumentException("Type is not a GameObjectType!");
-        }
-
-        GameObjectNode gameObjectNode = new GameObjectNode() |\label{line:NewGONode}|
-        {
-            Identifier = context.GetChild(1).GetText(),
-            TypeNode = typeNode,
-            Contents = VisitGameObjectContents(context.gameObjectBlock().gameObjectContents()) |\label{line:VisitGameObjectContents}|
-        };
-        
-        return gameObjectNode;
+        case DazelLexer.SCREEN:
+            typeNode = new ScreenNode();
+            break;
+        case DazelLexer.ENTITY:
+            typeNode = new EntityNode();
+            break;
+        case DazelLexer.MOVE_PATTERN:
+            typeNode = new MovePatternNode();
+            break;
+        default:
+            throw new ArgumentException("Type is not a GameObjectType!");
     }
+
+    GameObjectNode gameObjectNode = new GameObjectNode() |\label{line:NewGONode}|
+    {
+        Token = context.Start,
+        Identifier = context.GetChild(1).GetText(),
+        TypeNode = typeNode,
+        Contents = VisitGameObjectContents(context.gameObjectBlock().gameObjectContents()) |\label{line:VisitGameObjectContents}|
+    };
+    
+    return gameObjectNode;
+}
 \end{lstlisting}
 
 
 Durings visitation of the parse tree the visitor will reduce the parse tree to an AST. It does this by skipping all none terminal nodes and only constructing the AST of terminal nodes. An example of this can be seen in \snipref{lst:VisitAssignment}. 
 Here the visitor will return an assignment node with the terminal node \textbf{Identifier} assigned to its property. This corresponds to the left hand side of the assignment and can be seen on line \ref{line:GetId}. At the same time the \texttt{VisitExpression} method gets called on line \ref{line:VisitExpr} to continue visiting all elements of the right hand side of the assignment. Once the terminal nodes for the expression has eventually been found they will return and be assigned to the \textbf{Expression} property of the assignment.
 
-\begin{lstlisting}[caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
-    public StatementExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
+\begin{lstlisting}[language=CSharp, caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
+public StatementExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
+{
+    return new AssignmentNode()
     {
-        return new AssignmentNode()
-        {
-            Identifier = context.IDENTIFIER().GetText(), |\label{line:GetId}|
-            Expression = VisitExpression(context.expression()) |\label{line:VisitExpr}|
-        };
-    }
+        Identifier = context.IDENTIFIER().GetText(), |\label{line:GetId}|
+        Expression = VisitExpression(context.expression()) |\label{line:VisitExpr}|
+    };
+}
 \end{lstlisting}
 
 The strategy for all the rest of the visitor methods follow the same mode of logic, where if a terminal node has been found, it is saved and if a non terminal node has been found, it continues to visit the parse tree until it finds all the terminal nodes in the tree.
