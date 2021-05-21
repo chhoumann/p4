@@ -1,5 +1,6 @@
 \section{Performing semantic analysis}
 
+\subsection*{Scope and type checking} \label{sec:TypeChecker}
 Once the AST has been constructed, the next phase of the compiler is to perform semantic analysis. From the same client method \texttt{TryRun} seen in \snipref{lst:RunMethod}, the semantic analysis is initiated. This is done through the \texttt{PerformSemanticAnalysis} method which can be seen on line \ref{line:PerformSemAna} in \snipref{lst:RunMethodSecond}.
 Similar to the \textbf{AstBuilder}, \texttt{PerformSemanticAnalysis} starts a visitor sequence that traverses the built AST by implementing a visitor interface for visiting the AST nodes.
 
@@ -71,7 +72,6 @@ As the name implies, the method \texttt{CloseScope} closes the scope by setting 
 
 The class \textbf{TypeChecker} implements this abstract class. \textbf{TypeChecker} then has access to the methods \texttt{OpenScope} and \texttt{CloseScope}. It also implements the visitor methods that are responsible for traversing the AST to perform both scope and type checking.
 
-\subsubsection*{Scope and type checking} \label{sec:TypeChecker}
 As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking - Recall that \textbf{GameObject} represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
 
 \begin{lstlisting}[language=CSharp, caption={Typechecker object for every GameObject}, label={lst:TypeCheckEachGO},escapechar=|]
@@ -84,45 +84,63 @@ private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
 }
 \end{lstlisting}
 
-Before continuing it is prudent to recap what defines a scope within \dazel{}. A scope can be opened immediately following a \textbf{GameObject}, any of the \textbf{GameObjectContents} and \textbf{StatementBlocks}. Note that \textbf{StatementBlocks} contains statements. 
-This means that, when stepping into the visit method on line \ref{line:StepIntoVisitGO} and the visiting through the AST begins, that those three node types contain a call to the \texttt{OpenScope} and \texttt{CloseScope}. This is captured in \snipref{lst:ApplyScope}.
+Before continuing, it is prudent to recap where scopes occur in \dazel{} and how they behave according the language design in chapter \ref{chap:language_design}. A scope can be opened immediately following a \textbf{GameObject} using opening and closing curly braces. In addition, inside a \textbf{GameObject}, a scope can also be opened using curly braces as long as a content identifier is provided. Inside one such scope, an arbitrary number of anonymous scopes can be nested. 
+
+Note that we differentiate between \textbf{GameObject} scopes, \textbf{GameObjectContent} scopes and \textbf{StatementBlock} scopes.
+
+Scopes that define a \textbf{GameObject} must have a valid \textbf{GameObject} identifier such as \texttt{Screen} and \texttt{Entity}. 
+Likewise, \textbf{GameObjectContent} scopes defined inside a \textbf{GameObject} scope must have a valid identifier such as \texttt{Map} and \texttt{Exits}. In contrast, \textbf{StatementBlocks} defined in a \textbf{GameObjectContent} scope have no such label and simply contain statements and other \textbf{StatementBlocks}. 
+This means that, in the implementation, the visit method for those three nodes contain a call to the \texttt{OpenScope} and \texttt{CloseScope}. This is captured in \snipref{lst:ApplyScope}.
 
 \begin{lstlisting}[language=CSharp, caption={Applying Scope to GameObjects, GameObjectContents and StatementBlocks}, label={lst:ApplyScope},escapechar=|]
-    public sealed class TypeChecker : SemanticAnalysis, IGameObjectVisitor, IStatementVisitor
+public sealed class TypeChecker : EnvironmentStore, IGameObjectVisitor, IStatementVisitor
+{
+    ...
+
+    public void Visit(GameObjectNode gameObjectNode)
     {
-        ...
+        GameObjectIdentifier = gameObjectNode.Identifier;
 
-        public void Visit(GameObjectNode gameObjectNode)
+        OpenScope();
+
+        foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents) 
         {
-            OpenScope();
-
-            foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents) Visit(gameObjectContent);
-
-            CloseScope();
+            Visit(gameObjectContent);
         }
 
-        ...
+        CloseScope();
+    }
 
-        public void Visit(GameObjectContentNode gameObjectContentNode)
+    ...
+
+    public void Visit(GameObjectContentNode gameObjectContentNode)
+    {
+        OpenScope();
+
+        foreach (StatementNode statementNode in gameObjectContentNode.Statements)
         {
-            OpenScope();
-
-            foreach (StatementNode statementNode in gameObjectContentNode.Statements) statementNode.Accept(this);
-
-            CloseScope();
+            statementNode.Accept(this);
         }
 
-        ... 
+        CloseScope();
+    }
 
-        public void Visit(StatementBlockNode statementBlockNode)
+    ... 
+
+    public void Visit(StatementBlockNode statementBlockNode)
+    {
+        OpenScope();
+
+        foreach (StatementNode statement in statementBlockNode.Statements) 
         {
-            OpenScope();
-
-            foreach (StatementNode statement in statementBlockNode.Statements) statement.Accept(this); |\label{line:StatementVisit}|
-
-            CloseScope();
+            statement.Accept(this); |\label{line:StatementVisit}|
         }
+        
+        CloseScope();
+    }
 \end{lstlisting}
 
-Once the visitor starts visiting each statement seen on line \ref{line:StatementVisit} in code \snipref{lst:ApplyScope}, is when type checking begins. Each statement has type checking that is designed to accommodate checking based on the type of statement it is. Note that not every type of statement has been been implemented.
-An example of type checking in a statement is the type checking of the parameters of a \texttt{FunctionInvocationNode}. 
+When a \textbf{StatementBlockNode} is visited, each individual statement is visited. The visit method for each specific statement contains the implementation details for type checking that specific type of statement. Note that not every type of statement has been been implemented.
+
+\subsubsection*{Expression type checking} \label{sec:ExpressionTypeChecking}
+To illustrate an example of how type checking is implemented in \dazel{}, we will now describe the \textbf{ExpressionTypeChecker}.
