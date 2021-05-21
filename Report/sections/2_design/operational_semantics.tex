@@ -296,7 +296,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 		% 
 		\\
 		[CALL_\text{BSS}]
-		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle call P, sto \rightarrow sto'}
+		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle \textit{ call } P, sto \rightarrow sto'}
 		\qquad \text{where } env_R, env_P \vdash \rightarrow (S, env'_R, env'_V, env'_P)
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Statement}.}
