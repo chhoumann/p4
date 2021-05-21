@@ -22,13 +22,12 @@ namespace Dazel.Compiler.SemanticAnalysis
             
             parentScope?.Children.Add(newScope);
             
-            EnvironmentStack.Push(newScope);
-
             if (parentScope == null && !TopSymbolTables.ContainsKey(GameObjectIdentifier))
             {
                 TopSymbolTables.Add(GameObjectIdentifier, newScope);
             }
             
+            EnvironmentStack.Push(newScope);
             CurrentTopScope = newScope;
         }
 
