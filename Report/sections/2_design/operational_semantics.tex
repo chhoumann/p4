@@ -285,9 +285,9 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\qquad \frac
 		{
 			\begin{gathered}
-				env_R \vdash \langle D_V, env_V, sto \rangle \rightarrow_DV (env'_V, sto'')
-				env'_V \vdash \langle D_R, env_R \rangle \rightarrow_DR (env'_R, env''_V)
-				env''_V \vdash \langle D_P, env_P \rangle \rightarrow_DP env'_P
+				env_R \vdash \langle D_V, env_V, sto \rangle \rightarrow_DV (env'_V, sto'') \\
+				env'_V \vdash \langle D_R, env_R \rangle \rightarrow_DR (env'_R, env''_V) \\
+				env''_V \vdash \langle D_P, env_P \rangle \rightarrow_DP env'_P \\
 				env'_R, env''_V, env'_p \vdash \langle S, sto'' \rangle \rightarrow sto'
 			\end{gathered}
 		}
