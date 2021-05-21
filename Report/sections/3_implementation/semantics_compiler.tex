@@ -1,7 +1,7 @@
 \section{Performing semantic analysis}
 
-Once the AST has been constructued the next phase of the compiler is to perform semantic analysis. From the same client method \texttt{TryRun()} seen in \snipref{lst:RunMethod} the semantic analysis is performed. This is done through the \texttt{PerformSemanticAnalysis(ast)} method. 
-Similar to previously \texttt{PerformSemanticAnalysis(ast)} in \snipref{lst:RunMethodSecond} starts a visitor sequence on the built AST that is stored in the variable \texttt{ast} seen on line \ref{line:ASTSavedInVar}. This is done by passing the AST through the parameter of \texttt{PerformSemanticAnalysis(ast)} seen on line \ref{line:PerformSemAna}.
+Once the AST has been constructed, the next phase of the compiler is to perform semantic analysis. From the same client method \texttt{TryRun} seen in \snipref{lst:RunMethod}, the semantic analysis is initiated. This is done through the \texttt{PerformSemanticAnalysis} method which can be seen on line \ref{line:PerformSemAna} in \snipref{lst:RunMethodSecond}.
+Similar to the \textbf{AstBuilder}, \texttt{PerformSemanticAnalysis} starts a visitor sequence that traverses the built AST by implementing a visitor interface for visiting the AST nodes.
 
 \begin{lstlisting}[language=CSharp, caption={The Run method that serves as a client inside the DazelCompiler class}, label={lst:RunMethodSecond},escapechar=|]
 public bool TryRun(out IEnumerable<ScreenModel> screenModels)
@@ -16,8 +16,8 @@ public bool TryRun(out IEnumerable<ScreenModel> screenModels)
 }
 \end{lstlisting}
 
-During the visititation of the AST both scope checking and type checking is done simultaniously. 
-In order to accommodate the ability to perform checking for both at the same time we implemented an abstract class \abstractsemanticclass{}. The purpose of this class is to implement a stack that can hold a symbol table for each frame in the stack, which can be seen on line \ref{line:Stack}. The benefit of this approach is that each scope will be a symbol table on the stack and therefore the inner most nested scopes will always be at the top of the stack. This allows us to enforce static scoping by referencing the symbol tables further down the stack for existing declarations.
+During the visititation of the AST, both scope checking and type checking is done simultaneously in the \textbf{TypeChecker} class. 
+In order to perform both at the same time, we implemented an abstract class, \abstractsemanticclass{}, whose purpose is to manage a stack that holds a symbol table for each frame in the stack. This can be seen on line \ref{line:Stack}. The benefit of this approach is that each scope will be a symbol table on the stack and therefore the inner most nested scopes will always be at the top of the stack. This allows us to enforce static scoping by referencing the symbol tables further down the stack for existing declarations.
 
 The definition of this abstract class can be seen in \snipref{lst:ACSemanticAnalysis}.
 
@@ -32,12 +32,14 @@ public abstract class EnvironmentStore
 
     protected void OpenScope()
     {
-        SymbolTable parentScope = EnvironmentStack.Count > 0 ? EnvironmentStack.Peek() : null;
+        SymbolTable parentScope = EnvironmentStack.Count > 0 |\label{line:IsStackEmpty}|
+            ? EnvironmentStack.Peek() 
+            : null;
         SymbolTable newScope = new SymbolTable(parentScope);
         
-        EnvironmentStack.Push(newScope);
-
         parentScope?.Children.Add(newScope);
+        
+        EnvironmentStack.Push(newScope); |\label{line:PushNewScopeToStack}|
 
         if (parentScope == null && !TopSymbolTables.ContainsKey(GameObjectIdentifier))
         {
@@ -54,9 +56,23 @@ public abstract class EnvironmentStore
 }
 \end{lstlisting}
 
-The method \texttt{OpenScope} has two responsibilities. First of which is to check if the stack is empty. If it is not empty, whatever value is currently at the top of the stack becomes the parent of the next value on the stack. This way we ensure that there always is access to the previous scopes when the scope checking is performed at a later stage. This can be seen on line \ref{line:IsStackEmpty} to \ref{line:PushNewScopeToStack}.
-As the name implies, the method \texttt{CloseScope} closes the scope by setting the current scope to the parent of the current scope.
-Finally, the class \textbf{TypeChecker} will implement the abstract class \abstractsemanticclass{}. \textbf{TypeChecker} will then have access to the method \texttt{OpenScope} and the \texttt{CloseScope} method. It will also implement  for the visitor methods that will be responsible for visiting each node in the AST to perform both scope and type checking.
+The method \texttt{OpenScope} has two responsibilities, the first of which is to check if the \textbf{EnvironmentStack} is empty. If it is not empty, whatever value is currently at the top of the stack becomes the parent of the next value on the stack. This way, we ensure that there always is access to the parent scopes during scope checking. This can be seen on lines \ref{line:IsStackEmpty} through \ref{line:PushNewScopeToStack}.
+
+
+The method \texttt{OpenScope} is responsible for creating a new scope. Once a new scope is opened, \texttt{OpenScope} assigns its parent to the scope currently on top of the \textbf{EnvironmentStack} if it is non-empty.
+If a parent was found on the stack, it adds the new scope as a child of the parent scope.
+Afterwards, it pushes the new scope onto the \textbf{EnvironmentStack}. 
+
+- Create a new scope
+- Assign the new scope its parent, if it has any 
+- Push the new scope onto the stack
+- Add the new scope as a child to the parent scope, if there is a parent scope 
+- If there is no parent scope and the top level symbol tables do not contain a key with the GameObject's identifier, we know this is the top scope for a game object, so we add it to the top symbol table list for member access later.
+- Set the current top scope to be the new scope
+
+
+As the name implies, the method \texttt{CloseScope} closes the scope by setting the current scope to the parent of the current scope. 
+Finally, the class \textbf{TypeChecker} implements the abstract class \abstractsemanticclass{}. \textbf{TypeChecker} then has access to the methods \texttt{OpenScope} and \texttt{CloseScope}. It also implements the visitor methods that are responsible for visiting each node in the AST to perform both scope and type checking.
 
 \subsubsection*{Scope and type checking} \label{sec:TypeChecker}
 As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking - Recall that \textbf{GameObject} represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
