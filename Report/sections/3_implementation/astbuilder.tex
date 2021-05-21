@@ -44,21 +44,18 @@ public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
 \end{lstlisting}
 
 At the root of every parse tree is a \textbf{GameObject}. A \textbf{GameObject} in \dazel{} specifies an object whose content should be displayed in the final output - that is, the game. Each \textbf{GameObject} represents a text file that contains source code to be compiled. This means that there could be multiple text files, each specifying different \textbf{GameObjects} for the game and therefore multiple parse trees. 
-The consequence of this structure is that the compiler has to build an AST for each of the parse trees and finally produce a single AST by combining them with a single root. The process of visiting each parse tree can be seen on line \ref{line:ParseForeach} in the foreach loop. 
+The consequence of this structure is that the compiler has to build an AST for each parse tree. The process of visiting each parse tree can be seen on line \ref{line:ParseForeach} in the foreach loop. 
 The intial step of each iteration is to visit the \textbf{GameObjectContext} which contains the content of the \textbf{GameObject}.
-
-
-In order to maintain the ASTs for each iteration, we add them to a dictionary which can be seen on line \ref{line:ASTToDict}. 
-Note that a list structure could have been used to store the AST's, but we chose dictionaries for the faster lookup.
-
-Once all the individual AST's have been produced, they are combined by giving them a common root node which can be seen on line \ref{line:newRoot} and a combined AST, with the new root, is created on line \ref{line:CombinedAST}.
+Then, through dynamic dispatch, the \textbf{AstBuilder} visits every node in the parse tree from which it then contructs and connects the nodes present in the given AST.
+After being fully built, each AST is stored in a dictionary which can be seen on line \ref{line:ASTToDict}. 
+This dictionary is used to connect every individual AST to a single root node after every AST has been built, which can be seen on line \ref{line:newRoot}. Thus we ultimately end up with one big AST which is returned to the caller on line \ref{line:CombinedAST}. Note that a list structure could have been used to store the ASTs, but we chose dictionaries for the faster lookup.
  
-\subsubsection*{Visiting the Game Object}
-In the following, we will further describe how the \textbf{VisitGameObject} method from \snipref{lst:BuildAstMethod} on line \ref{line:VisitGO} works and how the over all visitor pattern comes into play.
+\subsubsection*{Visiting the GameObject}
+In the following, we will further describe how the \textbf{VisitGameObject} method from \snipref{lst:BuildAstMethod} on line \ref{line:VisitGO} works and how the overall visitor pattern comes into effect.
 
-As \textbf{VisitGameObject} gets called, with the parse tree in its parameter, the initial step is to perform pattern matching on the type of the \textbf{gameObject} which can be seen in the definition for \texttt{VisitGameObject} on line \ref{line:PatternMatch} in \snipref{lst:VisitParseTree}. This is done to ensure that the parsed source code contains a game object of the correct type and if that is the case, create a node of either of the legal types which is then assigned to the local variable \textbf{typeNode}.
+As \textbf{VisitGameObject} is called with a parse tree, the initial step is to perform pattern matching on the type of \textbf{GameObject} which can be seen in the definition for \texttt{VisitGameObject} on line \ref{line:PatternMatch} in \snipref{lst:VisitParseTree}. This is done to ensure that the parsed source code contains a correct \textbf{GameObject} type and create a node of either of the legal types, which is then assigned to the local variable \texttt{typeNode}.
 
-Once the pattern matching is done we use object initialization to create a new \textbf{gameObjectNode} node on line \ref{line:NewGONode}. In the initialization of this object we call \texttt{VisitGameObjectContents} method on line \ref{line:VisitGameObjectContents} which is where the cascading effect of the visitor pattern begins.
+Once the pattern matching is done, we use object initialization to create a new \textbf{GameObjectNode} on line \ref{line:NewGONode}. In the initialization of this object, we call the \texttt{VisitGameObjectContents} method on line \ref{line:VisitGameObjectContents}, which is where the cascading effect of the visitor pattern begins. 
 
 \begin{lstlisting}[language=CSharp, caption={The initial stage of visiting}, label={lst:VisitParseTree},escapechar=|]
 public GameObjectNode VisitGameObject(DazelParser.GameObjectContext context)
