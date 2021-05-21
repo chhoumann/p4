@@ -1,8 +1,7 @@
 ﻿using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-using Dazel.Compiler.Ast;
-using Dazel.Compiler.Ast.ExpressionEvaluation;
+using Dazel.Compiler.Ast; 
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
@@ -10,7 +9,6 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests.EditMode.AST 
 {
@@ -188,11 +186,21 @@ namespace Tests.EditMode.AST
                     break;
                 // SomeVar2 = 3 + 3 / 3
                 case "SomeVar2":
-                    Assert.That(assignmentNode.Expression is IntValueNode {Value: 4});
+                    Assert.That(assignmentNode.Expression is SumExpressionNode
+                        {
+                            Left: IntValueNode {Value: 3},
+                            OperationNode: {Operator: Operators.AddOp},
+                            Right: FactorExpressionNode {
+                                Left: IntValueNode {Value: 3},
+                                OperationNode: {Operator: Operators.DivOp},
+                                Right: IntValueNode {Value: 3},
+                            }
+                        }
+                    );
                     break;
                 // x = SomeVar2
                 case "x":
-                    Assert.That(assignmentNode.Expression is IntValueNode {Value: 4});
+                    Assert.That(assignmentNode.Expression is IdentifierValueNode {Identifier: "SomeVar2"});
                     break;
                 // arr = [1, 2, 3]
                 case "arr":

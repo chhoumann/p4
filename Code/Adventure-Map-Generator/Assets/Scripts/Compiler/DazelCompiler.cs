@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Dazel.Compiler.Ast;
@@ -8,7 +7,6 @@ using Dazel.Compiler.CodeGeneration;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.SemanticAnalysis;
 using Dazel.IntermediateModels;
-using UnityEngine;
 
 namespace Dazel.Compiler
 {
@@ -73,7 +71,7 @@ namespace Dazel.Compiler
         {
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
-                new TypeChecker(ast).Visit(gameObject);
+                new TypeChecker().Visit(gameObject);
             }
             
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -90,7 +88,7 @@ namespace Dazel.Compiler
             {
                 switch (gameObject.TypeNode)
                 {
-                    case ScreenNode screenNode:
+                    case ScreenNode _:
                         screenModels.Add(new ScreenGenerator(gameObject).Generate());
                         break;
                 }

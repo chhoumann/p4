@@ -14,20 +14,20 @@ namespace Dazel.Compiler.Ast.Nodes.StatementNodes
         public SymbolType ReturnType { get; set; }
         public Function Function { get; private set; }
 
-        public ValueNode Create(SymbolTable currentSymbolTable)
+        public FunctionInvocationNode Setup()
         {
             if (DazelStdLib.TryGetFunction(Identifier, out Function function) && function.NumArguments == Parameters.Count)
             {
                 Function = function;
-                Function.CurrentSymbolTable = currentSymbolTable;
+                function.GetReturnType(Parameters);
 
-                return function.GetReturnType(Parameters);
+                return this;
             }
             
             DazelLogger.EmitError($"{Identifier} function not found in Dazel Standard Library.", Token);
             return null;
         }
-
+        
         public override void Accept(IStatementVisitor visitor)
         {
             visitor.Visit(this);

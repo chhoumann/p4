@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -82,7 +81,7 @@ namespace Dazel.Compiler.SemanticAnalysis
             SymbolTable symbolTable = RetrieveSymbolTable(identifier);
 
             if (symbolTable != null)
-            {                
+            {
                 symbolTable.AddOrUpdateSymbol(identifier, data);
             }
             else

@@ -2,7 +2,6 @@
 using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
-using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
 
 namespace Tests.EditMode.AST
@@ -25,15 +24,6 @@ namespace Tests.EditMode.AST
 
             Assert.That(evaluator.Result == 3, "evaluator.Result == 3");
         }
-
-        private const string TestCode1 =
-            "Screen SampleScreen1" +
-            "{" +
-            "   Map" +
-            "   {" +
-            "       x = 10.5 * 5;" +
-            "   }" +
-            "}";
         
         [Test]
         public void ExpressionEvaluator_Visit_FactorOperation()

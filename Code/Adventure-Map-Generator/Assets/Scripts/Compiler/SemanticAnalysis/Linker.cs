@@ -1,4 +1,5 @@
 ﻿using Dazel.Compiler.Ast;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
@@ -8,7 +9,6 @@ using Dazel.Compiler.Ast.Visitors;
 using Dazel.Compiler.ErrorHandler;
 using Dazel.Compiler.StandardLibrary.Functions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -164,7 +164,9 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            EnvironmentStore.AccessMember(memberAccessNode);
+            var calc = new NoOpCalculator<NoOpCalculator<ValueNode>>(memberAccessNode.Token);
+         
+            new ExpressionEvaluatorLinker<NoOpCalculator<ValueNode>>(calc).Visit(memberAccessNode);
         }
 
         public void Visit(FloatValueNode floatValueNode)

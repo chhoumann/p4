@@ -10,10 +10,11 @@ namespace Dazel.Compiler.StandardLibrary
     public abstract class Function
     {
         public abstract int NumArguments { get; }
+        public SymbolTable CurrentSymbolTable { get; set; }
+        
         private SymbolType ReturnType { get; }
 
         public ValueNode ValueNode { get; protected set; }
-        public SymbolTable CurrentSymbolTable { get; set; }
 
         protected Function(SymbolType returnType)
         {

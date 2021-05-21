@@ -1,5 +1,4 @@
-﻿using Dazel.Compiler.Ast;
-using Dazel.Compiler.Ast.ExpressionEvaluation;
+﻿using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
@@ -10,12 +9,12 @@ namespace Dazel.Compiler.SemanticAnalysis
 {
     public sealed class ExpressionTypeChecker : IExpressionVisitor
     {
-        private readonly SymbolTable scope;
+        private readonly SymbolTable symbolTable;
         private readonly TypeHandler typeHandler;
 
-        public ExpressionTypeChecker(SymbolTable scope)
+        public ExpressionTypeChecker(SymbolTable symbolTable)
         {
-            this.scope = scope;
+            this.symbolTable = symbolTable;
             typeHandler = new TypeHandler();
         }
         
@@ -58,8 +57,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         
         public void Visit(MemberAccessNode memberAccessNode)
         {
-            ValueNode member = EnvironmentStore.AccessMember(memberAccessNode).ValueNode;
-            typeHandler.SetType(member.Type, member.Token);
+            typeHandler.SetType(memberAccessNode.Type, memberAccessNode.Token);
         }
 
         public void Visit(FloatValueNode floatValueNode)
@@ -69,7 +67,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            SymbolTableEntry entry = scope.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+            SymbolTableEntry entry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
 
             if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
             {
@@ -77,7 +75,7 @@ namespace Dazel.Compiler.SemanticAnalysis
                 SetNumericalExpression(identifierValueNode, expression, entry.Type);
             }
 
-            SymbolTableEntry symbolTableEntry = scope.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+            SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
             typeHandler.SetType(symbolTableEntry.Type, identifierValueNode.Token);
         }
 

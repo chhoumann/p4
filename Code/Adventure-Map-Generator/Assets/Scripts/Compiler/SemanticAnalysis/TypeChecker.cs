@@ -5,28 +5,25 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class TypeChecker : IGameObjectVisitor, IStatementVisitor
+    public sealed class TypeChecker : EnvironmentStore, IGameObjectVisitor, IStatementVisitor
     {
-        private readonly AbstractSyntaxTree ast;
-        private string currentGameObject;
-
-        public TypeChecker(AbstractSyntaxTree ast)
-        {
-            this.ast = ast;
-        }
-
+        protected override string GameObjectIdentifier { get; set; }
+        
         public void Visit(GameObjectNode gameObjectNode)
         {
-            currentGameObject = gameObjectNode.Identifier;
+            GameObjectIdentifier = gameObjectNode.Identifier;
+            
+            OpenScope();
+            
             foreach (GameObjectContentNode gameObjectContent in gameObjectNode.Contents)
             {
                 Visit(gameObjectContent);
             }
 
+            CloseScope();
         }
 
         public void Visit(EntityNode entityNode)
@@ -35,10 +32,14 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(GameObjectContentNode gameObjectContentNode)
         {
+            OpenScope();
+
             foreach (StatementNode statementNode in gameObjectContentNode.Statements)
             {
                 statementNode.Accept(this);
             }
+
+            CloseScope();
         }
 
         public void Visit(MovePatternNode movePatternNode)
@@ -51,10 +52,14 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(StatementBlockNode statementBlockNode)
         {
+            OpenScope();
+            
             foreach (StatementNode statement in statementBlockNode.Statements)
             {
                 statement.Accept(this);
             }
+
+            CloseScope();
         }
 
         public void Visit(IfStatementNode ifStatementNode)
@@ -67,10 +72,64 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
+            functionInvocationNode.Function.CurrentSymbolTable = CurrentTopScope;
+            FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
+            
+            CurrentTopScope.AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);
         }
 
         public void Visit(AssignmentNode assignmentNode)
         {
+            SymbolType expressionType = new ExpressionTypeChecker(CurrentTopScope).GetType(assignmentNode.Expression);
+            ValueNode expressionValue;
+            
+            switch (expressionType)
+            {
+                case SymbolType.Null:
+                    expressionValue = null;
+                    break;
+                case SymbolType.Float:
+                    var floatEval = new ExpressionEvaluator<float>(new FloatCalculator(assignmentNode.Token));
+                    assignmentNode.Expression.Accept(floatEval);
+                    expressionValue = new FloatValueNode() {Value = floatEval.Result};
+                    break;
+                case SymbolType.String:
+                    var stringEval = new ExpressionEvaluator<string>(new StringOperations(assignmentNode.Token));
+                    assignmentNode.Expression.Accept(stringEval);
+                    expressionValue = new StringNode() {Value = stringEval.Result};
+                    break;
+                case SymbolType.Integer:
+                    var intEval = new ExpressionEvaluator<int>(new IntCalculator(assignmentNode.Token));
+                    assignmentNode.Expression.Accept(intEval);
+                    expressionValue = new FloatValueNode() {Value = intEval.Result};
+                    break;
+                case SymbolType.Array:
+                    var arrayEval = new ExpressionEvaluator<ArrayNode>(new ArrayCalculator(assignmentNode.Token));
+                    assignmentNode.Expression.Accept(arrayEval);
+                    expressionValue = arrayEval.Result;
+                    break;
+                case SymbolType.Exit:
+                    var exitEval = new ExpressionEvaluator<ExitValueNode>(new ExitValueCalculator(assignmentNode.Token));
+                    assignmentNode.Expression.Accept(exitEval);
+                    expressionValue = exitEval.Result;
+                    break;
+                case SymbolType.Identifier:
+                    var idEval = new ExpressionEvaluator<ValueNode>(new NoOpCalculator<ValueNode>(assignmentNode.Token));
+                    assignmentNode.Expression.Accept(idEval);
+                    expressionValue = idEval.Result;
+                    break;
+                case SymbolType.MemberAccess:
+                    expressionValue = (ValueNode)assignmentNode.Expression;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            assignmentNode.Expression = expressionValue;
+
+            VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionValue, expressionType);
+
+            CurrentTopScope.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }
     }
 }

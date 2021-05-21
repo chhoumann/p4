@@ -22,8 +22,14 @@ namespace Dazel.Compiler.StandardLibrary.Functions
         {
             if (ValueNode is IdentifierValueNode identifierValueNode)
             {
-                SymbolTableEntry entry = CurrentSymbolTable.RetrieveSymbolInChildScope(identifierValueNode.Identifier);
-                DazelLogger.EmitMessage(entry.ToString(), ValueNode.Token);
+                if (CurrentSymbolTable.symbols.TryGetValue(identifierValueNode.Identifier, out SymbolTableEntry symbolTableEntry))
+                {
+                    DazelLogger.EmitMessage(symbolTableEntry.ToString(), ValueNode.Token);
+                }
+                else
+                {
+                    DazelLogger.EmitWarning("null", ValueNode.Token);
+                }
             }
             else
             {

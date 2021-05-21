@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.ErrorHandler;
-using UnityEngine;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
@@ -10,25 +9,24 @@ namespace Dazel.Compiler.SemanticAnalysis
         protected abstract string GameObjectIdentifier { get; set; }
         
         public Stack<SymbolTable> EnvironmentStack { get; } = new Stack<SymbolTable>();
-        public static int TopSymbolTablesCount => topSymbolTables.Count;
+        public static int TopSymbolTablesCount => TopSymbolTables.Count;
 
-        public static IReadOnlyDictionary<string, SymbolTable> TopSymbolTables => topSymbolTables;
-        private static readonly Dictionary<string, SymbolTable> topSymbolTables = new Dictionary<string, SymbolTable>();
+        private static readonly Dictionary<string, SymbolTable> TopSymbolTables = new Dictionary<string, SymbolTable>();
         
         protected SymbolTable CurrentTopScope;
         
         protected void OpenScope()
         {
-            SymbolTable parentScope = EnvironmentStack.Count > 0 ? CurrentTopScope : null;
+            SymbolTable parentScope = EnvironmentStack.Count > 0 ? EnvironmentStack.Peek() : null;
             SymbolTable newScope = new SymbolTable(parentScope);
             
             EnvironmentStack.Push(newScope);
 
             parentScope?.Children.Add(newScope);
 
-            if (!topSymbolTables.ContainsKey(GameObjectIdentifier))
+            if (parentScope == null && !TopSymbolTables.ContainsKey(GameObjectIdentifier))
             {
-                topSymbolTables.Add(GameObjectIdentifier, newScope);
+                TopSymbolTables.Add(GameObjectIdentifier, newScope);
             }
             
             CurrentTopScope = newScope;
@@ -36,7 +34,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         protected void CloseScope()
         {
-            CurrentTopScope = EnvironmentStack.Pop();
+            CurrentTopScope = CurrentTopScope.Parent;
         }
 
         public static VariableSymbolTableEntry AccessMember(MemberAccessNode memberAccessNode)
@@ -56,8 +54,8 @@ namespace Dazel.Compiler.SemanticAnalysis
         public static VariableSymbolTableEntry AccessMember(List<string> identifierList)
         {
             string symbolIdentifier = identifierList[identifierList.Count - 1];
-
-            SymbolTable symbolTable = topSymbolTables[identifierList[0]];
+            
+            SymbolTable symbolTable = TopSymbolTables[identifierList[0]];
             SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInChildScope(symbolIdentifier);
 
             if (symbolTableEntry is VariableSymbolTableEntry variableSymbolTableEntry)
@@ -68,6 +66,6 @@ namespace Dazel.Compiler.SemanticAnalysis
             return null;
         }
         
-        public static void CleanUp() => topSymbolTables.Clear();
+        public static void CleanUp() => TopSymbolTables.Clear();
     }
 }

@@ -6,7 +6,6 @@ using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests.EditMode.Semantics
 {
@@ -17,7 +16,7 @@ namespace Tests.EditMode.Semantics
         {
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
             {
-                new TypeChecker(ast).Visit(gameObject);
+                new TypeChecker().Visit(gameObject);
             }
             
             foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -49,15 +48,17 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_AllScopesAccountedFor()
         {
-            (AstBuilder astBuilder, List<IParseTree> parseTrees) = TestAstBuilder.GetAstBuilderAndParseTrees(TestCode);
-            AbstractSyntaxTree ast = astBuilder.BuildAst(parseTrees);
-            TypeChecker tc = new TypeChecker(ast);
+            AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode);
+            TypeChecker tc = new TypeChecker();
             
-            tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            foreach (GameObjectNode gameObjectNode in ast.Root.GameObjects.Values)
+            {
+                tc.Visit(gameObjectNode);
+            }
             
-            // Expect one top symbol table and that all scopes have been popped off the stack.
+            // Expect four scopes and one top symbol table
             Assert.That(EnvironmentStore.TopSymbolTablesCount == 1, "EnvironmentStore.TopSymbolTables.Count == 1");
-            Assert.That(astBuilder.EnvironmentStack.Count == 0, "tc.EnvironmentStack.Count == 0");
+            Assert.That(tc.EnvironmentStack.Count == 4, "tc.EnvironmentStack.Count == 4");
         }
         
         private const string TestCode2 =
@@ -73,7 +74,6 @@ namespace Tests.EditMode.Semantics
         [Test]
         public void TypeCheck_Visit_ArrayPlusIntegerFails()
         {
-
             Assert.Throws<Exception>(() =>
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode2);
@@ -97,7 +97,7 @@ namespace Tests.EditMode.Semantics
             Assert.Throws<Exception>(() =>
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3);
-
+                
                 TestDelegate(ast);
             });
         }
@@ -107,7 +107,6 @@ namespace Tests.EditMode.Semantics
             "{" +
             "   Exits" +
             "   {" +
-            "       a = 1 + 1;" + 
             "       exit1 = Exit([0, 0], SampleScreen2.Exits.exit1);" + 
             "   }" +
             "}";

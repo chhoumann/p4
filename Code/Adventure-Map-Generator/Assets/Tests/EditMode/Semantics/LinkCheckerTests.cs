@@ -26,12 +26,12 @@ namespace Tests.EditMode.Semantics
             "}";
 
         [Test]
-        public void LinkCheck_Visit_ThrowOnInvalidExitLink()
+        public void Linker_Visit_ThrowOnInvalidExitLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode1_2);
-            Linker tc = new Linker(ast);
+            Linker linker = new Linker(ast);
 
-            void TestDelegate() => tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            void TestDelegate() => linker.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<Exception>(TestDelegate);
         }
         
@@ -45,7 +45,7 @@ namespace Tests.EditMode.Semantics
             "}";
 
         [Test]
-        public void LinkCheck_Visit_SuccessOnValidLink()
+        public void Linker_Visit_SuccessOnValidLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode2_1);
 
@@ -53,7 +53,7 @@ namespace Tests.EditMode.Semantics
             {
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
                 {
-                    new TypeChecker(ast).Visit(gameObject);
+                    new TypeChecker().Visit(gameObject);
                 }
             
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -84,7 +84,7 @@ namespace Tests.EditMode.Semantics
             "}";
 
         [Test]
-        public void LinkCheck_Visit_ValidMemberAccessSucceeds()
+        public void Linker_Visit_ValidMemberAccessSucceeds()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_1, TestCode3_2);
             
@@ -92,7 +92,7 @@ namespace Tests.EditMode.Semantics
             {
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
                 {
-                    new TypeChecker(ast).Visit(gameObject);
+                    new TypeChecker().Visit(gameObject);
                 }
             
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -114,13 +114,13 @@ namespace Tests.EditMode.Semantics
             "}";
         
         [Test]
-        public void LinkCheck_Visit_InValidMemberAccessThrows()
+        public void Linker_Visit_InValidMemberAccessThrows()
         {
             Assert.Throws<Exception>(() =>
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
-                Linker tc = new Linker(ast);
-                tc.Visit(ast.Root.GameObjects["SampleScreen1"]);
+                Linker linker = new Linker(ast);
+                linker.Visit(ast.Root.GameObjects["SampleScreen1"]);
             });
         }
     }
