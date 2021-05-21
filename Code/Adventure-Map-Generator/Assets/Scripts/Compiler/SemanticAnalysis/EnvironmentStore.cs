@@ -13,7 +13,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         private static readonly Dictionary<string, SymbolTable> TopSymbolTables = new Dictionary<string, SymbolTable>();
         
-        protected SymbolTable CurrentSymbolTable;
+        protected SymbolTable CurrentScope;
         
         protected void OpenScope()
         {
@@ -28,12 +28,12 @@ namespace Dazel.Compiler.SemanticAnalysis
             }
             
             EnvironmentStack.Push(newScope);
-            CurrentSymbolTable = newScope;
+            CurrentScope = newScope;
         }
 
         protected void CloseScope()
         {
-            CurrentSymbolTable = CurrentSymbolTable.Parent;
+            CurrentScope = CurrentScope.Parent;
         }
 
         public static VariableSymbolTableEntry AccessMember(MemberAccessNode memberAccessNode)
