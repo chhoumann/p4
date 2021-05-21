@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dazel.Compiler.StandardLibrary.Functions;
 using Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.MapFunctions;
@@ -32,6 +33,7 @@ namespace Dazel.Compiler.StandardLibrary
         
         private static void AddMapFunctions()
         {
+            Functions.Add("Print", () => new PrintFunction());
             Functions.Add("Size", () => new SizeFunction());
             Functions.Add("Line", () => new LineFunction());
             Functions.Add("Floor", () => new FloorFunction());
@@ -42,7 +44,6 @@ namespace Dazel.Compiler.StandardLibrary
         private static void AddExitsFunctions()
         {
             Functions.Add("Exit", () => new ExitFunction());
-            Functions.Add("FloorExits", () => new FloorExitsFunction());
             Functions.Add("ScreenExit", () => new ScreenExitFunction());
         }
 

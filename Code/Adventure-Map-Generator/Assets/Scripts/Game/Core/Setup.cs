@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Dazel.Compiler;
+using Dazel.Compiler.ErrorHandler;
+using Dazel.IntermediateModels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -9,6 +12,8 @@ namespace Dazel.Game.Core
 {
     public sealed class Setup : MonoBehaviour
     {
+        [SerializeField] private bool throwExceptions;
+        
         private const string GameSceneName = "GameScene";
 
         private void Start()
@@ -29,11 +34,17 @@ namespace Dazel.Game.Core
             }
 
             string path = GetDirectoryPath(GameManager.SourceFileDirectory);
-            World.ScreenModels = new DazelCompiler(path).Run();
+
+            DazelLogger.ThrowExceptions = throwExceptions;
             
-            if (Application.isPlaying)
+            if (new DazelCompiler(path).TryRun(out IEnumerable<ScreenModel> screenModels))
             {
-                SceneManager.LoadScene(GameSceneName);
+                World.ScreenModels = screenModels;
+                
+                if (Application.isPlaying)
+                {
+                    SceneManager.LoadScene(GameSceneName);
+                }
             }
         }
 

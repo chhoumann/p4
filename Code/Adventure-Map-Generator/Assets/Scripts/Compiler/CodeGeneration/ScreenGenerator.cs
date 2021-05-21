@@ -5,9 +5,12 @@ using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.Ast.Nodes.GameObjectNodes.GameObjectContentTypes;
 using Dazel.Compiler.Ast.Nodes.StatementNodes;
 using Dazel.Compiler.Ast.Visitors;
+using Dazel.Compiler.ErrorHandler;
+using Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.MapFunctions;
 using Dazel.IntermediateModels;
+using UnityEngine;
 
 namespace Dazel.Compiler.CodeGeneration
 {
@@ -83,6 +86,10 @@ namespace Dazel.Compiler.CodeGeneration
 
         public void Visit(StatementBlockNode statementBlockNode)
         {
+            foreach (StatementNode statementNode in statementBlockNode.Statements)
+            {
+                statementNode.Accept(this);
+            }
         }
 
         public void Visit(IfStatementNode ifStatementNode)
@@ -95,6 +102,7 @@ namespace Dazel.Compiler.CodeGeneration
 
         public void Visit(AssignmentNode assignmentNode)
         {
+            assignmentNode.Expression.Accept(this);
         }
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
@@ -108,14 +116,19 @@ namespace Dazel.Compiler.CodeGeneration
                 case FloorFunction floorFunction:
                     screenModel.TileStack.Push(new Floor(screenModel, floorFunction.TileName));
                     break;
+                case SpawnEntityFunction spawnEntityFunction:
+                    screenModel.Entities.Add(new EntityModel(spawnEntityFunction.EntityIdentifier, spawnEntityFunction.SpawnPosition));
+                    break;
                 case ScreenExitFunction screenExitFunction:
-                    screenModel.ScreenExits.Add(new ScreenExitModel(screenExitFunction.ConnectedScreen.Identifier, screenExitFunction.ExitDirection));
+                    screenModel.ScreenExits.Add(new ScreenExitModel(screenExitFunction.ConnectedScreenIdentifier, screenExitFunction.ExitDirection));
                     break;
             }
         }
 
         public void Visit(FactorExpressionNode factorExpressionNode)
         {
+            factorExpressionNode.Left.Accept(this);
+            factorExpressionNode.Right.Accept(this);
         }
 
         public void Visit(FactorOperationNode factorOperationNode)
@@ -124,6 +137,8 @@ namespace Dazel.Compiler.CodeGeneration
 
         public void Visit(SumExpressionNode sumExpressionNode)
         {
+            sumExpressionNode.Left.Accept(this);
+            sumExpressionNode.Right.Accept(this);
         }
 
         public void Visit(SumOperationNode sumOperationNode)
@@ -132,6 +147,7 @@ namespace Dazel.Compiler.CodeGeneration
 
         public void Visit(TerminalExpressionNode terminalExpressionNode)
         {
+            terminalExpressionNode.Child.Accept(this);
         }
 
         public void Visit(MemberAccessNode memberAccessNode)
@@ -160,6 +176,15 @@ namespace Dazel.Compiler.CodeGeneration
 
         public void Visit(ExitValueNode exitValueNode)
         {
+            if (exitValueNode is TileExitValueNode tileExit)
+            {
+                DazelLogger.EmitWarning("TileExits have not been implemented yet.", tileExit.Token);
+            }
+
+            if (exitValueNode is ScreenExitValueNode screenExit)
+            {
+                screenModel.ScreenExits.Add(new ScreenExitModel(screenExit.ConnectedScreenIdentifier, screenExit.ExitDirection));
+            }
         }
     }
 }

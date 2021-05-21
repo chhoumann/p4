@@ -1,3 +1,4 @@
+using Dazel.Game.Core;
 using UnityEngine;
 
 namespace Dazel.Game.Entities
@@ -30,6 +31,11 @@ namespace Dazel.Game.Entities
         {
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             MoveDirection = moveInput;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameManager.ReturnToMainMenu();
+            }
         }
 
         private void FixedUpdate()

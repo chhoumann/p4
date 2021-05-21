@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dazel.Compiler.Ast;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
-using Dazel.Compiler.Ast.Nodes.GameObjectNodes;
 using Dazel.Compiler.SemanticAnalysis;
 
 namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
@@ -11,34 +9,28 @@ namespace Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions
     {
         public override int NumArguments => 2;
         
-        public ScreenExitFunction() : base(SymbolType.Void) { }
+        public ScreenExitFunction() : base(SymbolType.Exit) { }
 
         public Direction ExitDirection { get; private set; }
-        public GameObjectNode ConnectedScreen { get; private set; }
 
-        private string connectedScreenName;
+        public string ConnectedScreenIdentifier { get; private set; }
 
         public override ValueNode GetReturnType(List<ValueNode> parameters)
         {
             if (parameters[0] is IdentifierValueNode dirId && parameters[1] is IdentifierValueNode screenId
-                && Enum.TryParse(dirId.Value, false, out Direction exitDirection))
+                && Enum.TryParse(dirId.Identifier, false, out Direction exitDirection))
             {
                 ExitDirection = exitDirection;
-                connectedScreenName = screenId.Value;
+                ConnectedScreenIdentifier = screenId.Identifier;
 
-                return new ScreenExitValueNode(connectedScreenName);
+                return new ScreenExitValueNode(ConnectedScreenIdentifier, exitDirection)
+                {
+                    Token = dirId.Token
+                };
             }
 
-            throw InvalidArgumentsException(parameters);
-        }
+            InvalidArgumentsException(parameters);
 
-        public override ValueNode Setup(List<ValueNode> parameters, AbstractSyntaxTree ast)
-        {
-            if (ast.TryRetrieveGameObject(connectedScreenName, out GameObjectNode screen))
-            {
-                ConnectedScreen = screen;
-            }
-            
             return null;
         }
     }

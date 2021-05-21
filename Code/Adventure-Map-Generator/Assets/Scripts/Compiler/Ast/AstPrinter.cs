@@ -50,7 +50,7 @@ namespace Dazel.Compiler.Ast
 
         public void Visit(FactorOperationNode factorOperationNode)
         {
-            sb.Append(factorOperationNode.Operation);
+            sb.Append(factorOperationNode.Operator);
         }
 
         public void Visit(FloatValueNode floatValueNode)
@@ -60,7 +60,7 @@ namespace Dazel.Compiler.Ast
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            sb.Append(identifierValueNode.Value);
+            sb.Append(identifierValueNode.Identifier);
         }
 
         public void Visit(IntValueNode intValueNode)
@@ -82,7 +82,7 @@ namespace Dazel.Compiler.Ast
 
         public void Visit(SumOperationNode sumOperationNode)
         {
-            sb.Append(sumOperationNode.Operation);
+            sb.Append(sumOperationNode.Operator);
         }
 
         public void Visit(TerminalExpressionNode terminalExpressionNode)

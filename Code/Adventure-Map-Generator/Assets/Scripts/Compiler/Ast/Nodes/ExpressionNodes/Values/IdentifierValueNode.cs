@@ -7,11 +7,17 @@ namespace Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values
     {
         public override SymbolType Type => SymbolType.Identifier; 
         
-        public string Value { get; set; }
+        public string Identifier { get; set; }
+        public ValueNode ValueNode { get; set; }
 
         public override void Accept(IExpressionVisitor visitor)
         {
             visitor.Visit(this);
+        }
+
+        public override string ToString()
+        {
+            return $"{Identifier} = {ValueNode}";
         }
     }
 }

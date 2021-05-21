@@ -3,26 +3,28 @@ using System.Collections.Generic;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class SymbolTable<T>
+    public sealed class SymbolTable
     {
-        private readonly Dictionary<string, T> symbols = new Dictionary<string, T>();
-        private readonly SymbolTable<T> parent;
+        public readonly Dictionary<string, SymbolTableEntry> symbols = new Dictionary<string, SymbolTableEntry>();
+        
+        public SymbolTable Parent { get; }
+        public List<SymbolTable> Children { get; } = new List<SymbolTable>();
 
-        public SymbolTable(SymbolTable<T> parent)
+        public SymbolTable(SymbolTable parent)
         {
-            this.parent = parent;
+            Parent = parent;
         }
 
-        public T RetrieveSymbol(string identifier)
+        public SymbolTableEntry RetrieveSymbolInParentScope(string identifier)
         {
-            if (symbols.TryGetValue(identifier, out T symbol))
+            if (symbols.TryGetValue(identifier, out SymbolTableEntry symbol))
             {
                 return symbol;
             }
             
-            if (parent != null)
+            if (Parent != null)
             {
-                T parentSymbol = parent.RetrieveSymbol(identifier);
+                SymbolTableEntry parentSymbol = Parent.RetrieveSymbolInParentScope(identifier);
 
                 if (parentSymbol != null)
                 {
@@ -30,18 +32,62 @@ namespace Dazel.Compiler.SemanticAnalysis
                 }
             }
 
-            throw new ArgumentException($"Invalid identifier: {identifier}");
+            throw new ArgumentException($"Invalid identifier: {identifier}.");
+        }
+        
+        public SymbolTableEntry RetrieveSymbolInChildScope(string identifier)
+        {
+            if (symbols.TryGetValue(identifier, out SymbolTableEntry symbol))
+            {
+                return symbol;
+            }
+
+            if (Children.Count > 0)
+            {
+                foreach (SymbolTable childSymbolTable in Children)
+                {
+                    SymbolTableEntry childSymbol = childSymbolTable.RetrieveSymbolInChildScope(identifier);
+
+                    if (childSymbol != null)
+                    {
+                        return childSymbol;
+                    }
+                }
+            }
+
+            throw new ArgumentException($"Invalid identifier: {identifier}.");
+        }
+        
+        public SymbolTable RetrieveSymbolTable(string symbolIdentifier)
+        {
+            if (symbols.ContainsKey(symbolIdentifier))
+            {
+                return this;
+            }
+
+            SymbolTable parentSymbolTable = Parent?.RetrieveSymbolTable(symbolIdentifier);
+
+            return parentSymbolTable;
         }
 
-        public void AddOrUpdateSymbol(string identifier, T data)
+        public void AddOrUpdateSymbol(string identifier, SymbolTableEntry data)
         {
             if (symbols.ContainsKey(identifier))
             {
                 symbols[identifier] = data;
                 return;
             }
-            
-            symbols.Add(identifier, data);
+
+            SymbolTable symbolTable = RetrieveSymbolTable(identifier);
+
+            if (symbolTable != null)
+            {
+                symbolTable.AddOrUpdateSymbol(identifier, data);
+            }
+            else
+            {
+                symbols.Add(identifier, data);
+            }
         }
     }
 }

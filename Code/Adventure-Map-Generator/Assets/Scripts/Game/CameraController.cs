@@ -1,4 +1,5 @@
 using Dazel.Game.Core;
+using Dazel.Game.Screens;
 using UnityEngine;
 
 namespace Dazel.Game
@@ -16,6 +17,9 @@ namespace Dazel.Game
         private Vector2 minPosition;
         private Vector2 maxPosition;
 
+        private int screenWidth;
+        private int screenHeight;
+        
         private void Start()
         { 
             cam = GetComponent<Camera>();
@@ -35,9 +39,14 @@ namespace Dazel.Game
         private void Update()
         {
             UpdateCameraPosition();
+
+            if (Screen.width != screenWidth || Screen.height != screenHeight)
+            {
+                CalculateCameraBounds(World.CurrentScreen);
+            }
         }
 
-        private void CalculateCameraBounds(Screen.Screen screen)
+        private void CalculateCameraBounds(GameScreen screen)
         {
             float height = cam.orthographicSize * 2;
             float width = cam.aspect * height;
@@ -52,13 +61,26 @@ namespace Dazel.Game
 
             maxPosition.x = screen.Size.x - cameraExtents.x;
             maxPosition.y = screen.Size.y - cameraExtents.y;
+
+            if (screen.Size.x < cameraSize.x)
+            {
+                minPosition.x = maxPosition.x = screen.Size.x * 0.5f;
+            }
+
+            if (screen.Size.y < cameraSize.y)
+            {
+                minPosition.x = maxPosition.y = screen.Size.y * 0.5f;
+            }
+
+            screenWidth = Screen.width;
+            screenHeight = Screen.height;
         }
         
         private void UpdateCameraPosition()
         {
-            Vector3 camPos = transform.position;
             Vector3 targetPos = target.position;
-            
+            Vector3 camPos = transform.position;
+
             targetPos.x = Mathf.Clamp(targetPos.x, minPosition.x, maxPosition.x);
             targetPos.y = Mathf.Clamp(targetPos.y, minPosition.y, maxPosition.y);
             
