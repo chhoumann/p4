@@ -47,7 +47,7 @@ For each of these, we give a finite set of formation rules that define how each 
 		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
 		%VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon] \\
 		D_V&::= x:=a; \; D_V \mid \epsilon \\
-		D_P&::= p \; S; \; D_P \mid \epsilon \\
+		D_P&::= P \; S; \; D_P \mid \epsilon \\
 		D_R&::= record \; r \; L_\text{BRACK} \; D_V \; D_P \; D_R \; R_\text{BRACK}; \; D_R \mid \epsilon
 		%GOName&::= \texttt{Screen} \texttt{ Id } \{GOCont\} \mid \texttt{Entity} \texttt{ Id } \{GOCont\} \mid \texttt{MovePattern} \texttt{ Id } \{GOCont\} \\
 		%GOCont&::= \texttt{Map} \{S\} \mid \texttt{Exits} \{S\} \mid \texttt{Entities} \{S\} \mid \texttt{OnScreenEntered} \{S\} \mid \texttt{Data} \{S\}
@@ -333,5 +333,4 @@ Following this we will now give the transition rules for arithmetic expressions,
 \subsubsection*{Summary of the semantics}
 Due to the structure of \dazel{} with its object structure we had to introduce semantics that would be able to capture the ability to declare a nested object structure which we have done through records. Added to that was the requirement to be able to access statements, variables, procedures as well as the nested records and to that end we introduced generalized variables and generalized procedure names.
 In the following sections we will discuss the implementation of the interpreter for \dazel{}. 
-
 
