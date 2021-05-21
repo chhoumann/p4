@@ -105,6 +105,6 @@ public StatementExpressionNode VisitAssignment(DazelParser.AssignmentContext con
 }
 \end{lstlisting}
 
-The strategy for all the rest of the visitor methods follow the same mode of logic, where if a terminal node has been found, it is saved and if a non terminal node has been found, it continues to visit the parse tree until it finds all the terminal nodes in the tree.
+The strategy for the rest of the visitor methods follows the same logic, where, if a node that needs to be present in the AST is visited, it is converted to an AST node containing all the information we need, which is found through visiting its child nodes.
 
-Following the construction if the AST the semantic analysis of the compiler can begin, which consists of type checking, scope checking as well as the evaluation of expressions.
+Following the construction of the AST, the semantic analysis phase of the compiler can begin, which consists of type checking, scope checking, the evaluation of expressions as well as linking \textbf{GameObjects} that have been referenced in the source code through member access.
