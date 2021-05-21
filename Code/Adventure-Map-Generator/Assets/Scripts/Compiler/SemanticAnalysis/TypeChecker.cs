@@ -72,15 +72,15 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(FunctionInvocationNode functionInvocationNode)
         {
-            functionInvocationNode.Function.CurrentSymbolTable = CurrentTopScope;
+            functionInvocationNode.Function.CurrentSymbolTable = CurrentSymbolTable;
             FunctionSymbolTableEntry entry = new FunctionSymbolTableEntry(functionInvocationNode.ReturnType, functionInvocationNode.Parameters);
             
-            CurrentTopScope.AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);
+            CurrentSymbolTable.AddOrUpdateSymbol(functionInvocationNode.Identifier, entry);
         }
 
         public void Visit(AssignmentNode assignmentNode)
         {
-            SymbolType expressionType = new ExpressionTypeChecker(CurrentTopScope).GetType(assignmentNode.Expression);
+            SymbolType expressionType = new ExpressionTypeChecker(CurrentSymbolTable).GetType(assignmentNode.Expression);
             ValueNode expressionValue;
             
             switch (expressionType)
@@ -129,7 +129,7 @@ namespace Dazel.Compiler.SemanticAnalysis
 
             VariableSymbolTableEntry entry = new VariableSymbolTableEntry(expressionValue, expressionType);
 
-            CurrentTopScope.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
+            CurrentSymbolTable.AddOrUpdateSymbol(assignmentNode.Identifier, entry);
         }
     }
 }
