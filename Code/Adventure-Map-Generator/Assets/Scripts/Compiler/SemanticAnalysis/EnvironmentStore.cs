@@ -20,9 +20,9 @@ namespace Dazel.Compiler.SemanticAnalysis
             SymbolTable parentScope = EnvironmentStack.Count > 0 ? EnvironmentStack.Peek() : null;
             SymbolTable newScope = new SymbolTable(parentScope);
             
-            EnvironmentStack.Push(newScope);
-
             parentScope?.Children.Add(newScope);
+            
+            EnvironmentStack.Push(newScope);
 
             if (parentScope == null && !TopSymbolTables.ContainsKey(GameObjectIdentifier))
             {
