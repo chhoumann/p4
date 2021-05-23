@@ -37,6 +37,7 @@ namespace Dazel.Compiler
             PerformSemanticAnalysis(ast);
             
             screenModels = GenerateIntermediateModels(ast);
+
             return !DazelLogger.HasErrors;
         }
 
@@ -78,6 +79,8 @@ namespace Dazel.Compiler
             {
                 new LinkChecker(ast).Visit(gameObject);
             }
+            
+            EnvironmentStore.CleanUp();
         }
 
         private static IEnumerable<ScreenModel> GenerateIntermediateModels(AbstractSyntaxTree ast)
