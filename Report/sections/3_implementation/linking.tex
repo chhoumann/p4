@@ -1,4 +1,42 @@
 \subsection*{Member Access Linking} \label{sec:Linker}
 Since the beginning of the project, one of the largest tasks was figuring out how to connect screens together, both syntacically and semantically. 
-As mentioned in \ref{chap:language_design}, we decided to link screens together by allowing access to other screens through member access. 
+As mentioned in chapter \ref{chap:language_design}, we decided to link screens together by allowing access to other screens and their variables through member access. 
+
+
+Two examples of member access can be seen in \snipref{lst:LinkingExample}. 
+On line \ref{line:MemberAccessExample1}, \texttt{Exit1} in \texttt{SampleScreen1} is being connected to \texttt{Exit1} in \texttt{SampleScreen2} through member access in the \texttt{Exit} function invocation.
+Similarly, on line \ref{line:MemberAccessExample2}, \texttt{Exit1} in \texttt{SampleScreen2} is being connected to \texttt{Exit1} in \texttt{SampleScreen1}.
+
+\begin{lstlisting}[language=CSharp, caption={\dazel{} source code example of member access.}, label={lst:LinkingExample},escapechar=|]
+// ./src/SampleScreen1.txt
+Screen SampleScreen1 
+{
+	Map 
+	{
+		Size(30, 24);
+		Floor("Grass");
+	}
+	
+	Exits 
+	{
+		Exit1 = Exit([8, 2], SampleScreen2.Exits.Exit1); |\label{line:MemberAccessExample1}|
+	}
+}
+
+// ./src/SampleScreen2.txt
+Screen SampleScreen2
+{
+	Map 
+	{
+		Size(40, 40);
+		Floor("Stone");
+	}
+	
+	Exits 
+	{
+		Exit1 = Exit([4, 0], SampleScreen1.Exits.Exit1); |\label{line:MemberAccessExample2}|
+	}
+}
+\end{lstlisting}
+
 It is worth noting that all screens and objects defined within a screen are always accessible from the outside, and that member access is restricted to specific types such as the \texttt{Exit} type.
