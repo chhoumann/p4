@@ -94,7 +94,8 @@ Here, the visitor instantiates and returns an AssignmentNode whose \texttt{Ident
 This corresponds to the left hand side of the assignment and can be seen on line \ref{line:GetId}. In addition, in the object instantiation, the \texttt{VisitExpression} method is called on line \ref{line:VisitExpr} to continue visiting all elements of the right hand side of the assignment. Once the terminal nodes for the expression are visited, they will be assigned to the \textbf{Expression} property of the assignment. At this point in the code compilation, the expression may consist of illegal operations such as adding objects to integers, however the \textbf{AstBuilder} is not concerned with types and expression evaluation. The legality of expressions is checked later in the \textbf{TypeChecker} described in section \ref{sec:TypeChecker}.
 
 \begin{lstlisting}[language=CSharp, caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
-public StatementExpressionNode VisitAssignment(DazelParser.AssignmentContext context)
+public StatementExpressionNode VisitAssignment(
+    DazelParser.AssignmentContext context)
 {
     return new AssignmentNode()
     {
