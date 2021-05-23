@@ -26,12 +26,12 @@ namespace Tests.EditMode.Semantics
             "}";
 
         [Test]
-        public void Linker_Visit_ThrowOnInvalidExitLink()
+        public void LinkChecker_Visit_ThrowOnInvalidExitLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode1_2);
-            Linker linker = new Linker(ast);
+            LinkChecker linkChecker = new LinkChecker(ast);
 
-            void TestDelegate() => linker.Visit(ast.Root.GameObjects["SampleScreen1"]);
+            void TestDelegate() => linkChecker.Visit(ast.Root.GameObjects["SampleScreen1"]);
             Assert.Throws<Exception>(TestDelegate);
         }
         
@@ -45,7 +45,7 @@ namespace Tests.EditMode.Semantics
             "}";
 
         [Test]
-        public void Linker_Visit_SuccessOnValidLink()
+        public void LinkChecker_Visit_SuccessOnValidLink()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode1_1, TestCode2_1);
 
@@ -58,7 +58,7 @@ namespace Tests.EditMode.Semantics
             
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
                 {
-                    new Linker(ast).Visit(gameObject);
+                    new LinkChecker(ast).Visit(gameObject);
                 }
             }
             
@@ -84,7 +84,7 @@ namespace Tests.EditMode.Semantics
             "}";
 
         [Test]
-        public void Linker_Visit_ValidMemberAccessSucceeds()
+        public void LinkChecker_Visit_ValidMemberAccessSucceeds()
         {
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_1, TestCode3_2);
             
@@ -97,7 +97,7 @@ namespace Tests.EditMode.Semantics
             
                 foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
                 {
-                    new Linker(ast).Visit(gameObject);
+                    new LinkChecker(ast).Visit(gameObject);
                 }
             }
             
@@ -114,13 +114,13 @@ namespace Tests.EditMode.Semantics
             "}";
         
         [Test]
-        public void Linker_Visit_InValidMemberAccessThrows()
+        public void LinkChecker_Visit_InValidMemberAccessThrows()
         {
             Assert.Throws<Exception>(() =>
             {
                 AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode3_3, TestCode3_2);
-                Linker linker = new Linker(ast);
-                linker.Visit(ast.Root.GameObjects["SampleScreen1"]);
+                LinkChecker linkChecker = new LinkChecker(ast);
+                linkChecker.Visit(ast.Root.GameObjects["SampleScreen1"]);
             });
         }
     }

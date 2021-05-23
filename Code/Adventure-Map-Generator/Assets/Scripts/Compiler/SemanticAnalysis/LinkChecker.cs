@@ -12,11 +12,11 @@ using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 
 namespace Dazel.Compiler.SemanticAnalysis
 {
-    public sealed class Linker : ICompleteVisitor
+    public sealed class LinkChecker : ICompleteVisitor
     {
         private readonly AbstractSyntaxTree abstractSyntaxTree;
 
-        public Linker(AbstractSyntaxTree abstractSyntaxTree)
+        public LinkChecker(AbstractSyntaxTree abstractSyntaxTree)
         {
             this.abstractSyntaxTree = abstractSyntaxTree;
         }
