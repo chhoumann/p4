@@ -226,6 +226,7 @@ namespace Tests.EditMode.Semantics
             "   Map" +
             "   {" +
             "       x = 1 + 1.5;" +
+            "       y = 1.5 + 1;" +
             "   }" +
             "}";
         
@@ -235,11 +236,17 @@ namespace Tests.EditMode.Semantics
             AbstractSyntaxTree ast = TestAstBuilder.BuildAst(TestCode9);
             Assert.DoesNotThrow(() => TestDelegate(ast));
 
-            List<string> variablePath = new List<string>() {"SampleScreen1", "Map", "x"};
+            List<string> variablePathX = new List<string>() {"SampleScreen1", "Map", "x"};
+            List<string> variablePathY = new List<string>() {"SampleScreen1", "Map", "y"};
             
-            ValueNode value = EnvironmentStore.AccessMember(variablePath).ValueNode;
+            ValueNode valueX = EnvironmentStore.AccessMember(variablePathX).ValueNode;
+            ValueNode valueY = EnvironmentStore.AccessMember(variablePathY).ValueNode;
             
-            Assert.That(value != null, "value != null");
+            Assert.That(valueX != null, "valueX != null");
+            Assert.That(valueX is FloatValueNode {Value: 2.5f}, "valueX != null");
+            
+            Assert.That(valueY != null, "valueY != null");
+            Assert.That(valueY is FloatValueNode {Value: 2.5f}, "valueY != null");
         }
     }
 }
