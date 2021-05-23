@@ -145,3 +145,6 @@ This is shown on line \ref{line:MemberAccessGameObjectIdentifier}.
 The elements in the middle is assumed to be the path to the scope in which the variable lives, in this case, we are simply accessing the \texttt{Exits} scope. 
 This has not yet been implemented, and so in the current implementation of member access, the \texttt{RetrieveSymbol-
 InChildScope} method on line \ref{line:RetrieveSymbolInChildScope} searches through every scope in the \textbf{GameObject} recursively until it finds the variable with the provided identifier, or until it has checked all scopes and found nothing. This is not ideal, as having defined a variable with the same name in two different scopes would simply return the first one that is encountered.
+
+
+This concludes the semantic analysis phase of the compiler. Next, we will discuss the code generation phase.
