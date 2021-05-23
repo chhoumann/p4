@@ -39,14 +39,72 @@ Screen SampleScreen2
 }
 \end{lstlisting}
 
-It is worth noting that all screens and objects defined within a screen are always accessible from the outside, and that member access is restricted to specific types such as the \texttt{Exit} type.
+It is worth noting that all screens and objects defined within a screen are always accessible from the outside, and that member access is currently restricted to \texttt{Exit} types.
 
 
 To illustrate how member access is implemented in \dazel{}, we will first highlight the \textbf{LinkChecker} class whose responsibility to check the legality of member access nodes. This is done directly after type checking.
 As with previous examples, the \textbf{LinkChecker} class implements a visitor pattern to traverse the AST.
+Once the \textbf{LinkChecker} encounters a function invocation with member access through traversal of the AST, it will first verify that the referenced \textbf{GameObject} is valid. 
+If the \textbf{GameObject} is valid, it will check if any of the parameters is a member access node and, if so, traverse them. This can be seen in the function invocation visit method on lines \ref{line:VisitFunctionInvocationStart} to \ref{line:VisitFunctionInvocationEnd}. 
 
-function invocation (exit)
-envsto 
+\begin{lstlisting}[language=CSharp, caption={linker}, label={lst:LinkerClass},escapechar=|]
+public sealed class LinkChecker : ICompleteVisitor
+{
+	... 
+
+	public void Visit(FunctionInvocationNode functionInvocationNode) |\label{line:VisitFunctionInvocationStart}|
+	{
+		switch (functionInvocationNode.Function) 
+		{
+			case ScreenExitFunction screenExitFunction:
+			{
+				if (!abstractSyntaxTree.TryRetrieveGameObject(screenExitFunction.ConnectedScreenIdentifier))
+				{
+					DazelLogger.EmitError($"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist", functionInvocationNode.Token);
+				}
+				break;
+			}
+			case ExitFunction exitFunction:
+				exitFunction.MemberAccessNode.Accept(this);
+				break;
+			
+			...
+		}
+
+		foreach (ValueNode valueNode in functionInvocationNode.Parameters)
+		{
+			if (valueNode is MemberAccessNode memberAccessNode)
+			{
+				memberAccessNode.Accept(this);
+			}
+		}
+	} |\label{line:VisitFunctionInvocationEnd}|
+
+	...
+
+	public void Visit(MemberAccessNode memberAccessNode)
+	{
+		var calc = new NoOpCalculator<NoOpCalculator<ValueNode>>(memberAccessNode.Token);
+		
+		new ExpressionEvaluatorLinker<NoOpCalculator<ValueNode>>(calc).Visit(memberAccessNode);
+	}
+	
+	...
+
+	public void Visit(ExitValueNode exitValueNode)
+	{
+		if (exitValueNode is TileExitValueNode tileExit)
+		{
+			EnvironmentStore.AccessMember(tileExit.ToExit);
+		} 
+
+		...
+	}	
+}
+\end{lstlisting}
+
+When the \textbf{LinkChecker} visits a members access node \fxfatal{Describe visit member access node and exit value node}
+
 
 
 \begin{lstlisting}[language=CSharp, caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
@@ -78,58 +136,3 @@ namespace Dazel.Compiler.SemanticAnalysis
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=CSharp, caption={linker}, label={lst:LinkerClass},escapechar=|]
-public sealed class LinkChecker : ICompleteVisitor
-{
-	... 
-
-    public void Visit(FunctionInvocationNode functionInvocationNode)
-    {
-        switch (functionInvocationNode.Function)
-        {
-            case ScreenExitFunction screenExitFunction:
-            {
-                if (!abstractSyntaxTree.TryRetrieveGameObject(screenExitFunction.ConnectedScreenIdentifier))
-                {
-                    DazelLogger.EmitError($"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist", functionInvocationNode.Token);
-                }
-                break;
-            }
-            case ExitFunction exitFunction:
-                exitFunction.MemberAccessNode.Accept(this);
-                break;
-			
-			...
-        }
-
-        foreach (ValueNode valueNode in functionInvocationNode.Parameters)
-        {
-            if (valueNode is MemberAccessNode memberAccessNode)
-            {
-                memberAccessNode.Accept(this);
-            }
-        }
-    }
-
-	...
-
-    public void Visit(MemberAccessNode memberAccessNode)
-    {
-        var calc = new NoOpCalculator<NoOpCalculator<ValueNode>>(memberAccessNode.Token);
-     
-        new ExpressionEvaluatorLinker<NoOpCalculator<ValueNode>>(calc).Visit(memberAccessNode);
-    }
-	
-	...
-
-    public void Visit(ExitValueNode exitValueNode)
-    {
-        if (exitValueNode is TileExitValueNode tileExit)
-        {
-            EnvironmentStore.AccessMember(tileExit.ToExit);
-        } 
-
-		...
-    }	
-}
-\end{lstlisting}
