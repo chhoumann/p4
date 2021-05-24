@@ -15,9 +15,8 @@ namespace Dazel.Game.Core
 
         public static event Action<GameScreen> ScreenLoaded;
         
-        public static GameScreen CurrentScreen { get; private set; }
-        
         public static IEnumerable<ScreenModel> ScreenModels { get; set; }
+        public static GameScreen CurrentScreen { get; private set; }
         
         private void Awake()
         {
