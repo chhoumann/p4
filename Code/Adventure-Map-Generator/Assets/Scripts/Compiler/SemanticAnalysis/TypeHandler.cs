@@ -20,6 +20,11 @@ namespace Dazel.Compiler.SemanticAnalysis
                 return;
             }
                 
+            if (CurrentType == SymbolType.Float && value == SymbolType.Integer)
+            {
+                return;
+            }
+                
             DazelLogger.EmitError($"Type mismatch. {value} is not {CurrentType}", token);
         }
     }

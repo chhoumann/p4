@@ -13,28 +13,27 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         private static readonly Dictionary<string, SymbolTable> TopSymbolTables = new Dictionary<string, SymbolTable>();
         
-        protected SymbolTable CurrentTopScope;
+        protected SymbolTable CurrentScope;
         
         protected void OpenScope()
         {
             SymbolTable parentScope = EnvironmentStack.Count > 0 ? EnvironmentStack.Peek() : null;
             SymbolTable newScope = new SymbolTable(parentScope);
             
-            EnvironmentStack.Push(newScope);
-
             parentScope?.Children.Add(newScope);
-
+            
             if (parentScope == null && !TopSymbolTables.ContainsKey(GameObjectIdentifier))
             {
                 TopSymbolTables.Add(GameObjectIdentifier, newScope);
             }
             
-            CurrentTopScope = newScope;
+            EnvironmentStack.Push(newScope);
+            CurrentScope = newScope;
         }
 
         protected void CloseScope()
         {
-            CurrentTopScope = CurrentTopScope.Parent;
+            CurrentScope = CurrentScope.Parent;
         }
 
         public static VariableSymbolTableEntry AccessMember(MemberAccessNode memberAccessNode)

@@ -13,11 +13,10 @@ namespace Dazel.Game.Core
         [SerializeField] private GameObject entityTemplate;
         [SerializeField] private Transform screenContainer;
 
-        public static event Action<GameScreen> MapLoaded;
-        
-        public static GameScreen CurrentScreen { get; private set; }
+        public static event Action<GameScreen> ScreenLoaded;
         
         public static IEnumerable<ScreenModel> ScreenModels { get; set; }
+        public static GameScreen CurrentScreen { get; private set; }
         
         private void Awake()
         {
@@ -93,7 +92,7 @@ namespace Dazel.Game.Core
                     GameObject entity = Instantiate(entityTemplate, screens[screenModel.Identifier].transform);
                     entity.name = entityModel.Identifier;
                     entity.transform.localPosition = new Vector3(entityModel.SpawnPosition.X + 0.5f, entityModel.SpawnPosition.Y);
-
+                    
                     Rect rect = new Rect(0, 0, entityTexture.width, entityTexture.height);
                     Vector2 pivot = new Vector2(0.5f, 0);
                 
@@ -104,11 +103,6 @@ namespace Dazel.Game.Core
                     BoxCollider2D collision = entity.AddComponent<BoxCollider2D>();
                     collision.size = new Vector2(collision.size.x, collision.size.y * 0.5f);
                     collision.offset = new Vector2(0, collision.size.y * 0.5f);
-
-                    entity.transform.localScale = new Vector3(
-                        ppu / spriteRenderer.sprite.rect.width, 
-                        ppu / spriteRenderer.sprite.rect.height
-                    );
                 }
             }
         }
@@ -125,7 +119,7 @@ namespace Dazel.Game.Core
 
             SetPlayerPosition(player, currentScreen, screenToLoad, exitDirection);
 
-            MapLoaded?.Invoke(screenToLoad);
+            ScreenLoaded?.Invoke(screenToLoad);
             CurrentScreen = screenToLoad;
         }
 
