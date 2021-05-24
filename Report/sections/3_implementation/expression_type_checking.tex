@@ -3,7 +3,7 @@ To illustrate an example of how type checking is implemented in \dazel{}, we wil
 Note that we do not exclusively perform type checking on expressions, however this example sufficiently highlights our approach to type checking.
 
 
-Once the type checker visits an assignment node, it initializes an instance of the \textbf{ExpressionTypeChecker} whose responsibility is to traverse the expression and verify that the expression is legal by implementing the \textbf{IExpressionVisitor} interface. 
+Once the \textbf{TypeChecker} visits an assignment node, it initializes an instance of the \textbf{ExpressionTypeChecker}. The \textbf{ExpressionTypeChecker} is a visitor designed to traverse the nodes of an expression. While traversing, it verifies that the expression is legal.
 
 The \textbf{ExpressionTypeChecker} delegates the responsibility for storing the previously visited type to a class called \textbf{TypeHandler}. This class contains some simple rules that determine if types are compatible and can be seen on \snipref{lst:TypeHandler}. 
 Its rules allow floats and integers to occur in the same expression. As can be seen on lines \ref{line:AllowInt1} to \ref{line:AllowInt2}, if an expression is of type float and an integer is encountered, it remains a float expression.
