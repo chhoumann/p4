@@ -13,11 +13,10 @@ namespace Dazel.Game.Core
         [SerializeField] private GameObject entityTemplate;
         [SerializeField] private Transform screenContainer;
 
-        public static event Action<GameScreen> MapLoaded;
-        
-        public static GameScreen CurrentScreen { get; private set; }
+        public static event Action<GameScreen> ScreenLoaded;
         
         public static IEnumerable<ScreenModel> ScreenModels { get; set; }
+        public static GameScreen CurrentScreen { get; private set; }
         
         private void Awake()
         {
@@ -120,7 +119,7 @@ namespace Dazel.Game.Core
 
             SetPlayerPosition(player, currentScreen, screenToLoad, exitDirection);
 
-            MapLoaded?.Invoke(screenToLoad);
+            ScreenLoaded?.Invoke(screenToLoad);
             CurrentScreen = screenToLoad;
         }
 

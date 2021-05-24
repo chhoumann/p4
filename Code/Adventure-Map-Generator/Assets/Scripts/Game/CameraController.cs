@@ -28,12 +28,12 @@ namespace Dazel.Game
 
         private void OnEnable()
         {
-            World.MapLoaded += CalculateCameraBounds;
+            World.ScreenLoaded += CalculateCameraBounds;
         }
 
         private void OnDisable()
         {
-            World.MapLoaded -= CalculateCameraBounds;
+            World.ScreenLoaded -= CalculateCameraBounds;
         }
 
         private void Update()
