@@ -93,7 +93,7 @@ namespace Dazel.Game.Core
                     GameObject entity = Instantiate(entityTemplate, screens[screenModel.Identifier].transform);
                     entity.name = entityModel.Identifier;
                     entity.transform.localPosition = new Vector3(entityModel.SpawnPosition.X + 0.5f, entityModel.SpawnPosition.Y);
-
+                    
                     Rect rect = new Rect(0, 0, entityTexture.width, entityTexture.height);
                     Vector2 pivot = new Vector2(0.5f, 0);
                 
@@ -104,11 +104,6 @@ namespace Dazel.Game.Core
                     BoxCollider2D collision = entity.AddComponent<BoxCollider2D>();
                     collision.size = new Vector2(collision.size.x, collision.size.y * 0.5f);
                     collision.offset = new Vector2(0, collision.size.y * 0.5f);
-
-                    entity.transform.localScale = new Vector3(
-                        ppu / spriteRenderer.sprite.rect.width, 
-                        ppu / spriteRenderer.sprite.rect.height
-                    );
                 }
             }
         }
