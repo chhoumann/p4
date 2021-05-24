@@ -75,6 +75,11 @@ This is illustrated in \figref{Dazel_ScreenExit}.
 
 \fig{0.8}{Dazel_ScreenExit}{The result of the code in \snipref{lst:DazelScreenExit}. Two screens are generated and a \texttt{ScreenExit} is created on the left of \texttt{SampleScreen1} which connects it to \texttt{SampleScreen2}.}
 
+The generation and connecting of screens is done inside a Unity MonoBehaviour class called \textbf{World}.
+This class is responsible for taking the \textbf{ScreenModels} generated in the code generation phase and transforming it into interconnected screens which are then populated by entities. 
+As this interpretation is based on the Unity game engine and the focus of this report is the \dazel{} language, 
+\snipref{lst:WorldClassUnity} shows a heavily simplified version of the \textbf{World} class that illustrates its structure without delving into the implementation details.
+
 \begin{lstlisting}[language=CSharp, caption={}, label={lst:WorldClassUnity},escapechar=|]
 public sealed class World : MonoBehaviour
 {
@@ -82,7 +87,7 @@ public sealed class World : MonoBehaviour
 
     public static event Action<GameScreen> ScreenLoaded;
     
-    public static IEnumerable<ScreenModel> ScreenModels { get; set; }
+    public static IEnumerable<ScreenModel> ScreenModels { get; set; } |\label{line:ScreenModelsIEnumerable}|
     public static GameScreen CurrentScreen { get; private set; }
     
     private void Awake()
@@ -101,7 +106,7 @@ public sealed class World : MonoBehaviour
     {
         Dictionary<string, GameScreen> screens = new Dictionary<string, GameScreen>();
 
-        foreach (ScreenModel screenModel in ScreenModels)
+        foreach (ScreenModel screenModel in ScreenModels) |\label{line:ScreenModelsIteration}|
         {
 			...
         }
@@ -111,7 +116,7 @@ public sealed class World : MonoBehaviour
 
     private static void ConnectScreens(IReadOnlyDictionary<string, GameScreen> screens)
     {
-        foreach (ScreenModel screenModel in ScreenModels)
+        foreach (ScreenModel screenModel in ScreenModels) 
         {
             GameScreen screen = screens[screenModel.Identifier];
 
@@ -134,14 +139,9 @@ public sealed class World : MonoBehaviour
             }
         }
     }
-
-    private static void OnExitMapBounds(Player player, Direction exitDirection)
-    {
-		...
-    }
-
-    private static void SetPlayerPosition(Player player, GameScreen currentScreen, GameScreen screenToLoad, Direction exitDirection)
-    {
-		...
-    }
+	
+	...
 }
+\end{lstlisting}
+
+As can be seen on line \ref{line:ScreenModelsIEnumerable} and line \ref{line:ScreenModelsIteration}, the class iterates through the \textbf{ScreenModels} from the code generation phase and uses them to build the game world.
