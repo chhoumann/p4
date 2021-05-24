@@ -6,7 +6,26 @@ This is built using the Unity engine and interprets the intermediate models in o
 
 As can be seen in \figref{Dazel_Title}, the user is presented with a few options when launching the application. 
 The "Open Working Directory" button reveals the working directory in the operating systems' file explorer.
-Inside the working directory, two sub-directories are located: the "src" directory, in which the user creates text files with source code, and the "gfx" directory in which the user places graphic assets. Inside this directory, the user can either place image files and reference them directly with a string like "Grass.png". However, one may also create directories inside the "gfx" directory and place multiple different images files inside. This way, the user can, for example, create a directory named "Grass" with five different grass textures inside, and by calling \texttt{Floor("Grass")}, the interpreter assumes that the lack of a file extenstion refers to a directory. It then searches for a directory with the name "Grass" and, if it finds it, it picks a random texture for each floor tile in the given screen. This allows the user to easily create more organic looking worlds.
+Inside the working directory, two sub-directories are located: the "src" directory, in which the user creates text files with source code, and the "gfx" directory in which the user places graphic assets. Inside this directory, the user can either place image files and reference them directly with a string like "Grass.png". However, one may also create directories inside the "gfx" directory and place multiple different images files inside. This way, the user can, for example, create a directory named "Grass" with five different grass textures inside, and by calling \texttt{Floor("Grass")}, the interpreter assumes that the lack of a file extenstion refers to a directory. It then searches for a directory with the name "Grass" and, if it finds it, it picks a random texture for each floor tile in the given screen. This allows the user to easily create more organic looking worlds. 
+
+
+To illustrate this, consider the \dazel{} code shown in \snipref{lst:DazelGrassExample}.
+\begin{lstlisting}[caption={}, label={lst:DazelGrassExample},escapechar=|]
+Screen SampleScreen1 
+{
+	Map 
+	{
+		Size(24, 24);
+		Floor("Grass");
+	}
+}
+\end{lstlisting}
+
+Creating a directory called "Grass" containing multiple different image files shown in \figref{Dazel_Random_Grass2} will then produce the result shown in \figref{Dazel_Random_Grass1}.
+
+\fig{0.6}{Dazel_Random_Grass2}{Using a directory called "Grass" in the "gfx" folder to store multiple different grass textures.}
+
+\fig{0.6}{Dazel_Random_Grass1}{The result of the code in \snipref{lst:DazelGrassExample} with the directory setup shown in \figref{Dazel_Random_Grass2}.}
 
 The game uses 16 pixels per unit, meaning each tile used in the game should be a 16x16 image lest graphic overlapping occurs. 
 The player is a pre-defined asset with animations for walking around the game world, however the user has full control of tiles and entities.
