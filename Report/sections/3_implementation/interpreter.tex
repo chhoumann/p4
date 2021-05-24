@@ -36,10 +36,6 @@ The game uses 16 pixels per unit, meaning each tile used in the game should be a
 Although trivial to implement, we decided to not throw errors when images with odd sizes are used as we feel a large part of learning game development and programming is experimentation and seeing what happens if try out strange ideas.
 
 
-
-Currently, the player is a pre-defined asset with animations for walking around the game world, though we have discussed allowing the user to create the player themselves. Due to time constraints, we were unable to implement this. 
-
-
 As previously mentioned, one of the most important aspect of \dazel{} is linking screens together to create a large world. Consider the code creating two different screens shown in \snipref{lst:DazelScreenExit}.
 
 \begin{lstlisting}[language=CSharp, caption={}, label={lst:DazelScreenExit},escapechar=|]
@@ -142,4 +138,11 @@ public sealed class World : MonoBehaviour
 }
 \end{lstlisting}
 
-As can be seen on line \ref{line:ScreenModelsIEnumerable}, the class stores a reference to the \textbf{ScreenModels} from the from the code generation phase in the compiler and uses the models to build the game world.
+As can be seen on line \ref{line:ScreenModelsIEnumerable}, the class stores a reference to the \textbf{ScreenModels} from the from the code generation phase in the compiler and uses the models to build the game world. 
+Entities may also be spawned using the previously described \texttt{SpawnEntities} method, however due to time constraints, entites are currently static objects that the player can simply collide with. 
+In addition, the player is a pre-defined asset with animations for walking around the game world. We have discussed allowing the user to create the player themselves, though this was not prioritized.
+
+
+It is worth noting that the interpreter that builds the game does not implement game behavior for large parts of the \dazel{} language such as the \texttt{Walls}, \texttt{Square} and \texttt{Line} functions. 
+This is because its purpose is to serve as a proof of concept that gives an idea of what the final result would look like. 
+For this project, we have focused almost exclusively on the design and implementation of the \dazel{} language, meaning the game itself was never a priority.
