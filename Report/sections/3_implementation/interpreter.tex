@@ -15,7 +15,7 @@ Inside the working directory, two sub-directories are located: the "src" directo
 
 
 To illustrate this, consider the \dazel{} code shown in \snipref{lst:DazelGrassExample}.
-\begin{lstlisting}[caption={}, label={lst:DazelGrassExample},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={}, label={lst:DazelGrassExample},escapechar=|]
 Screen SampleScreen1 
 {
 	Map 
@@ -40,9 +40,10 @@ Although trivial to implement, we decided to not throw errors when images with o
 Currently, the player is a pre-defined asset with animations for walking around the game world, though we have discussed allowing the user to create the player themselves. Due to time constraints, we were unable to implement this. 
 
 
-As previously mentioned, one of the most important aspect of \dazel{} is linking screens together to create a large world. Consider the code creating two different screens shown in \figref{DazelScreenExit}.
+As previously mentioned, one of the most important aspect of \dazel{} is linking screens together to create a large world. Consider the code creating two different screens shown in \snipref{lst:DazelScreenExit}.
 
-\begin{lstlisting}[caption={}, label={lst:DazelScreenExit},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={}, label={lst:DazelScreenExit},escapechar=|]
+// ./src/SampleScreen1.txt
 Screen SampleScreen1 
 {
 	Map 
@@ -53,10 +54,11 @@ Screen SampleScreen1
 
 	Exits
 	{
-		ScreenExit(Left, SampleScreen2);
+		ScreenExit(Left, SampleScreen2); |\label{line:ScreenExitExampleCode}|
 	}
 }
 
+// ./src/SampleScreen2.txt
 Screen SampleScreen2
 {
 	Map 
@@ -67,7 +69,79 @@ Screen SampleScreen2
 }
 \end{lstlisting}
 
-\fig{0.8}{Dazel_ScreenExit}{The title screen of Dazel.}
+On line \ref{line:ScreenExitExampleCode}, the \texttt{ScreenExit} function is invoked, linking the two screens together.
+By exiting to the left of \texttt{SampleScreen1}, the player will enter \texttt{SampleScreen2}.
+This is illustrated in \figref{Dazel_ScreenExit}.
 
-- screen linking
-- unity code
+\fig{0.8}{Dazel_ScreenExit}{The result of the code in \snipref{lst:DazelScreenExit}. Two screens are generated and a \texttt{ScreenExit} is created on the left of \texttt{SampleScreen1} which connects it to \texttt{SampleScreen2}.}
+
+\begin{lstlisting}[language=CSharp, caption={}, label={lst:WorldClassUnity},escapechar=|]
+public sealed class World : MonoBehaviour
+{
+	...
+
+    public static event Action<GameScreen> ScreenLoaded;
+    
+    public static IEnumerable<ScreenModel> ScreenModels { get; set; }
+    public static GameScreen CurrentScreen { get; private set; }
+    
+    private void Awake()
+    {
+        if (ScreenModels == null) return;
+        
+        Dictionary<string, GameScreen> screens = CreateScreens();
+
+        ConnectScreens(screens);
+        SpawnEntities(screens);
+    }
+
+	...
+
+    private Dictionary<string, GameScreen> CreateScreens()
+    {
+        Dictionary<string, GameScreen> screens = new Dictionary<string, GameScreen>();
+
+        foreach (ScreenModel screenModel in ScreenModels)
+        {
+			...
+        }
+
+        return screens;
+    }
+
+    private static void ConnectScreens(IReadOnlyDictionary<string, GameScreen> screens)
+    {
+        foreach (ScreenModel screenModel in ScreenModels)
+        {
+            GameScreen screen = screens[screenModel.Identifier];
+
+            foreach (ScreenExitModel screenExitModel in screenModel.ScreenExits)
+            {
+				...
+            }
+        }
+    }
+
+    private void SpawnEntities(IReadOnlyDictionary<string, GameScreen> screens)
+    {
+        const int ppu = GameManager.PixelsPerUnit;
+        
+        foreach (ScreenModel screenModel in ScreenModels)
+        {
+            foreach (EntityModel entityModel in screenModel.Entities)
+            {
+				...
+            }
+        }
+    }
+
+    private static void OnExitMapBounds(Player player, Direction exitDirection)
+    {
+		...
+    }
+
+    private static void SetPlayerPosition(Player player, GameScreen currentScreen, GameScreen screenToLoad, Direction exitDirection)
+    {
+		...
+    }
+}
