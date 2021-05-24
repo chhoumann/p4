@@ -6,7 +6,7 @@ Note that we do not exclusively perform type checking on expressions, however th
 Once the \textbf{TypeChecker} visits an assignment node, it initializes an instance of the \textbf{ExpressionTypeChecker}. The \textbf{ExpressionTypeChecker} is a visitor designed to traverse the nodes of an expression. While traversing, it verifies that the expression is legal.
 
 The \textbf{ExpressionTypeChecker} delegates the responsibility for storing the previously visited type to a class called \textbf{TypeHandler}. This class contains some simple rules that determine if types are compatible and can be seen in \snipref{lst:TypeHandler}. 
-Its rules allow floats and integers to occur in the same expression. As can be seen on lines \ref{line:AllowInt1} to \ref{line:AllowInt2}, if an expression is of type float and an integer is encountered, it remains a float expression.
+Its rules allow floats and integers to occur in the same expression. As can be seen on lines \ref{line:AllowInt1} to \ref{line:AllowInt2}. If an expression is of type float and an integer is encountered, it remains a float expression.
 
 \begin{lstlisting}[language=CSharp, caption={The \textbf{TypeHandler} class.}, label={lst:TypeHandler},escapechar=|]
 public sealed class TypeHandler
