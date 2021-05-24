@@ -1,4 +1,4 @@
-\subsection*{Scope and type checking} \label{sec:TypeChecker}
+\subsection*{Scope and Type Checking} \label{sec:TypeChecker}
 Once the AST has been constructed, the next phase of the compiler is to perform semantic analysis. From the same client method \texttt{TryRun} seen in \snipref{lst:RunMethod}, the semantic analysis is initiated. This is done through the \texttt{PerformSemanticAnalysis} method which can be seen on line \ref{line:PerformSemAna} in \snipref{lst:RunMethodSecond}.
 Similar to the \textbf{AstBuilder}, \texttt{PerformSemanticAnalysis} starts a visitor sequence that traverses the built AST by implementing a visitor interface for visiting the AST nodes.
 
