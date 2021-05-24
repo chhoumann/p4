@@ -166,7 +166,7 @@ namespace Dazel.Compiler.SemanticAnalysis
         {
             var calc = new NoOpCalculator<NoOpCalculator<ValueNode>>(memberAccessNode.Token);
          
-            new ExpressionEvaluatorLinker<NoOpCalculator<ValueNode>>(calc).Visit(memberAccessNode);
+            new ExpressionEvaluatorLinkChecker<NoOpCalculator<ValueNode>>(calc).Visit(memberAccessNode);
         }
 
         public void Visit(FloatValueNode floatValueNode)
