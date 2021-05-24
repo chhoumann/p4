@@ -1,12 +1,17 @@
 \section{The Game}
 Following the code generation phase is the final result of the code compilation - the game itself. 
-This is built using the Unity engine and interprets the intermediate models in order to build the world defind by the user in the \dazel{} source code.
+This is built using the Unity engine and interprets the intermediate models in order to build the world defind by the user in the \dazel{} source code. As can be seen in \figref{Dazel_Title}, the user is presented with a few options when launching the application.
 
 \fig{0.8}{Dazel_Title}{The title screen of Dazel.}
+ 
+The "Play" button runs the \dazel{} compiler and, if compilation succeeded, runs the interpreter that builds the game from the intermediate models. 
 
-As can be seen in \figref{Dazel_Title}, the user is presented with a few options when launching the application. 
+
+The "Enable logging" toggle enables or disables the logging of messages, warnings and errors in the console GUI described in \fxfatal{missing reference to the section about error handling}.
+
+
 The "Open Working Directory" button reveals the working directory in the operating systems' file explorer.
-Inside the working directory, two sub-directories are located: the "src" directory, in which the user creates text files with source code, and the "gfx" directory in which the user places graphic assets. Inside this directory, the user can either place image files and reference them directly with a string like "Grass.png". However, one may also create directories inside the "gfx" directory and place multiple different images files inside. This way, the user can, for example, create a directory named "Grass" with five different grass textures inside, and by calling \texttt{Floor("Grass")}, the interpreter assumes that the lack of a file extenstion refers to a directory. It then searches for a directory with the name "Grass" and, if it finds it, it picks a random texture for each floor tile in the given screen. This allows the user to easily create more organic looking worlds. 
+Inside the working directory, two sub-directories are located: the "src" directory, in which the user creates text files with source code, and the "gfx" directory in which the user places graphic assets. Inside this directory, the user can either place image files and reference them directly with a string like "Grass.png". However, one may also create directories inside the "gfx" directory and place multiple different images files inside. This way, the user can, for example, create a directory named "Grass" with three different grass textures inside, and by calling \texttt{Floor("Grass")}, the interpreter assumes that the lack of a file extenstion means that it should search for a directory with the name "Grass". If found, a random image file is picked from within for each floor tile in the given screen. This allows the user to easily create more organic looking worlds. 
 
 
 To illustrate this, consider the \dazel{} code shown in \snipref{lst:DazelGrassExample}.
@@ -27,5 +32,42 @@ Creating a directory called "Grass" containing multiple different image files sh
 
 \fig{0.6}{Dazel_Random_Grass1}{The result of the code in \snipref{lst:DazelGrassExample} with the directory setup shown in \figref{Dazel_Random_Grass2}.}
 
-The game uses 16 pixels per unit, meaning each tile used in the game should be a 16x16 image lest graphic overlapping occurs. 
-The player is a pre-defined asset with animations for walking around the game world, however the user has full control of tiles and entities.
+The game uses 16 pixels per unit, meaning each tile used in the game should be a 16x16 image, however using larger images is possible though the result may be undesirable. Entites, however, may be as big as the user prefers. 
+Although trivial to implement, we decided to not throw errors when images with odd sizes are used as we feel a large part of learning game development and programming is experimentation and seeing what happens if try out strange ideas.
+
+
+
+Currently, the player is a pre-defined asset with animations for walking around the game world, though we have discussed allowing the user to create the player themselves. Due to time constraints, we were unable to implement this. 
+
+
+As previously mentioned, one of the most important aspect of \dazel{} is linking screens together to create a large world. Consider the code creating two different screens shown in \figref{DazelScreenExit}.
+
+\begin{lstlisting}[caption={}, label={lst:DazelScreenExit},escapechar=|]
+Screen SampleScreen1 
+{
+	Map 
+	{
+		Size(24, 24);
+		Floor("Grass");
+	}
+
+	Exits
+	{
+		ScreenExit(Left, SampleScreen2);
+	}
+}
+
+Screen SampleScreen2
+{
+	Map 
+	{
+		Size(24, 24);
+		Floor("Stone");
+	}
+}
+\end{lstlisting}
+
+\fig{0.8}{Dazel_ScreenExit}{The title screen of Dazel.}
+
+- screen linking
+- unity code
