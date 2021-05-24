@@ -1,4 +1,4 @@
-\subsection*{Member Access Linking} \label{sec:Linker}
+\subsection*{Member Access Link Checking} \label{sec:Linker}
 Since the beginning of the project, one of the largest tasks was figuring out how to connect screens together, both syntacically and semantically. 
 As mentioned in chapter \ref{chap:language_design}, we decided to link screens together by allowing access to other screens and their variables through member access. 
 
@@ -82,15 +82,6 @@ public sealed class LinkChecker : ICompleteVisitor
 
 	...
 
-	public void Visit(MemberAccessNode memberAccessNode)
-	{
-		var calc = new NoOpCalculator<NoOpCalculator<ValueNode>>(memberAccessNode.Token);
-		
-		new ExpressionEvaluatorLinker<NoOpCalculator<ValueNode>>(calc).Visit(memberAccessNode);
-	}
-	
-	...
-
 	public void Visit(ExitValueNode exitValueNode)
 	{
 		if (exitValueNode is TileExitValueNode tileExit)
@@ -103,9 +94,11 @@ public sealed class LinkChecker : ICompleteVisitor
 }
 \end{lstlisting}
 
-When the \textbf{LinkChecker} visits a members access node \fxfatal{Describe visit member access node and exit value node}
-
-
+As previously mentioned, the \abstractsemanticclass{} class stores all the symbol tables for the program. 
+At this point in compilation, all symbol tables have been created and populated, making them usable for member access.
+The \texttt{AccessMember} method in \snipref{lst:VisitAssignment} takes a list of identifiers which must be the path to a specific identifier in a \textbf{GameObject}.
+For example, the previously shown syntatic member access \texttt{"SampleScreen1.Exits.Exit1"} in \snipref{lst:LinkingExample} becomes a list of three strings, 
+\texttt{\{"SampleScreen1", "Exits", "Exit1"\}}.
 
 \begin{lstlisting}[language=CSharp, caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
 public abstract class EnvironmentStore
@@ -133,11 +126,6 @@ public abstract class EnvironmentStore
 }
 \end{lstlisting}
 
-As previously mentioned, the \abstractsemanticclass{} class stores all the symbol tables for the program. 
-At this point in compilation, all symbol tables have been created and populated, making them usable for member access.
-The \texttt{AccessMember} method in \snipref{lst:VisitAssignment} takes a list of identifiers which must be the path to a specific identifier in a \textbf{GameObject}.
-For example, the previously shown syntatic member access \texttt{"SampleScreen1.Exits.Exit1"} in \snipref{lst:LinkingExample} becomes a list of three strings, 
-\texttt{\{"SampleScreen1", "Exits", "Exit1"\}}.
 As can be seen on line \ref{line:MemberAccessVariableIdentifier}, the last element in the list is assumed to be the identifier of the variable that one wishes access, in this case, it is \texttt{Exit1}.
 In addition, the first element in the list is assumed to be the \textbf{GameObject} identifier, in this case, it is \texttt{SampleScreen1}. 
 This is shown on line \ref{line:MemberAccessGameObjectIdentifier}.
