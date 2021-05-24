@@ -42,7 +42,7 @@ Screen SampleScreen2
 It is worth noting that all screens and objects defined within a screen are always accessible from the outside, and that member access is currently restricted to \texttt{Exit} types.
 
 
-To illustrate how member access is implemented in \dazel{}, we will first highlight the \textbf{LinkChecker} class whose responsibility to check the legality of member access nodes. This is done directly after type checking.
+To illustrate how member access is implemented in \dazel{}, we will first highlight the \textbf{LinkChecker} class whose responsibility is to check the legality of member access nodes. This is done directly after type checking.
 As with previous examples, the \textbf{LinkChecker} class implements a visitor pattern to traverse the AST.
 Once the \textbf{LinkChecker} encounters a function invocation with member access through traversal of the AST, it will first verify that the referenced \textbf{GameObject} is valid. 
 If the \textbf{GameObject} is valid, it will check if any of the parameters is a member access node and, if so, traverse them. This can be seen in the function invocation visit method on lines \ref{line:VisitFunctionInvocationStart} to \ref{line:VisitFunctionInvocationEnd}. 
