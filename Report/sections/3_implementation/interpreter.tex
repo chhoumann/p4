@@ -84,8 +84,6 @@ As this interpretation is based on the Unity game engine and the focus of this r
 public sealed class World : MonoBehaviour
 {
 	...
-
-    public static event Action<GameScreen> ScreenLoaded;
     
     public static IEnumerable<ScreenModel> ScreenModels { get; set; } |\label{line:ScreenModelsIEnumerable}|
     public static GameScreen CurrentScreen { get; private set; }
@@ -106,7 +104,7 @@ public sealed class World : MonoBehaviour
     {
         Dictionary<string, GameScreen> screens = new Dictionary<string, GameScreen>();
 
-        foreach (ScreenModel screenModel in ScreenModels) |\label{line:ScreenModelsIteration}|
+        foreach (ScreenModel screenModel in ScreenModels) |\label{line:ScreenModelsIteration1}|
         {
 			...
         }
@@ -144,4 +142,4 @@ public sealed class World : MonoBehaviour
 }
 \end{lstlisting}
 
-As can be seen on line \ref{line:ScreenModelsIEnumerable} and line \ref{line:ScreenModelsIteration}, the class iterates through the \textbf{ScreenModels} from the code generation phase and uses them to build the game world.
+As can be seen on line \ref{line:ScreenModelsIEnumerable}, the class stores a reference to the \textbf{ScreenModels} from the from the code generation phase in the compiler and uses the models to build the game world.
