@@ -1,0 +1,138 @@
+\subsection*{Member Access Link Checking} \label{sec:Linker}
+Since the beginning of the project, one of the largest tasks was figuring out how to connect screens together, both syntacically and semantically. 
+As mentioned in chapter \ref{chap:language_design}, we decided to link screens together by allowing access to other screens and their variables through member access. 
+
+
+Two examples of member access can be seen in \snipref{lst:LinkingExample}. 
+On line \ref{line:MemberAccessExample1}, \texttt{Exit1} in \texttt{SampleScreen1} is being connected to \texttt{Exit1} in \texttt{SampleScreen2} through member access in the \texttt{Exit} function invocation.
+Similarly, on line \ref{line:MemberAccessExample2}, \texttt{Exit1} in \texttt{SampleScreen2} is being connected to \texttt{Exit1} in \texttt{SampleScreen1}.
+
+\begin{lstlisting}[language=CSharp, caption={\dazel{} source code example of member access.}, label={lst:LinkingExample},escapechar=|]
+// ./src/SampleScreen1.txt
+Screen SampleScreen1 
+{
+	Map 
+	{
+		Size(30, 24);
+		Floor("Grass");
+	}
+	
+	Exits 
+	{
+		Exit1 = Exit([8, 2], SampleScreen2.Exits.Exit1); |\label{line:MemberAccessExample1}|
+	}
+}
+
+// ./src/SampleScreen2.txt
+Screen SampleScreen2
+{
+	Map 
+	{
+		Size(40, 40);
+		Floor("Stone");
+	}
+	
+	Exits 
+	{
+		Exit1 = Exit([4, 0], SampleScreen1.Exits.Exit1); |\label{line:MemberAccessExample2}|
+	}
+}
+\end{lstlisting}
+
+It is worth noting that all screens and objects defined within a screen are always accessible from the outside, and that member access is currently restricted to \texttt{Exit} types.
+
+
+To illustrate how member access is implemented in \dazel{}, we will first highlight the \textbf{LinkChecker} class whose responsibility is to check the legality of member access nodes. This is done directly after type checking.
+As with previous examples, the \textbf{LinkChecker} class implements a visitor pattern to traverse the AST.
+Once the \textbf{LinkChecker} encounters a function invocation with member access through traversal of the AST, it will first verify that the referenced \textbf{GameObject} is valid. 
+If the \textbf{GameObject} is valid, it will check if any of the parameters is a member access node and, if so, traverse them. This can be seen in the function invocation visit method on lines \ref{line:VisitFunctionInvocationStart} to \ref{line:VisitFunctionInvocationEnd}. 
+
+\begin{lstlisting}[language=CSharp, caption={linker}, label={lst:LinkerClass},escapechar=|]
+public sealed class LinkChecker : ICompleteVisitor
+{
+	... 
+
+	public void Visit(FunctionInvocationNode functionInvocationNode) |\label{line:VisitFunctionInvocationStart}|
+	{
+		switch (functionInvocationNode.Function) 
+		{
+			case ScreenExitFunction screenExitFunction:
+			{
+				if (!abstractSyntaxTree.TryRetrieveGameObject(screenExitFunction.ConnectedScreenIdentifier))
+				{
+					DazelLogger.EmitError($"Screen {string.Join(".", screenExitFunction.ConnectedScreenIdentifier)} does not exist", functionInvocationNode.Token);
+				}
+				break;
+			}
+			case ExitFunction exitFunction:
+				exitFunction.MemberAccessNode.Accept(this);
+				break;
+			
+			...
+		}
+
+		foreach (ValueNode valueNode in functionInvocationNode.Parameters)
+		{
+			if (valueNode is MemberAccessNode memberAccessNode)
+			{
+				memberAccessNode.Accept(this);
+			}
+		}
+	} |\label{line:VisitFunctionInvocationEnd}|
+
+	...
+
+	public void Visit(ExitValueNode exitValueNode)
+	{
+		if (exitValueNode is TileExitValueNode tileExit)
+		{
+			EnvironmentStore.AccessMember(tileExit.ToExit);
+		} 
+
+		...
+	}	
+}
+\end{lstlisting}
+
+As previously mentioned, the \abstractsemanticclass{} class stores all the symbol tables for the program. 
+At this point in compilation, all symbol tables have been created and populated, making them usable for member access.
+The \texttt{AccessMember} method in \snipref{lst:VisitAssignment} takes a list of identifiers which must be the path to a specific identifier in a \textbf{GameObject}.
+For example, the previously shown syntatic member access \texttt{"SampleScreen1.Exits.Exit1"} in \snipref{lst:LinkingExample} becomes a list of three strings, 
+\texttt{\{"SampleScreen1", "Exits", "Exit1"\}}.
+
+\begin{lstlisting}[language=CSharp, caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
+public abstract class EnvironmentStore
+{
+	|\dots|
+
+	private static readonly Dictionary<string, SymbolTable> TopSymbolTables = new Dictionary<string, SymbolTable>();
+	
+	|\dots|
+
+	public static VariableSymbolTableEntry AccessMember(List<string> identifierList)
+	{
+		string symbolIdentifier = identifierList[identifierList.Count - 1]; |\label{line:MemberAccessVariableIdentifier}|
+		
+		SymbolTable symbolTable = TopSymbolTables[identifierList[0]]; |\label{line:MemberAccessGameObjectIdentifier}|
+		SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInChildScope(symbolIdentifier); |\label{line:RetrieveSymbolInChildScope}|
+
+		if (symbolTableEntry is VariableSymbolTableEntry variableSymbolTableEntry)
+		{
+			return variableSymbolTableEntry;
+		}
+		
+		return null;
+	}
+}
+\end{lstlisting}
+
+As can be seen on line \ref{line:MemberAccessVariableIdentifier}, the last element in the list is assumed to be the identifier of the variable that one wishes to access, in this case, it is \texttt{Exit1}.
+In addition, the first element in the list is assumed to be the \textbf{GameObject} identifier, in this case, it is \texttt{SampleScreen1}. 
+This is shown on line \ref{line:MemberAccessGameObjectIdentifier}.
+
+The elements in the middle is assumed to be the path to the scope in which the variable lives, in this case, we are simply accessing the \texttt{Exits} scope. 
+This has not yet been implemented, and so in the current implementation of member access, the \texttt{RetrieveSymbol-
+InChildScope} method on line \ref{line:RetrieveSymbolInChildScope} recursively searches through every scope in the \textbf{GameObject} until it finds the variable with the provided identifier, or until it has checked all scopes and found nothing. This is not ideal, as having defined a variable with the same name in two different scopes would simply return the first one that is encountered.
+
+
+This concludes the semantic analysis phase of the compiler. Next, we will discuss the code generation phase.

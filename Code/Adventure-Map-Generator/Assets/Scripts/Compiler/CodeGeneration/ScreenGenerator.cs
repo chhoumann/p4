@@ -10,7 +10,6 @@ using Dazel.Compiler.StandardLibrary.Functions.EntitiesFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.ExitsFunctions;
 using Dazel.Compiler.StandardLibrary.Functions.MapFunctions;
 using Dazel.IntermediateModels;
-using UnityEngine;
 
 namespace Dazel.Compiler.CodeGeneration
 {

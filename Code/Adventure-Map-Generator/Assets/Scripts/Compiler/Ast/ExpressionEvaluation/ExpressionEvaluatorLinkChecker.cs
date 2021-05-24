@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Dazel.Compiler.Ast.ExpressionEvaluation
 {
-    public sealed class ExpressionEvaluatorLinker<T> : ExpressionEvaluator<T>
+    public sealed class ExpressionEvaluatorLinkChecker<T> : ExpressionEvaluator<T>
     {
-        public ExpressionEvaluatorLinker(Calculator<T> calculator) : base(calculator) { }
+        public ExpressionEvaluatorLinkChecker(Calculator<T> calculator) : base(calculator) { }
 
         public override void Visit(MemberAccessNode memberAccessNode)
         {
