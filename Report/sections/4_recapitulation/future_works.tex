@@ -1,0 +1,52 @@
+\section{Future Works}
+
+In the following section we will be discussing the aspects of the compiler and the interpreter that we would have liked to implement, had time not been the limiting factor. In order to discuss each aspect in a meaningful context the section will be subdivided into two - One section related to the compiler and another related to the interpreter.
+
+- Completeness of the language we wanted to design
+- How the compiler works in relation to the overall ambition (speed etc.)
+- Whether or not the interpreter can handle all the things coming from the compiler
+
+\subsection*{Completeness of the language}
+As part of the ambition of making \dazel{} a good introduction to programming, the future features of the language should include the following: 
+
+\begin{itemize}
+    \item
+      \textbf{Control flow} features such as loops and conditional statements. The benefit of having control flow features such as these, is that it would allow a user of \dazel{} to place objects on a map in a more elegant fashion without repeating code. An example of such a situation would be if one wishes to place walls along the edges of the map or a situation where one wishes to have an entity appear on the screen based on some condition. These features would both improve writeability and readability.
+    \item
+      \textbf{Events} that execute a piece of code based on events happening in the game.   
+    \item
+      User defined functions
+    \item
+      Boolean logic
+    \item
+      Expand member access so it is not exclusive to exits
+      \begin{itemize}
+      \item
+        Member access only grabs the first variable with the name
+        corresponding to the referenced member. This means if there are
+        multiple variables with the same name it may not be the correct
+        variable.
+      \end{itemize}
+    \item
+      Print function can't take expressions
+\end{itemize}
+
+- Control flow (Loops, if-statements, etc.)
+- Events (onUpdate, OnScreenEntered)
+- User defined functions
+- Boolean logic
+- Expand member access so it is not exclusive to exits
+    - Member access only grabs the first variable with the name corresponding to the referenced member. This means if there are multiple variables with the same name it may    not be the correct variable.
+- Print function can't take expressions
+
+
+\subsection*{Compiler optimizations and improvements}
+
+\subsection*{In game features}
+- Entities with behaviour
+- Dialogue with NPC's
+- Quests
+- Meaningful progression
+- 
+
+\subsection*{Interpretation - Ya dig?}
