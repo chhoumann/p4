@@ -1,0 +1,12 @@
+\section{The Game}
+Following the code generation phase is the final result of the code compilation - the game itself. 
+This is built using the Unity engine and interprets the intermediate models in order to build the world defind by the user in the \dazel{} source code.
+
+\fig{0.8}{Dazel_Title}{The title screen of Dazel.}
+
+As can be seen in \figref{Dazel_Title}, the user is presented with a few options when launching the application. 
+The "Open Working Directory" button reveals the working directory in the operating systems' file explorer.
+Inside the working directory, two sub-directories are located: the "src" directory, in which the user creates text files with source code, and the "gfx" directory in which the user places graphic assets. Inside this directory, the user can either place image files and reference them directly with a string like "Grass.png". However, one may also create directories inside the "gfx" directory and place multiple different images files inside. This way, the user can, for example, create a directory named "Grass" with five different grass textures inside, and by calling \texttt{Floor("Grass")}, the interpreter assumes that the lack of a file extenstion refers to a directory. It then searches for a directory with the name "Grass" and, if it finds it, it picks a random texture for each floor tile in the given screen. This allows the user to easily create more organic looking worlds.
+
+The game uses 16 pixels per unit, meaning each tile used in the game should be a 16x16 image lest graphic overlapping occurs. 
+The player is a pre-defined asset with animations for walking around the game world, however the user has full control of tiles and entities.
