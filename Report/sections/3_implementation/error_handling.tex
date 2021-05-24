@@ -1,0 +1,12 @@
+\section{Error handling}
+It is useful for users to get error-messages detailing any syntax errors there might have been found during parsing.
+
+A simple solution is to provide the user with the offending token and/or line. This is very basic error output, which could be augmented by a detailed message telling the user what is wrong; i.e. a missing semicolon. Even better if the message told the user how to fix the error.
+
+Going a level further, the parser could attempt to make a recovery. Handle the error, however possible it may be. There are a few ways to do this.
+
+First is panic-mode recovery, in which the parser removes input tokens until a synchronizing token is found. In the case of \dazel{}, this could be a semicolon, indicating the end of a statement. This is a simple solution, but it may skip a considerable amount of input, which may produce unexpected results.
+
+It is also possible to do phrase-level recovery. This means to perform corrections locally in some erroneous phrase. It could be to insert a missing semicolon, or even delete an extraneous one. In performing corrections, one must be careful not to enter an infinite loop.
+
+A third option is to augment the grammar with productions to handle common errors. Drawing from example; in C\#, users are prone to attempt using the common \texttt{length} member of arrays on lists, instead of the correct \texttt{count} member. This could be handled by creating an 'alias' for \texttt{length}\cite{crafting_a_compiler}.
