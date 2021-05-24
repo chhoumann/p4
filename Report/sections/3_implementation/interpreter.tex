@@ -2,7 +2,7 @@
 Following the code generation phase is the final result of the code compilation - the game itself. 
 This is built using the Unity engine and interprets the intermediate models in order to build the world defind by the user in the \dazel{} source code. As can be seen in \figref{Dazel_Title}, the user is presented with a few options when launching the application.
 
-\fig{0.8}{Dazel_Title}{The title screen of Dazel.}
+\fig{0.8}{Dazel_Title}{The title screen of Dazel. Grass graphics made by Bonsaiheldin\cite{bonsaiheldin_grass_2016}.}
  
 The "Play" button runs the \dazel{} compiler and, if compilation succeeded, runs the interpreter that builds the game from the intermediate models. 
 
@@ -69,7 +69,8 @@ On line \ref{line:ScreenExitExampleCode}, the \texttt{ScreenExit} function is in
 By exiting to the left of \texttt{SampleScreen1}, the player will enter \texttt{SampleScreen2}.
 This is illustrated in \figref{Dazel_ScreenExit}.
 
-\fig{0.8}{Dazel_ScreenExit}{The result of the code in \snipref{lst:DazelScreenExit}. Two screens are generated and a \texttt{ScreenExit} is created on the left of \texttt{SampleScreen1} which connects it to \texttt{SampleScreen2}.}
+\fig{0.8}{Dazel_ScreenExit}{The result of the code in \snipref{lst:DazelScreenExit}.
+Stone graphics made by KennyNL\cite{noauthor_kenney_nodate}.}
 
 The generation and connecting of screens is done inside a Unity MonoBehaviour class called \textbf{World}.
 This class is responsible for taking the \textbf{ScreenModels} generated in the code generation phase and transforming it into interconnected screens which are then populated by entities. 
