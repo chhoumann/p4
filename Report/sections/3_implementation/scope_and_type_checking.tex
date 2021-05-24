@@ -70,7 +70,7 @@ As the name implies, the method \texttt{CloseScope} closes the scope by setting 
 
 The class \textbf{TypeChecker} implements this abstract class. \textbf{TypeChecker} then has access to the methods \texttt{OpenScope} and \texttt{CloseScope}. It also implements the visitor methods that are responsible for traversing the AST to perform both scope and type checking.
 
-As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking - Recall that \textbf{GameObject} represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
+As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking. The reason for visiting each \textbf{GameObject} is that they represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
 
 \begin{lstlisting}[language=CSharp, caption={Typechecker object for every GameObject}, label={lst:TypeCheckEachGO},escapechar=|]
 private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
