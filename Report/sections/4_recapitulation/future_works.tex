@@ -30,6 +30,8 @@ As part of the ambition of making \dazel{} a good introduction to programming, t
       \textbf{Extend logging functionality} such that the \texttt{Print} function is able to be invoked with more than values and variables. For example, attempting to invoke \texttt{Print} with an expression results in an error rather than evaluating the expression and logging the result.
 \end{itemize}
 
+While the current speed of the compiler is satisfactory, there are still different aspects of its implementation we feel could be optimized and improved upon. 
+For example, instead of rebuilding the entire AST when a change is made to a single \textbf{GameObject}, it would improve the compilation speed to only update that specific \textbf{GameObject} in the AST.
 
 \subsection*{In-game features}
 For the game itself, we came up with many ideas during the language design phase that we have not had the time to implement. 
@@ -47,7 +49,4 @@ For the game itself, we came up with many ideas during the language design phase
     \textbf{Player inventory with weapons and items} was another feature we felt would contribute greatly to giving the player a reason to explore the world to find new loot.
 \end{itemize}
 
-
-
-
-- Compiler optimizations and improvements
+It is worth noting that the game features were de-emphasized in favor of the language features which is why there are more features missing from the in-game side of the project.
