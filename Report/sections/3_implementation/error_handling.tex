@@ -56,7 +56,7 @@ public static void EmitError(string message, IToken token)
 }
 \end{lstlisting}
 
-The \texttt{LogMessageReceived} event, seen on line \ref{code:LogMessageReceived}, is used by a console, shown in the \dazel{} game. An example can be seen in \figref{dazelconsole}, showing both warnings and messages. The messages shown in this particular example represent usages of \dazel{}'s \texttt{Print} function. In another example, seen in \figref{dazelconsoleerror}, an error is displayed. This error is due to writing "this is an error" in a \texttt{GameObjectContent} block. Lastly, \figref{fig:dazel_console_custom_error} shows the \dazel{} console with a type error.
+The \texttt{LogMessageReceived} event, seen on line \ref{code:LogMessageReceived}, is written to a console GUI in the \dazel{} game. An example can be seen in \figref{dazelconsole}, showing both warnings and messages. The messages shown in this particular example represent usages of \dazel{}'s \texttt{Print} function. In another example, seen in \figref{dazelconsoleerror}, an error is displayed. This error is due to writing "this is an error" in a \texttt{GameObjectContent} block. Lastly, \figref{dazel_console_custom_error} shows the \dazel{} console with a type error. The difference between the latter two errors is that syntax errors are picked up by the parser, and errors in semantic are picked up during later phases. Both provide different kinds of error messages, indicating what went wrong.
 
 \fig{1}{dazel_console}{The \dazel{} console with no error.\label{fig:dazelconsole}}
 \fig{1}{dazel_console_error}{The \dazel{} console with a syntax error.\label{fig:dazelconsoleerror}}
