@@ -6,6 +6,7 @@ using Antlr4.Runtime;
 
 namespace Dazel.Compiler.ErrorHandler
 {
+    // Leverages a modified version of the example given in The Definitive ANTLR 4 Reference.
     public sealed class DazelErrorListener : BaseErrorListener
     {
         public override void SyntaxError(TextWriter output, IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine,
