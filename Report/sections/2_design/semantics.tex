@@ -9,8 +9,8 @@ When designing a compiler, decisions have to be made concerning how you approach
 Type checking can be divided into two categories, each of which have drawbacks and benefits. The categories are:
 
 \begin{enumerate}
-    \item \textbf{Strong} versus \textbf{Weak} types
-    \item \textbf{Static} versus \textbf{Dynamic} types
+    \item \textit{Strong} versus \textit{Weak} types
+    \item \textit{Static} versus \textit{Dynamic} types
 \end{enumerate}
 
 \subsubsection*{Strong and weak typing}
@@ -30,7 +30,7 @@ The type then determines the value range and the set of operations available to 
 \dazel{} has implicitly declared strong types.
 This means the programmer does not need to explicitly define the type of every variable, however, once declared, a variable
 cannot dynamically change type.
-For example, as can be seen in \ref{lst:IllegalAssignment}, \textbf{Exit1} is declared to be of type \textbf{Exit} so it cannot be be
+For example, as can be seen in \ref{lst:IllegalAssignment}, \texttt{Exit1} is declared to be of type \texttt{Exit} so it cannot be be
 assigned to an integer afterwards.
 
 \begin{lstlisting}[language=CSharp, caption={Example of an illegal assingment}, label={lst:IllegalAssignment},escapechar=|]
@@ -69,8 +69,8 @@ In addition, we decided to include four different types with corresponding array
 \subsection*{Dynamic and static binding}
 A variable must first be bound to a data type before it can be used in the program. 
 This is called a binding and, depending on the language, it can either be dynamic or static.
-\textbf{Dynamic binding} is when the type of a variable is determined at runtime. 
-\textbf{Static binding} is when the type of a variable can be determined during compilation as all the necessary information is present in the source code \cite{sebesta_concepts_2016}.
+\textit{Dynamic binding} is when the type of a variable is determined at runtime. 
+\textit{Static binding} is when the type of a variable can be determined during compilation as all the necessary information is present in the source code \cite{sebesta_concepts_2016}.
 
 \dazel{} uses static binding as types are determined while the source code is compiled to API calls. When a variable is initially declared, it is assigned a type before the code is run.
 
@@ -79,14 +79,14 @@ In this section we describe different types of scope rules, specifically static 
 We will ultimately use this to determine the best fit for \dazel{}.
 
 \subsubsection{Static Scopes}
-\texttt{Static scoping} is the act of binding names to nonlocal variables such that the scope of a variable
+\textit{Static scoping} is the act of binding names to nonlocal variables such that the scope of a variable
 can be determined prior to program execution. This way, one can determine the type of every variable via the source code.
 Static-scoped languages can be split into two categories: those that allow sub-programs to be nested and those that do not.
 The former creates nested static scopes while the latter only creates nested scopes through nested class definitions and blocks.
 Static scope rules are commonly used in modern languages due to their emphasis on static type checking\cite{sebesta_concepts_2016}.
 
 \subsubsection{Dynamic Scopes}
-In contrast to static scoping, variables declared in languages with \texttt{dynamic scoping} are determined at runtime through the calling sequence of subprograms.
+In contrast to static scoping, variables declared in languages with \textit{dynamic scoping} are determined at runtime through the calling sequence of subprograms.
 
 \begin{lstlisting}[language=CSharp, caption={Example of dynamic scoping}, label={lst:DynamicScopeExample}]
 function main() {
@@ -104,10 +104,10 @@ function main() {
 
 In snippet \ref{lst:DynamicScopeExample}, assuming that dynamic scoping rules apply, the meaning of the identifier \texttt{x} cannot be determined at compile time.
 Specifically, the declaration of an identifier is first searched for in the local function.
-If no declaration for \texttt{x} is found, the search continues to the function's caller, its \texttt{dynamic parent}, and so on up the call-stack\cite{sebesta_concepts_2016}.
+If no declaration for \texttt{x} is found, the search continues to the function's caller, its \textit{dynamic parent}, and so on up the call-stack\cite{sebesta_concepts_2016}.
 
 \subsubsection{Blocks}
-\texttt{Blocks} serve as way to declare new static scopes within executable code.
+\textit{Blocks} serve as way to declare new static scopes within executable code.
 This allows variables declared within a block to be local to that scope, meaning they cannot be accessed from outside the scope.
 However, nested blocks can still access variables from outer scopes.
 A variable declared within a block is allocated when the block is entered and deallocated when it is exited\cite{sebesta_concepts_2016}.

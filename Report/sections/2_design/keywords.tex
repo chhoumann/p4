@@ -8,17 +8,11 @@
     \hline
     Player                       & \begin{tabular}[c]{@{}l@{}}A globally accessible reference\\ to the player. This allows the\\ programmer to create interactions \\involving the player's properties such \\as health or position.\end{tabular}  \\ 
     \hline
-    until                        & \begin{tabular}[c]{@{}l@{}}Used to indicate that there is a condition\\for a repeat loop.\end{tabular}                                                                                                                                                          \\ 
+    Screen                       & \begin{tabular}[c]{@{}l@{}}Denotes a screen game object, which is a \\container for other blocks such as \\'Map', 'OnScreenEntered', 'Entities', \\and 'Exits'.\end{tabular}                                                                                          \\ 
     \hline
-    or                           & Logical OR operator.                                                                                                                                                                                                                                            \\ 
+    Entity                       & \begin{tabular}[c]{@{}l@{}}Denotes an entity game object used to define the \\behavior of an entity.\end{tabular}                                                                                                                                                     \\ 
     \hline
-    and                          & Logical AND operator.                                                                                                                                                                                                                                           \\ 
-    \hline
-    Screen                       & \begin{tabular}[c]{@{}l@{}}Denotes a screen block, which is a \\container for other blocks such as \\'Map', 'OnScreenEntered', 'Entities', \\and 'Exits'.\end{tabular}                                                                                          \\ 
-    \hline
-    Entity                       & \begin{tabular}[c]{@{}l@{}}Denotes an entity block used to define the \\behavior of an entity.\end{tabular}                                                                                                                                                     \\ 
-    \hline
-    MovePattern                  & \begin{tabular}[c]{@{}l@{}}Denotes a move pattern block which \\can be used to apply movement to\\entities.\end{tabular}                                                                                                                                        \\ 
+    MovePattern                  & \begin{tabular}[c]{@{}l@{}}Denotes a move pattern game object which \\can be used to apply movement to\\entities.\end{tabular}                                                                                                                                        \\ 
     \hline
     Exits, ScreenExit, FloorExit & \begin{tabular}[c]{@{}l@{}}Denotes exits or transitions to other screens.\\These are usually triggered by player \\movement.\end{tabular}                                                                                                                       \\ 
     \hline
@@ -30,7 +24,13 @@
     \hline
     Pattern                      & \begin{tabular}[c]{@{}l@{}}Denotes a pattern block which can be used\\to define specific movement patterns\\that may be reused across\\multiple entities.\end{tabular}                                                                                          \\ 
     \hline
-    Entities                     & \begin{tabular}[c]{@{}l@{}}Denotes an entities block which can be\\used to define placement of entities on\\a given screen.\end{tabular}                                                                                                                       
+    Entities                     & \begin{tabular}[c]{@{}l@{}}Denotes an entities block which can be\\used to define placement of entities on\\a given screen.\end{tabular}                                                                                                                        \\
+    \hline
+    until                        & \begin{tabular}[c]{@{}l@{}}Used to indicate that there is a condition\\for a repeat loop.\end{tabular}                                                                                                                                                          \\ 
+    \hline
+    or                           & Logical OR operator.                                                                                                                                                                                                                                            \\ 
+    \hline
+    and                          & Logical AND operator.                                                                                                                                                                                                                                                
     \end{tabular}
     \caption{Table explaining reserved keywords in \dazel}
     \label{table:KeyWordsTable}
