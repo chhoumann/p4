@@ -11,4 +11,60 @@ It is also possible to do phrase-level recovery. This means to perform correctio
 
 A third option is to augment the grammar with productions to handle common errors\cite{spo_course}. Drawing from example; in C\#, users are prone to attempt using the common \texttt{length} member of arrays on lists, instead of the correct \texttt{count} member. This could be handled by creating an 'alias' for \texttt{length}.
 
-The \dazel{} parser is able to do some basic error recovery due to ANTLR. Namely, \textit{single-token deletion} and \textit{single-token insertion}. If one were to delete the closing curly-bracket, \}, 
+The \dazel{} parser is able to do some basic error recovery due to ANTLR. Namely, \textit{single-token deletion} and \textit{single-token insertion}. If one were to delete the closing curly-bracket, \}, the parser would still be able to recognize the input. Likewise, if one were to add an extraneous closing curly-bracket, the input would still be recognized.
+
+Besides what is provided by ANTLR itself, ANTLR also provides methods of extending the parser to allow for custom recovery options. These were not pursued in the \dazel{} compiler, and as such, it does not support error-recovery at this time. Instead, it leverages multiple interfaces which allows it to communicate detailed errors to the user.
+
+The first interface builds on an ANTLR feature. 
+
+By extending the ANTLR \texttt{BaseErrorListener}, it is possible to extract the offending token and line number when the parser encounters errors. To achieve this, we used the code shown in code \snipref{lst:SyntaxErrorCode}.
+
+\begin{lstlisting}[caption={The altered \texttt{SyntaxError} method.}, label={lst:SyntaxErrorCode}, escapechar=|]
+public override void SyntaxError(TextWriter output, IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine,
+        string msg, RecognitionException e)
+{
+    StringBuilder errorLog = new StringBuilder();
+    base.SyntaxError(output, recognizer, offendingSymbol, line, charPositionInLine, msg, e);
+    
+    // UnderlineError(...) will not be shown in the spirit of brevity.
+    string underlineError = UnderlineError(recognizer, offendingSymbol, line, charPositionInLine);
+
+    errorLog.AppendLine($"File: {recognizer.InputStream.SourceName}");
+    errorLog.AppendLine($"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
+    errorLog.AppendLine($"Error: \n{underlineError}");
+
+    DazelLogger.EmitError(errorLog.ToString(), offendingSymbol);|\label{code:dazellogger}|
+}
+\end{lstlisting}
+
+This leads us to the second interface. \dazel{} uses a custom-built error logging system, which can be seen invoked on line \ref{code:dazellogger}.
+
+The \texttt{DazelLogger} is a static class which allows the \dazel{} compiler to log errors. There are three methods, \texttt{EmitError}, \texttt{EmitWarning}, and \texttt{EmitMessage}. These represent the levels of messages that the user may be presented with. Every member of this class is \texttt{static}, such that they can be accessed from anywhere, without instantiating a new logger - and without unnecessary dependency injection.
+
+The most interesting case is \texttt{EmitError}, which can be seen in code \snipref{lst:EmitErrorCode}. It sets the \texttt{HasErrors} flag to true, such that the \dazel{} compiler can react accordingly. Likewise, it formats the output message and invokes an event, passing it in as a parameter.
+If the \texttt{ThrowExceptions} flag is set to true, the function will also throw an error.
+
+\begin{lstlisting}[caption={\texttt{EmitError} in the \texttt{DazelLogger}.}, label={lst:EmitErrorCode}, escapechar=|]
+public static void EmitError(string message, IToken token)
+{
+    HasErrors = true;
+    
+    string output = $"Error on line {token.Line} in {token.InputStream.SourceName}:\n{message}";
+    LogMessageReceived?.Invoke(output, LogType.Error);|\label{code:LogMessageReceived}|
+
+    if (ThrowExceptions)
+    {
+        throw new Exception(message);
+    }
+}
+\end{lstlisting}
+
+The \texttt{LogMessageReceived} event, seen on line \ref{code:LogMessageReceived}, is used by a custom-built console, shown in the \dazel{} game. An example can be seen in \figref{dazelconsole}, showing both warnings and messages. The messages shown in this particular example represent usages of \dazel{}'s \texttt{Print} function. In another example, seen in \figref{dazelconsoleerror}, an error is displayed. This error is due to writing "this is an error" in a \texttt{GameObjectContent} block. Lastly, \figref{fig:dazel_console_custom_error} shows the \dazel{} console with a type error.
+
+\fig{1}{dazel_console}{The \dazel{} console with no error.\label{fig:dazelconsole}}
+\fig{1}{dazel_console_error}{The \dazel{} console with a syntax error.\label{fig:dazelconsoleerror}}
+\fig{1}{dazel_console_custom_error}{The \dazel{} console with a type error.\label{fig:dazel_console_custom_error}}
+
+Having proper error output in a compiler is, as previously mentioned, very important. \dazel{} has detection of errors in multiple phases, which allows it to give a more detailed and descriptive error message. A clear next step would be to implement error recovery, as described earlier in this section.
+
+The next chapter details how we've ensured that \dazel{} runs as it should - through testing.
