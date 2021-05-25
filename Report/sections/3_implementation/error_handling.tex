@@ -40,7 +40,7 @@ public override void SyntaxError(TextWriter output, IRecognizer recognizer,
 
 This leads us to the second interface. \dazel{} uses a custom-built error logging system, which can be seen invoked on line \ref{code:dazellogger}.
 
-The \texttt{DazelLogger} is a static class which allows the \dazel{} compiler to log errors. There are three methods, \texttt{EmitError}, \texttt{EmitWarning}, and \texttt{EmitMessage}. These represent the levels of messages that the user may be presented with. Every member of this class is \texttt{static}, such that they can be accessed from anywhere, without instantiating a new logger - and without unnecessary dependency injection.
+The \texttt{DazelLogger} is a static class which allows the \dazel{} compiler to log errors. The class contains three methods, \texttt{EmitError}, \texttt{EmitWarning}, and \texttt{EmitMessage}. These represent the levels of messages that the user may be presented with. Every member of this class is \texttt{static}, such that they can be accessed from anywhere, without instantiating a new logger - and without unnecessary dependency injection.
 
 The most interesting case is \texttt{EmitError}, which can be seen in code \snipref{lst:EmitErrorCode}. It sets the \texttt{HasErrors} flag to true, such that the \dazel{} compiler can react accordingly. Likewise, it formats the output message and invokes an event, passing it in as a parameter.
 If the \texttt{ThrowExceptions} flag is set to true, the function will also throw an error.
