@@ -1,4 +1,5 @@
-﻿using Dazel.Compiler.Ast.ExpressionEvaluation;
+﻿using System;
+using Dazel.Compiler.Ast.ExpressionEvaluation;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Expressions;
 using Dazel.Compiler.Ast.Nodes.ExpressionNodes.Values;
@@ -67,7 +68,17 @@ namespace Dazel.Compiler.SemanticAnalysis
 
         public void Visit(IdentifierValueNode identifierValueNode)
         {
-            SymbolTableEntry entry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+            SymbolTableEntry entry;
+            
+            try
+            {
+                entry = symbolTable.RetrieveSymbolInParentScope(identifierValueNode.Identifier);
+            }
+            catch (Exception e)
+            {
+                DazelLogger.EmitError(e.Message, identifierValueNode.Token);
+                return;
+            }
 
             if (entry is VariableSymbolTableEntry variableSymbolTableEntry)
             {
