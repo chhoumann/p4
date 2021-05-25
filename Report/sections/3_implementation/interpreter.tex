@@ -77,7 +77,7 @@ This class is responsible for taking the \textbf{ScreenModels} generated in the 
 As this interpretation is based on the Unity game engine and the focus of this report is the \dazel{} language, 
 \snipref{lst:WorldClassUnity} shows a heavily simplified version of the \textbf{World} class that illustrates its structure without delving into the implementation details.
 
-\begin{lstlisting}[language=CSharp, caption={}, label={lst:WorldClassUnity},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={The \textbf{World} class responsible for generating and connectind screens.}, label={lst:WorldClassUnity},escapechar=|]
 public sealed class World : MonoBehaviour
 {
 	...
@@ -99,7 +99,8 @@ public sealed class World : MonoBehaviour
 
     private Dictionary<string, GameScreen> CreateScreens()
     {
-        Dictionary<string, GameScreen> screens = new Dictionary<string, GameScreen>();
+        Dictionary<string, GameScreen> screens = new 
+            Dictionary<string, GameScreen>();
 
         foreach (ScreenModel screenModel in ScreenModels) |\label{line:ScreenModelsIteration1}|
         {
@@ -109,11 +110,13 @@ public sealed class World : MonoBehaviour
         return screens;
     }
 
-    private static void ConnectScreens(IReadOnlyDictionary<string, GameScreen> screens)
+    private static void ConnectScreens(
+        IReadOnlyDictionary<string, GameScreen> screens)
     {
         foreach (ScreenModel screenModel in ScreenModels) 
         {
-            GameScreen screen = screens[screenModel.Identifier];
+            GameScreen connectedScreen = 
+                screens[screenExitModel.ConnectedScreenIdentifier];
 
             foreach (ScreenExitModel screenExitModel in screenModel.ScreenExits)
             {

@@ -13,30 +13,31 @@ As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by ANT
 
 
 \begin{lstlisting}[caption={A snippet of the \dazel{} grammar used by ANTLR to generate the parser}, label={lst:GrammarSnippet}]
-start: gameObject;
+start				: gameObject;
 
-gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER gameObjectBlock
-						;
+gameObject          : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) 
+					  IDENTIFIER gameObjectBlock
+					;
 						
-gameObjectBlock         : L_BRACES gameObjectContents R_BRACES
-						;
+gameObjectBlock     : L_BRACES gameObjectContents R_BRACES
+					;
 
-empty                   : 
-						;
+empty               : 
+					;
 
 
-gameObjectContents      : gameObjectContent
-						| gameObjectContent gameObjectContents
-						| empty
-						;
+gameObjectContents  : gameObjectContent
+					| gameObjectContent gameObjectContents
+					| empty
+					;
 
-gameObjectContent       : gameObjectContentType=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) statementBlock 
+gameObjectContent   : gameObjectContentType=(MAP|ONSCREENENTERED|ENTITIES|EXITS|DATA|PATTERN) statementBlock 
 \end{lstlisting}
 
 In addition, lexer rules can just as easily be defined using regular expressions and strings as can be seen in \ref{lst:LexerSnippet}.
 These rules will also be present within the generated parser such that one may also access and use the lexer rules when constructing the AST. 
 
-\begin{lstlisting}[caption={A snippet of few lexer rules for \dazel{}.}, label={lst:LexerSnippet},escapechar=|]
+\begin{lstlisting}[caption={A snippet of few lexer rules for \dazel{}.}, label={lst:LexerSnippet}]
 SCREEN                  : 'Screen';
 ENTITY                  : 'Entity';
 MOVE_PATTERN            : 'MovePattern';

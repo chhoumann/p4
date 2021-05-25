@@ -56,18 +56,26 @@ those such that a similar process can happen to the remaining nodes (line \ref{c
 public void Visit(GameObjectNode gameObjectNode)
 {
     // Line 1
-    Assert.That(gameObjectNode.TypeNode is ScreenNode, "gameObject.Type is ScreenType"); |\label{code:stcheck}|
-    Assert.That(gameObjectNode.Identifier == "SampleScreen1", "gameObject.Identifier == 'SampleScreen1'"); |\label{code:sicheck}|
+    Assert.That(gameObjectNode.TypeNode is ScreenNode,
+        "gameObject.Type is ScreenType"); |\label{code:stcheck}|
+    Assert.That(gameObjectNode.Identifier == "SampleScreen1", 
+        "gameObject.Identifier == 'SampleScreen1'"); |\label{code:sicheck}|
     
     // Contents: Map, Entities |\label{code:sccheck}|
-    Assert.That(gameObjectNode.Contents[0].TypeNode is MapTypeNode, "gameObject.Contents[0].Type is MapType");
-    Assert.That(gameObjectNode.Contents[1].TypeNode is EntitiesTypeNodeNode, "gameObject.Contents[1].Type is EntitiesType");
+    Assert.That(gameObjectNode.Contents[0].TypeNode is MapTypeNode, 
+        "gameObject.Contents[0].Type is MapType");
+    Assert.That(gameObjectNode.Contents[1].TypeNode is EntitiesTypeNodeNode, 
+        "gameObject.Contents[1].Type is EntitiesType");
 
     // Map has 11 top-level statements (some statement blocks have nested statements) |\label{code:smtcheck}|
-    Assert.That(gameObjectNode.Contents[0].Statements.Count == 4, $"gameObject.Contents[0].Statements.Count == 4." + $"Found {gameObjectNode.Contents[0].Statements.Count}");
+    Assert.That(gameObjectNode.Contents[0].Statements.Count == 4, 
+        $"gameObject.Contents[0].Statements.Count == 4." 
+        + $"Found {gameObjectNode.Contents[0].Statements.Count}");
     
     // Entities has 1 top-level statement |\label{code:semtcheck}|
-    Assert.That(gameObjectNode.Contents[1].Statements.Count == 1, $"gameObject.Contents[1].Statements.Count == 1" + $"Found {gameObjectNode.Contents[1].Statements.Count}");
+    Assert.That(gameObjectNode.Contents[1].Statements.Count == 1, 
+        $"gameObject.Contents[1].Statements.Count == 1"
+        + $"Found {gameObjectNode.Contents[1].Statements.Count}");
     
     gameObjectNode.Contents.ForEach(Visit); |\label{code:sprocc}|
 }

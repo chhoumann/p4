@@ -31,7 +31,8 @@ public override void SyntaxError(TextWriter output, IRecognizer recognizer,
     string underlineError = UnderlineError(recognizer, offendingSymbol, line, charPositionInLine);
 
     errorLog.AppendLine($"File: {recognizer.InputStream.SourceName}");
-    errorLog.AppendLine($"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
+    errorLog.AppendLine(
+        $"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
     errorLog.AppendLine($"Error: \n{underlineError}");
 
     DazelLogger.EmitError(errorLog.ToString(), offendingSymbol);|\label{code:dazellogger}|

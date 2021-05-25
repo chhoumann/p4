@@ -8,7 +8,7 @@ Once the \textbf{TypeChecker} visits an assignment node, it initializes an insta
 The \textbf{ExpressionTypeChecker} delegates the responsibility for storing the previously visited type to a class called \textbf{TypeHandler}. This class contains some simple rules that determine if types are compatible and can be seen in \snipref{lst:TypeHandler}. 
 Its rules allow floats and integers to occur in the same expression. As can be seen on lines \ref{line:AllowInt1} to \ref{line:AllowInt2}. If an expression is of type float and an integer is encountered, it remains a float expression.
 
-\begin{lstlisting}[language=CSharp, caption={The \textbf{TypeHandler} class.}, label={lst:TypeHandler},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={The \textbf{TypeHandler} class.}, label={lst:TypeHandler},escapechar=~]
 public sealed class TypeHandler
 {
     public SymbolType CurrentType { get; private set; } = SymbolType.Null;
@@ -20,18 +20,20 @@ public sealed class TypeHandler
             DazelLogger.EmitError("Exits cannot be used in expressions.", token);
         }
             
-        if (CurrentType == SymbolType.Null || CurrentType == SymbolType.Integer && (value == SymbolType.Float || value == SymbolType.Integer))
+        if (CurrentType == SymbolType.Null || CurrentType == SymbolType.Integer 
+            && (value == SymbolType.Float || value == SymbolType.Integer))
         {
             CurrentType = value;
             return;
         }
             
-        if (CurrentType == SymbolType.Float && value == SymbolType.Integer) |\label{line:AllowInt1}|
+        if (CurrentType == SymbolType.Float && value == SymbolType.Integer) ~\label{line:AllowInt1}~
         {
             return;
-        } |\label{line:AllowInt2}|
+        } ~\label{line:AllowInt2}~
             
-        DazelLogger.EmitError($"Type mismatch. {value} is not {CurrentType}", token);
+        DazelLogger.EmitError(
+            $"Type mismatch. {value} is not {CurrentType}", token);
     }
 }
 \end{lstlisting}
@@ -44,7 +46,7 @@ In both cases, once the type has been determined, the \texttt{SetType} method in
 
 A small snippet that highlights how expression type checking is done in the \textbf{ExpressionTypeChecker} can be seen in \snipref{lst:ExpressionTypeChecker}
 
-\begin{lstlisting}[language=CSharp, caption={Two simple visit methods s for integers and floats in the \textbf{ExpressionTypeChecker} class.}, label={lst:ExpressionTypeChecker},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={Two simple visit methods for integers and floats in the \textbf{ExpressionTypeChecker} class.}, label={lst:ExpressionTypeChecker},escapechar=|]
 public sealed class ExpressionTypeChecker : IExpressionVisitor
 {
     ...

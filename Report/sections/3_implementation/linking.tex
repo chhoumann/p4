@@ -47,7 +47,7 @@ As with previous examples, the \textbf{LinkChecker} class implements a visitor p
 Once the \textbf{LinkChecker} encounters a function invocation with member access through traversal of the AST, it will first verify that the referenced \textbf{GameObject} is valid. 
 If the \textbf{GameObject} is valid, it will check if any of the parameters is a member access node and, if so, traverse them. This can be seen in the function invocation visit method on lines \ref{line:VisitFunctionInvocationStart} to \ref{line:VisitFunctionInvocationEnd}. 
 
-\begin{lstlisting}[language=CSharp, caption={linker}, label={lst:LinkerClass},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={The \textbf{LinkChecker} class.}, label={lst:LinkerClass},escapechar=|]
 public sealed class LinkChecker : ICompleteVisitor
 {
 	... 
@@ -100,7 +100,7 @@ The \texttt{AccessMember} method in \snipref{lst:VisitAssignment} takes a list o
 For example, the previously shown syntatic member access \texttt{"SampleScreen1.Exits.Exit1"} in \snipref{lst:LinkingExample} becomes a list of three strings, 
 \texttt{\{"SampleScreen1", "Exits", "Exit1"\}}.
 
-\begin{lstlisting}[language=CSharp, caption={Visit assignment}, label={lst:VisitAssignment},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={The \abstractsemanticclass{} class.}, label={lst:VisitAssignment},escapechar=|]
 public abstract class EnvironmentStore
 {
 	|\dots|
@@ -114,7 +114,8 @@ public abstract class EnvironmentStore
 		string symbolIdentifier = identifierList[identifierList.Count - 1]; |\label{line:MemberAccessVariableIdentifier}|
 		
 		SymbolTable symbolTable = TopSymbolTables[identifierList[0]]; |\label{line:MemberAccessGameObjectIdentifier}|
-		SymbolTableEntry symbolTableEntry = symbolTable.RetrieveSymbolInChildScope(symbolIdentifier); |\label{line:RetrieveSymbolInChildScope}|
+		SymbolTableEntry symbolTableEntry = symbolTable
+			.RetrieveSymbolInChildScope(symbolIdentifier); |\label{line:RetrieveSymbolInChildScope}|
 
 		if (symbolTableEntry is VariableSymbolTableEntry variableSymbolTableEntry)
 		{

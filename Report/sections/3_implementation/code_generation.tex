@@ -4,12 +4,13 @@ This phase, for \dazel{}, primarily deals with generating intermediate models. T
 
 A such model is the \texttt{ScreenModel}\ref{lst:screenmodel}.
 
-\begin{lstlisting}[language=CSharp, label={lst:screenmodel}, caption={ScreenModel}]
+\begin{lstlisting}[language=CSharp, label={lst:screenmodel}, caption={The \textbf{ScreenModel} class.}]
 public sealed class ScreenModel
 {
     public Stack<IGenerator> TileStack { get; set; } = new Stack<IGenerator>();
     public List<EntityModel> Entities { get; set; } = new List<EntityModel>();
-    public List<ScreenExitModel> ScreenExits { get; set; } = new List<ScreenExitModel>();
+    public List<ScreenExitModel> ScreenExits { get; set; } = new 
+        List<ScreenExitModel>();
     public List<TileExitModel> TileExits { get; set; } = new List<TileExitModel>();
 
     public int Width { get; set; }
@@ -32,7 +33,7 @@ This generator traverses the AST in a depth-first manner using a visitor. It tra
 
 Once it reaches a \texttt{FunctionInvocationNode}, it will add certain data to the \texttt{ScreenModel}, depending on which \texttt{FunctionInvocationNode} was reached\ref{lst:finVisitSG}.
 
-\begin{lstlisting}[language=CSharp, caption={FunctionInvocationNode Visit method}, label={lst:finVisitSG}]
+\begin{lstlisting}[language=CSharp, caption={FunctionInvocationNode \texttt{Visit} method.}, label={lst:finVisitSG}]
 public void Visit(FunctionInvocationNode functionInvocationNode)
 {
     switch (functionInvocationNode.Function)
@@ -42,13 +43,16 @@ public void Visit(FunctionInvocationNode functionInvocationNode)
             screenModel.Height = sizeFunction.Height;
             break;
         case FloorFunction floorFunction:
-            screenModel.TileStack.Push(new Floor(screenModel, floorFunction.TileName));
+            screenModel.TileStack.Push(
+                new Floor(screenModel, floorFunction.TileName));
             break;
         case SpawnEntityFunction spawnEntityFunction:
-            screenModel.Entities.Add(new EntityModel(spawnEntityFunction.EntityIdentifier, spawnEntityFunction.SpawnPosition));
+            screenModel.Entities.Add(
+                new EntityModel(spawnEntityFunction.EntityIdentifier, spawnEntityFunction.SpawnPosition));
             break;
         case ScreenExitFunction screenExitFunction:
-            screenModel.ScreenExits.Add(new ScreenExitModel(screenExitFunction.ConnectedScreenIdentifier, screenExitFunction.ExitDirection));
+            screenModel.ScreenExits.Add(
+                new ScreenExitModel(screenExitFunction.ConnectedScreenIdentifier, screenExitFunction.ExitDirection));
             break;
     }
 }    
@@ -58,17 +62,20 @@ If the \texttt{functionInvocationNode} denotes an invocation of a \texttt{SizeFu
 
 Now, if the visitor reaches an \texttt{ExitValueNode}, it will add that exit, too. This can be seen in code \snipref{lst:visitExitNodeSG}.
 
-\begin{lstlisting}[label={lst:visitExitNodeSG}, caption={Visit \texttt{ExitValueNode}}, language=CSharp]
+\begin{lstlisting}[label={lst:visitExitNodeSG}, caption={The visit method for \textbf{ExitValueNode.}}, language=CSharp]
 public void Visit(ExitValueNode exitValueNode)
 {
     if (exitValueNode is TileExitValueNode tileExit)
     {
-        DazelLogger.EmitWarning("TileExits have not been implemented yet.", tileExit.Token);
+        DazelLogger.EmitWarning("TileExits have not been implemented yet.", 
+            tileExit.Token);
     }
 
     if (exitValueNode is ScreenExitValueNode screenExit)
     {
-        screenModel.ScreenExits.Add(new ScreenExitModel(screenExit.ConnectedScreenIdentifier, screenExit.ExitDirection));
+        screenModel.ScreenExits.Add(
+            new ScreenExitModel(screenExit.ConnectedScreenIdentifier, 
+            screenExit.ExitDirection));
     }
 }
 \end{lstlisting}

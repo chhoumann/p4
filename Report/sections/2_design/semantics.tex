@@ -33,7 +33,7 @@ cannot dynamically change type.
 For example, as can be seen in \ref{lst:IllegalAssignment}, \textbf{Exit1} is declared to be of type \textbf{Exit} so it cannot be be
 assigned to an integer afterwards.
 
-\begin{lstlisting}[caption={Example of an illegal assingment}, label={lst:IllegalAssignment},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={Example of an illegal assingment}, label={lst:IllegalAssignment},escapechar=|]
 // ./Screens/SampleScreen1.txt
 Screen SampleScreen1 
 {
@@ -88,7 +88,7 @@ Static scope rules are commonly used in modern languages due to their emphasis o
 \subsubsection{Dynamic Scopes}
 In contrast to static scoping, variables declared in languages with \texttt{dynamic scoping} are determined at runtime through the calling sequence of subprograms.
 
-\begin{lstlisting}[caption={Example of dynamic scoping}, label={lst:DynamicScopeExample}]
+\begin{lstlisting}[language=CSharp, caption={Example of dynamic scoping}, label={lst:DynamicScopeExample}]
 function main() {
 	function nested1() {
 		var x = 7;

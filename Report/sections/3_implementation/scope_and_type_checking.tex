@@ -40,7 +40,8 @@ public abstract class EnvironmentStore
         
         parentScope?.Children.Add(newScope); |\label{line:AddingChildToParent}|
         
-        if (parentScope == null && !TopSymbolTables.ContainsKey(GameObjectIdentifier)) |\label{line:BeginTopScopeCheck}|
+        if (parentScope == null 
+            && !TopSymbolTables.ContainsKey(GameObjectIdentifier)) |\label{line:BeginTopScopeCheck}|
         {
             TopSymbolTables.Add(GameObjectIdentifier, newScope);
         } |\label{line:EndTopScopeCheck}|
@@ -72,13 +73,15 @@ The class \textbf{TypeChecker} implements this abstract class. \textbf{TypeCheck
 
 As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking. The reason for visiting each \textbf{GameObject} is that they represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
 
-\begin{lstlisting}[language=CSharp, caption={Typechecker object for every GameObject}, label={lst:TypeCheckEachGO},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={A TypeChecker object is instantiated for every \textbf{GameObjectNode}.}, label={lst:TypeCheckEachGO},escapechar=|]
 private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
 {
     foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
     {
         new TypeChecker(ast).Visit(gameObject); |\label{line:StepIntoVisitGO}|
     }
+
+    ...
 }
 \end{lstlisting}
 
