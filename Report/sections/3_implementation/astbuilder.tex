@@ -17,7 +17,7 @@ public bool TryRun(out IEnumerable<ScreenModel> screenModels)
 }
 \end{lstlisting}
 
-As can be seen on line \ref{line:ParseTreeBuilder} in \Snipref{lst:RunMethod} the initial step for the client is to run the lexical and parse phase which produces a parse tree. This is executed by the code produced by Antlr as mentioned in \ref{sec:antlrTool}. Once this phase is completed the result, the parse tree, is saved in the variable \textbf{parseTrees}, and an object of type \textbf{AstBuilder} is instantiated on which the \texttt{BuildAst} method is invoked with the parse tree. This class implements a visitor interface which defines methods for visiting the parse tree nodes. Through these method implementations, the \textbf{AstBuilder} can traverse the parse tree from which it constructs the abstract syntax tree nodes which can be seen on line \ref{line:ASTBuilder}. 
+As can be seen on line \ref{line:ParseTreeBuilder} in \Snipref{lst:RunMethod} the initial step for the client is to run the lexical and parse phase which produces a parse tree. This is executed by the code produced by ANTLR as mentioned in \ref{sec:antlrTool}. Once this phase is completed the result, the parse tree, is saved in the variable \textbf{parseTrees}, and an object of type \textbf{AstBuilder} is instantiated on which the \texttt{BuildAst} method is invoked with the parse tree. This class implements a visitor interface which defines methods for visiting the parse tree nodes. Through these method implementations, the \textbf{AstBuilder} can traverse the parse tree from which it constructs the abstract syntax tree nodes which can be seen on line \ref{line:ASTBuilder}. 
 
 The definition for the \textbf{BuildAst} method can be seen in \snipref{lst:BuildAstMethod}.
 

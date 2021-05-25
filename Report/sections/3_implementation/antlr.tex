@@ -1,18 +1,18 @@
-\section{Antlr Parsing Tool}\label{sec:antlrTool}
+\section{ANTLR Parsing Tool}\label{sec:ANTLRTool}
 In order to parse a language using a grammar, one must decide whether to manually write the parser or use a tool to generate it\cite{crafting_a_compiler}.
-Based on the fact that writing a parser is a rather repetitious and mechanical task, we followed our proffessor's advice and decided to use the parser generator Antlr for our language, which was recommended in the Languages and Compilers course. 
+Based on the fact that writing a parser is a rather repetitious and mechanical task, we followed our professor's advice and decided to use the parser generator ANTLR for our language, which was recommended in the Languages and Compilers course. 
 This tool not only makes the initial parser generation much less tedious, but it also allows us to make changes to the grammar in the future without having to also meticulously update the parser code, ultimately freeing us from a large, manual work burden.
-We decided to use Antlr as it can generate parsers in C\#, which not only is a language we are already very familiar with, but, as previously mentioned, it is also the language used to build games in Unity. Having a parser - and consequently a compiler - written in C\# will allow us to easily interlope our compiler code with Unity code.
+We decided to use ANTLR as it can generate parsers in C\#, which not only is a language we are already very familiar with, but, as previously mentioned, it is also the language used to build games in Unity. Having a parser - and consequently a compiler - written in C\# will allow us to easily interlope our compiler code with Unity code.
 
 
-Antlr is written in Java and therefore the Java Runtime Environment must be installed to use it. 
-Once setup, Antlr can convert a grammar into a program that recognizes sentences written in the language defined by the grammar.
-More specifically, Antlr generates a recursive-descent parser that ultimately generates a parse tree.
+ANTLR is written in Java and therefore the Java Runtime Environment must be installed to use it. 
+Once setup, ANTLR can convert a grammar into a program that recognizes sentences written in the language defined by the grammar.
+More specifically, ANTLR generates a recursive-descent parser that ultimately generates a parse tree.
 This parse tree can then be traversed easily using built-in functionality, and from it we can construct an Abstract Syntax Tree later on.
-As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by Antlr is the familiar BNF notation.
+As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by ANTLR is the familiar BNF notation.
 
 
-\begin{lstlisting}[caption={A snippet of the \dazel{} grammar used by Antlr to generate the parser}, label={lst:GrammarSnippet}]
+\begin{lstlisting}[caption={A snippet of the \dazel{} grammar used by ANTLR to generate the parser}, label={lst:GrammarSnippet}]
 start: gameObject;
 
 gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER gameObjectBlock
@@ -52,6 +52,6 @@ INT                     : [0-9]+;
 FLOAT                   : [0-9]+'.'[0-9]+;	
 \end{lstlisting}
 
-It is important to note that Antlr will look up the lexer rules in the order that they are defined. 
+It is important to note that ANTLR will look up the lexer rules in the order that they are defined. 
 This means that, if it encounters a sentence structure that is present within multiple different rules, it will attempt to parse it using the first lexer rule, then the second one and so forth until it finds a rule that matches. 
 Because of this, our built-in types are the first rules defined within the lexer as it would otherwise incorrectly parse keywords such as Screen using the \texttt{IDENTIFIER} rule instead of the \texttt{SCREEN} rule\cite{parrDefinitiveANTLRReference2012}.
