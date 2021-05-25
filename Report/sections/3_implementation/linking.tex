@@ -42,10 +42,10 @@ Screen SampleScreen2
 It is worth noting that all screens and objects defined within a screen are always accessible from the outside, and that member access is currently restricted to \texttt{Exit} types.
 
 
-To illustrate how member access is implemented in \dazel{}, we will first highlight the \textbf{LinkChecker} class whose responsibility is to check the legality of member access nodes. This is done directly after type checking.
-As with previous examples, the \textbf{LinkChecker} class implements a visitor pattern to traverse the AST.
-Once the \textbf{LinkChecker} encounters a function invocation with member access through traversal of the AST, it will first verify that the referenced \textbf{GameObject} is valid. 
-If the \textbf{GameObject} is valid, it will check if any of the parameters is a member access node and, if so, traverse them. This can be seen in the function invocation visit method on lines \ref{line:VisitFunctionInvocationStart} to \ref{line:VisitFunctionInvocationEnd}. 
+To illustrate how member access is implemented in \dazel{}, we will first highlight the \texttt{LinkChecker} class whose responsibility is to check the legality of member access nodes. This is done directly after type checking.
+As with previous examples, the \texttt{LinkChecker} class implements a visitor pattern to traverse the AST.
+Once the \texttt{LinkChecker} encounters a function invocation with member access through traversal of the AST, it will first verify that the referenced game object is valid. 
+If the game object is valid, it will check if any of the parameters is a member access node and, if so, traverse them. This can be seen in the function invocation visit method on lines \ref{line:VisitFunctionInvocationStart} to \ref{line:VisitFunctionInvocationEnd}. 
 
 \begin{lstlisting}[language=CSharp, caption={The \textbf{LinkChecker} class.}, label={lst:LinkerClass},escapechar=|]
 public sealed class LinkChecker : ICompleteVisitor
@@ -96,7 +96,7 @@ public sealed class LinkChecker : ICompleteVisitor
 
 As previously mentioned, the \abstractsemanticclass{} class stores all the symbol tables for the program. 
 At this point in compilation, all symbol tables have been created and populated, making them usable for member access.
-The \texttt{AccessMember} method in \snipref{lst:VisitAssignment} takes a list of identifiers which must be the path to a specific identifier in a \textbf{GameObject}.
+The \texttt{AccessMember} method in \snipref{lst:VisitAssignment} takes a list of identifiers which must be the path to a specific identifier in a game object.
 For example, the previously shown syntatic member access \texttt{"SampleScreen1.Exits.Exit1"} in \snipref{lst:LinkingExample} becomes a list of three strings, 
 \texttt{\{"SampleScreen1", "Exits", "Exit1"\}}.
 
@@ -128,12 +128,12 @@ public abstract class EnvironmentStore
 \end{lstlisting}
 
 As can be seen on line \ref{line:MemberAccessVariableIdentifier}, the last element in the list is assumed to be the identifier of the variable that one wishes to access, in this case, it is \texttt{Exit1}.
-In addition, the first element in the list is assumed to be the \textbf{GameObject} identifier, in this case, it is \texttt{SampleScreen1}. 
+In addition, the first element in the list is assumed to be the game object identifier, in this case, it is \texttt{SampleScreen1}. 
 This is shown on line \ref{line:MemberAccessGameObjectIdentifier}.
 
 The elements in the middle is assumed to be the path to the scope in which the variable lives, in this case, we are simply accessing the \texttt{Exits} scope. 
 This has not yet been implemented, and so in the current implementation of member access, the \texttt{RetrieveSymbol-
-InChildScope} method on line \ref{line:RetrieveSymbolInChildScope} recursively searches through every scope in the \textbf{GameObject} until it finds the variable with the provided identifier, or until it has checked all scopes and found nothing. This is not ideal, as having defined a variable with the same name in two different scopes would simply return the first one that is encountered.
+InChildScope} method on line \ref{line:RetrieveSymbolInChildScope} recursively searches through every scope in the game object until it finds the variable with the provided identifier, or until it has checked all scopes and found nothing. This is not ideal, as having defined a variable with the same name in two different scopes would simply return the first one that is encountered.
 
 
 This concludes the semantic analysis phase of the compiler. Next, we will discuss the code generation phase.

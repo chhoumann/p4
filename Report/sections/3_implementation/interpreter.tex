@@ -7,7 +7,7 @@ The game is built using the Unity engine. It interprets the intermediate models 
 The "Play" button runs the \dazel{} compiler and, if compilation succeeded, runs the interpreter that builds the game from the intermediate models. 
 
 
-The "Enable logging" checkbox toggles the logging of messages, warnings and errors in the console GUI described in \fxfatal{missing reference to the section about error handling}.
+The "Enable logging" checkbox toggles the logging of messages, warnings and errors in the console GUI. We will elaborate on error handling in \secref{ErrorHandling}.
 
 
 The "Open Working Directory" button reveals the working directory in the operating systems' file explorer.
@@ -72,12 +72,12 @@ This is illustrated in \figref{Dazel_ScreenExit}.
 \fig{0.8}{Dazel_ScreenExit}{The result of the code in \snipref{lst:DazelScreenExit}.
 Stone graphics made by KennyNL\cite{noauthor_kenney_nodate}.}
 
-The generation and connecting of screens is done inside a Unity MonoBehaviour class called \textbf{World}.
-This class is responsible for taking the \textbf{ScreenModels} generated in the code generation phase and transforming it into interconnected screens which are then populated by entities. 
+The generation and connecting of screens is done inside a Unity \texttt{MonoBehaviour}\footnote{All components in Unity inherit from \texttt{MonoBehaviour}. This differentiates them from plain C\# classes and provides them with access to engine-specific behavior.} class called \texttt{World}.
+This class is responsible for taking the \texttt{ScreenModels} generated in the code generation phase and transforming it into interconnected screens which are then populated by entities. 
 As this interpretation is based on the Unity game engine and the focus of this report is the \dazel{} language, 
-\snipref{lst:WorldClassUnity} shows a heavily simplified version of the \textbf{World} class that illustrates its structure without delving into the implementation details.
+\snipref{lst:WorldClassUnity} shows a heavily simplified version of the \texttt{World} class that illustrates its structure without delving into the implementation details.
 
-\begin{lstlisting}[language=CSharp, caption={The \textbf{World} class responsible for generating and connectind screens.}, label={lst:WorldClassUnity},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={The \texttt{World} class responsible for generating and connectind screens.}, label={lst:WorldClassUnity},escapechar=|]
 public sealed class World : MonoBehaviour
 {
 	...
@@ -142,7 +142,7 @@ public sealed class World : MonoBehaviour
 }
 \end{lstlisting}
 
-As can be seen on line \ref{line:ScreenModelsIEnumerable}, the class stores a reference to the \textbf{ScreenModels} from the from the code generation phase in the compiler and uses the models to build the game world. 
+As can be seen on line \ref{line:ScreenModelsIEnumerable}, the class stores a reference to the \texttt{ScreenModels} from the from the code generation phase in the compiler and uses the models to build the game world. 
 Entities may also be spawned using the previously described \texttt{SpawnEntities} method, however due to time constraints, entites are currently static objects that the player can simply collide with. 
 In addition, the player is a pre-defined asset with animations for walking around the game world. We have discussed allowing the user to create the player themselves, though this was not prioritized.
 

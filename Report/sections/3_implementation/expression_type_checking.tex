@@ -1,14 +1,15 @@
 \subsubsection*{Expression Type Checking} \label{sec:ExpressionTypeChecking}
-To illustrate an example of how type checking is implemented in \dazel{}, we will now describe the \textbf{ExpressionTypeChecker}.
+To illustrate an example of how type checking is implemented in \dazel{}, we will now describe the \texttt{ExpressionTypeChecker}.
 Note that we do not exclusively perform type checking on expressions, however this example sufficiently highlights our approach to type checking.
 
 
-Once the \textbf{TypeChecker} visits an assignment node, it initializes an instance of the \textbf{ExpressionTypeChecker}. The \textbf{ExpressionTypeChecker} is a visitor designed to traverse the nodes of an expression. While traversing, it verifies that the expression is legal.
+Once the \texttt{TypeChecker} visits an \texttt{AssignmentNode}, it initializes an instance of the \texttt{Exp-
+ressionTypeChecker}. The \texttt{ExpressionTypeChecker} is a visitor designed to traverse the nodes of an expression. While traversing, it verifies that the expression is legal.
 
-The \textbf{ExpressionTypeChecker} delegates the responsibility for storing the previously visited type to a class called \textbf{TypeHandler}. This class contains some simple rules that determine if types are compatible and can be seen in \snipref{lst:TypeHandler}. 
+The \texttt{ExpressionTypeChecker} delegates the responsibility for storing the previously visited type to a class called \texttt{TypeHandler}. This class contains some simple rules that determine if types are compatible and can be seen in \snipref{lst:TypeHandler}. 
 Its rules allow floats and integers to occur in the same expression. As can be seen on lines \ref{line:AllowInt1} to \ref{line:AllowInt2}. If an expression is of type float and an integer is encountered, it remains a float expression.
 
-\begin{lstlisting}[language=CSharp, caption={The \textbf{TypeHandler} class.}, label={lst:TypeHandler},escapechar=~]
+\begin{lstlisting}[language=CSharp, caption={The \texttt{TypeHandler} class.}, label={lst:TypeHandler},escapechar=~]
 public sealed class TypeHandler
 {
     public SymbolType CurrentType { get; private set; } = SymbolType.Null;
@@ -38,15 +39,16 @@ public sealed class TypeHandler
 }
 \end{lstlisting}
 
-If the \textbf{ExpressionTypeChecker} visits an operand, it also calls the \texttt{SetType} method on the \textbf{TypeHandler} that then emits an error if the previously stored type and the new type are incompatible. 
+If the \texttt{ExpressionTypeChecker} visits an operand, it also calls the \texttt{SetType} method on the \texttt{TypeHandler} that then emits an error if the previously stored type and the new type are incompatible. 
 If it visits an array, it verifies that all the values in the array are the same type. 
 If an identifier occurs in an expression, the value of the identifier is fetched from the current symbol table.
-In both cases, once the type has been determined, the \texttt{SetType} method in \textbf{TypeHandler} is called to once again verify that there still is no type mismatch.
+In both cases, once the type has been determined, the \texttt{SetType} method in \texttt{TypeHandler} is called to once again verify that there still is no type mismatch.
 
 
-A small snippet that highlights how expression type checking is done in the \textbf{ExpressionTypeChecker} can be seen in \snipref{lst:ExpressionTypeChecker}
+A small snippet that highlights how expression type checking is done in the \texttt{Expression-
+TypeChecker} can be seen in \snipref{lst:ExpressionTypeChecker}
 
-\begin{lstlisting}[language=CSharp, caption={Two simple visit methods for integers and floats in the \textbf{ExpressionTypeChecker} class.}, label={lst:ExpressionTypeChecker},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={Two simple visit methods for integers and floats in the \texttt{ExpressionTypeChecker} class.}, label={lst:ExpressionTypeChecker},escapechar=|]
 public sealed class ExpressionTypeChecker : IExpressionVisitor
 {
     ...

@@ -1,8 +1,8 @@
 \subsection*{Scope and Type Checking} \label{sec:TypeChecker}
 Once the AST has been constructed, the next phase of the compiler is to perform semantic analysis. From the same client method \texttt{TryRun} seen in \snipref{lst:RunMethod}, the semantic analysis is initiated. This is done through the \texttt{PerformSemanticAnalysis} method which can be seen on line \ref{line:PerformSemAna} in \snipref{lst:RunMethodSecond}.
-Similar to the \textbf{AstBuilder}, \texttt{PerformSemanticAnalysis} starts a visitor sequence that traverses the built AST by implementing a visitor interface for visiting the AST nodes.
+Similar to the \texttt{AstBuilder}, \texttt{PerformSemanticAnalysis} starts a visitor sequence that traverses the built AST by implementing a visitor interface for visiting the AST nodes.
 
-\begin{lstlisting}[language=CSharp, caption={The Run method that serves as a client inside the DazelCompiler class}, label={lst:RunMethodSecond},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={The \texttt{TryRun} method that serves as a client inside the \texttt{DazelCompiler} class.}, label={lst:RunMethodSecond},escapechar=|]
 public bool TryRun(out IEnumerable<ScreenModel> screenModels)
 {
     AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees); |\label{line:ASTSavedInVar}|
@@ -15,12 +15,12 @@ public bool TryRun(out IEnumerable<ScreenModel> screenModels)
 }
 \end{lstlisting}
 
-During the visititation of the AST, both scope checking and type checking is done simultaneously in the \textbf{TypeChecker} class. 
+During the visititation of the AST, both scope checking and type checking is done simultaneously in the \texttt{TypeChecker} class. 
 In order to perform both at the same time, we implemented an abstract class, \abstractsemanticclass{}, whose purpose is to manage a stack that holds a symbol table for each frame in the stack. This can be seen on line \ref{line:Stack}. The benefit of this approach is that each scope will be a symbol table on the stack and therefore the inner most nested scopes will always be at the top of the stack. This allows us to enforce static scoping by referencing the symbol tables further down the stack for existing declarations.
 
 The definition of this abstract class can be seen in \snipref{lst:ACSemanticAnalysis}.
 
-\begin{lstlisting}[language=CSharp, caption={Abstract class SemanticAnalysis}, label={lst:ACSemanticAnalysis},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={The abstract class \abstractsemanticclass{}.}, label={lst:ACSemanticAnalysis},escapechar=|]
 public abstract class EnvironmentStore
 {
     ...
@@ -57,23 +57,24 @@ public abstract class EnvironmentStore
 }
 \end{lstlisting}
 
-The method \texttt{OpenScope} is responsible for creating a new scope. Once a new scope is opened, \texttt{OpenScope} assigns its parent to the scope currently on top of the \textbf{EnvironmentStack} if the stack is non-empty. This way, we ensure that there always is access to the parent scopes during scope checking. 
+The method \texttt{OpenScope} is responsible for creating a new scope. Once a new scope is opened, \texttt{OpenScope} assigns its parent to the scope currently on top of the \texttt{Environment-
+Stack} if the stack is non-empty. This way, we ensure that there always is access to the parent scopes during scope checking. 
 In addition, the new scope is added as a child of the parent scope such that we can also traverse into child scopes when performing member access later. This can be seen on lines \ref{line:IsStackEmpty} through \ref{line:AddingChildToParent}.
 
 
-As can be seen on line \ref{line:TopSymbolTables}, a dictionary containing the top most scope of all \textbf{GameObjects} is defined. When a new scope is created in \texttt{OpenScope} and it has no parent scope, it is assumed to be the top most scope of the given \textbf{GameObject}.
-If this is the case and the dictionary does not already contain a key with the \textbf{GameObject's} identifier, we add it to the top symbol table dictionary for member access later. This can be seen on lines \ref{line:BeginTopScopeCheck} through \ref{line:EndTopScopeCheck}.
-Afterwards, the new scope is pushed onto the \textbf{EnvironmentStack}. 
+As can be seen on line \ref{line:TopSymbolTables}, a dictionary containing the top most scope of all game objects is defined. When a new scope is created in \texttt{OpenScope} and it has no parent scope, it is assumed to be the top most scope of the given game object.
+If this is the case and the dictionary does not already contain a key with the game object's identifier, we add it to the top symbol table dictionary for member access later. This can be seen on lines \ref{line:BeginTopScopeCheck} through \ref{line:EndTopScopeCheck}.
+Afterwards, the new scope is pushed onto the \texttt{EnvironmentStack}. 
 Finally, at the end of the method, the current scope is updated to be the new scope such that the implementing class can use it for type checking. 
 
 As the name implies, the method \texttt{CloseScope} closes the scope by setting the current scope to the parent of the current scope. 
 
 
-The class \textbf{TypeChecker} implements this abstract class. \textbf{TypeChecker} then has access to the methods \texttt{OpenScope} and \texttt{CloseScope}. It also implements the visitor methods that are responsible for traversing the AST to perform both scope and type checking.
+The class \texttt{TypeChecker} implements this abstract class. \texttt{TypeChecker} then has access to the methods \texttt{OpenScope} and \texttt{CloseScope}. It also implements the visitor methods that are responsible for traversing the AST to perform both scope and type checking.
 
-As mentioned previously, once the \texttt{PerformSemanticAnalysis(ast)} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every \textbf{GameObject}, such that the entire AST gets visited to handle scope and type checking. The reason for visiting each \textbf{GameObject} is that they represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
+As mentioned previously, once the \texttt{PerformSemanticAnalysis} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every game object, such that the entire AST gets visited to handle scope and type checking. The reason for visiting each game object is that they represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
 
-\begin{lstlisting}[language=CSharp, caption={A TypeChecker object is instantiated for every \textbf{GameObjectNode}.}, label={lst:TypeCheckEachGO},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={A TypeChecker object is instantiated for every \texttt{GameObjectNode}.}, label={lst:TypeCheckEachGO},escapechar=|]
 private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
 {
     foreach (GameObjectNode gameObject in ast.Root.GameObjects.Values)
@@ -85,15 +86,15 @@ private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
 }
 \end{lstlisting}
 
-Before continuing, it is prudent to recap where scopes occur in \dazel{} and how they behave according the language design in chapter \ref{chap:language_design}. A scope can be opened immediately following a \textbf{GameObject} using opening and closing curly braces. In addition, inside a \textbf{GameObject}, a scope can also be opened using curly braces as long as a content identifier is provided. Inside one such scope, an arbitrary number of anonymous scopes can be nested. 
+Before continuing, it is prudent to recap where scopes occur in \dazel{} and how they behave according the language design in chapter \ref{chap:language_design}. A scope can be opened immediately following a game object using opening and closing curly braces. In addition, inside a game object, a scope can also be opened using curly braces as long as a content identifier is provided. Inside one such scope, an arbitrary number of anonymous scopes can be nested. 
 
-Note that we differentiate between \textbf{GameObject} scopes, \textbf{GameObjectContent} scopes and \textbf{StatementBlock} scopes.
+Note that we differentiate between game object scopes, \texttt{GameObjectContent} scopes and \texttt{StatementBlock} scopes.
 
-Scopes that define a \textbf{GameObject} must have a valid \textbf{GameObject} identifier such as \texttt{Screen} and \texttt{Entity}. 
-Likewise, \textbf{GameObjectContent} scopes defined inside a \textbf{GameObject} scope must have a valid identifier such as \texttt{Map} and \texttt{Exits}. In contrast, \textbf{StatementBlocks} defined in a \textbf{GameObjectContent} scope have no such label and simply contain statements and other \textbf{StatementBlocks}. 
+Scopes that define a game object must have a valid game object identifier such as \texttt{Screen} and \texttt{Entity}. 
+Likewise, \texttt{GameObjectContent} scopes defined inside a game object scope must have a valid identifier such as \texttt{Map} and \texttt{Exits}. In contrast, \texttt{StatementBlocks} defined in a \texttt{GameObjectContent} scope have no such label and simply contain statements and other \texttt{StatementBlocks}. 
 This means that, in the implementation, the visit method for those three nodes contain a call to the \texttt{OpenScope} and \texttt{CloseScope}. This is captured in \snipref{lst:ApplyScope}.
 
-\begin{lstlisting}[language=CSharp, caption={Applying Scope to GameObjects, GameObjectContents and StatementBlocks}, label={lst:ApplyScope},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={Applying Scope to \texttt{GameObjectNodes}, \texttt{GameObjectContents} and \texttt{StatementBlocks}.}, label={lst:ApplyScope},escapechar=|]
 public sealed class TypeChecker : EnvironmentStore, IGameObjectVisitor, IStatementVisitor
 {
     ...
@@ -141,4 +142,4 @@ public sealed class TypeChecker : EnvironmentStore, IGameObjectVisitor, IStateme
     }
 \end{lstlisting}
 
-When a \textbf{StatementBlockNode} is visited, each individual statement is visited. The visit method for each specific statement contains the implementation details for type checking that specific type of statement. Note that not every type of statement has been been implemented.
+When a \texttt{StatementBlockNode} is visited, each individual statement is visited. The visit method for each specific statement contains the implementation details for type checking that specific type of statement. Note that not every type of statement has been been implemented.
