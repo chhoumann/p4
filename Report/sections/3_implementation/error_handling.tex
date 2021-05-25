@@ -19,9 +19,10 @@ The first interface builds on an ANTLR feature.
 
 By extending the ANTLR \texttt{BaseErrorListener}, it is possible to extract the offending token and line number when the parser encounters errors. To achieve this, we used the code shown in code \snipref{lst:SyntaxErrorCode}.
 
-\begin{lstlisting}[caption={The altered \texttt{SyntaxError} method.}, label={lst:SyntaxErrorCode}, escapechar=|]
-public override void SyntaxError(TextWriter output, IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine,
-        string msg, RecognitionException e)
+\begin{lstlisting}[language=CSharp, caption={The altered \texttt{SyntaxError} method.}, label={lst:SyntaxErrorCode}, escapechar=|]
+public override void SyntaxError(TextWriter output, IRecognizer recognizer, 
+    IToken offendingSymbol, int line, int charPositionInLine,
+    string msg, RecognitionException e)
 {
     StringBuilder errorLog = new StringBuilder();
     base.SyntaxError(output, recognizer, offendingSymbol, line, charPositionInLine, msg, e);
@@ -44,7 +45,7 @@ The \texttt{DazelLogger} is a static class which allows the \dazel{} compiler to
 The most interesting case is \texttt{EmitError}, which can be seen in code \snipref{lst:EmitErrorCode}. It sets the \texttt{HasErrors} flag to true, such that the \dazel{} compiler can react accordingly. Likewise, it formats the output message and invokes an event, passing it in as a parameter.
 If the \texttt{ThrowExceptions} flag is set to true, the function will also throw an error.
 
-\begin{lstlisting}[caption={\texttt{EmitError} in the \texttt{DazelLogger}.}, label={lst:EmitErrorCode}, escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={\texttt{EmitError} in the \texttt{DazelLogger}.}, label={lst:EmitErrorCode}, escapechar=|]
 public static void EmitError(string message, IToken token)
 {
     HasErrors = true;
