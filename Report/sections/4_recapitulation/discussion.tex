@@ -23,22 +23,23 @@ One particular feature that stands out as an immense technical challenge has bee
 
 Areas that may have been more fruitful to invest time into would have been the code generation phase of the compiler. Currently, we are only able to compile a few elements of our language into intermediate models, and we would have enjoyed having a more feature rich compiler that is able to handle control flow structures as well as boolean logic. This would have allowed us to construct games with a narative and action which is more in line with what we hoped to achieve.
 
-
-- Frontend tools and learning
-	- "udenfor pensum" i.e. member access, link checking and semantics for OOP principles
-- Backend
-	- We do not compile to bytecode, assembly, etc. - more to learn
-	
 \section{Criteria evalutation}
 A primary goal for us has been to construct the language in a fashion that ensures that it has a high level of readability and writability, as the language is intended for beginners. In addition, we also focused on making the language syntactically similar to languages such as C\# to make the transition from \dazel{} to any of the modern, more feature rich languages easier. 
 
-
-
-
-
 When taking a critical look at the language, we feel that we have succeeded in creating the foundation for these criteria to be met, as all the infrastructure is in place. 
-The reality is, once again, that due to time constraints we have not been able to finish the implementation of many of the language constructs.
-
-
+We feel that the features that we did manage to implement lived up to the criteria, however we sadly did not have time to implement as many features as we would have liked despite allocating more time to the project than what is outlined in the semester description.
 
 \section{Testing}
+One thing we could have been better at was continuous testing. 
+Because of the size reduction of the group, we had trouble managing our time properly and getting into a flow where everything was being worked on at once.
+Consequently, when working on the project, only a few aspects was worked on at once.
+This meant that we did not prioritize writing tests as much as we should have, and some were written quite late, which reduced their usefullness throughout the development of the project. 
+It turned out that it would have been useful to have more tests written at an earlier stage as we ended up discovering some major flaws near the deadline for the project, though we did end up addressing these either way even though we were short on time. 
+Only near the end of the project did we feel that we had satisfactory coverage.
+
+Depsite all this, one thing we are quite happy with was our ability to set up an automated test workflow on our version control software such that new code would only be accepted if all tests passed.
+Initially, we were easily able to set this up using and having our .NET project build and run the tests.
+When we began working on the interpreter, we had trouble referencing and using the previously written code inside of Unity, so we decided to migrate all the source code.
+However, after migrating, it proved much more difficult to set up this automated test workflow with Unity and it turned out to be a large time investment.
+However, we ended up succeeding in setting up the workflow with Unity.
+The result was that everything took place within Unity instead of having the project split in two while maintaining the security benefit from running automated tests before merging new code.
