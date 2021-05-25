@@ -1,6 +1,6 @@
 \section{Unit Testing}
 While implementing unit testing, we followed a few approaches.
-In general, we have attempted to follow the Act-Arrange-Assert (AAA)
+In general, we have attempted to follow the \textit{Act-Arrange-Assert} (AAA)
 methodology, as well as the naming convention 
 \texttt{MethodName\_Scenario\_ExpectedResult}.
 
@@ -30,7 +30,7 @@ right type (line \ref{code:stcheck}), identifier (line \ref{code:sicheck}), and 
 correct number of statements in their scopes. Lastly, it starts visiting
 those such that a similar process can happen to the remaining nodes (line \ref{code:sprocc}).
 
-\begin{lstlisting}[language=CSharp, caption={AST Builder \dazel{} test code}, label={lst:asttestcode}]
+\begin{lstlisting}[language=CSharp, caption={AST Builder \dazel{} test code.}, label={lst:asttestcode}]
 "Screen SampleScreen1" + // Test GameObject
 "{" +
 "   Map" + // Test GameObjectContent & GameObjectContentType
@@ -52,7 +52,7 @@ those such that a similar process can happen to the remaining nodes (line \ref{c
 \end{lstlisting}
 
 
-\begin{lstlisting}[language=CSharp, caption={GameObject visitor code for testing the AST Builder}, label={lst:gameobjecttest},escapechar=|, language=CSharp]
+\begin{lstlisting}[language=CSharp, caption={\texttt{GameObjectNode} visitor code for testing the AST Builder.}, label={lst:gameobjecttest},escapechar=|, language=CSharp]
 public void Visit(GameObjectNode gameObjectNode)
 {
     // Line 1
@@ -87,7 +87,7 @@ Again, to illustrate, we will draw from example. In code \snipref{lst:ArrayPlusI
 
 Because of the test code, an \texttt{InvalidOperationException} is thrown, which would be expected due to the illegal operation on line \ref{code:illegalcode1}.
 
-\begin{lstlisting}[language=CSharp, caption={Testing that arrays and integers cannot be added together}, label={lst:ArrayPlusIntegerFails}, language=CSharp, escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={Testing that arrays and integers cannot be added together.}, label={lst:ArrayPlusIntegerFails}, language=CSharp, escapechar=|]
 private const string TestCode2 =
     "Screen SampleScreen1" +
     "{" +
