@@ -2,7 +2,7 @@
 In the specification of \dazel{} in \secref{sec:initial_problem}, it was decided that the language should promote practical learning while providing visual feedback to the written code. 
 
 On the account of this, the \dazel{} language will be designed as a compiled language whose output is interpreted inside a game.
-The benefit of doing both is that you get the speed of compilation combined with the instant visual feedback of interpretation.
+The benefit of doing both is that you get the speed of compilation combined with the near-instant visual feedback of interpretation.
 This pairs well with the overall ambition to create a language for constructing a game.
 
 First, we present an introduction to the \dazel{} language through an example. Code \snipref{lst:SampleScreen1} shows a piece of source code defining a \texttt{Screen} in \dazel{}. 
@@ -60,7 +60,7 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
 }
 \end{lstlisting}
 
-A screen represents a single area within the game. Each of the functions used within the \texttt{Screen} block define the layout, what happens when the screen is loaded, and the entities that should be present as well as the exits of the screen.
+A screen represents a single area within the game. Each of the functions used within the \texttt{Screen} block define the layout, what happens when the screen is loaded, the entities that should be present as well as the exits of the screen.
 
 We refer to objects in \dazel{}, such as a \texttt{Screen}, as \textbf{game objects}.
 They are defined using built-in keywords such as the \texttt{Screen} keyword shown on line \ref{line:ScreenKeywordGO} in \snipref{lst:SampleScreen1}.
