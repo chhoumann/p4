@@ -53,7 +53,7 @@ This dictionary is used to connect every individual AST to a single root node af
 \subsubsection*{Visiting the game object}
 In the following, we will further describe how the \texttt{VisitGameObject} method from \snipref{lst:BuildAstMethod} on line \ref{line:VisitGO} works and how the overall visitor pattern comes into effect.
 
-As \texttt{VisitGameObject} is called with a parse tree, the initial step is to perform pattern matching on the type of game object which can be seen in the definition for \texttt{VisitGameObject} on line \ref{line:PatternMatch} in \snipref{lst:VisitParseTree}. This is done to ensure that the parsed source code contains a correct game object type and to create a node of either of the legal types, which is then assigned to the local variable \texttt{typeNode}.
+As \texttt{VisitGameObject} is called with a parse tree, the initial step is to perform pattern matching on the type of game object which can be seen in the definition for \texttt{VisitGameObject} on line \ref{line:PatternMatch} in \snipref{lst:VisitParseTree}. This is done to ensure that the parsed source code contains a correct game object type and then create a node of either of the legal types, which is then assigned to the local variable \texttt{typeNode}.
 
 Once the pattern matching is done, we use object initialization to create a new \texttt{Game-
 ObjectNode}\footnote{\texttt{GameObjectNode} is a class representation for game objects in the AST.} on line \ref{line:NewGONode}. 
