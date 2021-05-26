@@ -28,25 +28,30 @@ This can be achieved through constructs such as functions and classes.
 Expressivity usually means that languages have convenient ways of specifying computations. 
 Increasing expressivity also increases writability of the language, though it may decrease readability as more operations harm a language's simplicity.
  
-\textit{Type checks} are used to be able to test type errors that could appear in the program. This can be done by either the the compiler intercepting it or when the program is running. There can be many different type checks in a programming language. It helps detecting faults in good time and solve them quickly.
+\textit{Type checking} concerns itself with checking of type errors either at compile time or run time. 
+It is often preferable to do type checking at compile time as it is cheaper and it increases the reliability.
 
-\textit{Exception handling} helps to detect errors that could occur while running the program. Additionally, it provides a good overview of how mistakes could have happened, and it helps to find out how they can be resolved.
+\textit{Exception handling} refers to the interception of run-time errors at which point correct measure must be taken. 
+Attempting to index an array out of bounds is an example where proper exception handling is desirable.
+Some languages allow this, which leads to undefined behavior, whereas other languages terminate the process.
+Good exception handling increases a language's reliability.
 
-\textit{Aliasing} comes from naming several different names, which you then have access to at the same memory cell.
+\textit{Aliasing} is the concept of having multiple distinct names that refer to the same memory cell. 
+It is typically considered dangerous practice for programming languages, as more responsibility is put on the programmer to maintain memory address references.
 
 
 \subsection{Readability}
 Readability is one of the most important criteria for the language itself, as it is intended for beginners in programming. 
 Therefore, the language must be set up, and only the most valuable data types have been used to set it up. It is also important for the language itself that the syntax setup is well thought out to create minor confusion for beginners.
- This is done by keeping the orthogonality low, and the special words will be turned into reserved words to increase readability. 
+This is done by keeping the orthogonality low, and the special words will be turned into reserved words to increase readability. 
 Setting specific words as reserved words helps define particular designs in the program, allowing the language to be more readable.
 
 \subsection{Writability}
 
 The writability of the language is also an essential part of making it easy for the beginner to prepare programs with reduced problems. 
 This is prevented by the high simplicity of the setup of the language and the simplification of the data types, which helps to make the syntax simpler to write down.
- Also, the expressiveness of the language itself will be set up to lie between visual programming and a high-level language.
+Also, the expressiveness of the language itself will be set up to lie between visual programming and a high-level language.
 
- \subsection{Reliability}
- The language's reliability deals with how the language works under different circumstances and how well it works. 
- As the table shows, all the parameters help to influence the reliability of the language itself.
+\subsection{Reliability}
+The language's reliability deals with how the language works under different circumstances and how well it works. 
+As the table shows, all the parameters help to influence the reliability of the language itself.
