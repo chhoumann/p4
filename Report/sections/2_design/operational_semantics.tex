@@ -9,21 +9,17 @@ In contrast, a small semantics describes only a single step in a larger computat
 
 \fig{0.75}{SSS_and_BSS}{The difference between big- and small-step semantics illustrated\cite{huttelTransitionsTreesIntroduction2010}.}
 
-We have opted to give a big-step semantics for \dazel{} as the simplicity of the language does not facilitate the need to describe every individual computation in detail. 
+We have opted to give a big-step semantics for \dazel{} as the simplicity of the language does not facilitate the need to describe every individual computation in detail.  The described semantics represent what is in the implementation of the language. Therefore, although some concepts were mentioned in previous chapters, they are not mentioned later.
 
 \subsubsection*{Abstract syntax}
 An abstract syntax is a description of a programs' structure that is used to represent its behavior. 
 The abstract syntax of a given language contains a collection of syntactic categories. 
 For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
-\Figref{AbstractSyntax} shows the abstract syntax for \dazel{}.
+\Figref{SyntaticCategories} and \figref{FormationRules} show the abstract syntax for \dazel{}.
 
-
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
-	\textit{Syntatic categories}
 	\vspace{4mm}
-
-
 	\begin{tabular}{l l}
 		$a \in \textbf{ArithmExp}$ & $\text{Arithmetic expressions}$ \\ 
 		$n \in \textbf{Num}$ & $\text{Numerals}$ \\
@@ -35,26 +31,28 @@ For each of these, we give a finite set of formation rules that define how each 
 		$DR \in \textbf{DecR}$ & $\text{Record declarations}$\\
 		$r_n \in \textbf{Rnames}$ & $\text{Record names}$ \\
 		$K \in \textbf{Gvar}$ & $\text{Generalized variables}$\\
-		$P \in \textbf{Gpnames}$ & $\text{Generalized procedure names}$
+		$P \in \textbf{Gpnames}$ & $\text{Generalized procedure names}$ \\
+		$R \in \textbf{Rseq}$ & $\text{Sequence of records}$
 	\end{tabular}
+	\caption{Syntatic categories for \dazel{}.}
+	\label{fig:SyntaticCategories}
+\end{figure}
 
+\begin{figure}[H]
+	\centering
 	\vspace{4mm}
-	\textit{Formation rules}
 	\begin{align*}
 		K&::=k\mid r.K \\
 		P&::=p\mid r.P \\
-		S&::=K:=x=a\mid \texttt{skip}\mid S_1;S_2\mid \texttt{repeat }L_\text{BRACK} S R_\text{BRACK}; \mid L_\text{BRACK} \; D_V \; D_P \; D_R \; S \; R_\text{BRACK}\mid call \; P\\
+		S&::=K:=x=a\mid \texttt{skip}\mid S_1;S_2\mid L_\text{BRACK} \; D_V \; D_P \; D_R \; S \; R_\text{BRACK}\mid call \; P\\
 		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
-		%VList&::=[a]\mid [a_1, \ldots, a_n]\mid [\epsilon] \\
 		D_V&::= x:=a; \; D_V \mid \epsilon \\
 		D_P&::= P \; S; \; D_P \mid \epsilon \\
 		D_R&::= record \; r \; L_\text{BRACK} \; D_V \; D_P \; D_R \; R_\text{BRACK} \; D_R \mid \epsilon
-		%GOName&::= \texttt{Screen} \texttt{ Id } \{GOCont\} \mid \texttt{Entity} \texttt{ Id } \{GOCont\} \mid \texttt{MovePattern} \texttt{ Id } \{GOCont\} \\
-		%GOCont&::= \texttt{Map} \{S\} \mid \texttt{Exits} \{S\} \mid \texttt{Entities} \{S\} \mid \texttt{OnScreenEntered} \{S\} \mid \texttt{Data} \{S\}
 	\end{align*}
 
-	\caption{Abstract syntax for \dazel{}.}
-	\label{fig:AbstractSyntax}
+	\caption{Formation rules for \dazel{}.}
+	\label{fig:FormationRules}
 \end{figure}
 
 \subsubsection*{Transition system}
@@ -63,7 +61,7 @@ For our operational semantics we have a transition system defined for each expre
 The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
 
 The definition of the transition system for each expression type in \dazel{} is shown in \figref{TSAexp}, \figref{TSBexp}, \figref{TSDecv} and \figref{TSDecp}. 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\begin{gather*} 
 		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
@@ -73,7 +71,7 @@ The definition of the transition system for each expression type in \dazel{} is 
 	\label{fig:TSAexp}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\begin{gather*} 
 		\{ \Gamma_\text{DR}, \rightarrow_DR, T_\text{DR} \} \\ 
 		\textit{Configurations: } \Gamma_\text{DR} = (\text{DecR} \times Env_R \times Env_V) \cup (Env_R \times Env_V) \\ 
@@ -83,7 +81,7 @@ The definition of the transition system for each expression type in \dazel{} is 
 	\label{fig:TSBexp}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\begin{gather*} 
 		\{ \Gamma_\text{Dv}, \rightarrow_DV, T_\text{Dv} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Dv} = (D_v \times Env_V \times sto) \cup Env_v \times sto \\ 
@@ -93,7 +91,7 @@ The definition of the transition system for each expression type in \dazel{} is 
 	\label{fig:TSDecv}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\begin{gather*} 
 		\{ \Gamma_\text{Dp}, \rightarrow_a, T_\text{Dp} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Dp} = (Dec_p \times Env_p) \cup Env_p \\ 
@@ -108,7 +106,7 @@ For the language \dazel{} we have, as previously mentioned, decided to describe 
 
 The definition for a set of record environments \textbf{EnvR} is given by \figref{EnvRDef}:
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{tabular}{l l}
 		$Env_R = Rnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
@@ -121,7 +119,7 @@ The definition of \figref{EnvRDef} ensures that a record environment has the inf
 
 Similarly, to ensure that every procedure is able to obtain the records, procedures and variables when a procedure is declared we give the definition as seen in \figref{EnvPDef}:
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{tabular}{l l}
 		$Env_P = Pnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
@@ -138,7 +136,7 @@ Similarly, generalized procedure names are a sequence of procedures $r_1 \ldots 
 
 Following this we will now give the transition rules for arithmetic expressions, variable declarations, generalized variables, record declarations and statements for \dazel{} as can be seen in \figref{BssArithm}.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{gather*}
 		[Gvar_\text{BSS}]
@@ -191,15 +189,12 @@ Following this we will now give the transition rules for arithmetic expressions,
 		[NUM_\text{BSS}] 
 		\qquad env_R, envs \vdash n \rightarrow_a v
 		\qquad \text{ if } \mathbb{R}[\![n]\!] = v \quad \text{Where } \mathcal{R}:\textbf{Num}\rightarrow \mathbb{R}
-		\\
-		% 
-		\\
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Arithmetic expressions}.}
 	\label{fig:BssArithm}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{gather*}
 		[VAR-DECL_\text{BSS}]
@@ -215,15 +210,12 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\\
 		[EMPTY-VAR-DECL_\text{BSS}]
 		\qquad env_R \vdash \langle \epsilon, env_V, sto \rangle \rightarrow_DV (env'_V, sto')
-		\\
-		%
-		\\
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{variable declarations}.}
 	\label{fig:BssStm}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{gather*}
 		[GVAR_\text{BSS}]
@@ -238,26 +230,26 @@ Following this we will now give the transition rules for arithmetic expressions,
 		[GVAR_\text{BSS}]
 		\qquad env'_R, env'_V \vdash k \rightarrow l \\
 		\text{where } \textit{env}_V \; k = l
-		\\
-		%
-		\\
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{generalized variable declarations}.}
 	\label{fig:BssStm}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{gather*}
-		[MEMBERACCESS_\text{BSS}]
-		\qquad
-		\dfrac{Env_R, Env_V \vdash \langle  }{}	
-	\end{gather*}
-	\caption{}
-	\label{fig:BssStm}
+			[MEMBERACCESS_\text{BSS}]
+			\qquad \frac 
+			{env_R, sto \vdash R\rightarrow env_R''\quad env_R, sto \vdash R\rightarrow env_R'} 
+			{env_R, sto\vdash R\rightarrow env_R'}
+			\\
+			\text{where } env_V'' k=l \text{ and } sto\; l=env_R
+		\end{gather*}
+		\caption{Big-step transition rules for \textbf{Member access}.}
+		\label{fig:MA}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{gather*}
 		[ASSIGNMENT_\text{BSS}] 
@@ -271,13 +263,6 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\qquad \dfrac
 		{env_R, env_V, env_P \vdash \langle S_1, sto \rangle \rightarrow sto'' \; env_R, env_V, env_P \vdash \langle S_2, sto'' \rangle \rightarrow sto'}
 		{env_R, env_V, env_P \vdash \langle S_1;S_2,sto \rangle\rightarrow sto'}
-		\\
-		% 
-		\\
-		[REPEAT_\text{BSS}] 
-		\qquad \dfrac
-		{\langle S_1, sto \rangle \rightarrow sto'' \;\langle \texttt{repeat} \{S\}, sto \rangle \rightarrow sto'}
-		{\langle S_1 \texttt{;repeat} \{S\}, sto \rangle\rightarrow sto'}
 		\\
 		% 
 		\\
@@ -297,38 +282,13 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\\
 		[CALL_\text{BSS}]
 		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle \textit{ call } P, sto \rightarrow sto'}
-		\qquad \text{where } env_R, env_P \vdash \rightarrow (S, env'_R, env'_V, env'_P)
+		\\
+		\text{where } env_R, env_P \vdash \rightarrow (S, env'_R, env'_V, env'_P)
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Statement}.}
 	\label{fig:BssStm}
 \end{figure}
 
-%\begin{figure}[htbp]
-%	\centering
-%	\begin{gather*}
-%		[GAMEOBJECT_\text{BSS}] 
-%		\qquad \dfrac
-%		{\langle D_{co}, env_v, sto\rangle \rightarrow_{DCO} (\text{env'}_{CO}, sto'')}
-%		{env_{CO} \vdash \langle GOName \; Id \; \{D_{CO}\}, sto\rangle\rightarrow sto'}
-%		\\
-%		% 
-%		\\
-%		[CONTENT_\text{BSS}] 
-%		\qquad \frac
-%		{
-%			\begin{gathered}
-%				\langle D_V, env_v, sto\rangle \rightarrow_{DV} (\text{env'}_V, sto'') \\ 
-%				env'_V \vdash \langle S, sto''\rangle \rightarrow sto'
-%			\end{gathered}
-%		}
-%		{\langle GOCont \{S\}, s\rangle\rightarrow s'}
-%		\\
-%		% 
-%		\\
-%	\end{gather*}
-%	\caption{Big-step transition rules for \textbf{ContDecl}.}
-%	\label{fig:BssStm}
-%\end{figure}
 
 \subsubsection*{Summary of the semantics}
 Due to the structure of \dazel{} with its object structure we had to introduce semantics that would be able to capture the ability to declare a nested object structure which we have done through records. Added to that was the requirement to be able to access statements, variables, procedures as well as the nested records and to that end we introduced generalized variables and generalized procedure names.
