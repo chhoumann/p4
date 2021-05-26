@@ -270,7 +270,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\\
 		% 
 		\\
-		[Block_\text{BSS}] 
+		[BLOCK_\text{BSS}] 
 		\qquad \frac
 		{
 			\begin{gathered}
@@ -285,9 +285,9 @@ Following this we will now give the transition rules for arithmetic expressions,
 		% 
 		\\
 		[CALL_\text{BSS}]
-		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle \textit{ call } P, sto \rightarrow sto'}
+		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle \textit{ } P(K_\text{ARG}), sto \rightarrow sto'}
 		\\
-		\text{where } env_R, env_P \vdash \rightarrow (S, env'_R, env'_V, env'_P)
+		\text{where } env_R, env_P \vdash P \rightarrow (S, env'_R, env'_V, env'_P)
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Statement}.}
 	\label{fig:BssStm}
