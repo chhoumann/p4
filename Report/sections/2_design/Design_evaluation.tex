@@ -7,7 +7,6 @@ When desiging a programming language, it is important to consider a set of essen
 All these criteria cannot be fulfiled at once as they affect each other; rather, it is about prioritizing what matters for a given language. 
 To understand the implications of these criteria, we will now describe them.
 
-
 \textit{Readability} refers to how easy it is to read a language.
 The more readable a language is, the easier it is to learn.
 
@@ -28,7 +27,7 @@ For example, including a boolean data type makes boolean expressions more readab
 
 \textit{Syntax design} is the design of the elements in the language as well as its form. 
 This is largely subjective and based on preference, and has a large impact on the readability and writability of the language. 
-As described in \secref{sec:scientific_research}, the words chosen to represent the syntax should imply their purpose.
+The words chosen to represent the syntax should imply their purpose. 
 
 \textit{Abstraction support} means allowing reuse of code in the language itself. 
 This can be achieved through constructs such as functions and classes.
@@ -46,4 +45,10 @@ Some languages allow this, which leads to undefined behavior, whereas other lang
 Good exception handling increases a language's reliability.
 
 \textit{Aliasing} is the concept of having multiple distinct names that refer to the same memory cell. 
-It is typically considered dangerous practice for programming languages, as more responsibility is put on the programmer to maintain memory address references.
+It is typically considered dangerous practice for programming languages, as more responsibility is put on the programmer to maintain memory address references\secref{sec:scientific_research}.
+
+For \dazel{}, the most important factors are readability, writability, simplicity and syntax design. 
+These will be  prioritized as we believe they have the largest influence on how easy it is to learn a language.
+This assumption is based on the research papers described in \secref{sec:scientific_research}.
+
+In the following sections, we will introduce the constructs featured in the design of \dazel{}.
