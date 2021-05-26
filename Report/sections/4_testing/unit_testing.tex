@@ -1,6 +1,6 @@
 \section{Unit Testing}
 While implementing unit testing, we followed a few approaches.
-In general, we have attempted to follow the Act-Arrange-Assert (AAA)
+In general, we have attempted to follow the \textit{Act-Arrange-Assert} (AAA)
 methodology, as well as the naming convention 
 \texttt{MethodName\_Scenario\_ExpectedResult}.
 
@@ -30,7 +30,7 @@ right type (line \ref{code:stcheck}), identifier (line \ref{code:sicheck}), and 
 correct number of statements in their scopes. Lastly, it starts visiting
 those such that a similar process can happen to the remaining nodes (line \ref{code:sprocc}).
 
-\begin{lstlisting}[language=CSharp, caption={AST Builder \dazel{} test code}, label={lst:asttestcode}]
+\begin{lstlisting}[language=CSharp, caption={AST Builder \dazel{} test code.}, label={lst:asttestcode}]
 "Screen SampleScreen1" + // Test GameObject
 "{" +
 "   Map" + // Test GameObjectContent & GameObjectContentType
@@ -52,34 +52,42 @@ those such that a similar process can happen to the remaining nodes (line \ref{c
 \end{lstlisting}
 
 
-\begin{lstlisting}[language=CSharp, caption={GameObject visitor code for testing the AST Builder}, label={lst:gameobjecttest},escapechar=|, language=CSharp]
+\begin{lstlisting}[language=CSharp, caption={\texttt{GameObjectNode} visitor code for testing the AST Builder.}, label={lst:gameobjecttest},escapechar=|, language=CSharp]
 public void Visit(GameObjectNode gameObjectNode)
 {
     // Line 1
-    Assert.That(gameObjectNode.TypeNode is ScreenNode, "gameObject.Type is ScreenType"); |\label{code:stcheck}|
-    Assert.That(gameObjectNode.Identifier == "SampleScreen1", "gameObject.Identifier == 'SampleScreen1'"); |\label{code:sicheck}|
+    Assert.That(gameObjectNode.TypeNode is ScreenNode,
+        "gameObject.Type is ScreenType"); |\label{code:stcheck}|
+    Assert.That(gameObjectNode.Identifier == "SampleScreen1", 
+        "gameObject.Identifier == 'SampleScreen1'"); |\label{code:sicheck}|
     
     // Contents: Map, Entities |\label{code:sccheck}|
-    Assert.That(gameObjectNode.Contents[0].TypeNode is MapTypeNode, "gameObject.Contents[0].Type is MapType");
-    Assert.That(gameObjectNode.Contents[1].TypeNode is EntitiesTypeNodeNode, "gameObject.Contents[1].Type is EntitiesType");
+    Assert.That(gameObjectNode.Contents[0].TypeNode is MapTypeNode, 
+        "gameObject.Contents[0].Type is MapType");
+    Assert.That(gameObjectNode.Contents[1].TypeNode is EntitiesTypeNodeNode, 
+        "gameObject.Contents[1].Type is EntitiesType");
 
     // Map has 11 top-level statements (some statement blocks have nested statements) |\label{code:smtcheck}|
-    Assert.That(gameObjectNode.Contents[0].Statements.Count == 4, $"gameObject.Contents[0].Statements.Count == 4." + $"Found {gameObjectNode.Contents[0].Statements.Count}");
+    Assert.That(gameObjectNode.Contents[0].Statements.Count == 4, 
+        $"gameObject.Contents[0].Statements.Count == 4." 
+        + $"Found {gameObjectNode.Contents[0].Statements.Count}");
     
     // Entities has 1 top-level statement |\label{code:semtcheck}|
-    Assert.That(gameObjectNode.Contents[1].Statements.Count == 1, $"gameObject.Contents[1].Statements.Count == 1" + $"Found {gameObjectNode.Contents[1].Statements.Count}");
+    Assert.That(gameObjectNode.Contents[1].Statements.Count == 1, 
+        $"gameObject.Contents[1].Statements.Count == 1"
+        + $"Found {gameObjectNode.Contents[1].Statements.Count}");
     
     gameObjectNode.Contents.ForEach(Visit); |\label{code:sprocc}|
 }
 \end{lstlisting}
 
-Besides verifying that we build a correct AST, it is crucial to test the semantical analysis that the \dazel{} interpreter performs. Therefore, we have written tests with different \dazel{} test code for each test. These tests are largely focused on type checking and scope checking.
+Besides verifying that we build a correct AST, it is crucial to test the semantical analysis that the \dazel{} compiler performs. Therefore, we have written tests with different \dazel{} test code for each test. These tests are largely focused on type checking and scope checking.
 
 Again, to illustrate, we will draw from example. In code \snipref{lst:ArrayPlusIntegerFails}, the test builds an AST for the code in \texttt{TestCode2} and begins typechecking.
 
 Because of the test code, an \texttt{InvalidOperationException} is thrown, which would be expected due to the illegal operation on line \ref{code:illegalcode1}.
 
-\begin{lstlisting}[language=CSharp, caption={Testing that arrays and integers cannot be added together}, label={lst:ArrayPlusIntegerFails}, language=CSharp, escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={Testing that arrays and integers cannot be added together.}, label={lst:ArrayPlusIntegerFails}, language=CSharp, escapechar=|]
 private const string TestCode2 =
     "Screen SampleScreen1" +
     "{" +

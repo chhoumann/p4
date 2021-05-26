@@ -30,14 +30,14 @@ As part of the ambition of making \dazel{} a good introduction to programming, t
 
 In addition to these specific features, general compiler optimizations could be desirable.
 While the current speed of the compiler is satisfactory, there are still different aspects of its implementation we feel could be optimized and improved upon. 
-For example, instead of rebuilding the entire AST when a change is made to a single \textbf{GameObject}, it would improve the compilation speed to only update that specific \textbf{GameObject} in the AST.
+For example, instead of rebuilding the entire AST when a change is made to a single \texttt{GameObjectNode}, it would improve the compilation speed to only update that specific \texttt{GameObjectNode} in the AST.
 
 \subsection*{In-game features}
 For the game itself, we came up with many ideas during the language design phase that we have not had the time to implement. 
 \begin{itemize}
   \item
     \textbf{Movement and animations for entities} was among the most most important of these. 
-    Currently, entity behavior defined inside entity \textbf{GameObjects} is simply parsed and accepted by the compiler, though it remains unused by the interpreter. 
+    Currently, entity behavior defined inside entity game objects is simply parsed and accepted by the compiler, though it remains unused by the interpreter. 
   \item
       \textbf{More customizability} such as allowing the user to change the player graphics as mentioned in \secref{sec:Interpreter} was also discussed.
   \item 

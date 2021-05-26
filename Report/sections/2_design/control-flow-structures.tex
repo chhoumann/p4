@@ -1,11 +1,11 @@
 \subsection{Control Flow Structures}
-Users can change execution flow using control structures. These are if-statements and repeat-statements.
+Users can change execution flow using control structures. These are \texttt{if} statements and \texttt{repeat} loops.
 \subsubsection{If statements}
-If statements are selection statements. These provide the means of choosing between two or more execution paths in a program\cite{sebesta_concepts_2016}.
+\texttt{If} statements are selection statements. These provide the means of choosing between two or more execution paths in a program\cite{sebesta_concepts_2016}.
 
-In \dazel{}, if-statements are followed by an expression and then curly braces, which open a new scope. The statements within this scope are executed if the expression holds true.
+In \dazel{}, \texttt{if} statements are followed by an expression and then curly braces, which open a new scope. The statements within this scope are executed if the expression holds true.
 
-\begin{lstlisting}[caption={Example of an if statement}, label={lst:ifexpression},escapechar=|]
+\begin{lstlisting}[language=CSharp, caption={Example of an if statement}, label={lst:ifexpression},escapechar=|]
 if <expression>|\label{lst:exp}|
 {
     Code...
@@ -15,7 +15,7 @@ if <expression>|\label{lst:exp}|
 In \ref{lst:ifexpression} on line \ref{lst:exp},  \verb|<expression>| denotes a placeholder expression.
 
 \subsubsection{Repeat loops}
-Repeat loops are iterative statements.
+\texttt{repeat} loops are iterative statements.
 
 \begin{lstlisting}[caption={Example of loops}, label={lst:loops},escapechar=|]
 repeat until <var> == 10|\label{lst:repeatuntil}|
@@ -31,6 +31,6 @@ repeat|\label{lst:repeatforever}|
 
 In \ref{lst:loops} on line \ref{lst:repeatuntil}, \verb|<var>| denotes an arbitrary variable. It is expected that the expression will evaluate to true, otherwise the loop does the same as the \verb|repeat| loop on line \ref{lst:repeatforever}.
 
-The \verb|repeat| loop repeats until the running program instance terminates.
+The \verb|repeat| loop repeats until the player leaves the current screen.
 The \verb|repeat until| loop repeatedly executes the code in the scope immediately below it until the given expression evaluates to \verb|true|.
 The expression is evaluated first, and if it evaluates to true, the code inside the block will be executed until the expression evaluates to false.

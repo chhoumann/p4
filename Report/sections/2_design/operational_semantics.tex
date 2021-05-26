@@ -1,8 +1,8 @@
 \section{Structural Operational Semantics}
-In the following section we will describe the structural operational semantics of \dazel{}. Firstly we will give a brief distinction between the two kinds of structural operational semantics and our choice. Following this, we will introduce the abstract syntax for \dazel{} after which we will introduce the transition systems and finally the transition rules.
+In the following section, we will describe the \textit{structural operational semantics} of \dazel{}. Firstly, we will give a brief distinction between the two kinds of structural operational semantics and our choice. Following this, we will introduce the \textit{abstract syntax} for \dazel{} after which we will introduce the \textit{transition systems} and finally the \textit{transition rules}.
 
 \subsection{Big- and small-step semantics}
-Big- and small-step semantics are two different kinds of operational semantics used describe computations.
+\textit{Big- and small-step semantics} are two different kinds of operational semantics used describe computations.
 Given a single transition $\gamma \rightarrow \gamma' $, big-step semantics describes the entire computation where $\gamma$ is the start configuration and $\gamma'$ must be a terminal configuration. 
 In contrast, a small semantics describes only a single step in a larger computation in which $\gamma'$ does not need to be a terminal configuration. 
 \Figref{SSS_and_BSS} illustrates the difference between the two types of operational semantics\cite{huttelTransitionsTreesIntroduction2010}.
@@ -11,14 +11,14 @@ In contrast, a small semantics describes only a single step in a larger computat
 
 We have opted to give a big-step semantics for \dazel{} as the simplicity of the language does not facilitate the need to describe every individual computation in detail. 
 
-\subsubsection*{Abstract Syntax}
+\subsubsection*{Abstract syntax}
 An abstract syntax is a description of a programs' structure that is used to represent its behavior. 
 The abstract syntax of a given language contains a collection of syntactic categories. 
 For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
 \Figref{AbstractSyntax} shows the abstract syntax for \dazel{}.
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\textit{Syntatic categories}
 	\vspace{4mm}
@@ -57,49 +57,49 @@ For each of these, we give a finite set of formation rules that define how each 
 	\label{fig:AbstractSyntax}
 \end{figure}
 
-\subsubsection*{Transition System}
+\subsubsection*{Transition system}
 
 For our operational semantics we have a transition system defined for each expression and declaration. 
 The structure for the transition system will be a triple $(\Gamma,\rightarrow,T)$ where $\Gamma$ is a set of configurations, $\rightarrow$ is the transition relation, which is a subset of $\Gamma\times\Gamma$, and $T\subseteq \Gamma$ is a set of terminal configurations. \cite{huttelTransitionsTreesIntroduction2010}
 
 The definition of the transition system for each expression type in \dazel{} is shown in \figref{TSAexp}, \figref{TSBexp}, \figref{TSDecv} and \figref{TSDecp}. 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\begin{gather*} 
 		\{ \Gamma_\text{AExp}, \rightarrow_a, T_\text{Aexp} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Aexp} = \text{Aexp} \cup \mathbb{R} \\ 
 		\textit{Terminal configurations: } T_\text{Aexp} = \mathbb{R}
 	\end{gather*}
-	\caption{Transition system for arithmetic expressions}
+	\caption{Transition system for arithmetic expressions.}
 	\label{fig:TSAexp}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\begin{gather*} 
 		\{ \Gamma_\text{DR}, \rightarrow_DR, T_\text{DR} \} \\ 
 		\textit{Configurations: } \Gamma_\text{DR} = (\text{DecR} \times Env_R \times Env_V) \cup (Env_R \times Env_V) \\ 
 		\textit{Terminal configurations: } T_\text{DR} = (Env_R \times Env_V)
 	\end{gather*}
-	\caption{Transition system for record declaration}
+	\caption{Transition system for record declaration.}
 	\label{fig:TSBexp}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\begin{gather*} 
 		\{ \Gamma_\text{Dv}, \rightarrow_DV, T_\text{Dv} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Dv} = (D_v \times Env_V \times sto) \cup Env_v \times sto \\ 
 		\textit{Terminal configurations: } T_{\text{Dec}_v} = Env_v \times sto
 	\end{gather*} 
-	\caption{Transition system for variable declaration}
+	\caption{Transition system for variable declaration.}
 	\label{fig:TSDecv}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\begin{gather*} 
 		\{ \Gamma_\text{Dp}, \rightarrow_a, T_\text{Dp} \} \\ 
 		\textit{Configurations: } \Gamma_\text{Dp} = (Dec_p \times Env_p) \cup Env_p \\ 
 		\textit{Terminal configurations: } T_\text{Dp} = Env_p
 	\end{gather*} 
-	\caption{Transition system for procedure declaration}
+	\caption{Transition system for procedure declaration.}
 	\label{fig:TSDecp}
 \end{figure}
 
@@ -108,12 +108,12 @@ For the language \dazel{} we have, as previously mentioned, decided to describe 
 
 The definition for a set of record environments \textbf{EnvR} is given by \figref{EnvRDef}:
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tabular}{l l}
 		$Env_R = Rnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
 	\end{tabular}
-	\caption{Procedure environment}
+	\caption{Record environment.}
 	\label{fig:EnvRDef}
 \end{figure}
 
@@ -121,12 +121,12 @@ The definition of \figref{EnvRDef} ensures that a record environment has the inf
 
 Similarly, to ensure that every procedure is able to obtain the records, procedures and variables when a procedure is declared we give the definition as seen in \figref{EnvPDef}:
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tabular}{l l}
 		$Env_P = Pnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
 	\end{tabular}
-	\caption{Procedure environment}
+	\caption{Procedure environment.}
 	\label{fig:EnvPDef}
 \end{figure}
 
@@ -136,9 +136,9 @@ As well, because of the object structure of \dazel{} mentioned previously, we ha
 Generalized variables \textbf{Gvar} are sequences of record names $r_1 \ldots r_n.k$ concluded by a variable name k. The range over \textbf{Gvar} is caputered by \textit{K}.  
 Similarly, generalized procedure names are a sequence of procedures $r_1 \ldots r_n.p$ that range over \textbf{Gpnames} captured by \textit{P}.
 
-Following this we will now give the transition rules for arithmetic expressions, variable declarations, generalized variables, record declarations and statements for \dazel{} as can be seen in..
+Following this we will now give the transition rules for arithmetic expressions, variable declarations, generalized variables, record declarations and statements for \dazel{} as can be seen in \figref{BssArithm}.
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\centering
 	\begin{gather*}
 		[Gvar_\text{BSS}]
@@ -199,7 +199,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 	\label{fig:BssArithm}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\centering
 	\begin{gather*}
 		[VAR-DECL_\text{BSS}]
@@ -223,7 +223,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 	\label{fig:BssStm}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\centering
 	\begin{gather*}
 		[GVAR_\text{BSS}]
@@ -246,7 +246,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 	\label{fig:BssStm}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\centering
 	\begin{gather*}
 		[MEMBERACCESS_\text{BSS}]
@@ -257,7 +257,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 	\label{fig:BssStm}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\centering
 	\begin{gather*}
 		[ASSIGNMENT_\text{BSS}] 
@@ -332,4 +332,4 @@ Following this we will now give the transition rules for arithmetic expressions,
 
 \subsubsection*{Summary of the semantics}
 Due to the structure of \dazel{} with its object structure we had to introduce semantics that would be able to capture the ability to declare a nested object structure which we have done through records. Added to that was the requirement to be able to access statements, variables, procedures as well as the nested records and to that end we introduced generalized variables and generalized procedure names.
-In the following sections we will discuss the implementation of the interpreter for \dazel{}. 
+In the following sections we will discuss the implementation of the compiler and interpreter for \dazel{}. 

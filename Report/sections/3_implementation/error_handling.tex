@@ -1,4 +1,4 @@
-\section{Error handling}
+\section{Error handling} \label{ErrorHandling}
 It is useful for users to get error messages detailing any syntax errors there might have been found during parsing.
 
 A simple solution is to provide the user with the offending token and/or line. This is very basic error output, which could be augmented by a detailed message telling the user what is wrong. A missing semicolon, for example. Even better if the message told the user how to fix the error. 
@@ -11,7 +11,7 @@ It is also possible to do phrase-level recovery. This means performing correctio
 
 A third option is to augment the grammar with productions to handle common errors\cite{spo_course}. Drawing from example; in C\#, users are prone to attempt using the common \texttt{length} member of arrays on lists, instead of the correct \texttt{count} member. This could be handled by creating an 'alias' for \texttt{length}.
 
-The \dazel{} parser is able to do some basic error recovery due to ANTLR. Namely, \textit{single-token deletion} and \textit{single-token insertion}. If one were to delete the closing curly-bracket, \}, the parser would still be able to recognize the input. Likewise, if one were to add an extraneous closing curly-bracket, the input would still be recognized.
+The \dazel{} parser is able to do some basic error recovery due to ANTLR. Namely, \textit{single-token deletion} and \textit{single-token insertion}. If one were to delete the closing curly bracket, the parser would still be able to recognize the input. Likewise, if one were to add an extraneous closing curly bracket, the input would still be recognized.
 
 Besides what is provided by ANTLR itself, ANTLR also provides methods of extending the parser to allow for custom recovery options. These were not pursued in the \dazel{} compiler, and as such, it does not support error-recovery at this time. Instead, it leverages multiple interfaces which allows it to communicate detailed errors to the user.
 
@@ -31,7 +31,8 @@ public override void SyntaxError(TextWriter output, IRecognizer recognizer,
     string underlineError = UnderlineError(recognizer, offendingSymbol, line, charPositionInLine);
 
     errorLog.AppendLine($"File: {recognizer.InputStream.SourceName}");
-    errorLog.AppendLine($"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
+    errorLog.AppendLine(
+        $"Line {line}:{charPositionInLine} at {offendingSymbol}: {msg}\n");
     errorLog.AppendLine($"Error: \n{underlineError}");
 
     DazelLogger.EmitError(errorLog.ToString(), offendingSymbol);|\label{code:dazellogger}|

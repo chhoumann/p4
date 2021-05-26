@@ -1,77 +1,75 @@
 \chapter{Language design}\label{chap:language_design}
-In the specification of \dazel{} in \secref{sec:initial_problem}, it was decided that the language should promote practical learning while providing visual feedback to the written code. On the account of this, the \dazel{} language will be designed as an interpreted language used to build video games. The benefit of interpretation is having the ability to provide instant visual feedback to the user as changes within the source code is made. This pairs well with the overall ambition to create a language for constructing a game.
+In the specification of \dazel{} in \secref{sec:initial_problem}, it was decided that the language should promote practical learning while providing visual feedback to the written code. 
 
-First, we present an introduction to the \dazel{} language through an example. Code \snipref{lst:SampleScreen1} shows a piece of source code defining a \texttt{Screen} in \dazel{}.
+On the account of this, the \dazel{} language will be designed as a compiled language whose output is interpreted inside a game.
+The benefit of doing both is that you get the speed of compilation combined with the instant visual feedback of interpretation.
+This pairs well with the overall ambition to create a language for constructing a game.
 
-\begin{lstlisting}[caption={Example screen.}, label={lst:SampleScreen1},escapechar=|]
-    // ./Screens/SampleScreen1.txt
-    Screen SampleScreen1 
+First, we present an introduction to the \dazel{} language through an example. Code \snipref{lst:SampleScreen1} shows a piece of source code defining a \texttt{Screen} in \dazel{}. 
+
+\begin{lstlisting}[language=CSharp, caption={Example screen.}, label={lst:SampleScreen1},escapechar=|]
+// ./Screens/SampleScreen1.txt
+Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
+{
+    Map 
     {
-        Map 
+        Size(30, 24);|\label{SizeLabel}|
+
+        Walls("Stone.png"); 
+        Floor("Grass.jpg");
+
+        Line(TopLeft, TopRight, "Cliff.png");
+        Line([2, 2], [2, 4], "Cliff.png");
+
+        Square(position, size, "Cliff.png");
+        Square([8, 8], 4, "Cliff.png");
+    }
+
+    OnScreenEntered
+    {
+        if Player.KilledEntity(Entity.Skeleton1) 
         {
-            Size(30, 24);|\label{SizeLabel}|
-    
-            Walls("Stone.png"); 
-            Floor("Grass.jpg");
-    
-            Line(TopLeft, TopRight, "Cliff.png");
-            Line([2, 2], [2, 4], "Cliff.png");
-    
-            Square(position, size, "Cliff.png");
-            Square([8, 8], 4, "Cliff.png");
-        }
-    
-        OnScreenEntered
-        {
-            if Player.KilledEntity(Entity.Skeleton1) 
-            {
-                // Player has killed a specific entity so a new exit appears
-                SetTile([4, 0], "Stair.png");
-                Exit([4, 0], SampleScreen3.Exit1);
-            }
-        }
-    
-        OnUpdate
-        {
-            if Player.Position == [4, 4] 
-            {
-                // Player is standing on a specific tile so a new exit appears
-                SetTile([4, 5], "Stair.png");
-                Exit([4, 4], SampleScreen4.Exit1);
-            }
-        }
-    
-        Entities
-        {
-            SpawnEntity(Skeleton1, [4, 4])
-        }
-        
-        Exits 
-        {
-            // Two different ways to create an exit
-            // Specific tile(s) or whole screen side
-            Exit1 = Exit([4, 0], SampleScreen2.Exit1);
-            ScreenExit(Bottom, SampleScreen2);|\label{ScreenExitLabel}|
+            // Player has killed a specific entity so a new exit appears
+            SetTile([4, 0], "Stair.png");
+            Exit([4, 0], SampleScreen3.Exit1);
         }
     }
-    \end{lstlisting}
+
+    OnUpdate
+    {
+        if Player.Position == [4, 4] 
+        {
+            // Player is standing on a specific tile so a new exit appears
+            SetTile([4, 5], "Stair.png");
+            Exit([4, 4], SampleScreen4.Exit1);
+        }
+    }
+
+    Entities
+    {
+        SpawnEntity(Skeleton1, [4, 4])
+    }
+    
+    Exits 
+    {
+        // Two different ways to create an exit
+        // Specific tile(s) or whole screen side
+        Exit1 = Exit([4, 0], SampleScreen2.Exit1);
+        ScreenExit(Bottom, SampleScreen2);|\label{ScreenExitLabel}|
+    }
+}
+\end{lstlisting}
 
 A screen represents a single area within the game. Each of the functions used within the \texttt{Screen} block define the layout, what happens when the screen is loaded, and the entities that should be present as well as the exits of the screen.
 
-When a ScreenExit is created, one must first define the direction of the exit, for example the bottom of the screen as shown on line \ref{ScreenExitLabel}.
+We refer to objects in \dazel{}, such as a \texttt{Screen}, as \textbf{game objects}.
+They are defined using built-in keywords such as the \texttt{Screen} keyword shown on line \ref{line:ScreenKeywordGO} in \snipref{lst:SampleScreen1}.
+We will introduce these keywords in \secref{sec:keywords}.
+
+When a \texttt{ScreenExit} is created inside a \texttt{Screen} game object, one must first define the direction of the exit, for example the bottom of the screen as shown on line \ref{ScreenExitLabel}.
 In the second actual parameter, one must then define the screen which the exit should connect to.
 Then, once the player leaves the screen in the defined direction, the connected screen will load. An example of multiple screens that are interconnected is illustrated in \figref{Screen_Example_Layout}.
 
 \fig{0.7}{Screen_Example_Layout}{Different screens can be interconnected via the \texttt{Exits} block shown in \snipref{lst:SampleScreen1}. Note that screens can have different sizes defined by the \texttt{Size} function shown on line \ref{SizeLabel} in the code snippet.}
 
 The definition of each built-in function is shown in \tabref{table:explanations_of_functions}.
-\input{sections/2_design/keywords.tex}
-\input{sections/2_design/built-in-functionality.tex}
-\input{sections/2_design/control-flow-structures.tex}
-\input{sections/2_design/operator-symbols.tex}
-\input{sections/2_design/derivations.tex}
-\input{sections/2_design/variables.tex}
-\input{sections/2_design/expressions.tex}
-\input{sections/2_design/language_grammar.tex}
-\input{sections/2_design/semantics.tex}
-\input{sections/2_design/operational_semantics.tex}
