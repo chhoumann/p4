@@ -1,5 +1,5 @@
 \section{Unit Testing}
-While implementing unit testing, we followed a few approaches.
+While implementing unit testing, we followed a some conventions.
 In general, we have attempted to follow the \textit{Act-Arrange-Assert} (AAA)
 methodology, as well as the naming convention 
 \texttt{MethodName\_Scenario\_ExpectedResult}.
@@ -27,7 +27,7 @@ aforementioned \dazel{} test code.
 For example, the visit to a \texttt{GameObjectNode} checks that it has the
 right type (line \ref{code:stcheck}), identifier (line \ref{code:sicheck}), and contents (line \ref{code:sccheck}). Then it goes on to check that
 \texttt{GameObjectContentNode} are of the right types, and that they have
-correct number of statements in their scopes. Lastly, it starts visiting
+the correct number of statements in their scopes. Lastly, it starts visiting
 those such that a similar process can happen to the remaining nodes (line \ref{code:sprocc}).
 
 \begin{lstlisting}[language=CSharp, caption={AST Builder \dazel{} test code.}, label={lst:asttestcode}]
