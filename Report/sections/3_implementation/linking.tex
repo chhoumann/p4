@@ -1,5 +1,5 @@
 \subsection*{Member Access Link Checking} \label{sec:Linker}
-Since the beginning of the project, one of the largest tasks was figuring out how to connect screens together, both syntacically and semantically. 
+Since the beginning of the project, one of the largest tasks was figuring out how to connect screens together, both syntactically and semantically. 
 As mentioned in chapter \ref{chap:language_design}, we decided to link screens together by allowing access to other screens and their variables through member access. 
 
 
@@ -39,8 +39,7 @@ Screen SampleScreen2
 }
 \end{lstlisting}
 
-It is worth noting that all screens and objects defined within a screen are always accessible from the outside, and that member access is currently restricted to \texttt{Exit} types.
-
+Note that all screens and objects defined within a screen are always accessible from the outside, and member access is currently restricted to \texttt{Exit} types.
 
 To illustrate how member access is implemented in \dazel{}, we will first highlight the \texttt{LinkChecker} class whose responsibility is to check the legality of member access nodes. This is done directly after type checking.
 As with previous examples, the \texttt{LinkChecker} class implements a visitor pattern to traverse the AST.
@@ -97,7 +96,7 @@ public sealed class LinkChecker : ICompleteVisitor
 As previously mentioned, the \abstractsemanticclass{} class stores all the symbol tables for the program. 
 At this point in compilation, all symbol tables have been created and populated, making them usable for member access.
 The \texttt{AccessMember} method in \snipref{lst:VisitAssignment} takes a list of identifiers which must be the path to a specific identifier in a game object.
-For example, the previously shown syntatic member access \texttt{"SampleScreen1.Exits.Exit1"} in \snipref{lst:LinkingExample} becomes a list of three strings, 
+For example, the previously shown syntactic member access \texttt{"SampleScreen1.Exits.Exit1"} in \snipref{lst:LinkingExample} becomes a list of three strings, 
 \texttt{\{"SampleScreen1", "Exits", "Exit1"\}}.
 
 \begin{lstlisting}[language=CSharp, caption={The \abstractsemanticclass{} class.}, label={lst:VisitAssignment},escapechar=|]

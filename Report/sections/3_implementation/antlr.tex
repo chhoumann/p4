@@ -1,15 +1,14 @@
 \section{ANTLR Parsing Tool}\label{sec:ANTLRTool}
 In order to parse a language using a grammar, one must decide whether to manually write the parser or use a tool to generate it\cite{crafting_a_compiler}.
 Writing a parser is a rather repetitious and mechanical task. Therefore, we followed our professor's advice and decided to use the parser generator \textit{ANTLR} for our language, as recommended in the Languages and Compilers course. 
-This tool not only makes the initial parser generation much less tedious, but it also allows us to make changes to the grammar in the future without having to also meticulously update the parser code, ultimately freeing us from a large, manual work burden.
-We decided to use ANTLR as it can generate parsers in C\#, which not only is a language we are already very familiar with, but, as previously mentioned, it is also the language used to build games in Unity. Having a parser - and consequently a compiler - written in C\# will allow us to easily interlope our compiler code with Unity code.
+This tool not only makes the initial parser generation much less tedious, it also allows us to make changes to the grammar in the future without having to also meticulously update the parser code, ultimately freeing us from a large, manual work burden.
+We decided to use ANTLR as it can generate parsers in C\#, which not only is a language we are already very familiar with, but, as previously mentioned, it is also the language used to build games in Unity. Having a parser — and consequently a compiler — written in C\# will allow us to easily interlope our compiler code with Unity code.
 
 
-ANTLR is written in Java and therefore the Java Runtime Environment must be installed to use it. 
-Once setup, ANTLR can convert a grammar into a program that recognizes sentences written in the language defined by the grammar.
+Once set up, ANTLR can convert a grammar into a program that recognizes sentences written in the language defined by the grammar.
 More specifically, ANTLR generates a recursive-descent parser that ultimately generates a parse tree.
-This parse tree can then be traversed easily using built-in functionality, and from it we can construct an \textit{abstract syntax tree} later on.
-As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by ANTLR is the familiar BNF notation.
+This parse tree can then be traversed using built-in functionality, and from it, we can construct an \textit{abstract syntax tree} later on.
+As can be seen in \ref{lst:GrammarSnippet}, the grammar syntax recognized by ANTLR is the familiar BNF.
 
 
 \begin{lstlisting}[caption={A snippet of the \dazel{} grammar used by ANTLR to generate the parser}, label={lst:GrammarSnippet}]
