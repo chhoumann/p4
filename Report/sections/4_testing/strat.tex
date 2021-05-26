@@ -1,26 +1,25 @@
 \chapter{Testing}
 
 The following chapter will discuss our approach to testing.
-The first section is related to our strategy followed by more specific sections about unit testing and intergration testing respectively.
-Note that we only tested the \dazel{} compiler. 
-The interpreter was a Unity specific implementation and therefore we deemed testing it unnecessary since the compiler was the primary focus for this project.
+The first section is related to our strategy followed by more specific sections about unit testing and integration testing respectively.
+We restricted the scope of testing to the compiler. The interpreter was a Unity-specific implementation, and we deemed testing it unnecessary since the compiler was the primary focus for this project.
 
 \section{Testing Strategy}
 Testing was performed during the development of the \dazel{} compiler. 
 Through testing, we sought to verify that both language syntax and semantics were being correctly compiled, and that the components involved in the compiler were being built properly.
-We used several different techniques to test the behavior of the different components. 
+We used several techniques to test the behavior of the different components. 
 
 \subsection*{Automated testing}
 While developing the compiler, we wrote unit tests and integration tests to ensure correct program behavior by expecting specific results when using our methods and classes. 
 These tests were automatically run by our version control software every time we wanted to update our codebase, and the new code would only be accepted if these tests passed.
-Code coverage was calculated by the IDE used in the project, JetBrains Rider, so we did not need to use any external tools to measure this\cite{rider_test_coverage}.
+Code coverage was calculated by the IDE used in the project, JetBrains Rider\cite{rider_test_coverage}.
 The tests are also responsible for testing type and scope rules among other language design features in order to ensure that our implementation complies with the language specification.
 
 \subsection*{Manual testing}
-Anytime we made changes to our grammer, we would consult the ANTLR parse tree to verify that the source code was being correctly parsed based on our grammar. 
-Intermittently, console logs were also used to give quick feeckback during the development of a given component.
-In addition to this, we also wrote a pretty printer for the abstact syntax tree such that we could view how the source code was being compiled.
-While these tests do not prove correctness, they aided us in rapid prototyping such that we could finish a given component faster and then write proper automated tests afterwards that verified the expected behavior.  
+Anytime we made changes to our grammar, we would consult the ANTLR parse tree to verify that the source code was being correctly parsed based on our grammar. 
+Intermittently, console logs were also used to give quick feedback during the development of a given component.
+In addition to this, we also wrote a pretty printer for the abstract syntax tree such that we could view how the source code was being compiled.
+While these tests do not prove correctness, they aided us in rapid prototyping such that we could finish a given component faster and then write proper automated tests that verified the expected behavior.  
 
 % CHAPTER STRUCTURE
 % Strategy
