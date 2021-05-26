@@ -25,10 +25,10 @@ For each of these, we give a finite set of formation rules that define how each 
 		$n \in \textbf{Num}$ & $\text{Numerals}$ \\
 		$k \in \textbf{Var}$ & $\text{Variables}$ \\
 		$A_v \in \textbf{AssignV}$ & $\text{Variable assignments}$ \\
-		$DV \in \textbf{DeclV}$ & $\text{Variable declarations}$ \\
+		$D_V \in \textbf{DeclV}$ & $\text{Variable declarations}$ \\
 		$C_m \in \textbf{ContDecl}$ & $\text{Content declarations}$ \\
 		$S \in \textbf{Stm}$ & $\text{Statements}$\\
-		$DR \in \textbf{DecR}$ & $\text{Record declarations}$\\
+		$D_R \in \textbf{DecR}$ & $\text{Record declarations}$\\
 		$r_n \in \textbf{Rnames}$ & $\text{Record names}$ \\
 		$K \in \textbf{Gvar}$ & $\text{Generalized variables}$\\
 		$P \in \textbf{Gpnames}$ & $\text{Generalized procedure names}$ \\
@@ -43,12 +43,16 @@ For each of these, we give a finite set of formation rules that define how each 
 	\vspace{4mm}
 	\begin{align*}
 		K&::=k\mid r.K \\
+		K_\text{ARG}&::=K, \, K\mid K \mid \epsilon \\
 		P&::=p\mid r.P \\
-		S&::=K:=x=a\mid \texttt{skip}\mid S_1;S_2\mid L_\text{BRACK} \; D_V \; D_P \; D_R \; S \; R_\text{BRACK}\mid call \; P\\
+		S&::=K:=x=a\mid S_1;S_2\mid L_\text{BRACK} \; D_V \; D_P \; D_R \; S \; R_\text{BRACK}\mid \; P(K_\text{ARG})\\
 		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
 		D_V&::= x:=a; \; D_V \mid \epsilon \\
 		D_P&::= P \; S; \; D_P \mid \epsilon \\
-		D_R&::= record \; r \; L_\text{BRACK} \; D_V \; D_P \; D_R \; R_\text{BRACK} \; D_R \mid \epsilon
+		R_\text{ID}&::= \texttt{Screen}\; \mid \texttt{Entity} \mid \texttt{MovePattern} \\
+		R_\text{CO}&::= \texttt{Map}\; \mid \texttt{Exits} \mid \texttt{Entities} \mid \texttt{Data} \mid \texttt{Pattern}\\
+		D_\text{RGO}&::= R_\text{ID} \, r_n\; L_\text{BRACK} \; R_\text{CO} \; R_\text{BRACK} \mid \epsilon \\
+		D_\text{RCO}&::= R_\text{CO} \, L_\text{BRACK} \; D_V \; D_P \; R_\text{BRACK} \mid \epsilon
 	\end{align*}
 
 	\caption{Formation rules for \dazel{}.}
@@ -117,12 +121,12 @@ The definition for a set of record environments \textbf{EnvR} is given by \figre
 
 The definition of \figref{EnvRDef} ensures that a record environment has the information of variables, procedures and other records bound within a given record.
 
-Similarly, to ensure that every procedure is able to obtain the records, procedures and variables when a procedure is declared we give the definition as seen in \figref{EnvPDef}:
+Similarly, to ensure that every procedure is able to obtain the records, procedures and variables when a procedure is declared, as well remembering the name for formal parameters, we give the definition as seen in \figref{EnvPDef}:
 
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{l l}
-		$Env_P = Pnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
+		$Env_P = Pnames \hookrightarrow \; Var \; x \; Stm \; x \; Env_V \; x \; Env_P \; x \; Env_R$
 	\end{tabular}
 	\caption{Procedure environment.}
 	\label{fig:EnvPDef}
@@ -266,7 +270,7 @@ Following this we will now give the transition rules for arithmetic expressions,
 		\\
 		% 
 		\\
-		[Block_\text{BSS}] 
+		[BLOCK_\text{BSS}] 
 		\qquad \frac
 		{
 			\begin{gathered}
@@ -281,9 +285,9 @@ Following this we will now give the transition rules for arithmetic expressions,
 		% 
 		\\
 		[CALL_\text{BSS}]
-		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle \textit{ call } P, sto \rightarrow sto'}
+		\qquad \dfrac{env'_R, env'_V, env'_p \vdash \langle S,sto \rangle \rightarrow sto'}{env_R, env_V, env_P \vdash \langle \textit{ } P(K_\text{ARG}), sto \rightarrow sto'}
 		\\
-		\text{where } env_R, env_P \vdash \rightarrow (S, env'_R, env'_V, env'_P)
+		\text{where } env_R, env_P \vdash P \rightarrow (S, env'_R, env'_V, env'_P)
 	\end{gather*}
 	\caption{Big-step transition rules for \textbf{Statement}.}
 	\label{fig:BssStm}
