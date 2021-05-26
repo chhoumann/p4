@@ -22,10 +22,8 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
         Walls("Stone.png"); 
         Floor("Grass.jpg");
 
-        Line(TopLeft, TopRight, "Cliff.png");
         Line([2, 2], [2, 4], "Cliff.png");
 
-        Square(position, size, "Cliff.png");
         Square([8, 8], 4, "Cliff.png");
     }
 
@@ -35,7 +33,7 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
         {
             // Player has killed a specific entity so a new exit appears
             SetTile([4, 0], "Stair.png");
-            Exit([4, 0], SampleScreen3.Exit1);
+            Exit([4, 0], SampleScreen3.Exits.Exit1);
         }
     }
 
@@ -45,7 +43,7 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
         {
             // Player is standing on a specific tile so a new exit appears
             SetTile([4, 5], "Stair.png");
-            Exit([4, 4], SampleScreen4.Exit1);
+            Exit([4, 4], SampleScreen4.Exits.Exit1);
         }
     }
 
@@ -58,7 +56,7 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
     {
         // Two different ways to create an exit
         // Specific tile(s) or whole screen side
-        Exit1 = Exit([4, 0], SampleScreen2.Exit1);
+        Exit1 = Exit([4, 0], SampleScreen2.Exits.Exit1);
         ScreenExit(Bottom, SampleScreen2);|\label{ScreenExitLabel}|
     }
 }
