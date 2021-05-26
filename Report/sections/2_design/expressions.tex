@@ -16,11 +16,11 @@ Different languages implement this differently. Some languages simply evaluate o
 Parentheses are also often part of expressions in programming languages and typically impacts the evaluation order of operators such that the contents of the parentheses are evaluated first\cite{sebesta_concepts_2016}.
 
 
-Associativity in languages is most commonly implemented as left to right, however some operators like the exponentation operator sometimes associates right to left\cite{sebesta_concepts_2016}. 
+Associativity in languages is most commonly implemented as left to right, however some operators like the exponentiation operator sometimes associates right to left\cite{sebesta_concepts_2016}. 
 
 \subsubsection*{Relational expressions}
 A relational expression is an expression that has two operands and one relational operator. The relational operator compares the values of the two operands and returns a
-boolean, if booleans are included in the language. Relational operators include symbols such as \texttt{LESS THAN} and \texttt{LARGER THAN}, as well as \texttt{EQUAL TO} and
+Boolean value. Relational operators include symbols such as \texttt{LESS THAN} and \texttt{LARGER THAN}, as well as \texttt{EQUAL TO} and
 \texttt{NOT EQUAL TO}. 
 Relational operators will typically have lower precedence than arithmetic operators to ensure proper evaluation\cite{sebesta_concepts_2016}.
 
@@ -28,10 +28,10 @@ Relational operators will typically have lower precedence than arithmetic operat
 \subsubsection*{Boolean expressions}
 Boolean expressions are constructed using different mathematical logic operators such as the logical \texttt{AND}, \texttt{OR} and \texttt{EQUALS}. 
 When evaluated, a whole expression is either true or false. 
-This is then often combined with statements such as \texttt{if-then-else} statements to achieve a conditional program flow - if the expression evaluates to true, the code in the \texttt{then} block is executed, and if it evaluates to false, code in the \texttt{else} block is executed instead\cite{sebesta_concepts_2016}.
+This is then often combined with statements such as \texttt{if-then-else} statements to achieve a conditional program flow — if the expression evaluates to true, the code in the \texttt{then} block is executed, and if it evaluates to false, code in the \texttt{else} block is executed instead\cite{sebesta_concepts_2016}.
 
 \subsubsection*{Expressions in \dazel{}}
 \dazel{} features a variety of binary operators to support arithmetic as well as unary operations for boolean expressions.
-It also has an operator evalation order identical to mathematics, as well as a left to right associativity.  
+It also has an operator evaluation order identical to mathematics, as well as a left to right associativity.  
 We thought that this was the most intuitive approach to prevent confusion for beginner programmers, and also maintains the standard that most experienced programmers are accustomed to.
-To accomodate evalation of expressions \dazel{} also has the most common relational and logic operators as can be seen in \tabref{table:operatorsymbols}. 
+To accommodate evaluation of expressions \dazel{} also has the most common relational and logic operators as can be seen in \tabref{table:operatorsymbols}. 

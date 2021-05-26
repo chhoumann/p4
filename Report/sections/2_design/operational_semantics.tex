@@ -12,7 +12,7 @@ In contrast, a small semantics describes only a single step in a larger computat
 We have opted to give a big-step semantics for \dazel{} as the simplicity of the language does not facilitate the need to describe every individual computation in detail.  The described semantics represent what is in the implementation of the language. Therefore, although some concepts were mentioned in previous chapters, they are not mentioned later.
 
 \subsubsection*{Abstract syntax}
-An abstract syntax is a description of a programs' structure that is used to represent its behavior. 
+An abstract syntax is a description of a program's structure that is used to represent its behavior. 
 The abstract syntax of a given language contains a collection of syntactic categories. 
 For each of these, we give a finite set of formation rules that define how each item in the category can be constructed.
 \Figref{SyntaticCategories} and \figref{FormationRules} show the abstract syntax for \dazel{}.
@@ -102,7 +102,7 @@ The definition of the transition system for each expression type in \dazel{} is 
 \end{figure}
 
 \subsubsection*{Transition rules}
-For the language \dazel{} we have, as previously mentioned, decided to describe the language in terms of Big-step semantics since we are only interested in describing the relationship between the initial and the final state of an execution\cite{SemanWithApplications}. Furthermore, because of the fact that \dazel{} is a language that has a structure of nested objects and is statically scoped we shall include a record environment along with the variable environment and procedure environment, so that objects and its variables and procedures have access to known declarations.
+For the language \dazel{} we have, as previously mentioned, decided to describe the language in terms of Big-step semantics since we are only interested in describing the relationship between the initial and the final state of an execution\cite{SemanWithApplications}. Furthermore, because \dazel{} is a language that has a structure of nested objects and is statically scoped we shall include a record environment along with the variable environment and procedure environment, so that objects and its variables and procedures have access to known declarations.
 
 The definition for a set of record environments \textbf{EnvR} is given by \figref{EnvRDef}:
 
@@ -131,7 +131,7 @@ Similarly, to ensure that every procedure is able to obtain the records, procedu
 With these definitions we ensure that we have static scope rules as we introduce the transition rules for \dazel{}.
 
 As well, because of the object structure of \dazel{} mentioned previously, we have to introduce semantics for variables and procedures, such that it is possible to describe the fact that they appear inside of objects as well as their location. For this we introduce generalized variables and generalized procedure names.
-Generalized variables \textbf{Gvar} are sequences of record names $r_1 \ldots r_n.k$ concluded by a variable name k. The range over \textbf{Gvar} is caputered by \textit{K}.  
+Generalized variables \textbf{Gvar} are sequences of record names $r_1 \ldots r_n.k$ concluded by a variable name k. The range over \textbf{Gvar} is captured by \textit{K}.  
 Similarly, generalized procedure names are a sequence of procedures $r_1 \ldots r_n.p$ that range over \textbf{Gpnames} captured by \textit{P}.
 
 Following this we will now give the transition rules for arithmetic expressions, variable declarations, generalized variables, record declarations and statements for \dazel{} as can be seen in \figref{BssArithm}.
