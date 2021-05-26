@@ -1,22 +1,22 @@
 \chapter{Conclusion}\label{chap:conclusion}
 
-In the following section we will summarize and conclude how the project solved the problem statement.
+In the following section, we will summarize and conclude how the project solved the problem statement.
 
 \vspace{5mm}
 \textit{A programming language with a simple syntax which resembles that of modern programming languages while promoting practical learning and providing visual feedback to the written code.}
 \vspace{5mm}
 
-This will be done through the lense of the overall semester goals and the system requirements and will build upon the points outlined in the discussion of chapter \ref{chap:Discussion}.
+We will examine it through the lens of the overall semester goals and the system requirements, and we will build upon the points outlined in the discussion of chapter \ref{chap:Discussion}.
 
 In \chapref{chap:analysis} we presented a simple language, functioning as a bridge to programming for beginners. We set out to create \dazel{} as such a language.
 Many aspects of modern programming languages were introduced in \dazel{}. The notion of variables, functions, parameters and blocks were introduced, to name a few. Notable exceptions are \texttt{if}-statements and \texttt{repeat}-loops. This also extends to boolean logic. While this would have completed the language, as we discussed in chapter \ref{chap:Discussion}, it was not a priority for us to implement. 
 
 The syntax of the language is similar to popular, modern languages such as C\# and JavaScript.
 This was an intentional design choice to bridge the gap for beginners syntactically and get them acquainted with the structure of modern languages. 
-However we attemped to alleviate the user from learning all aspects of programming such as type declarations by implictly assigning types based on the context of expressions. 
+However, we attempted to alleviate the user from learning all aspects of programming such as type declarations by implicitly assigning types based on the context of expressions. 
 This was a design choice made based on the research papers in \secref{sec:scientific_research}. 
 Thus \dazel{} gives a gentle introduction to the concept of programming.
 
-The \dazel{} compiler undergoes three phases. Namely lexical analysis, syntax analysis, code generation and interpretation. Scanning is performed by a parser which we generated with ANTLR. From the parse tree, we build an abstract syntax tree. We use this AST to build a symbol table and perform semantical analysis. This encapsulates type checking, scope checking and link checking the latter of which is done to verify correctness of member access. Lastly, code generation is performed by traversing the AST. Through traversal, we generate intermediate models. These models are used in the final phase; interpretation. This phase occurs in the \dazel{} game inside a built Unity game. It interprets the generated models and creates the game world based on these.
+The \dazel{} compiler undergoes three phases. Namely, lexical analysis, syntax analysis, code generation and interpretation. Scanning is performed by a parser which we generated with ANTLR. From the parse tree, we build an abstract syntax tree. We use this AST to build a symbol table and perform semantical analysis. This encapsulates type checking, scope checking and link checking the latter of which is done to verify correctness of member access. Lastly, code generation is performed by traversing the AST. Through traversal, we generate intermediate models. These models are used in the final phase; interpretation. This phase occurs in the \dazel{} game inside a built Unity game. It interprets the generated models and creates the game world based on these.
 
 In terms of how our achievement compares to the semester goals, we feel that the necessary requirements have been met. All phases of building the compiler has been implemented and documented.
