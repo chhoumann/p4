@@ -4,7 +4,7 @@ If one module changes, and it no longer works with other modules, it could be ve
 Usually, the earlier such errors are caught, the less 'expensive' they are.
 In order to test that modules work together, one could do integration testing.
 
-Our approach to integration testing has been testing the entire compiler. We have opted to test every phase at once. This is also the scenario users are in, so it made sense to test that specific case.
+Our approach to integration testing has been testing the entire compiler. We have opted to test every phase at once. In addition, users will only experience the compilation process in its entirity and not as individual phases and therefore it made sense to make an integration test that verifies that the entire compilation succeeds.
 
 One could also test how individual phases work together with the next. We did not opt to do this. We rely on our logging system, described in \ref{ErrorHandling}, to give us descriptive error logs in case these tests fail.
 
