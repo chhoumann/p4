@@ -41,7 +41,7 @@ public override void SyntaxError(TextWriter output, IRecognizer recognizer,
 
 This leads us to the second interface. \dazel{} uses a custom-built error logging system, which can be seen invoked on line \ref{code:dazellogger}.
 
-The \texttt{DazelLogger} is a static class which allows the \dazel{} compiler to log errors. The class contains three methods, \texttt{EmitError}, \texttt{EmitWarning}, and \texttt{EmitMessage}. These represent the levels of messages that the user may be presented with. Every member of this class is \texttt{static}, such that they can be accessed from anywhere, without instantiating a new logger - and without unnecessary dependency injection.
+The \texttt{DazelLogger} is a static class which allows the \dazel{} compiler to log errors. The class contains three methods, \texttt{EmitError}, \texttt{EmitWarning}, and \texttt{EmitMessage}. These represent the levels of messages that the user may be presented with. Every member of this class is \texttt{static}, such that they can be accessed from anywhere, without instantiating a new logger — and without unnecessary dependency injection.
 
 The most interesting case is \texttt{EmitError}, which can be seen in code \snipref{lst:EmitErrorCode}. It sets the \texttt{HasErrors} flag to true, such that the \dazel{} compiler can react accordingly. Likewise, it formats the output message and invokes an event, passing it in as a parameter.
 
@@ -57,7 +57,7 @@ public static void EmitError(string message, IToken token)
 }
 \end{lstlisting}
 
-The \texttt{LogMessageReceived} event, seen on line \ref{code:LogMessageReceived}, is written to a console GUI in the \dazel{} game. An example can be seen in \figref{dazelconsole}, showing both warnings and messages. The messages shown in this particular example represent usages of \dazel{}'s \texttt{Print} function. In another example, seen in \figref{dazelconsoleerror}, an error is displayed. This error is due to writing "this is an error" in a \texttt{GameObjectContent} block. Lastly, \figref{dazel_console_custom_error} shows the \dazel{} console with a type error. The difference between the latter two errors is that syntax errors are picked up by the parser, and errors in semantics are picked up during later phases. Both provide different kinds of error messages, indicating what went wrong.
+The \texttt{LogMessageReceived} event, seen on line \ref{code:LogMessageReceived}, is written to a console GUI in the \dazel{} game. An example can be seen in \figref{dazelconsole}, showing both warnings and messages. The messages shown in this particular example represent usages of \dazel{}'s \texttt{Print} function. In another example, seen in \figref{dazelconsoleerror}, an error is displayed. This error is due to writing ``this is an error'' in a \texttt{GameObjectContent} block. Lastly, \figref{dazel_console_custom_error} shows the \dazel{} console with a type error. The difference between the latter two errors is that syntax errors are picked up by the parser, and errors in semantics are picked up during later phases. Both provide different kinds of error messages, indicating what went wrong.
 
 \fig{1}{dazel_console}{The \dazel{} console with no error.\label{fig:dazelconsole}}
 \fig{1}{dazel_console_error}{The \dazel{} console with a syntax error.\label{fig:dazelconsoleerror}}
@@ -65,4 +65,4 @@ The \texttt{LogMessageReceived} event, seen on line \ref{code:LogMessageReceived
 
 Having proper error output in a compiler is, as previously mentioned, very important. \dazel{} has detection of errors in multiple phases, which allows it to give a more detailed and descriptive error message. A clear next step would be to implement error recovery, as described earlier in this section.
 
-The next chapter details how we have ensured that \dazel{} runs as it should - through testing.
+The next chapter details how we have ensured that \dazel{} runs as it should — through testing.
