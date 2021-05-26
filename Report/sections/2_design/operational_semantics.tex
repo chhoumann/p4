@@ -43,13 +43,16 @@ For each of these, we give a finite set of formation rules that define how each 
 	\vspace{4mm}
 	\begin{align*}
 		K&::=k\mid r.K \\
+		K_\text{ARG}&::=K, \, K\mid K \mid \epsilon \\
 		P&::=p\mid r.P \\
-		S&::=K:=x=a\mid S_1;S_2\mid L_\text{BRACK} \; D_V \; D_P \; D_R \; S \; R_\text{BRACK}\mid \; P\\
+		S&::=K:=x=a\mid S_1;S_2\mid L_\text{BRACK} \; D_V \; D_P \; D_R \; S \; R_\text{BRACK}\mid \; P(K_\text{ARG})\\
 		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
 		D_V&::= x:=a; \; D_V \mid \epsilon \\
 		D_P&::= P \; S; \; D_P \mid \epsilon \\
 		R_\text{ID}&::= \texttt{Screen}\; \mid \texttt{Entity} \mid \texttt{MovePattern} \\
-		D_R&::= R_\text{ID} r_n\; L_\text{BRACK} \; D_V \; D_P \; R_\text{BRACK} \; D_R \mid \epsilon
+		R_\text{CO}&::= \texttt{Map}\; \mid \texttt{Exits} \mid \texttt{Entities} \mid \texttt{Data} \mid \texttt{Pattern}\\
+		D_\text{RGO}&::= R_\text{ID} \, r_n\; L_\text{BRACK} \; R_\text{CO} \; R_\text{BRACK} \mid \epsilon \\
+		D_\text{RCO}&::= R_\text{CO} \, L_\text{BRACK} \; D_V \; D_P \; R_\text{BRACK} \mid \epsilon
 	\end{align*}
 
 	\caption{Formation rules for \dazel{}.}
