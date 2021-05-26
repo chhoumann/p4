@@ -7,6 +7,14 @@ When desiging a programming language, it is important to consider a set of essen
 All these criteria cannot be fulfiled at once as they affect each other; rather, it is about prioritizing what matters for a given language. 
 To understand the implications of these criteria, we will now describe them.
 
+\textit{Readability} refers to how easy it is to read a language.
+The more readable a language is, the easier it is to learn.
+
+\textit{Writability} of a language is how easy it is to write programs using it.
+This is important to note that writability must be seen within the context of the language's target domain and should not necessarily be compared to other languages.
+
+\textit{Reliability} is achieved if a language performs as specified under all circumstances.
+
 \textit{Simplicity} describes how easy the language is to read and understand. 
 A large number of constructs and features in a language will harm its simplicity and make it more diifficult to learn.
 
@@ -17,31 +25,30 @@ Orthogonality impacts simplicity; the more possible combinations, the simpler th
 \textit{Data types} represent the different types that can be worked with in the language. 
 For example, including a boolean data type makes boolean expressions more readable as one can use the keywords \texttt{true} and \texttt{false} as opposed to numeric values like 0 and 1. 
 
-\textit{Syntax design} is a broad concept within the language, which can be the actual use of unique and reserved words.
+\textit{Syntax design} is the design of the elements in the language as well as its form. 
+This is largely subjective and based on preference, and has a large impact on the readability and writability of the language. 
+The words chosen to represent the syntax should imply their purpose. 
 
-\textit{Abstraction support} is the precise handling of the code's reuse in the language itself without repeating the code writing.
+\textit{Abstraction support} means allowing reuse of code in the language itself. 
+This can be achieved through constructs such as functions and classes.
 
-\textit{Expressiveness} is the very meaning of ways one can write down different operations in the language. Being able to make them simple to write down helps make the language better and more readable.
+\textit{Expressivity} refers to how one can express different operations in the language.
+Expressivity usually means that languages have convenient ways of specifying computations. 
+Increasing expressivity also increases writability of the language, though it may decrease readability as more operations harm a language's simplicity.
+ 
+\textit{Type checking} concerns itself with checking of type errors either at compile time or run time. 
+It is often preferable to do type checking at compile time as it is cheaper and it increases the reliability.
 
-\textit{Type checks} are used to be able to test type errors that could appear in the program. This can be done by either the the compiler intercepting it or when the program is running. There can be many different type checks in a programming language. It helps detecting faults in good time and solve them quickly.
+\textit{Exception handling} refers to the interception of run-time errors at which point correct measure must be taken. 
+Attempting to index an array out of bounds is an example where proper exception handling is desirable.
+Some languages allow this, which leads to undefined behavior, whereas other languages terminate the process.
+Good exception handling increases a language's reliability.
 
-\textit{Exception handling} helps to detect errors that could occur while running the program. Additionally, it provides a good overview of how mistakes could have happened, and it helps to find out how they can be resolved.
+\textit{Aliasing} is the concept of having multiple distinct names that refer to the same memory cell. 
+It is typically considered dangerous practice for programming languages, as more responsibility is put on the programmer to maintain memory address references\secref{sec:scientific_research}.
 
-\textit{Aliasing} comes from naming several different names, which you then have access to at the same memory cell.
+For \dazel{}, the most important factors are readability, writability, simplicity and syntax design. 
+These will be  prioritized as we believe they have the largest influence on how easy it is to learn a language.
+This assumption is based on the research papers described in \secref{sec:scientific_research}.
 
-
-\subsection{Readability}
-Readability is one of the most important criteria for the language itself, as it is intended for beginners in programming. 
-Therefore, the language must be set up, and only the most valuable data types have been used to set it up. It is also important for the language itself that the syntax setup is well thought out to create minor confusion for beginners.
- This is done by keeping the orthogonality low, and the special words will be turned into reserved words to increase readability. 
-Setting specific words as reserved words helps define particular designs in the program, allowing the language to be more readable.
-
-\subsection{Writability}
-
-The writability of the language is also an essential part of making it easy for the beginner to prepare programs with reduced problems. 
-This is prevented by the high simplicity of the setup of the language and the simplification of the data types, which helps to make the syntax simpler to write down.
- Also, the expressiveness of the language itself will be set up to lie between visual programming and a high-level language.
-
- \subsection{Reliability}
- The language's reliability deals with how the language works under different circumstances and how well it works. 
- As the table shows, all the parameters help to influence the reliability of the language itself.
+In the following sections, we will introduce the constructs featured in the design of \dazel{}.
