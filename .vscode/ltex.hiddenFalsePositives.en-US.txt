@@ -1,0 +1,3 @@
+{"rule":"ON_COMPOUNDS","sentence":"^\\QThey are defined using built-in keywords such as the Screen keyword shown on line \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q in lst:SampleScreen1.\\E$"}
+{"rule":"ON_COMPOUNDS","sentence":"^\\QNote that screens can have different sizes defined by the Size function shown on line \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q in the code snippet.\\E$"}
+{"rule":"ON_COMPOUNDS","sentence":"^\\QWhen a ScreenExit is created inside a Screen game object, one must first define the direction of the exit, for example the bottom of the screen as shown on line \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
