@@ -1,1 +1,121 @@
 \section{Integration Testing}
+Once it has been verified that the individual parts of a program function correctly, it is crucial to assure that they are able to work together, too.
+If one module changes, and it no longer works with other modules, it could be very resource-demanding to rectify it later.
+Usually, the earlier such errors are caught, the less 'expensive' they are.
+In order to test that modules work together, one could do integration testing.
+
+Our approach to integration testing has been testing the entire compiler. We have opted to test every phase at once. This is also the scenario users are in, so it made sense to test that specific case.
+
+One could also test how individual phases work together with the next. We did not opt to do this. We rely on our logging system, described in \ref{ErrorHandling}, to give us descriptive error logs in case these tests fail.
+
+In particular, we wrote two tests for the \dazel{} compiler. The first test tests verify that important language features work, and that no errors are thrown as the source code is processed. This test can be seen in \snipref{lst:integrationTest1}. The second test, seen in \snipref{lst:integrationTest2}, tests that some invalid source code does not get processed.
+
+\begin{lstlisting}[label={lst:integrationTest1}, caption={\dazel{} compiler integration test verifying that source code can be read and compiled}, language=CSharp, escapechar=|]
+private const string TestCode1_1 = @"Screen SampleScreen1
+{
+    Map 
+    {
+        Size(80, 24);
+        // comment
+        SomeVar1 = 2;
+        {
+            SomeVar2 = 3 + 3;
+            {
+                SomeVar3 = 2 + 2;
+            }
+        }
+        
+        x = 4;
+        Print(x);
+        
+        z = SampleScreen2.Exits.Exit1;
+                        
+        Walls(""Stone.png""); 
+        Floor(""Grass"");
+        
+        {
+            Line([2, 2], [2, 4], ""Cliff.png"");
+        }
+
+        Square(position, size, ""Cliff.png"");
+        Square([8, 8], 4, ""Cliff.png"");
+    }
+
+    Entities 
+    {
+        SpawnEntity(""Skeleton1"", [4, 5]);
+        SpawnEntity(""Skeleton1"", [4, 6]);
+    }
+    
+    Exits 
+    {
+        Exit1 = Exit([4, 0], SampleScreen2.Exits.Exit1);
+        Print(""HasExit"");
+        Print(Exit1);
+
+        ScreenExit(Down, SampleScreen2);
+        ScreenExit(Left, SampleScreen2);
+        SomeVar = 3 + 3 + (3 + 3 + 3 + 3 * 3 * 2 * 1 * 5 * 1 - 3 + 8419);
+        SomeVar = SomeVar + 3;
+    }
+}";
+
+private const string TestCode1_2 = @"Screen SampleScreen2
+{
+    Map 
+    {
+        Size(20, 20);
+        
+        Walls(""Grass.png""); 
+        Floor(""Stone.png"");
+    }
+    
+    Exits 
+    {
+        Exit1 = Exit([1,1], SampleScreen1.Exits.Exit1);
+    }
+}";
+
+[Test]
+public void DazelCompiler_TryRun_SucceedOnValidSourceCode()
+{
+    DazelCompiler dazelCompiler = new DazelCompiler(TestCode1_1, TestCode1_2);
+    bool TestDelegate() => dazelCompiler.TryRun(out _);
+    Assert.True(TestDelegate());
+    Assert.DoesNotThrow(() => TestDelegate());
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=CSharp, caption={\dazel{} compiler integration test verifying that invalid source code results in an error}, label={lst:integrationTest2}, escapechar=|]
+private const string TestCode2_1 =
+    "Screen SampleScreen1" +
+    "{" +
+    "   Exits" +
+    "   {" +
+    "       s1exit1 = Exit([0, 0], SampleScreen2.Exits.s2exit1);" + 
+    "   }" +
+    "}";
+
+private const string TestCode2_2 = 
+    "Screen SampleScreen2" +
+    "{" +
+    "   Exits" +
+    "   {" +
+    "   }" +
+    "}";
+
+[Test]
+public void DazelCompiler_TryRun_ThrowOnInvalidSourceCode()
+{
+    UnityEngine.TestTools.LogAssert.ignoreFailingMessages = true;
+    DazelCompiler dazelCompiler = new DazelCompiler(TestCode2_1, TestCode2_2);
+    DazelLogger.ThrowExceptions = false;
+    
+    Assert.False(dazelCompiler.TryRun(out _));
+}
+\end{lstlisting}
+
+While our integration tests contribute to the reliability of the \dazel{} compiler, there are certain elements we wished to have tested further. As mentioned previously, we could have implemented integration test between the phases of the compiler. This could have augmented our current test-suite. Additionally, creating tests which check that the error output corresponds to the expected output would also marginally improve the integration tests.
+
+As with most projects, time was been a constraint. It is not always possible to test every case, although this may be desireable. We chose to test as we did because we felt this gave us the highest return-on-investment of our time.
