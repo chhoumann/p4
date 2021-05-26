@@ -1,0 +1,32 @@
+\section{Grammar for \dazel}\label{app:DazelGrammar}
+
+\begin{lstlisting}[language=CSharp, caption={The lexer rules for \dazel in ANTLR}, label={lst:DazelLexerRules}]
+    SCREEN                  : 'Screen';
+    ENTITY                  : 'Entity';
+    MOVE_PATTERN            : 'MovePattern';
+    MAP                     : 'Map';
+    ONSCREENENTERED         : 'OnScreenEntered';
+    ENTITIES                : 'Entities';
+    EXITS                   : 'Exits';
+    DATA                    : 'Data';
+    PATTERN                 : 'Pattern';
+    
+    IDENTIFIER              : ~[a-zA-Z~]~[a-zA-Z_0-9~]*;
+    INT                     : ~[0-9~]+;
+    FLOAT                   : ~[0-9~]+'.'~[0-9~]+;
+    STRING                  : '"' .*? '"';
+                
+    L_PARANTHESIS           : '~(';
+    R_PARANTHESIS           : '~)';
+    L_BRACKET               : '~[';
+    R_BRACKET               : '~]';
+    L_BRACES                : '~{';
+    R_BRACES                : '~}';
+    ASSIGN_OP               : '=';
+    LESSTHAN_OP             : '<';
+    GREATERTHAN_OP          : '>';
+    PLUS_OP                 : '+';
+    MINUS_OP                : '-';
+    MULTIPLICATION_OP       : '*';
+    DIVISION_OP             : '/';
+\end{lstlisting}

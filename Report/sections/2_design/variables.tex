@@ -37,17 +37,17 @@ Specifically for our language design we have decided that a variable name can be
     \item The is no specified limit on the length of the name
 \end{itemize}
 
-The list of rules mentioned can be simplified using the regular expression: [a-zA-Z][a-zA-Z\_0-9]*. Any construction of a variable outside of these rules will be considered
+The list of rules mentioned can be simplified using the regular expression: [a-zA-Z][a-zA-Z\_0-9]*. Any construction of a variable outside these rules will be considered
 a non-valid construction. Note that, since keywords are reserved, variables cannot be named the same as any of the keywords defined in \secref{sec:keywords}.
 
 How variables are defined in relation to their scope and type will be discussed in the description of the language semantics in \secref{sec:semantics}.
 
 \subsubsection*{Member access}
-In order to access properties within other objects, we have decided to include a member access functionality similar to what might be seen in a
-object oriented language. Member access in \dazel{} provides the ability to access all user defined game objects, including screens, entities and move patterns as well
+In order to access properties within other objects, we have decided to include a member access functionality similar to what might be seen in an
+object-oriented language. Member access in \dazel{} provides the ability to access all user defined game objects, including screens, entities and move patterns as well
 as built-in objects such as the player. To access a game object, one simply writes its identifier. To then access a property of the game object, one then writes
-a dot, followed by the identifier of the desired property.
+a dot, followed by the identifier of the desired property. This extends to variables inside the nested blocks of a game object.
 
-This is illustrated in code \snipref{lst:SampleScreen1} on line 47. In this example, the exit property with the identifier \texttt{Exit1} of \texttt{SampleScreen2} is accessed.
+This is illustrated in \snipref{lst:SampleScreen1} on line \ref{line:MemberAccessExampleFirst}. In this example, the exit property with the identifier \texttt{Exit1} of \texttt{SampleScreen2.Exits} is accessed.
 The effect of this is that the property in question becomes the value passed into the actual parameter of the \texttt{Exit} function call.
 

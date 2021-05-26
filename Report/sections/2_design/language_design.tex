@@ -2,10 +2,14 @@
 In the specification of \dazel{} in \secref{sec:initial_problem}, it was decided that the language should promote practical learning while providing visual feedback to the written code. 
 
 On the account of this, the \dazel{} language will be designed as a compiled language whose output is interpreted inside a game.
-The benefit of doing both is that you get the speed of compilation combined with the instant visual feedback of interpretation.
+The benefit of doing both is that you get the speed of compilation combined with the near-instant visual feedback of interpretation.
 This pairs well with the overall ambition to create a language for constructing a game.
 
-First, we present an introduction to the \dazel{} language through an example. Code \snipref{lst:SampleScreen1} shows a piece of source code defining a \texttt{Screen} in \dazel{}. 
+Specifically, the goal is to allow the construction of \textit{top-down 2D adventure games} where the world consists of multiple different \textit{screens}.
+
+First, we present an introduction to the \dazel{} language through an example.
+Following this will be an overview of different theoretical categories that relates to language design, and the design choices that we made within each of these categories.
+Code \snipref{lst:SampleScreen1} shows a piece of source code defining a \texttt{Screen} in \dazel{}. 
 
 \begin{lstlisting}[language=CSharp, caption={Example screen.}, label={lst:SampleScreen1},escapechar=|]
 // ./Screens/SampleScreen1.txt
@@ -18,10 +22,8 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
         Walls("Stone.png"); 
         Floor("Grass.jpg");
 
-        Line(TopLeft, TopRight, "Cliff.png");
         Line([2, 2], [2, 4], "Cliff.png");
 
-        Square(position, size, "Cliff.png");
         Square([8, 8], 4, "Cliff.png");
     }
 
@@ -31,7 +33,7 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
         {
             // Player has killed a specific entity so a new exit appears
             SetTile([4, 0], "Stair.png");
-            Exit([4, 0], SampleScreen3.Exit1);
+            Exit([4, 0], SampleScreen3.Exits.Exit1);
         }
     }
 
@@ -41,7 +43,7 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
         {
             // Player is standing on a specific tile so a new exit appears
             SetTile([4, 5], "Stair.png");
-            Exit([4, 4], SampleScreen4.Exit1);
+            Exit([4, 4], SampleScreen4.Exits.Exit1);
         }
     }
 
@@ -54,13 +56,13 @@ Screen SampleScreen1 |\label{line:ScreenKeywordGO}|
     {
         // Two different ways to create an exit
         // Specific tile(s) or whole screen side
-        Exit1 = Exit([4, 0], SampleScreen2.Exit1);
+        Exit1 = Exit([4, 0], SampleScreen2.Exits.Exit1); |\label{line:MemberAccessExampleFirst}|
         ScreenExit(Bottom, SampleScreen2);|\label{ScreenExitLabel}|
     }
 }
 \end{lstlisting}
 
-A screen represents a single area within the game. Each of the functions used within the \texttt{Screen} block define the layout, what happens when the screen is loaded, and the entities that should be present as well as the exits of the screen.
+A screen represents a single area within the game. Each of the functions used within the \texttt{Screen} block define the layout, what happens when the screen is loaded, the entities that should be present as well as the exits of the screen.
 
 We refer to objects in \dazel{}, such as a \texttt{Screen}, as \textbf{game objects}.
 They are defined using built-in keywords such as the \texttt{Screen} keyword shown on line \ref{line:ScreenKeywordGO} in \snipref{lst:SampleScreen1}.
