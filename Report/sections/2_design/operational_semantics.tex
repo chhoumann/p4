@@ -48,7 +48,8 @@ For each of these, we give a finite set of formation rules that define how each 
 		a&::=n\mid x\mid a_1+a_2\mid a_1-a_2\mid a_1*a_2\mid a_1/a_2\mid (a_1) \\
 		D_V&::= x:=a; \; D_V \mid \epsilon \\
 		D_P&::= P \; S; \; D_P \mid \epsilon \\
-		D_R&::= r_n\; r \; L_\text{BRACK} \; D_V \; D_P \; R_\text{BRACK} \; D_R \mid \epsilon
+		R_\text{ID}&::= \texttt{Screen}\; \mid \texttt{Entity} \mid \texttt{MovePattern} \\
+		D_R&::= R_\text{ID} r_n\; L_\text{BRACK} \; D_V \; D_P \; R_\text{BRACK} \; D_R \mid \epsilon
 	\end{align*}
 
 	\caption{Formation rules for \dazel{}.}
@@ -122,7 +123,7 @@ Similarly, to ensure that every procedure is able to obtain the records, procedu
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{l l}
-		$Env_P = Pnames \hookrightarrow Env_V \; x \; Env_P \; x \; Env_R$
+		$Env_P = Pnames \hookrightarrow \; Var \; x \; Stm \; x \; Env_V \; x \; Env_P \; x \; Env_R$
 	\end{tabular}
 	\caption{Procedure environment.}
 	\label{fig:EnvPDef}
