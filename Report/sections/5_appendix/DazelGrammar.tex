@@ -1,9 +1,10 @@
 \section{Grammar for \dazel}\label{app:DazelGrammar}
 
 \begin{lstlisting}[language=CSharp, caption={The grammar for \dazel}, label={lst:DazelGrammar},escapechar=~]
-    start                   : gameObject;
+start                   : gameObject;
 
-gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) IDENTIFIER gameObjectBlock
+gameObject              : gameObjectType=(SCREEN | ENTITY | MOVE_PATTERN) 
+                                                IDENTIFIER gameObjectBlock
                         ;
                         
 gameObjectBlock         : L_BRACES gameObjectContents R_BRACES
@@ -92,5 +93,3 @@ value                   : terminalValue=(IDENTIFIER|INT|FLOAT|STRING)
 array                   : L_BRACKET valueList R_BRACKET
                         ;
 \end{lstlisting}
-
-\lipsum
