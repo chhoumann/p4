@@ -46,7 +46,7 @@ public AbstractSyntaxTree BuildAst(IEnumerable<IParseTree> parseTrees)
 At the root of every parse tree is a game object. A game object in \dazel{} specifies an object whose content should be displayed in the final output — that is, the game. Each game object represents a text file that contains source code to be compiled. This means that there could be multiple text files, each specifying different game objects for the game and therefore multiple parse trees. 
 The consequence of this structure is that the compiler has to build an AST for each parse tree. The process of visiting each parse tree can be seen on line \ref{line:ParseForeach} in the \texttt{foreach} loop. 
 The initial step of each iteration is to visit the \texttt{GameObjectContext} which contains the content of the game object.
-Then, through double dispatch, the \texttt{AstBuilder} visits every node in the parse tree from which it  constructs and connects the nodes present in the given AST.
+Then, through double dispatch, the \texttt{AstBuilder} visits every node in the parse tree from which it constructs and connects the nodes present in the given AST.
 After being fully built, each AST is stored in a dictionary, which can be seen on line \ref{line:ASTToDict}. 
 This dictionary is used to connect every individual AST to a single root node after every AST has been built, which can be seen on line \ref{line:newRoot}. Thus, we ultimately end up with one big AST which is returned to the caller on line \ref{line:CombinedAST}. Note that a list structure could have been used to store the ASTs, but we chose dictionaries for the faster lookup.
  
