@@ -35,7 +35,14 @@ Most versions of ENBF usually include three extensions:
 
 Despite there being a standardized version of EBNF, it is rarely ever used. Whichever version a language designer decides to use is up to preference\cite{sebesta_concepts_2016}.
 
-\subsection{Derivation}
+\subsection*{Derivation}
 
+There are two types of derivations; leftmost- and rightmost-derivations\cite{sebesta_concepts_2016}.
 
-\subsection{Justification}
+A \textit{leftmost derivation} is where the leftmost nonterminal symbol is replaced at each step of the derivation.
+
+A \textit{rightmost derivation} is where the rightmost nonterminal is replaced at each step of the derivation.
+
+Typically, bottom-up parsing algorithms use rightmost derivations in reverse. These are the LR parser and its variations. Likewise, most top-down parsers use leftmost derivations - this being the LL parser and its variations
+
+For \dazel{} we have chosen to write our grammar in BNF in a top-down fashion. The choice for this rests on the fact that this was the most approachable, and the group seeks to use a tool to generate the parser which requires the grammar to be in this form. This will be elaborated on in section \secref{sec:ANTLRTool}. The full grammar can be seen in appendix \ref{app:DazelGrammar} and the lexer rules for the grammar can be seen in appendix \ref{app:DazelGrammar}.
