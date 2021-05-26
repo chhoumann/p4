@@ -15,8 +15,8 @@ public bool TryRun(out IEnumerable<ScreenModel> screenModels)
 }
 \end{lstlisting}
 
-During the visititation of the AST, both scope checking and type checking is done simultaneously in the \texttt{TypeChecker} class. 
-In order to perform both at the same time, we implemented an abstract class, \abstractsemanticclass{}, whose purpose is to manage a stack that holds a symbol table for each frame in the stack. This can be seen on line \ref{line:Stack}. The benefit of this approach is that each scope will be a symbol table on the stack and therefore the inner most nested scopes will always be at the top of the stack. This allows us to enforce static scoping by referencing the symbol tables further down the stack for existing declarations.
+During the visitation of the AST, both scope checking and type checking is done simultaneously in the \texttt{TypeChecker} class. 
+In order to perform both at the same time, we implemented an abstract class, \abstractsemanticclass{}, whose purpose is to manage a stack that holds a symbol table for each frame in the stack. This can be seen on line \ref{line:Stack}. The benefit of this approach is that each scope will be a symbol table on the stack and therefore the innermost nested scopes will always be at the top of the stack. This allows us to enforce static scoping by referencing the symbol tables further down the stack for existing declarations.
 
 The definition of this abstract class can be seen in \snipref{lst:ACSemanticAnalysis}.
 
@@ -72,7 +72,7 @@ As the name implies, the method \texttt{CloseScope} closes the scope by setting 
 
 The class \texttt{TypeChecker} implements this abstract class. \texttt{TypeChecker} then has access to the methods \texttt{OpenScope} and \texttt{CloseScope}. It also implements the visitor methods that are responsible for traversing the AST to perform both scope and type checking.
 
-As mentioned previously, once the \texttt{PerformSemanticAnalysis} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new TypeChecker and call the \texttt{Visit} method for every game object, such that the entire AST gets visited to handle scope and type checking. The reason for visiting each game object is that they represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
+As mentioned previously, once the \texttt{PerformSemanticAnalysis} shown in \snipref{lst:RunMethodSecond} is called, scope checking and type checking begins by visiting the AST. The first step in this visitor sequence is to create a new \texttt{TypeChecker} and call the \texttt{Visit} method for every game object, such that the entire AST gets visited to handle scope and type checking. The reason for visiting each game object is that they represents the root of every subtree in the overall AST. The code for this can be seen in \snipref{lst:TypeCheckEachGO}.
 
 \begin{lstlisting}[language=CSharp, caption={A TypeChecker object is instantiated for every \texttt{GameObjectNode}.}, label={lst:TypeCheckEachGO},escapechar=|]
 private static void PerformSemanticAnalysis(AbstractSyntaxTree ast)
