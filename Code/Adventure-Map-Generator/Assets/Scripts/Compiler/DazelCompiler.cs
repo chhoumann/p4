@@ -29,6 +29,8 @@ namespace Dazel.Compiler
         
         public bool TryRun(out IEnumerable<ScreenModel> screenModels)
         {
+            CleanUp();
+
             IEnumerable<IParseTree> parseTrees = BuildParseTrees();
 
             AbstractSyntaxTree ast = new AstBuilder().BuildAst(parseTrees);
@@ -98,6 +100,12 @@ namespace Dazel.Compiler
             }
 
             return screenModels;
+        }
+        
+        private static void CleanUp()
+        {
+            DazelLogger.HasErrors = false;
+            EnvironmentStore.CleanUp();
         }
     }
 }
